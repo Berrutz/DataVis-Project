@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <h1>Grafico a Barre Semplice con Dati Casuali</h1>
-      <BarChart />
+      {/* <BarChart />  */}
     </div>
   );
 }
