@@ -69,7 +69,7 @@ jobs:
 
       - name: Build with Next.js
         working-directory: ./web-application
-        run: "${{ steps.detect-package-manager.outputs.runner }} next build && mv ./out ../"
+        run: "${{ steps.detect-package-manager.outputs.runner }} next build && mv ./* ../"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
