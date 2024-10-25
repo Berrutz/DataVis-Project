@@ -51,7 +51,6 @@ jobs:
 
       - name: Setup Node
         working-directory: ./web-application
-        run: ""
         uses: actions/setup-node@v4
         with:
           node-version: "20"
