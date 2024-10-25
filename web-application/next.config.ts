@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   /* configurations for deployment */
   output: "export",
   reactStrictMode: true,
+  basePath: "/DataVis-Project",
 };
 
 export default nextConfig;
