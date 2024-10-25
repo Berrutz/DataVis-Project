@@ -3,7 +3,7 @@
 import { ThemeSwitcherButton } from "@/components/theme-button";
 import { cn } from "@/lib/utils";
 import Link from "next/link"
-import { Key, useState } from "react"
+import { useState } from "react"
 
 const links = [
   {
