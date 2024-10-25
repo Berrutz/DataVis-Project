@@ -3,7 +3,7 @@ import HomepageNavbar from "./_components/HomepageNavbar";
 
 export default function Home() {
   return (
-    <main className="min-h-dvh">
+    <main className="h-[300vh]">
       <HomepageNavbar />
       <Hero /> 
     </main>

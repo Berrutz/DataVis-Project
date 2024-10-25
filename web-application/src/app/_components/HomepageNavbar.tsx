@@ -30,20 +30,20 @@ export default function HomepageNavbar() {
     return (
       <Link
         onClick={() => setNavSelection(index)}
-        className={cn("text-sm font-medium font-sans px-2 py-1 rounded-full text-foreground/30", selected && "bg-primary text-primary-foreground")}
+        className={cn("text-sm font-medium font-sans px-2 py-1 rounded-md text-foreground/60", selected && "bg-primary text-primary-foreground")}
         href={link}>
         {name}
       </Link>);
   }
 
-  return <div className="absolute px-6 pt-3 left-0 top-0 right-0 flex items-center justify-center">
+  return <div className="fixed px-6 pt-6 left-0 top-0 right-0 flex items-center justify-center">
 
-    <nav className="p-3 flex items-center justify-center flex-wrap gap-3 bg-foreground/[0.025] dark:bg-foreground/20 backdrop-blur shadow-md rounded-full ">
+    <nav className="dark:border p-3 flex items-center justify-center flex-wrap gap-3 bg-background/60 backdrop-blur shadow-xl rounded-md">
       {
         links.map((link, index) => <NavLink key={index} name={link.name} link={link.link} index={index} selected={navSelection === index} />)
       }
     </nav>
 
-    <ThemeSwitcherButton classNames="absolute right-0 top-0 m-4" />
+    <ThemeSwitcherButton classNames="absolute right-0 top-0 m-3" />
   </div>
 }
