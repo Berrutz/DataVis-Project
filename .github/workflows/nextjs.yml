@@ -27,7 +27,7 @@ concurrency:
 jobs:
   # Build job
   build:
-    env:
+    environment:
       working-directory: ./web-application
     runs-on: ubuntu-latest
     steps:
