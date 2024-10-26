@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   output: "export",
   reactStrictMode: true,
   basePath: "/DataVis-Project",
+  images: {
+    unoptimized: true
+  }
 };
 
 export default nextConfig;
