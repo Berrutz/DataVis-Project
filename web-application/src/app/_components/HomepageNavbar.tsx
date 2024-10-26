@@ -1,8 +1,10 @@
 "use client"
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link"
 import { useState } from "react"
+import { MdClose, MdMenu } from "react-icons/md"
 
 const links = [
   {
@@ -30,15 +32,25 @@ const links = [
 
 export default function HomepageNavbar() {
   const [navSelection, setNavSelection] = useState<number>(0);
+  const [navOpened, setOpened] = useState<boolean>(false);
 
   return <div className="z-[999] fixed left-0 top-0 w-full flex justify-center">
 
-    <nav className="m-6 w-fit py-3 px-12 rounded-full flex flex-wrap justify-center items-center gap-6 shadow-md bg-background/60 backdrop-blur-md">
+    <Button
+      variant={"outline"}
+      size={"icon"}
+      className="md:hidden absolute right-0 top-0 m-6 z-[1000]"
+      onClick={() => setOpened(prev => !prev)}
+    >
+      {navOpened ? <MdClose/> : <MdMenu/>}
+    </Button>
+
+    <nav className={cn("flex-col md:flex-row w-full md:w-fit md:m-6 py-3 px-12 rounded-b-xl md:rounded-full flex flex-wrap justify-center items-center gap-6 shadow-md bg-background/60 backdrop-blur-md", navOpened ? "flex" : "hidden md:flex")}>
       {
-        links.map((value, index) => 
-          <Link key={index} 
+        links.map((value, index) =>
+          <Link key={index}
             href={value.link}
-            className={cn("opacity-50 px-2 py-1 rounded-full", index==navSelection && "opacity-100 bg-primary text-primary-foreground")}
+            className={cn("opacity-50 px-2 py-1 rounded-full", index == navSelection && "opacity-100 bg-primary text-primary-foreground")}
             onClick={() => setNavSelection(index)}
           >
             {value.name}
