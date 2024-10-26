@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link"
 import { useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
+import { motion } from "framer-motion";
+import { useActiveSectionContext } from "../context/active-section-context-provider";
 
-const links = [
+export const links = [
   {
     name: "Home",
     link: "#home"
@@ -31,7 +33,7 @@ const links = [
 
 
 export default function HomepageNavbar() {
-  const [navSelection, setNavSelection] = useState<number>(0);
+  const {activeSection, setActiveSection} = useActiveSectionContext();
   const [navOpened, setOpened] = useState<boolean>(false);
 
   return <div className="z-[999] fixed left-0 top-0 w-full flex justify-center">
@@ -50,10 +52,19 @@ export default function HomepageNavbar() {
         links.map((value, index) =>
           <Link key={index}
             href={value.link}
-            className={cn("opacity-50 px-2 py-1 rounded-full", index == navSelection && "opacity-100 bg-primary text-primary-foreground")}
-            onClick={() => setNavSelection(index)}
+            className={cn("relative opacity-50 px-2 py-1 transition-all duration-300", value.name === activeSection && "opacity-100 text-primary-foreground")}
+            onClick={() => setActiveSection(value.name)}
           >
-            {value.name}
+            {value.name === activeSection && 
+              <motion.span 
+                layoutId="activeSection"
+                transition={{
+                  type: "spring",
+                  stiffness: 380,
+                  damping: 30,
+                }}
+                className="absolute inset-0 bg-primary rounded-full" />}
+            <span className="relative">{value.name}</span>
           </Link>)
       }
     </nav>
