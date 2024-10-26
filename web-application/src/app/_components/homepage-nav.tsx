@@ -31,9 +31,8 @@ export const links = [
   },
 ]
 
-
 export default function HomepageNavbar() {
-  const {activeSection, setActiveSection} = useActiveSectionContext();
+  const { activeSection, setActiveSection, setTimeLastClick } = useActiveSectionContext();
   const [navOpened, setOpened] = useState<boolean>(false);
 
   return <div className="z-[999] fixed left-0 top-0 w-full flex justify-center">
@@ -44,7 +43,7 @@ export default function HomepageNavbar() {
       className="md:hidden absolute right-0 top-0 m-6 z-[1000]"
       onClick={() => setOpened(prev => !prev)}
     >
-      {navOpened ? <MdClose/> : <MdMenu/>}
+      {navOpened ? <MdClose /> : <MdMenu />}
     </Button>
 
     <nav className={cn("flex-col md:flex-row w-full md:w-fit md:m-6 py-3 px-12 rounded-b-xl md:rounded-full flex flex-wrap justify-center items-center gap-6 shadow-md bg-background/60 backdrop-blur-md", navOpened ? "flex" : "hidden md:flex")}>
@@ -53,10 +52,13 @@ export default function HomepageNavbar() {
           <Link key={index}
             href={value.link}
             className={cn("relative opacity-50 px-2 py-1 transition-all duration-300", value.name === activeSection && "opacity-100 text-primary-foreground")}
-            onClick={() => setActiveSection(value.name)}
+            onClick={() => { 
+              setActiveSection(value.name); 
+              setTimeLastClick(Date.now); 
+            }}
           >
-            {value.name === activeSection && 
-              <motion.span 
+            {value.name === activeSection &&
+              <motion.span
                 layoutId="activeSection"
                 transition={{
                   type: "spring",
