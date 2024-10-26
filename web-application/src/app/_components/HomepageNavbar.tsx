@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link"
 import { useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
+import { motion } from "framer-motion";
 
 const links = [
   {
@@ -50,10 +51,19 @@ export default function HomepageNavbar() {
         links.map((value, index) =>
           <Link key={index}
             href={value.link}
-            className={cn("opacity-50 px-2 py-1 rounded-full", index == navSelection && "opacity-100 bg-primary text-primary-foreground")}
+            className={cn("relative opacity-50 px-2 py-1 transition-colors duration-300", index === navSelection && "opacity-100 text-primary-foreground")}
             onClick={() => setNavSelection(index)}
           >
-            {value.name}
+            {index === navSelection && 
+              <motion.span 
+                layoutId="activeSection"
+                transition={{
+                  type: "spring",
+                  stiffness: 380,
+                  damping: 30,
+                }}
+                className="absolute inset-0 bg-primary rounded-full" />}
+            <span className="relative">{value.name}</span>
           </Link>)
       }
     </nav>
