@@ -1,5 +1,6 @@
 import Hero from "./_components/Hero";
 import HomepageNavbar from "./_components/HomepageNavbar";
+import bgImage from "../assets/bg1.png"
 
 export default function Home() {
   return (
