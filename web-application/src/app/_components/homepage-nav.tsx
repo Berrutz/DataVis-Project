@@ -14,8 +14,8 @@ export const links = [
     link: "#home"
   },
   {
-    name: "Who are we",
-    link: "#who-are-we"
+    name: "Who we are",
+    link: "#who-we-are"
   },
   {
     name: "Assignments",
