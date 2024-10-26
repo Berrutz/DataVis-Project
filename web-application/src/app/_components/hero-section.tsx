@@ -5,13 +5,18 @@ import { useSectionInView } from "@/hooks/use-section-in-view"
 export default function HeroSection() {
   const secRef = useSectionInView("Home")
 
-  return <section ref={secRef} id="home" className="relative flex flex-col items-center min-h-dvh p-6">
-    <div className="absolute w-[75px] sm:w-[240px] aspect-square bg-red-300 rounded-full blur-[80px] opacity-40 top-1/2 left-1/2" />
-    <div className="absolute w-[75px] sm:w-[240px] aspect-square bg-blue-600 right-[10%] rounded-full blur-[80px] opacity-40 hidden" />
-    <div className="absolute z-[-200] w-[75px] sm:w-[240px] aspect-square bg-purple-400 rounded-full blur-[80px] opacity-40 hidden" />
+  return <section ref={secRef} id="home" className="relative flex flex-col items-center py-20 md:py-40">
+  
+    <div className="absolute w-[100px] sw-[150px] md:w-[250px] aspect-square bg-red-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[-100px] md:ml-[-300px] z-[-200]" />
+   
+    <div className="absolute w-[100px] sw-[150px] md:w-[250px] aspect-square bg-blue-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[100px] md:ml-[300px] z-[-200]" />
+   
+    <div className="absolute w-[100px] sw-[150px] md:w-[250px] aspect-square bg-yellow-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-[100px] md:mt-[200px] z-[-200]" />
 
-    <div className="w-fit mt-20">
-      <h1 className="grad-text text-5xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-semibold md:font-bold">IncApache</h1>
+   <div className="absolute w-[100px] sw-[150px] md:w-[250px] aspect-square bg-sky-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-[-100px] z-[-200]" />
+
+    <div className="w-fit">
+      <h1 className="grad-text text-5xl xs:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-semibold md:font-bold">IncApache</h1>
       <h2 className="mb-3 text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-end leading-[10px] sm:leading-[6px] lg:leading-[2px] pr-[2px]">group</h2>
     </div>
   </section>

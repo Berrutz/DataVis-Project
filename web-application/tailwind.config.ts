@@ -13,6 +13,9 @@ const config: Config = {
       serif: ["var(--font-serif)", "serif"],
     },
     extend: {
+      screens: {
+        xs: "440px",
+      },
       backgroundImage: {
         "text-grad":
           "linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
