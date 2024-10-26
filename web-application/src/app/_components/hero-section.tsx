@@ -3,7 +3,7 @@
 import { useSectionInView } from "@/hooks/use-section-in-view"
 
 export default function HeroSection() {
-  var secRef = useSectionInView("Home")
+  const secRef = useSectionInView("Home")
 
   return <section ref={secRef} id="home" className="relative min-h-dvh flex flex-col p-6">
     <div className="flex justify-center mt-36 sm:mt-[20%]"> 

@@ -3,7 +3,7 @@
 import { useSectionInView } from "@/hooks/use-section-in-view";
 
 export default function TechnologicalStachSection() {
-  var secRef = useSectionInView("Technological Stack");
+  const secRef = useSectionInView("Technological Stack");
 
   return (
     <section ref={secRef} id="technological-stack" className="h-screen flex items-center justify-center bg-orange-50">

@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { ReactNode, HTMLAttributes } from "react";
 
 export default function AssignmentsSection() {
-  var secRef = useSectionInView("Assignments");
+  const secRef = useSectionInView("Assignments");
 
   return (
     <section ref={secRef} id="assignments" className="h-screen flex items-center justify-center bg-blue-50">
