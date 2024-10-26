@@ -9,13 +9,13 @@ export default function AssignmentsSection() {
 
   return (
     <section ref={secRef} id="assignments" className="h-screen flex items-center justify-center bg-blue-50">
-      <h1 className="text-6xl font-medium font-serif">Assignments</h1>
-      <AssignmentCard imgSrc="/DataVis-Project/bg1.png">
+      <h1 className="text-5xl font-medium font-serif">Assignments</h1>
+      {/* <AssignmentCard imgSrc="/DataVis-Project/bg1.png">
         <h3 className="text-xl font-bold mb-2">Assignment1: comparison</h3>
         <p>
           Comparison of country&apos;s emission per capita
         </p>
-      </AssignmentCard>
+      </AssignmentCard> */}
     </section>
   );
 }

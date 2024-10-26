@@ -7,7 +7,7 @@ export default function FinalProjectSection() {
 
   return (
     <section ref={secRef} id="final-project" className="h-screen flex items-center justify-center bg-cyan-50">
-      <h1 className="text-6xl font-medium font-serif">Final Project</h1>
+      <h1 className="text-5xl font-medium font-serif items-center">Final Project</h1>
     </section>
   );
 }
