@@ -13,6 +13,10 @@ const config: Config = {
       serif: ["var(--font-serif)", "serif"],
     },
     extend: {
+      backgroundImage: {
+        "text-grad":
+          "linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

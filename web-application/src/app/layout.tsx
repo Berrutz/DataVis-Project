@@ -1,21 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/providers/theme-provider";
-
-// // Serif font
-// const serif_font = Abril_Fatface({
-//   weight: "400",
-//   variable: "--font-serif",
-//   subsets: ["latin"],
-// });
-//
-// // Sans-serif font 
-// const sans_Serif = Lato({
-//   weight: ["100", "300", "400", "700", "900"],
-//   variable: "--font-sans",
-//   subsets: ["latin"],
-// });
 
 // Serif font
 const serif_font = Space_Grotesk({
@@ -46,12 +31,7 @@ export default function RootLayout({
       <body
         className={`${sans_Serif.variable} ${serif_font.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          enableSystem
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
