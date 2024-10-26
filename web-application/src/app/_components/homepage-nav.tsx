@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
 import { motion } from "framer-motion";
-import { useActiveSectionContext } from "../context/active-section-context-provider";
+import { useActiveSectionContext } from "@/context/active-section-context-provider";
 
 export const links = [
   {

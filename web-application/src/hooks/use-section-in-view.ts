@@ -1,7 +1,7 @@
 import {
   SectionName,
   useActiveSectionContext,
-} from "@/app/context/active-section-context-provider";
+} from "@/context/active-section-context-provider";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
