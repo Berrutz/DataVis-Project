@@ -6,8 +6,9 @@ import Link from "next/link"
 import { useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
 import { motion } from "framer-motion";
+import { useActiveSectionContext } from "../context/active-section-context-provider";
 
-const links = [
+export const links = [
   {
     name: "Home",
     link: "#home"
@@ -32,7 +33,7 @@ const links = [
 
 
 export default function HomepageNavbar() {
-  const [navSelection, setNavSelection] = useState<number>(0);
+  const {activeSection, setActiveSection} = useActiveSectionContext();
   const [navOpened, setOpened] = useState<boolean>(false);
 
   return <div className="z-[999] fixed left-0 top-0 w-full flex justify-center">
@@ -51,10 +52,10 @@ export default function HomepageNavbar() {
         links.map((value, index) =>
           <Link key={index}
             href={value.link}
-            className={cn("relative opacity-50 px-2 py-1 transition-colors duration-300", index === navSelection && "opacity-100 text-primary-foreground")}
-            onClick={() => setNavSelection(index)}
+            className={cn("relative opacity-50 px-2 py-1 transition-all duration-300", value.name === activeSection && "opacity-100 text-primary-foreground")}
+            onClick={() => setActiveSection(value.name)}
           >
-            {index === navSelection && 
+            {value.name === activeSection && 
               <motion.span 
                 layoutId="activeSection"
                 transition={{
