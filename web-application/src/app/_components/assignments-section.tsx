@@ -13,7 +13,7 @@ export default function AssignmentsSection() {
       <AssignmentCard imgSrc="/DataVis-Project/bg1.png">
         <h3 className="text-xl font-bold mb-2">Assignment1: comparison</h3>
         <p>
-          Comparison of country's emission per capita
+          Comparison of country&apos;s emission per capita
         </p>
       </AssignmentCard>
     </section>
