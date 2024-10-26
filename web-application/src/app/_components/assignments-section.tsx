@@ -3,10 +3,11 @@
 import { useInView } from "react-intersection-observer";
 import { useActiveSectionContext } from "../context/active-section-context-provider";
 import { useEffect } from "react";
+import ImageCard from "../../components/ui/card";
 
 export default function AssignmentsSection() {
   const { setActiveSection } = useActiveSectionContext();
-  const { ref, inView } = useInView({threshold:0.75});
+  const { ref, inView } = useInView({ threshold: 0.75 });
 
   useEffect(() => {
     if (inView) {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { ReactNode, HTMLAttributes } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
@@ -10,7 +11,7 @@ export default function Card({ children, imgSrc, ...props }: CardProps) {
         <div {...props}
             className="relative max-w-xs overflow-hidden rounded-2xl shadow-lg group"
         >
-            <img
+            <Image
                 src={imgSrc}
                 alt="Assignment1"
                 className="transition-transform group-hover:scale-110 duration-200"
