@@ -56,7 +56,7 @@ export default function HeroSection() {
           transition={{ staggerChildren: 1, delayChildren: 1 }}
           style={{ opacity: textScrollOpacityTransofrm }}
           href="#who-we-are"
-          className="absolute bottom-10 flex flex-col items-center justify-center">
+          className="absolute bottom-0 flex flex-col items-center justify-center">
 
           <motion.div
             animate={{ y: -10 }}
