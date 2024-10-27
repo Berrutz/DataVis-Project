@@ -18,7 +18,7 @@ export default function HeroSection() {
   const scrollRef = useRef();
 
   const { scrollYProgress } = useScroll({
-    // eslint-disable-next-line
+    // @ts-ignore
     target: scrollRef,
     offset: ["start start", "end end"]
   })
@@ -27,6 +27,7 @@ export default function HeroSection() {
   const textScrollOpacityTransofrm = useTransform(scrollYProgress, [0, 0.005], [1, 0]);
 
   return <section ref={secRef} id="home">
+    {/* @ts-ignore */}
     <div ref={scrollRef} className="relative h-[300vh] overflow-clip">
       <motion.div style={{ scale: scaleTransform, opacity: opacityTransform }} className="sticky flex items-center justify-center flex-col h-dvh top-0">
         <div className="w-fit">
