@@ -1,23 +1,79 @@
 "use client"
 
 import { useSectionInView } from "@/hooks/use-section-in-view"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react";
+import { MdKeyboardArrowDown } from "react-icons/md";
+
+const hVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: {
+    opacity: 1,
+    y: 0
+  },
+};
 
 export default function HeroSection() {
-  const secRef = useSectionInView("Home")
+  const secRef = useSectionInView("Home", 0.3);
+  const scrollRef = useRef();
 
-  return <section ref={secRef} id="home" className="relative flex flex-col items-center py-20 md:py-40">
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start start", "end end"]
+  })
+  const scaleTransform = useTransform(scrollYProgress, [0, 1], [1, 10]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
+  const textScrollOpacityTransofrm = useTransform(scrollYProgress, [0, 0.005], [1, 0]);
 
-    <div className="absolute w-[150px] md:w-[250px] aspect-square bg-red-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[-100px] md:ml-[-300px] z-[-200]" />
+  return <section ref={secRef} id="home">
+    <div ref={scrollRef} className="relative h-[300vh] overflow-clip">
+      <motion.div style={{ scale: scaleTransform, opacity: opacityTransform }} className="sticky flex items-center justify-center flex-col h-dvh top-0">
+        <div className="w-fit">
+          <motion.h1
+            variants={hVariants}
+            initial="hidden"
+            animate="visible"
+            className="grad-text text-5xl xs:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-semibold md:font-bold">
+            IncApache
+          </motion.h1>
 
-    <div className="absolute w-[150px] md:w-[250px] aspect-square bg-blue-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[100px] md:ml-[300px] z-[-200]" />
+          <motion.h2
+            variants={hVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.1 }}
+            className="block pr-[3px] text-2xl xs:text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-serif font-medium text-end leading-[0px] xs:leading-[0px] sm:leading-[0px] md:leading-[0px] xl:leading-[0px]">
+            group
+          </motion.h2>
+        </div>
 
-    <div className="absolute w-[150px] md:w-[250px] aspect-square bg-yellow-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-[100px] md:mt-[200px] z-[-200]" />
+        <motion.a
+          variants={hVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: 1, delayChildren: 1 }}
+          style={{ opacity: textScrollOpacityTransofrm }}
+          href="#who-we-are"
+          className="absolute bottom-10 flex flex-col items-center justify-center">
 
-    <div className="absolute w-[150px] md:w-[250px] aspect-square bg-sky-300 rounded-full blur-[80px] opacity-40 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-[-100px] z-[-200]" />
+          <motion.div 
+            animate={{ y:-10 }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              repeatType: "mirror",
+              repeat: Infinity
+            }} 
+            className="flex flex-col items-center justify-center">
+            <p className="text-xs font-thin mb-[-10px]">Scroll down!</p>
+            <MdKeyboardArrowDown className="h-[50px] w-[50px] text-primary" />
+            <MdKeyboardArrowDown className="mt-[-40px] h-[50px] w-[50px] text-primary" />
+          </motion.div>
 
-    <div className="w-fit">
-      <h1 className="grad-text text-5xl xs:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-serif font-semibold md:font-bold">IncApache</h1>
-      <h2 className="block pr-[3px] text-2xl xs:text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-serif font-medium text-end leading-[0px] xs:leading-[0px] sm:leading-[0px] md:leading-[0px] xl:leading-[0px]">group</h2>
+        </motion.a>
+
+      </motion.div>
+
     </div>
   </section>
 }
