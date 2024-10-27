@@ -18,6 +18,7 @@ export default function HeroSection() {
   const scrollRef = useRef();
 
   const { scrollYProgress } = useScroll({
+    // eslint-disable-next-line
     target: scrollRef,
     offset: ["start start", "end end"]
   })
@@ -56,14 +57,14 @@ export default function HeroSection() {
           href="#who-we-are"
           className="absolute bottom-10 flex flex-col items-center justify-center">
 
-          <motion.div 
-            animate={{ y:-10 }}
+          <motion.div
+            animate={{ y: -10 }}
             transition={{
               duration: 2,
               ease: "easeInOut",
               repeatType: "mirror",
               repeat: Infinity
-            }} 
+            }}
             className="flex flex-col items-center justify-center">
             <p className="text-xs font-thin mb-[-10px]">Scroll down!</p>
             <MdKeyboardArrowDown className="h-[50px] w-[50px] text-primary" />
