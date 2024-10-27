@@ -1,7 +1,7 @@
 "use client"
 
+import { links } from "@/app/_components/homepage-nav";
 import { createContext, useContext, useState } from "react";
-import { links } from "../_components/homepage-nav";
 
 export type SectionName = typeof links[number]["name"];
 

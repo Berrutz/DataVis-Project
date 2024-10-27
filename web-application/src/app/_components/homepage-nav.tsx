@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
 import { motion } from "framer-motion";
-import { useActiveSectionContext } from "../context/active-section-context-provider";
+import { useActiveSectionContext } from "@/context/active-section-context-provider";
 
 export const links = [
   {
@@ -46,15 +46,33 @@ export default function HomepageNavbar() {
       {navOpened ? <MdClose /> : <MdMenu />}
     </Button>
 
-    <nav className={cn("flex-col md:flex-row w-full md:w-fit md:m-6 py-3 px-12 rounded-b-xl md:rounded-full flex flex-wrap justify-center items-center gap-6 shadow-md bg-background/60 backdrop-blur-md", navOpened ? "flex" : "hidden md:flex")}>
+    <motion.nav
+
+      initial={{
+        y: -20,
+        opacity: 0
+      }}
+
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      }}
+
+      className={cn("flex-col md:flex-row w-full md:w-fit md:m-6 py-3 px-12 rounded-b-xl md:rounded-full flex flex-wrap justify-center items-center gap-6 shadow-md bg-background/60 backdrop-blur-md", navOpened ? "flex" : "hidden md:flex")}>
       {
         links.map((value, index) =>
           <Link key={index}
             href={value.link}
             className={cn("relative opacity-50 px-2 py-1 transition-all duration-300", value.name === activeSection && "opacity-100 text-primary-foreground")}
-            onClick={() => { 
-              setActiveSection(value.name); 
-              setTimeLastClick(Date.now); 
+            onClick={() => {
+              setActiveSection(value.name);
+              setTimeLastClick(Date.now);
             }}
           >
             {value.name === activeSection &&
@@ -69,6 +87,6 @@ export default function HomepageNavbar() {
             <span className="relative">{value.name}</span>
           </Link>)
       }
-    </nav>
+    </motion.nav>
   </div>
 }
