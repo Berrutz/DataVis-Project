@@ -5,10 +5,10 @@ import { useSectionInView } from "@/hooks/use-section-in-view"
 // import React, { ReactNode, HTMLAttributes } from "react";
 
 export default function AssignmentsSection() {
-  const secRef = useSectionInView("Assignments");
+  const {ref} = useSectionInView("Assignments");
 
   return (
-    <section ref={secRef} id="assignments" className="h-screen flex items-center justify-center">
+    <section ref={ref} id="assignments" className="h-screen flex items-center justify-center">
       <h1 className="text-5xl font-medium font-serif">Assignments</h1>
       {/* <AssignmentCard imgSrc="/DataVis-Project/bg1.png">
         <h3 className="text-xl font-bold mb-2">Assignment1: comparison</h3>

@@ -14,7 +14,7 @@ const hVariants = {
 };
 
 export default function HeroSection() {
-  const secRef = useSectionInView("Home", 0.3);
+  const {ref} = useSectionInView("Home", 0.3);
   const scrollRef = useRef();
 
   const { scrollYProgress } = useScroll({
@@ -26,7 +26,7 @@ export default function HeroSection() {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
   const textScrollOpacityTransofrm = useTransform(scrollYProgress, [0, 0.005], [1, 0]);
 
-  return <section ref={secRef} id="home">
+  return <section ref={ref} id="home">
     {/* @ts-expect-error expected ref assignment error */}
     <div ref={scrollRef} className="relative h-[300vh] overflow-clip">
       <motion.div style={{ scale: scaleTransform, opacity: opacityTransform }} className="sticky flex items-center justify-center flex-col h-dvh top-0">
