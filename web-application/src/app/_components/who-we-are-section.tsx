@@ -1,7 +1,7 @@
 "use client"
 
 import { useSectionInView } from "@/hooks/use-section-in-view"
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 type WhoWeAreTypeData = {
@@ -47,14 +47,13 @@ const whoWeAreCardFadingInVariants = {
 
 export default function WhoWeAreSection() {
   const { ref } = useSectionInView("Who we are")
-  const control = useAnimation();
 
   return (
     <section
       ref={ref}
-      id="who-we-are" className="relative mt-[-60vh] min-h-screen p-6 md:mt-[-70vh] flex flex-col items-center justify-center">
-
-      <div className="z-30 flex flex-col items-center gap-6 sm:flex-row justify-center flex-wrap lg:gap-12">
+      id="who-we-are" className="relative mt-[-60vh] flex min-h-screen flex-col items-center justify-center gap-24 p-6 md:mt-[-70vh]">
+      <h1 className="font-serif text-5xl font-medium">Who we are</h1>
+      <div className="z-30 flex flex-col flex-wrap items-center justify-center gap-6 sm:flex-row lg:gap-12">
         {whoWeAreData.map((item, index) =>
           <motion.div
             key={index}
@@ -74,10 +73,10 @@ export default function WhoWeAreSection() {
 
 const WhoWeAreCard = (values: WhoWeAreTypeData) => {
   return (
-    <div className="bg-background flex flex-col items-center p-6 border rounded-md shadow-md w-[300px] text-center">
-      <Image src={values.imageUri} alt={values.name} width={200} height={200} className="rounded-full aspect-square w-[80px] bg-red-50" />
-      <h1 className="font-medium text-xl mt-6">{values.name}</h1>
-      <div className="mt-3 h-full flex items-center justify-center">
+    <div className="flex w-[300px] flex-col items-center rounded-md border bg-background p-6 text-center shadow-md">
+      <Image src={values.imageUri} alt={values.name} width={200} height={200} className="aspect-square w-[80px] rounded-full bg-red-50" />
+      <h1 className="mt-6 text-xl font-medium">{values.name}</h1>
+      <div className="mt-3 flex h-full items-center justify-center">
         <p>{values.content}</p>
       </div>
     </div>

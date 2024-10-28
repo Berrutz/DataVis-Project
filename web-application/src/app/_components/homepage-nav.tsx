@@ -35,12 +35,12 @@ export default function HomepageNavbar() {
   const { activeSection, setActiveSection, setTimeLastClick } = useActiveSectionContext();
   const [navOpened, setOpened] = useState<boolean>(false);
 
-  return <div className="z-[999] fixed left-0 top-0 w-full flex justify-center">
+  return <div className="top-0 left-0 z-[999] fixed flex justify-center w-full">
 
     <Button
       variant={"outline"}
       size={"icon"}
-      className="md:hidden absolute right-0 top-0 m-6 z-[1000]"
+      className="top-0 right-0 z-[1000] absolute md:hidden m-6"
       onClick={() => setOpened(prev => !prev)}
     >
       {navOpened ? <MdClose /> : <MdMenu />}
