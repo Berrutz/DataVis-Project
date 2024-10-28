@@ -49,12 +49,12 @@ export default function AssignmentsSection() {
   }, []);
 
   return (
-    <section ref={ref} id="assignments" className="flex min-h-screen scroll-mt-32 flex-col items-center justify-center">
+    <section ref={ref} id="assignments" className="flex flex-col items-center md:scroll-m-48">
 
-      <h1 className="z-20 mb-12 font-serif text-5xl font-medium">Assignments</h1>
+      <h1 className="z-20 font-serif text-5xl font-medium">Assignments</h1>
 
-      <div className="h-[300vh] w-full sm:flex sm:h-fit sm:justify-center">
-        <div className="sticky top-0 mt-[-20vh] flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
+      <div className="mb-12 h-[300vh] w-full sm:flex sm:h-fit sm:justify-center">
+        <div className="sticky top-0 mt-[-25vh] flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:mt-[-25vh] sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
 
           <motion.div className="flex gap-64 text-center sm:mb-[50vh] sm:mt-[50vh] sm:h-[200vh] sm:flex-col sm:justify-between sm:gap-0 sm:text-start"
             style={{
