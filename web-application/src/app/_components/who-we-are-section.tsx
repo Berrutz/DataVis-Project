@@ -52,7 +52,7 @@ export default function WhoWeAreSection() {
     <section
       ref={ref}
       id="who-we-are"
-      className="relative mb-48 mt-[-60vh] flex flex-col items-center md:mt-[-70vh] md:scroll-m-48">
+      className="relative mt-[-60vh] flex flex-col items-center md:mt-[-70vh] md:scroll-m-48">
       <h1 className="mb-24 font-serif text-5xl font-medium">Who we are</h1>
       <div className="z-30 flex flex-col flex-wrap items-center justify-center gap-6 sm:flex-row lg:gap-12">
         {whoWeAreData.map((item, index) =>

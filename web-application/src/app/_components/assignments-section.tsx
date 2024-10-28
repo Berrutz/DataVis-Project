@@ -34,7 +34,7 @@ const assignmentsData: AssignmentDataType[] = [
 ]
 
 export default function AssignmentsSection() {
-  const { ref } = useSectionInView("Assignments", 0.2);
+  const { ref } = useSectionInView("Assignments", 0.3);
   const { scrollYProgress } = useScroll({
     //@ts-expect-error expected ref assignment error 
     target: ref,
@@ -58,12 +58,10 @@ export default function AssignmentsSection() {
   return (
     <section ref={ref} id="assignments" className="flex scroll-m-48 flex-col items-center">
 
-      <h1 className="z-20 font-serif text-5xl font-medium">Assignments</h1>
-
       <div className="mb-12 h-[200vh] w-full sm:flex sm:h-fit sm:justify-center">
-        <div className="sticky top-0 mt-[-25vh] flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:mt-[-25vh] sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
+        <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
 
-          <motion.div className="flex gap-24 sm:mb-[50vh] sm:mt-[50vh] sm:h-[120vh] sm:flex-col sm:justify-between sm:gap-0"
+          <motion.div className="flex gap-24 sm:my-[50vh] sm:flex-col sm:justify-between sm:gap-24"
             style={{
               translateX: isSmallScreen ? assignmentsXTranslate : 0,
             }}
@@ -101,7 +99,7 @@ const AssignmentTitle = ({ assignmentData, isSmallScreen }: AssignmentTitlePorps
   const ref = useRef();
   //@ts-expect-error expected ref assignment error
   const bigView = useInView(ref, {
-    margin: "-40% 0px -40% 0px",
+    margin: "-45% 0px -45% 0px",
   });
 
   //@ts-expect-error expected ref assignment error
