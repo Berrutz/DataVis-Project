@@ -1,28 +1,35 @@
 "use client"
 
 import { useSectionInView } from "@/hooks/use-section-in-view"
-import { useScroll, useTransform, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useScroll, useTransform, motion, useInView, inView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 type AssignmentDataType = {
   name: string;
+  shortDescription: string;
 }
 
 const assignmentsData: AssignmentDataType[] = [
   {
-    name: "Assignment 1"
+    name: "Assignment 1",
+    shortDescription: "This is the content of the assignment 1",
   },
   {
-    name: "Assignment 2"
+    name: "Assignment 2",
+    shortDescription: "This is the content of the assignment",
   },
   {
-    name: "Assignment 3"
+    name: "Assignment 3",
+    shortDescription: "This is the content of the assignment",
   },
   {
-    name: "Assignment 4"
+    name: "Assignment 4",
+    shortDescription: "This is the content of the assignment",
   },
   {
-    name: "Assignment 5"
+    name: "Assignment 5",
+    shortDescription: "This is the content of the assignment",
   },
 ]
 
@@ -34,13 +41,13 @@ export default function AssignmentsSection() {
     offset: ["start start", "end end"]
   });
 
-  const assignmentsXTranslate = useTransform(scrollYProgress, [0.3, 1], ["100%", "-150%"]);
-  const [isScreenSmall, setIsScreenSmall] = useState(false);
+  const assignmentsXTranslate = useTransform(scrollYProgress, [0.46, 0.9], ["100%", "-150%"]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   // This is needed to disable scroll animation used in small screens 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 640px)');
-    const handleResize = () => setIsScreenSmall(mediaQuery.matches);
+    const handleResize = () => setIsSmallScreen(!mediaQuery.matches);
 
     handleResize();
     mediaQuery.addEventListener('change', handleResize);
@@ -49,21 +56,24 @@ export default function AssignmentsSection() {
   }, []);
 
   return (
-    <section ref={ref} id="assignments" className="flex flex-col items-center md:scroll-m-48">
+    <section ref={ref} id="assignments" className="flex scroll-m-48 flex-col items-center">
 
       <h1 className="z-20 font-serif text-5xl font-medium">Assignments</h1>
 
-      <div className="mb-12 h-[300vh] w-full sm:flex sm:h-fit sm:justify-center">
+      <div className="mb-12 h-[200vh] w-full sm:flex sm:h-fit sm:justify-center">
         <div className="sticky top-0 mt-[-25vh] flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:mt-[-25vh] sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
 
-          <motion.div className="flex gap-64 text-center sm:mb-[50vh] sm:mt-[50vh] sm:h-[200vh] sm:flex-col sm:justify-between sm:gap-0 sm:text-start"
+          <motion.div className="flex gap-24 sm:mb-[50vh] sm:mt-[50vh] sm:h-[120vh] sm:flex-col sm:justify-between sm:gap-0"
             style={{
-              translateX: !isScreenSmall ? assignmentsXTranslate : 0,
+              translateX: isSmallScreen ? assignmentsXTranslate : 0,
             }}
           >
             {
-              assignmentsData.map((assignment, index) =>
-                <h2 key={index} className="font-serif text-4xl font-bold text-gray-400">{assignment.name}</h2>
+              assignmentsData.map((value, index) =>
+                <AssignmentTitle
+                  key={index}
+                  assignmentData={value}
+                  isSmallScreen={isSmallScreen} />
               )
             }
           </motion.div>
@@ -80,3 +90,55 @@ export default function AssignmentsSection() {
     </section>
   );
 }
+
+interface AssignmentTitlePorps {
+  isSmallScreen: boolean;
+  assignmentData: AssignmentDataType;
+};
+
+const AssignmentTitle = ({ assignmentData, isSmallScreen }: AssignmentTitlePorps) => {
+
+  const ref = useRef();
+  //@ts-expect-error expected ref assignment error
+  const bigView = useInView(ref, {
+    margin: "-40% 0px -40% 0px",
+  });
+
+  //@ts-expect-error expected ref assignment error
+  const smallView = useInView(ref, {
+    margin: "0px -40% 0px -40%"
+  });
+
+  const isInView = isSmallScreen ? smallView : bigView;
+
+  return (
+    //@ts-expect-error expected ref assignment error 
+    <div ref={ref} className="w-[250px] text-center sm:max-w-[250px]">
+      <h2
+        className={cn(
+          "duration-400 mb-3 font-serif text-4xl font-bold text-gray-400 transition-colors",
+          isInView && "text-foreground",
+        )}>{assignmentData.name}</h2>
+      <h3
+        className={cn(
+          "duration-400 text-xl font-medium leading-4 text-gray-200 transition-colors",
+          isInView && "text-gray-500",
+        )}
+      >{assignmentData.shortDescription}</h3>
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
