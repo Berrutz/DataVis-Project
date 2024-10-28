@@ -56,7 +56,7 @@ export default function AssignmentsSection() {
   }, []);
 
   return (
-    <section ref={ref} id="assignments" className="flex scroll-m-48 flex-col items-center">
+    <section ref={ref} id="assignments" className="scroll-m-38 flex flex-col items-center sm:scroll-mt-44">
 
       <div className="mb-12 h-[200vh] w-full sm:flex sm:h-fit sm:justify-center">
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
