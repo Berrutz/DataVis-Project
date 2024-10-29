@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils";
 import { useScroll, useTransform, motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Assignment1Card, Assignment2Card, Assignment3Card, Assignment4Card, Assignment5Card, NoAssignmentCard } from "./assignment-section-components/assignment-card";
 
-type AssignmentDataType = {
+export type AssignmentDataType = {
   name: string;
   shortDescription: string;
 }
@@ -34,7 +35,7 @@ const assignmentsData: AssignmentDataType[] = [
   },
 ]
 
-type CurrentAssignmentType = typeof assignmentsData[number]["name"];
+export type CurrentAssignmentType = typeof assignmentsData[number]["name"];
 
 export default function AssignmentsSection() {
   const { ref } = useSectionInView("Assignments", 0.3);
@@ -82,12 +83,12 @@ export default function AssignmentsSection() {
           </motion.div>
 
           <div className="relative h-full w-full sm:sticky sm:top-0 sm:h-screen">
-            <NoAssignmentCard currentAssignment={currentFocusedAss.at(0)} />
-            <Assignment1Card currentAssignment={currentFocusedAss.at(0)} />
-            <Assignment2Card currentAssignment={currentFocusedAss.at(0)} />
-            <Assignment3Card currentAssignment={currentFocusedAss.at(0)} />
-            <Assignment4Card currentAssignment={currentFocusedAss.at(0)} />
-            <Assignment5Card currentAssignment={currentFocusedAss.at(0)} />
+            <NoAssignmentCard selectedAssignment={currentFocusedAss.at(0)} />
+            <Assignment1Card selectedAssignment={currentFocusedAss.at(0)} />
+            <Assignment2Card selectedAssignment={currentFocusedAss.at(0)} />
+            <Assignment3Card selectedAssignment={currentFocusedAss.at(0)} />
+            <Assignment4Card selectedAssignment={currentFocusedAss.at(0)} />
+            <Assignment5Card selectedAssignment={currentFocusedAss.at(0)} />
           </div>
 
         </div>
@@ -147,88 +148,6 @@ const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss }: Assi
         )}
       >{assignmentData.shortDescription}</h3>
     </div>
-  )
-}
-
-
-interface AssignmentCardProps {
-  className?: string;
-  children?: React.ReactNode;
-  href: string;
-  isSelected: boolean;
-};
-
-const AssignmentCard = ({ className, children, href, isSelected, ...props }: AssignmentCardProps) => {
-  return (
-    isSelected &&
-    <Link
-      href={href}
-      className={cn(
-        "absolute left-1/2 top-0 aspect-square h-[250px] -translate-x-1/2 rounded-md transition-[shadow] sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0",
-        isSelected ? "opacity-100 shadow-sm" : "opacity-0",
-        className
-      )}>
-      <div className="absolute bottom-2 right-2 rounded-md bg-primary px-2 py-1 text-sm text-primary-foreground shadow-md">Go to the assignment</div>
-    </Link>
-  )
-}
-
-interface SpecificAssignmentCardProps {
-  currentAssignment?: CurrentAssignmentType;
-}
-
-const NoAssignmentCard = (props: SpecificAssignmentCardProps) => {
-  return (
-    <div
-      className={cn(
-        "absolute left-1/2 top-0 aspect-square h-[250px] -translate-x-1/2 rounded-md bg-gradient-to-br from-background to-gray-200 transition-[shadow] sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0",
-        props.currentAssignment === undefined ? "opacity-100" : "opacity-0",
-      )}>
-    </div>
-  )
-}
-
-const Assignment1Card = (props: SpecificAssignmentCardProps) => {
-  return (
-    <AssignmentCard href="#assignments" isSelected={props.currentAssignment == "Assignment 1"} className="bg-gradient-to-br from-background to-orange-200">
-
-    </AssignmentCard>
-  )
-}
-
-
-const Assignment2Card = (props: SpecificAssignmentCardProps) => {
-  return (
-    <AssignmentCard href="#assignments" isSelected={props.currentAssignment == "Assignment 2"} className="bg-gradient-to-br from-background to-blue-200">
-
-    </AssignmentCard>
-  )
-}
-
-
-const Assignment3Card = (props: SpecificAssignmentCardProps) => {
-  return (
-    <AssignmentCard href="#assignments" isSelected={props.currentAssignment == "Assignment 3"} className="bg-gradient-to-br from-background to-emerald-200">
-
-    </AssignmentCard>
-  )
-}
-
-
-const Assignment4Card = (props: SpecificAssignmentCardProps) => {
-  return (
-    <AssignmentCard href="#assignments" isSelected={props.currentAssignment == "Assignment 4"} className="bg-gradient-to-br from-background to-red-200">
-
-    </AssignmentCard>
-  )
-}
-
-
-const Assignment5Card = (props: SpecificAssignmentCardProps) => {
-  return (
-    <AssignmentCard href="#assignments" isSelected={props.currentAssignment == "Assignment 5"} className="bg-gradient-to-br from-background to-yellow-200">
-
-    </AssignmentCard>
   )
 }
 
