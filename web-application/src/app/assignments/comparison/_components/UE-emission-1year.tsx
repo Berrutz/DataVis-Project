@@ -14,17 +14,15 @@ const UEEmission1Year = () => {
     // Fetch data from the API when the component mounts
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('/api/get-UE-emission-1year'); // Update with your actual API route
-            const jsonData = await response.json();
 
             // Transform data (parse emission as number)
-            const transformedData = jsonData.map((d: any) => ({
+            const csvData = await d3.csv("/DataVis-Project/datasets/co-emissions-per-capita.csv", (d) => ({
                 country: d.Entity,
                 year: d.Year,
                 emission: +d["Annual CO₂ emissions (per capita)"],
             }));
 
-            setData(transformedData);
+            setData(csvData);
         };
 
         fetchData();
