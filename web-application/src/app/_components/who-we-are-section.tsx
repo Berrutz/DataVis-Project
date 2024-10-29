@@ -15,7 +15,7 @@ const whoWeAreData: WhoWeAreTypeData[] = [
   {
     imageUri: imagePrefix + "/spongebob.png",
     name: "Alex Valle",
-    content: "IncApache group CEO, he works at the Krusty Krab this is just a hobby for him. \"He is an idiot\" (COO of IncApache group). Whos don't like Spongebob?",
+    content: "IncApache CEO, he works at the Krusty Krab this is just a hobby for him. group\"He is an idiot\"(COO of IncApache group). Whos don't like Spongebob?",
   },
   {
     imageUri: imagePrefix + "/squiddi.png",
@@ -46,7 +46,7 @@ const whoWeAreCardFadingInVariants = {
 }
 
 export default function WhoWeAreSection() {
-  const { ref } = useSectionInView("Who we are")
+  const { ref } = useSectionInView("Who we are", 0.3)
 
   return (
     <section
