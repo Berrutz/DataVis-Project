@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { CurrentAssignmentType } from "../assignments-section";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface BaseAssignmentCardProps {
   className?: string,
@@ -34,6 +34,7 @@ function LinkAssignmentCard({ href, ...props }: LinkAssignmentCardProps) {
     <Link href={href} className="absolute inset-0">
       {props.children}
       <motion.div
+        transition={{ duration: 0.2 }}
         className="absolute bottom-2 right-2 rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground"
         layoutId="go-to-ass-btn">
         Go to assignment
@@ -52,14 +53,17 @@ export const NoAssignmentCard = ({ selectedAssignment }: SpecificAssignmentCardP
     <BaseAssignmentCard
       isSelected={selectedAssignment === undefined || selectedAssignment === null}
       className="bg-gradient-to-br from-background to-gray-200">
-      <motion.div className="absolute bottom-2 right-2 aspect-square h-[20px] rounded-md bg-primary/50" layoutId="go-to-ass-btn" />
+      <motion.div
+        transition={{ duration: 0.2 }}
+        layoutId="go-to-ass-btn"
+        className="absolute bottom-2 right-2 aspect-square h-[20px] rounded-md bg-primary/50" />
     </BaseAssignmentCard>
   )
 }
 
 export const Assignment1Card = ({ selectedAssignment }: SpecificAssignmentCardProps) => {
   return (
-    <LinkAssignmentCard href="#assignments" isSelected={selectedAssignment == "Assignment 1"} className="bg-gradient-to-br from-background to-orange-200">
+    <LinkAssignmentCard href="/assignments/assignment-1" isSelected={selectedAssignment == "Assignment 1"} className="bg-gradient-to-br from-background to-orange-200">
 
     </LinkAssignmentCard>
   )
@@ -68,7 +72,7 @@ export const Assignment1Card = ({ selectedAssignment }: SpecificAssignmentCardPr
 
 export const Assignment2Card = ({ selectedAssignment }: SpecificAssignmentCardProps) => {
   return (
-    <LinkAssignmentCard href="#assignments" isSelected={selectedAssignment == "Assignment 2"} className="bg-gradient-to-br from-background to-blue-200">
+    <LinkAssignmentCard href="/assignments/assignment-2" isSelected={selectedAssignment == "Assignment 2"} className="bg-gradient-to-br from-background to-blue-200">
 
     </LinkAssignmentCard>
   )
@@ -77,7 +81,7 @@ export const Assignment2Card = ({ selectedAssignment }: SpecificAssignmentCardPr
 
 export const Assignment3Card = ({ selectedAssignment }: SpecificAssignmentCardProps) => {
   return (
-    <LinkAssignmentCard href="#assignments" isSelected={selectedAssignment == "Assignment 3"} className="bg-gradient-to-br from-background to-emerald-200">
+    <LinkAssignmentCard href="/assignments/assignment-3" isSelected={selectedAssignment == "Assignment 3"} className="bg-gradient-to-br from-background to-emerald-200">
 
     </LinkAssignmentCard>
   )
@@ -86,7 +90,7 @@ export const Assignment3Card = ({ selectedAssignment }: SpecificAssignmentCardPr
 
 export const Assignment4Card = ({ selectedAssignment }: SpecificAssignmentCardProps) => {
   return (
-    <LinkAssignmentCard href="#assignments" isSelected={selectedAssignment == "Assignment 4"} className="bg-gradient-to-br from-background to-red-200">
+    <LinkAssignmentCard href="/assignments/assignment-4" isSelected={selectedAssignment == "Assignment 4"} className="bg-gradient-to-br from-background to-red-200">
 
     </LinkAssignmentCard>
   )
@@ -95,7 +99,7 @@ export const Assignment4Card = ({ selectedAssignment }: SpecificAssignmentCardPr
 
 export const Assignment5Card = ({ selectedAssignment }: SpecificAssignmentCardProps) => {
   return (
-    <LinkAssignmentCard href="#assignments" isSelected={selectedAssignment == "Assignment 5"} className="bg-gradient-to-br from-background to-yellow-200">
+    <LinkAssignmentCard href="/assignments/assignment-5" isSelected={selectedAssignment == "Assignment 5"} className="bg-gradient-to-br from-background to-yellow-200">
 
     </LinkAssignmentCard>
   )

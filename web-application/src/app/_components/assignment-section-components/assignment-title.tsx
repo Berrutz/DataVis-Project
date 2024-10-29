@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
-import { AssignmentDataType, CurrentAssignmentType } from "../assignments-section";
+import { CurrentAssignmentType } from "../assignments-section";
 import { useInView } from "framer-motion";
+import { AssignmentDataType } from "@/app/assignments/_data/assignments-data";
 
 interface AssignmentTitlePorps {
   isSmallScreen: boolean;
@@ -41,17 +42,17 @@ export const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss 
       "w-[250px] text-center transition-transform sm:max-w-[250px]",
       isInView && "scale-105"
     )}>
-      <h2
+      <h1
         className={cn(
           "duration-400 mb-3 font-serif text-4xl font-bold text-gray-400 transition-colors",
           isInView && "text-foreground",
-        )}>{assignmentData.name}</h2>
-      <h3
+        )}>{assignmentData.name}</h1>
+      <h2
         className={cn(
           "duration-400 text-xl font-medium leading-4 text-gray-200 transition-colors",
           isInView && "text-gray-500",
         )}
-      >{assignmentData.shortDescription}</h3>
+      >{assignmentData.shortDescription}</h2>
     </div>
   )
 }

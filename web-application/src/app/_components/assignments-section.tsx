@@ -2,38 +2,11 @@
 
 import { useSectionInView } from "@/hooks/use-section-in-view"
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Assignment1Card, Assignment2Card, Assignment3Card, Assignment4Card, Assignment5Card, NoAssignmentCard } from "./assignment-section-components/assignment-card";
 import { AssignmentTitle } from "./assignment-section-components/assignment-title";
 import { useIsScreen } from "@/hooks/use-is-screen";
-
-export type AssignmentDataType = {
-  name: string;
-  shortDescription: string;
-}
-
-const assignmentsData: AssignmentDataType[] = [
-  {
-    name: "Assignment 1",
-    shortDescription: "This is the content of the assignment 1",
-  },
-  {
-    name: "Assignment 2",
-    shortDescription: "This is the content of the assignment",
-  },
-  {
-    name: "Assignment 3",
-    shortDescription: "This is the content of the assignment",
-  },
-  {
-    name: "Assignment 4",
-    shortDescription: "This is the content of the assignment",
-  },
-  {
-    name: "Assignment 5",
-    shortDescription: "This is the content of the assignment",
-  },
-]
+import { assignmentsData } from "../assignments/_data/assignment-data";
 
 export type CurrentAssignmentType = typeof assignmentsData[number]["name"];
 
