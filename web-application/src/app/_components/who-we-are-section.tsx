@@ -15,17 +15,17 @@ const whoWeAreData: WhoWeAreTypeData[] = [
   {
     imageUri: imagePrefix + "/spongebob.png",
     name: "Alex Valle",
-    content: "The front head of the IncApache group, he likes spongebob and listening to music. Whos don't like spongebob?",
+    content: "IncApache group CEO, he works at the Krusty Krab this is just a hobby for him. \"He is an idiot\" (COO of IncApache group). Whos don't like Spongebob?",
   },
   {
     imageUri: imagePrefix + "/squiddi.png",
     name: "Diego Chiola",
-    content: "The front head of the IncApache group, he likes spongebob and listening to music. Whos don't like spongebob?",
+    content: "The COO of IncApace Group, like Spongebob works at Krusty Krab, he works on the project against his will because of Spongebob",
   },
   {
     imageUri: imagePrefix + "/patrik.png",
     name: "Gabriele Berruti",
-    content: "The front head of the IncApache group, he likes spongebob and listening to music. Whos don't like spongebob?",
+    content: "The Commercial Director of IncApace Group, nobody knows why he works on the project, not even him. He is a friend of Spongebob",
   },
 ]
 
