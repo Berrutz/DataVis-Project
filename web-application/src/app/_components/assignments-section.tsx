@@ -1,11 +1,11 @@
 "use client"
 
 import { useSectionInView } from "@/hooks/use-section-in-view"
-import { cn } from "@/lib/utils";
-import { useScroll, useTransform, motion, useInView } from "framer-motion";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Assignment1Card, Assignment2Card, Assignment3Card, Assignment4Card, Assignment5Card, NoAssignmentCard } from "./assignment-section-components/assignment-card";
+import { AssignmentTitle } from "./assignment-section-components/assignment-title";
+import { useIsScreen } from "@/hooks/use-is-screen";
 
 export type AssignmentDataType = {
   name: string;
@@ -38,27 +38,18 @@ const assignmentsData: AssignmentDataType[] = [
 export type CurrentAssignmentType = typeof assignmentsData[number]["name"];
 
 export default function AssignmentsSection() {
+
+  // Scroll animation for small screens (only assignments title) 
   const { ref } = useSectionInView("Assignments", 0.3);
   const { scrollYProgress } = useScroll({
     //@ts-expect-error expected ref assignment error 
     target: ref,
     offset: ["start start", "end end"]
   });
-
   const assignmentsXTranslate = useTransform(scrollYProgress, [0.46, 0.85], ["100%", "-150%"]);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const isSmallScreen = useIsScreen("small");
+
   const [currentFocusedAss, setCurrentFocusedAss] = useState<CurrentAssignmentType[]>([]);
-
-  // This is needed to disable scroll animation used in small screens 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 640px)');
-    const handleResize = () => setIsSmallScreen(!mediaQuery.matches);
-
-    handleResize();
-    mediaQuery.addEventListener('change', handleResize);
-
-    return () => mediaQuery.removeEventListener('change', handleResize);
-  }, []);
 
   return (
     <section ref={ref} id="assignments" className="mb-[calc(-50vh_+_165px)] mt-[calc(-50vh_+_125px)] flex scroll-m-36 flex-col items-center sm:mb-[calc(-50vh_+_125px)] sm:scroll-mt-44">
@@ -93,61 +84,6 @@ export default function AssignmentsSection() {
 
         </div>
       </div>
-
     </section>
   );
 }
-
-interface AssignmentTitlePorps {
-  isSmallScreen: boolean;
-  assignmentData: AssignmentDataType;
-  setSelectedAss: React.Dispatch<React.SetStateAction<CurrentAssignmentType[]>>;
-};
-
-const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss }: AssignmentTitlePorps) => {
-
-  const ref = useRef();
-  //@ts-expect-error expected ref assignment error
-  const bigView = useInView(ref, {
-    margin: "-45% 0px -45% 0px",
-  });
-
-  //@ts-expect-error expected ref assignment error
-  const smallView = useInView(ref, {
-    margin: "0px -40% 0px -40%"
-  });
-
-  const isInView = isSmallScreen ? smallView : bigView;
-
-  useEffect(() => {
-    if (isInView) {
-      setSelectedAss((prev) => [assignmentData.name, ...prev]);
-    }
-
-    if (!isInView) {
-      setSelectedAss((prev) => prev.filter(name => name !== assignmentData.name));
-    }
-
-  }, [isInView, setSelectedAss])
-
-  return (
-    //@ts-expect-error expected ref assignment error 
-    <div ref={ref} className={cn(
-      "w-[250px] text-center transition-transform sm:max-w-[250px]",
-      isInView && "scale-105"
-    )}>
-      <h2
-        className={cn(
-          "duration-400 mb-3 font-serif text-4xl font-bold text-gray-400 transition-colors",
-          isInView && "text-foreground",
-        )}>{assignmentData.name}</h2>
-      <h3
-        className={cn(
-          "duration-400 text-xl font-medium leading-4 text-gray-200 transition-colors",
-          isInView && "text-gray-500",
-        )}
-      >{assignmentData.shortDescription}</h3>
-    </div>
-  )
-}
-

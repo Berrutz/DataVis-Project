@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { CurrentAssignmentType } from "../assignments-section";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface BaseAssignmentCardProps {
   className?: string,
@@ -32,7 +33,11 @@ function LinkAssignmentCard({ href, ...props }: LinkAssignmentCardProps) {
     isSelected={props.isSelected}>
     <Link href={href} className="absolute inset-0">
       {props.children}
-      <div className="absolute bottom-2 right-2 rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground">Go to assignment</div>
+      <motion.div
+        className="absolute bottom-2 right-2 rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground"
+        layoutId="go-to-ass-btn">
+        Go to assignment
+      </motion.div>
     </Link>
   </BaseAssignmentCard>
 }
@@ -46,7 +51,9 @@ export const NoAssignmentCard = ({ selectedAssignment }: SpecificAssignmentCardP
   return (
     <BaseAssignmentCard
       isSelected={selectedAssignment === undefined || selectedAssignment === null}
-      className="bg-gradient-to-br from-background to-gray-200" />
+      className="bg-gradient-to-br from-background to-gray-200">
+      <motion.div className="absolute bottom-2 right-2 aspect-square h-[20px] rounded-md bg-primary/50" layoutId="go-to-ass-btn" />
+    </BaseAssignmentCard>
   )
 }
 
