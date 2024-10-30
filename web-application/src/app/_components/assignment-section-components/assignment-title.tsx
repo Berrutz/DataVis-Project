@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 import { CurrentAssignmentType } from "../assignments-section";
 import { useInView } from "framer-motion";
-import { AssignmentDataType } from "@/app/assignments/_data/assignments-data";
+import { AssignmentDataType } from "@/app/assignments/_data/assignment-data";
 
 interface AssignmentTitlePorps {
   isSmallScreen: boolean;
