@@ -19,13 +19,13 @@ export default function AssignmentsSection() {
     target: ref,
     offset: ["start start", "end end"]
   });
-  const assignmentsXTranslate = useTransform(scrollYProgress, [0.46, 0.85], ["100%", "-150%"]);
+  const assignmentsXTranslate = useTransform(scrollYProgress, [0.50, 0.83], ["100%", "-150%"]);
   const isSmallScreen = useIsScreen("small");
 
   const [currentFocusedAss, setCurrentFocusedAss] = useState<CurrentAssignmentType[]>([]);
 
   return (
-    <section ref={ref} id="assignments" className="mb-[calc(-50vh_+_165px)] mt-[calc(-50vh_+_125px)] flex scroll-m-36 flex-col items-center sm:mb-[calc(-50vh_+_125px)] sm:scroll-mt-44">
+    <section ref={ref} id="assignments" className="mb-[calc(-50vh_+_165px)] mt-[calc(-50vh_+_125px)] flex scroll-m-[-100px] flex-col items-center sm:mb-[calc(-50vh_+_125px)] sm:scroll-mt-44">
 
       <div className="mb-12 h-[200vh] w-full sm:mb-0 sm:flex sm:h-fit sm:justify-center">
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
