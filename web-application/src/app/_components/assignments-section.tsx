@@ -27,10 +27,10 @@ export default function AssignmentsSection() {
   return (
     <section ref={ref} id="assignments" className="mb-[calc(-50vh_+_165px)] mt-[calc(-50vh_+_125px)] flex scroll-m-[-100px] flex-col items-center sm:mb-[calc(-50vh_+_125px)] sm:scroll-mt-44">
 
-      <div className="mb-12 h-[200vh] w-full sm:mb-0 sm:flex sm:h-fit sm:justify-center">
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-24 overflow-clip sm:relative sm:h-fit sm:w-full sm:max-w-[1200px] sm:flex-row sm:items-start sm:overflow-visible">
+      <div className="mb-12 w-full sm:flex sm:justify-center sm:mb-0 h-[200vh] sm:h-fit">
+        <div className="flex sticky top-0 flex-col gap-24 justify-center items-center h-screen sm:overflow-visible sm:relative sm:flex-row sm:items-start sm:w-full overflow-clip sm:h-fit sm:max-w-[1200px]">
 
-          <motion.div className="flex h-full items-end gap-24 sm:my-[50vh] sm:w-full sm:flex-col sm:justify-between"
+          <motion.div className="flex gap-24 items-end h-full sm:flex-col sm:justify-between sm:w-full sm:my-[50vh]"
             style={{
               translateX: isSmallScreen ? assignmentsXTranslate : 0,
             }}
@@ -46,7 +46,7 @@ export default function AssignmentsSection() {
             }
           </motion.div>
 
-          <div className="relative h-full w-full sm:sticky sm:top-0 sm:h-screen">
+          <div className="relative w-full h-full sm:sticky sm:top-0 sm:h-screen">
             <NoAssignmentCard selectedAssignment={currentFocusedAss.at(0)} />
             <Assignment1Card selectedAssignment={currentFocusedAss.at(0)} />
             <Assignment2Card selectedAssignment={currentFocusedAss.at(0)} />
