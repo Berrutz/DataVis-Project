@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 
+// SECTION
 interface ChartSectionProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function ChartSection({ children, className }: ChartSectionProps) {
     return (
@@ -9,6 +10,7 @@ export function ChartSection({ children, className }: ChartSectionProps) {
     );
 }
 
+// HEADING
 interface ChartHeadingProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function ChartHeading({ children, className }: ChartHeadingProps) {
     return (
@@ -18,8 +20,19 @@ export function ChartHeading({ children, className }: ChartHeadingProps) {
     );
 }
 
-interface ChartTitleProps extends React.HTMLAttributes<HTMLElement> { }
-export function ChartTitle({ children, className }: ChartTitleProps) {
+// BODY
+interface ChartBodyProps extends React.HTMLAttributes<HTMLDivElement> { }
+export function ChartBody({ children, className }: ChartBodyProps) {
+    return (
+        <div className={cn("flex flex-col gap-3 text-pretty", className)}>
+            {children}
+        </div>
+    );
+}
+
+// H1
+interface ChartH1TitleProps extends React.HTMLAttributes<HTMLElement> { }
+export function ChartH1Title({ children, className }: ChartH1TitleProps) {
     return (
         <h1
             className={cn(
@@ -32,36 +45,16 @@ export function ChartTitle({ children, className }: ChartTitleProps) {
     );
 }
 
-interface ChartDescriptionProps
-    extends React.ParamHTMLAttributes<HTMLParagraphElement> { }
-export function ChartDescription({
-    children,
-    className,
-}: ChartDescriptionProps) {
-    return <p className={cn(className)}>{children}</p>;
-}
-
-interface ChartProps extends React.HTMLAttributes<HTMLDivElement> { }
-export function Chart({ children, className }: ChartProps) {
+// H2
+interface ChartH2TitleProps extends React.HTMLAttributes<HTMLElement> { }
+export function ChartH2Title({ children, className }: ChartH2TitleProps) {
     return (
-        <div className={cn("w-full min-h-[350px] border rounded-md", className)}>
-            {children}
-        </div>
+        <h2 className={cn("font-sans text-xl font-bold", className)}>{children}</h2>
     );
 }
 
-interface ChartContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-    title: string;
-}
-export function ChartFinalComment({
-    children,
-    title,
-    className,
-}: ChartContainerProps) {
-    return (
-        <div className={cn(className)}>
-            <h2 className="font-sans text-xl font-bold">{title}</h2>
-            {children}
-        </div>
-    );
+// CONTAINER
+interface ChartContainerProps extends React.HTMLAttributes<HTMLDivElement> { }
+export function ChartContainer({ children, className }: ChartContainerProps) {
+    return <div className={cn(className)}>{children}</div>;
 }
