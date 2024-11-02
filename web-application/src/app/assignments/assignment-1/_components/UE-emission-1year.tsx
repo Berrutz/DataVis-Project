@@ -9,19 +9,17 @@ interface Data {
 
 const UEEmission1Year = () => {
     const [data, setData] = useState<Data[]>([]);
+    const [selectedYear, setSelectedYear] = useState<string>("2020"); // Set default year here
     const svgRef = useRef<SVGSVGElement | null>(null);
 
     // Fetch data from the API when the component mounts
     useEffect(() => {
         const fetchData = async () => {
-
-            // Transform data (parse emission as number)
             const csvData = await d3.csv("/DataVis-Project/datasets/co-emissions-per-capita.csv", (d) => ({
                 country: d.Entity,
                 year: d.Year,
                 emission: +d["Annual CO₂ emissions (per capita)"],
             }));
-
             setData(csvData);
         };
 
@@ -29,17 +27,17 @@ const UEEmission1Year = () => {
     }, []);
 
     useEffect(() => {
-        if (data.length === 0) return;
+        // Filter data based on the selected year
+        const filteredData = data.filter(d => d.year === selectedYear);
 
-        // Set up chart dimensions
+        if (filteredData.length === 0) return;
+
         const width = 800;
         const height = 500;
         const margin = { top: 20, right: 30, bottom: 40, left: 90 };
 
-        // Clear existing content
         d3.select(svgRef.current).selectAll('*').remove();
 
-        // Set up the SVG canvas
         const svg = d3
             .select(svgRef.current)
             .attr('width', width)
@@ -47,20 +45,18 @@ const UEEmission1Year = () => {
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);
 
-        // Set up scales
         const x = d3
             .scaleBand()
-            .domain(data.map(d => d.country))
+            .domain(filteredData.map(d => d.country))
             .range([0, width - margin.left - margin.right])
             .padding(0.2);
 
         const y = d3
             .scaleLinear()
-            .domain([0, d3.max(data, d => d.emission)!])
+            .domain([0, d3.max(filteredData, d => d.emission)!])
             .nice()
             .range([height - margin.top - margin.bottom, 0]);
 
-        // X axis
         svg
             .append('g')
             .attr('transform', `translate(0,${height - margin.top - margin.bottom})`)
@@ -69,13 +65,11 @@ const UEEmission1Year = () => {
             .attr('transform', 'rotate(-45)')
             .style('text-anchor', 'end');
 
-        // Y axis
         svg.append('g').call(d3.axisLeft(y));
 
-        // Bars
         svg
             .selectAll('rect')
-            .data(data)
+            .data(filteredData)
             .enter()
             .append('rect')
             .attr('x', d => x(d.country)!)
@@ -83,9 +77,21 @@ const UEEmission1Year = () => {
             .attr('width', x.bandwidth())
             .attr('height', d => height - margin.top - margin.bottom - y(d.emission))
             .attr('fill', '#69b3a2');
-    }, [data]);
+    }, [data, selectedYear]);
 
-    return <svg ref={svgRef}></svg>;
+    return (
+        <div>
+            <label>
+                Select Year:
+                <input
+                    type="number"
+                    value={selectedYear}
+                    onChange={e => setSelectedYear(e.target.value)}
+                />
+            </label>
+            <svg ref={svgRef}></svg>
+        </div>
+    );
 };
 
 export default UEEmission1Year;
