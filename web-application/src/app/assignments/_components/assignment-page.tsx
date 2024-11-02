@@ -23,20 +23,20 @@ export default function AssignmentPage({
     children,
 }: AssignmentPageProps) {
     return (
-        <main className="p-3 sm:p-6 md:p-12 min-h-dvh">
-            <div className="flex flex-col gap-3 items-center w-full">
-                <div className="text-center max-w-[750px] text-pretty">
+        <main className="flex flex-col items-center p-3 sm:p-6 md:p-12 min-h-dvh">
+            <div className="flex flex-col items-center w-full">
+                <div className="max-w-[850px]">
                     <motion.h1
                         variants={itemVariants}
                         initial="hidden"
                         animate="visible"
-                        className="font-serif text-3xl font-bold sm:text-4xl md:text-5xl"
+                        className="font-serif text-4xl font-bold sm:text-5xl md:text-5xl text-pretty"
                     >
                         {title}
                     </motion.h1>
+                    {children}
                 </div>
             </div>
-            {children}
         </main>
     );
 }
