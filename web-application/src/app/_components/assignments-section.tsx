@@ -14,7 +14,7 @@ type AssignmentDataType = {
 const assignmentsData: AssignmentDataType[] = [
   {
     name: "Assignment 1",
-    shortDescription: "This is the content of the assignment 1",
+    shortDescription: "Comparing categories",
   },
   {
     name: "Assignment 2",
