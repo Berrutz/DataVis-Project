@@ -15,7 +15,7 @@ import UEEmission1Year from "./_components/UE-emission-1year-plot";
 export default function Assignment1() {
     return (
         <AssignmentPage title={"Analysis of CO2 emissions per capita EU-27"}>
-            {/* <UEEmission1Year /> */}
+            {<UEEmission1Year />}
             <ChartSection>
                 <ChartHeading>
                     <ChartH1Title>
