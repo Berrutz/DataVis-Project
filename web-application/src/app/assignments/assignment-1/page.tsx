@@ -9,7 +9,8 @@ import {
     ChartH2Title,
     ChartBody,
 } from "../_components/chart-section";
-import UEEmission1Year from "./_components/UE-emission-1year";
+
+import UEEmission1Year from "./_components/UE-emission-1year-plot";
 
 export default function Assignment1() {
     return (

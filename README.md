@@ -47,6 +47,8 @@ yarn remove [package-name]
 To run the project in development mode enter the application folder and run the following command:
 
 ```bash
+cd web-application 
+yarn
 yarn dev
 ```
 
