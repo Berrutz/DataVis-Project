@@ -29,8 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sans_Serif.variable} ${serif_font.variable}`}
-      >
+        className={`${sans_Serif.variable}\t${serif_font.variable}`}>
         {children}
       </body>
     </html>
