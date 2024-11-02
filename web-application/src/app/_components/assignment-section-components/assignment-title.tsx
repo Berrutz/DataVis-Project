@@ -1,17 +1,22 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
-import { CurrentAssignmentType } from "../assignments-section";
+import {
+  AssignmentDataType,
+  CurrentAssignmentType,
+} from "../assignments-section";
 import { useInView } from "framer-motion";
-import { AssignmentDataType } from "@/app/assignments/_data/assignment-data";
 
 interface AssignmentTitlePorps {
   isSmallScreen: boolean;
   assignmentData: AssignmentDataType;
   setSelectedAss: React.Dispatch<React.SetStateAction<CurrentAssignmentType[]>>;
-};
+}
 
-export const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss }: AssignmentTitlePorps) => {
-
+export const AssignmentTitle = ({
+  assignmentData,
+  isSmallScreen,
+  setSelectedAss,
+}: AssignmentTitlePorps) => {
   const ref = useRef();
   //@ts-expect-error expected ref assignment error
   const bigView = useInView(ref, {
@@ -20,7 +25,7 @@ export const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss 
 
   //@ts-expect-error expected ref assignment error
   const smallView = useInView(ref, {
-    margin: "0px -38% 0px -38%"
+    margin: "0px -38% 0px -38%",
   });
 
   const isInView = isSmallScreen ? smallView : bigView;
@@ -31,28 +36,37 @@ export const AssignmentTitle = ({ assignmentData, isSmallScreen, setSelectedAss 
     }
 
     if (!isInView) {
-      setSelectedAss((prev) => prev.filter(name => name !== assignmentData.name));
+      setSelectedAss((prev) =>
+        prev.filter((name) => name !== assignmentData.name),
+      );
     }
-
-  }, [isInView, setSelectedAss])
+  }, [isInView, setSelectedAss]);
 
   return (
-    //@ts-expect-error expected ref assignment error 
-    <div ref={ref} className={cn(
-      "w-[250px] text-center transition-transform sm:max-w-[250px]",
-      isInView && "scale-105"
-    )}>
+    //@ts-expect-error expected ref assignment error
+    <div
+      ref={ref}
+      className={cn(
+        "w-[250px] text-center transition-transform sm:max-w-[250px]",
+        isInView && "scale-105",
+      )}
+    >
       <h1
         className={cn(
           "duration-400 mb-3 font-serif text-4xl font-bold text-gray-400 transition-colors",
           isInView && "text-foreground",
-        )}>{assignmentData.name}</h1>
+        )}
+      >
+        {assignmentData.name}
+      </h1>
       <h2
         className={cn(
           "duration-400 text-xl font-medium leading-4 text-gray-200 transition-colors",
           isInView && "text-gray-500",
         )}
-      >{assignmentData.shortDescription}</h2>
+      >
+        {assignmentData.shortDescription}
+      </h2>
     </div>
-  )
-}
+  );
+};
