@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { MdHome } from "react-icons/md";
 
@@ -6,12 +7,14 @@ export default function AssignmentsLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="relative">
-      <Link
-        href="/#assignments"
-        className="flex absolute top-1 left-1 justify-center items-center text-2xl rounded-full border shadow-md sm:top-3 sm:left-3 z-[999] aspect-square h-[40px] bg-background/60 backdrop-blur-md xs:left-2 xs:top-2"
-      >
-        <MdHome />
-      </Link>
+      <nav className="p-3 w-full shadow-md">
+        <Button asChild>
+          <Link href="/#assignments">
+            <MdHome className="mr-2" />
+            Back to homepage
+          </Link>
+        </Button>
+      </nav>
       {children}
     </div>
   );
