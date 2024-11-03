@@ -111,7 +111,7 @@ function parseChartSection(chartSection: ReactElement<ChartSectionProps>) {
   const asideSectionChildren: AsideElement[] = [];
 
   const chartSectionChildren = React.Children.map(
-    chartSection.props.children,
+    chartSection.props.children as ReactElement,
     (child) => {
       if (ensureValidReactElement(child, ChartHeading)) {
         const chartHeading = child as React.ReactElement<ChartHeadingProps>;
@@ -157,7 +157,7 @@ function parseChartHeading(chartHeading: ReactElement<ChartHeadingProps>) {
   const asideElements: AsideElement[] = [];
 
   const chartHeadingChildren = React.Children.map(
-    chartHeading.props.children,
+    chartHeading.props.children as ReactElement,
     (child) => {
       if (!ensureValidReactElement(child, ChartContainer)) {
         return child;
@@ -185,7 +185,7 @@ function parseChartBody(chartBody: ReactElement<ChartBodyProps>) {
   const asideElements: AsideElement[] = [];
 
   const chartHeadingChildren = React.Children.map(
-    chartBody.props.children,
+    chartBody.props.children as ReactElement,
     (child) => {
       if (!ensureValidReactElement(child, ChartContainer)) {
         return child;
@@ -241,12 +241,10 @@ function ContainerInViewWrapper({
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "-28% 0px -70% 0px",
+    margin: "0px 0px -98% 0px",
   });
 
   useEffect(() => {
-    console.log("Is in view: ", isInView);
-
     if (isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
@@ -272,11 +270,10 @@ function SectionInViewWrapper({
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "-28% 0px -70% 0px",
+    margin: "0px 0px -98% 0px",
   });
 
   useEffect(() => {
-    console.log("Is in view: ", isInView);
     if (isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
