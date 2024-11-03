@@ -91,7 +91,7 @@ const UEEmission1Year = () => {
             .attr('y', d => y(d.emission))
             .attr('width', x.bandwidth())
             .attr('height', d => height - margin.top - margin.bottom - y(d.emission))
-            .attr('fill', '#9300b0');
+            .attr('fill', '#0F172A');
     }, [data, selectedYear]);
 
     const yearOptions = Array.from({ length: yearEnd - yearStart + 1 }, (_, i) => `${yearStart + i}`);
@@ -99,7 +99,7 @@ const UEEmission1Year = () => {
     return (
         <div className="p-[1px] bg-text-grad rounded">
             <div className="bg-white p-4 rounded">
-                <label className="flex mb-2 justify-end items-center">
+                <label className="flex mb-1 justify-end items-center">
                     <p className="font-medium">Select Year</p>
                     <select
                         value={selectedYear}
@@ -113,7 +113,9 @@ const UEEmission1Year = () => {
                         ))}
                     </select>
                 </label>
-                <svg ref={svgRef}></svg>
+                <div className="overflow-x-scroll">
+                    <svg ref={svgRef} className="overflow-x-scroll"></svg>
+                </div>
             </div>
         </div>
     );
