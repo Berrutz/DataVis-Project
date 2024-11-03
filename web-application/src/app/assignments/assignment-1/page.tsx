@@ -9,13 +9,17 @@ import {
     ChartH2Title,
     ChartBody,
 } from "../_components/chart-section";
-import UEEmission1Year from "./_components/UE-emission-1year";
-import UEEmissionDecade from "./_components/UE-emission-decade";
+
+import UEEmission1Year from "./_components/UE-emission-1year-plot";
 
 export default function Assignment1() {
     return (
         <AssignmentPage title={"Analysis of CO2 emissions per capita EU-27"}>
-            <ChartSection>
+            <ChartSection
+                asideName="Single Year Comparison of CO2"
+                id="single-co2"
+                asideKey="single-co2"
+            >
                 <ChartHeading>
                     <ChartH1Title>
                         Single year comparison of CO2 emissions per capita
@@ -28,49 +32,59 @@ export default function Assignment1() {
                     </p>
                 </ChartHeading>
                 <ChartBody>
-                    <UEEmission1Year />
-                    <ChartContainer>
+                    <ChartContainer asideName="Chart" asideKey="chart-1" id="chart-1">
+                        <UEEmission1Year />
+                    </ChartContainer>
+                    <ChartContainer
+                        asideName="Used Metodologies"
+                        id="metodo-1"
+                        asideKey="metodo-1"
+                    >
                         <ChartH2Title>Used Medotologies</ChartH2Title>
                         <p>
-                            From the database provided by Our World In Data containing data
-                            on per capita CO2 emissions of all countries, only those relating
-                            to the countries of the European Union (EU-27) have been extracted.
-                            The data are displayed on request depending on the selected year.
+                            From the database provided by Our World In Data containing the
+                            data of per capita CO2 emissions of all countries, only the data
+                            concerning the European Union (EU-27) countries were extracted.
                         </p>
                     </ChartContainer>
-                    <ChartContainer>
-                        <ChartH2Title>Comment</ChartH2Title>dsadsads
+                    <ChartContainer
+                        asideName="Comment"
+                        id="comment-1"
+                        asideKey="comment-1"
+                    >
+                        <ChartH2Title>Comment</ChartH2Title>
                     </ChartContainer>
                 </ChartBody>
             </ChartSection>
 
-            <ChartSection>
+            <ChartSection asideName="CO2 Comparison 2012-2022" asideKey="co2-comp-1">
                 <ChartHeading>
                     <ChartH1Title>
-                        Decade comparison of CO2 emissions per capita
+                        Comparison of CO2 emissions per capita of the decade 2012-2022
                     </ChartH1Title>
                     <p>
-                        This graph compares the CO2 emissions per capita of the European Union
-                        (EU-27) member countries in a given decade, the countries are
+                        This graph shows the CO2 emissions per capita of the European Union
+                        (EU-27) member countries in the decade 2012-2022, the countries are
                         sorted by per capita emissions in descending order.
                     </p>
                 </ChartHeading>
                 <ChartBody>
-                    <UEEmissionDecade />
-                    <ChartContainer>
+                    <ChartContainer asideName="Used Metodologies" asideKey="usd-2">
                         <ChartH2Title>Used Medotologies</ChartH2Title>
                         <p>
-                            From the database provided by Our World In Data containing data on per
-                            capita CO2 emissions of all countries, only those concerning the
-                            countries of the European Union (EU-27) were extracted, subsequently
-                            an average of the per capita emissions in the selected decade was carried out.
+                            From the database provided by Our World In Data containing the
+                            data on per capita CO2 emissions of all countries, only the data
+                            regarding the countries of the European Union (EU-27) were
+                            extracted and an average of the per capita emissions was made in
+                            the decade 2012-2022
                         </p>
                     </ChartContainer>
-                    <ChartContainer>
-                        <ChartH2Title>Comment</ChartH2Title>dsadsads
+                    <ChartContainer asideName="Comment" asideKey="com-2">
+                        <ChartH2Title>Comment</ChartH2Title>
                     </ChartContainer>
                 </ChartBody>
             </ChartSection>
+            <div className="h-[400vh]" />
         </AssignmentPage>
     );
 }
