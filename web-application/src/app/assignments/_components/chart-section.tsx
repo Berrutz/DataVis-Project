@@ -15,7 +15,7 @@ export function ChartSection({
     ...props
 }: ChartSectionProps) {
     return (
-        <section className={cn("mt-24 flex flex-col gap-12", className)} {...props}>
+        <section className={cn("mt-24 flex flex-col gap-3", className)} {...props}>
             {children}
         </section>
     );
