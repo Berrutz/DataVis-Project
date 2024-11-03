@@ -96,7 +96,7 @@ export function ChartContainer({
   ...props
 }: ChartContainerProps) {
   return (
-    <div className={cn(className)} {...props}>
+    <div className={cn("scroll-mt-[100px]", className)} {...props}>
       {children}
     </div>
   );

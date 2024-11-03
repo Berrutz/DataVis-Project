@@ -241,7 +241,7 @@ function ContainerInViewWrapper({
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "-28% 0px -70% 0px",
+    margin: "-20% 0px -80% 0px",
   });
 
   useEffect(() => {
@@ -272,7 +272,7 @@ function SectionInViewWrapper({
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "-28% 0px -70% 0px",
+    margin: "-22% 0px -78% 0px",
   });
 
   useEffect(() => {
