@@ -10,7 +10,7 @@ import {
     ChartBody,
 } from "../_components/chart-section";
 
-import UEEmission1Year from "./_components/UE-emission-1year-plot";
+import UEEmission1Year from "./_components/UE-emission-1year";
 
 export default function Assignment1() {
     return (
@@ -42,9 +42,10 @@ export default function Assignment1() {
                     >
                         <ChartH2Title>Used Medotologies</ChartH2Title>
                         <p>
-                            From the database provided by Our World In Data containing the
-                            data of per capita CO2 emissions of all countries, only the data
-                            concerning the European Union (EU-27) countries were extracted.
+                            From the database provided by Our World In Data containing data
+                            on per capita CO2 emissions of all countries, only those relating
+                            to the countries of the European Union (EU-27) have been extracted.
+                            The data are displayed on request depending on the selected year.
                         </p>
                     </ChartContainer>
                     <ChartContainer
@@ -60,11 +61,11 @@ export default function Assignment1() {
             <ChartSection asideName="CO2 Comparison 2012-2022" asideKey="co2-comp-1">
                 <ChartHeading>
                     <ChartH1Title>
-                        Comparison of CO2 emissions per capita of the decade 2012-2022
+                        Decade comparison of CO2 emissions per capita
                     </ChartH1Title>
                     <p>
-                        This graph shows the CO2 emissions per capita of the European Union
-                        (EU-27) member countries in the decade 2012-2022, the countries are
+                        This graph compares the CO2 emissions per capita of the European Union
+                        (EU-27) member countries in a given decade, the countries are
                         sorted by per capita emissions in descending order.
                     </p>
                 </ChartHeading>
@@ -72,11 +73,10 @@ export default function Assignment1() {
                     <ChartContainer asideName="Used Metodologies" asideKey="usd-2">
                         <ChartH2Title>Used Medotologies</ChartH2Title>
                         <p>
-                            From the database provided by Our World In Data containing the
-                            data on per capita CO2 emissions of all countries, only the data
-                            regarding the countries of the European Union (EU-27) were
-                            extracted and an average of the per capita emissions was made in
-                            the decade 2012-2022
+                            From the database provided by Our World In Data containing data on per
+                            capita CO2 emissions of all countries, only those concerning the
+                            countries of the European Union (EU-27) were extracted, subsequently
+                            an average of the per capita emissions in the selected decade was carried out.
                         </p>
                     </ChartContainer>
                     <ChartContainer asideName="Comment" asideKey="com-2">
