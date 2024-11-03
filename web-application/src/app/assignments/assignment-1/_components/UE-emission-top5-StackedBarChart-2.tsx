@@ -25,6 +25,10 @@ const StackedBarChart2 = () => {
 
             // Find the "Others" row
             const othersData = csvData.find(d => d.entity === "Others");
+            if (!othersData) {
+                console.error("No 'Others' data found in the dataset.");
+                return;
+            }
 
             // Prepare structured data for each top emitter and the corresponding "Other" category
             const structuredData = top5.map(emitter => {
