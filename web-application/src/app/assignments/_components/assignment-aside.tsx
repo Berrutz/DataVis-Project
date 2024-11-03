@@ -38,7 +38,7 @@ export const PageAsideNavigation = ({
   return (
     <aside
       className={cn(
-        "fixed right-0 top-0 border-l bottom-0 bg-background w-[min(100%,_400px)] p-3 pt-16",
+        "fixed right-0 top-0 z-[999] border-l bottom-0 bg-background w-[min(100%,_400px)] p-3 pt-16",
         !isOpen && "hidden",
       )}
     >
