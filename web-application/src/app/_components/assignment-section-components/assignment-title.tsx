@@ -43,8 +43,8 @@ export const AssignmentTitle = ({
   }, [isInView, setSelectedAss]);
 
   return (
-    //@ts-expect-error expected ref assignment error
     <div
+      //@ts-expect-error expected ref assignment error
       ref={ref}
       className={cn(
         "w-[250px] text-center transition-transform sm:max-w-[250px]",
