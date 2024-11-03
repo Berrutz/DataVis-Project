@@ -75,9 +75,9 @@ export default function Assignment1() {
           </p>
         </ChartHeading>
         <ChartBody>
-          <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
+          {/* <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
             <UEEmissionDecade />
-          </ChartContainer>
+          </ChartContainer> */}
           <ChartContainer
             asidename="Used Metodologies"
             id="used-metodologies-2"
