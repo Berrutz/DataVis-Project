@@ -1,4 +1,29 @@
 import { cn } from "@/lib/utils";
+import { HTMLMotionProps, motion } from "framer-motion";
+
+const sectionVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const childVariants = {
+  hidden: {
+    opacity: 0,
+    y: -20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 export interface AsideChartProps {
   asidename: string;
@@ -7,48 +32,56 @@ export interface AsideChartProps {
 
 // SECTION
 export interface ChartSectionProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    AsideChartProps {}
+  extends AsideChartProps,
+    HTMLMotionProps<"section"> {}
 export function ChartSection({
   children,
   className,
   ...props
 }: ChartSectionProps) {
   return (
-    <section className={cn("mt-24 flex flex-col gap-3", className)} {...props}>
+    <motion.section
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={cn("mt-24 flex flex-col gap-3", className)}
+      {...props}
+    >
       {children}
-    </section>
+    </motion.section>
   );
 }
 
 // HEADING
-export interface ChartHeadingProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ChartHeadingProps extends HTMLMotionProps<"div"> {}
 export function ChartHeading({
   children,
   className,
   ...props
 }: ChartHeadingProps) {
   return (
-    <div
+    <motion.div
+      variants={childVariants}
       className={cn("flex flex-col gap-3 text-pretty", className)}
       {...props}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
 // BODY
-export interface ChartBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ChartBodyProps extends HTMLMotionProps<"div"> {}
 export function ChartBody({ children, className, ...props }: ChartBodyProps) {
   return (
-    <div
+    <motion.div
+      variants={childVariants}
       className={cn("flex flex-col gap-3 text-pretty", className)}
       {...props}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -88,7 +121,7 @@ export function ChartH2Title({
 
 // CONTAINER
 export interface ChartContainerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends HTMLMotionProps<"div">,
     AsideChartProps {}
 export function ChartContainer({
   children,
@@ -96,8 +129,8 @@ export function ChartContainer({
   ...props
 }: ChartContainerProps) {
   return (
-    <div className={cn("scroll-mt-[100px]", className)} {...props}>
+    <motion.div variants={childVariants} className={cn(className)} {...props}>
       {children}
-    </div>
+    </motion.div>
   );
 }
