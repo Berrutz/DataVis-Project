@@ -11,6 +11,7 @@ import {
 } from "../_components/chart-section";
 
 import UEEmission1Year from "./_components/UE-emission-1year";
+import UEEmissionDecade from "./_components/UE-emission-decade";
 
 export default function Assignment1() {
   return (
@@ -59,9 +60,9 @@ export default function Assignment1() {
       </ChartSection>
 
       <ChartSection
-        asidename="CO2 Comparison 2012-2022"
-        id="CO2 Comparison 2012-2022"
-        asidekey="CO2 Comparison 2012-2022"
+        asidename="CO2 Decade Comparison"
+        id="CO2 Decade Comparison"
+        asidekey="CO2 Decade Comparison"
       >
         <ChartHeading>
           <ChartH1Title>
@@ -74,6 +75,9 @@ export default function Assignment1() {
           </p>
         </ChartHeading>
         <ChartBody>
+          <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
+            <UEEmissionDecade />
+          </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
             id="used-metodologies-2"

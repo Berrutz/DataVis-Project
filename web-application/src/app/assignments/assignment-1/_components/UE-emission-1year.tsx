@@ -114,7 +114,7 @@ const UEEmission1Year = () => {
                     </select>
                 </label>
                 <div className="overflow-x-scroll">
-                    <svg ref={svgRef} className="overflow-x-scroll"></svg>
+                    <svg ref={svgRef} className="flex"></svg>
                 </div>
             </div>
         </div>
