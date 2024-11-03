@@ -245,8 +245,6 @@ function ContainerInViewWrapper({
   });
 
   useEffect(() => {
-    console.log("Is in view: ", isInView);
-
     if (isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
@@ -276,7 +274,6 @@ function SectionInViewWrapper({
   });
 
   useEffect(() => {
-    console.log("Is in view: ", isInView);
     if (isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
