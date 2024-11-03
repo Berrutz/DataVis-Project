@@ -46,6 +46,10 @@ const StackedBarChart2 = () => {
 
             // Calculate max "Other" sum and normalize data
             const maxSumOther = d3.max(structuredData, d => d.other);
+            if (!maxSumOther) {
+                console.error("No 'Others' data found in the dataset.");
+                return;
+            }
 
             const normalizedData = structuredData.map(d => ({
                 entity: d.entity,
