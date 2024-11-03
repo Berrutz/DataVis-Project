@@ -3,19 +3,21 @@ import * as d3 from 'd3';
 
 interface Data {
     country: string;
+    code: string;
     year: string;
     emission: number;
 }
 
 const UEEmissionDecade = () => {
     const [data, setData] = useState<Data[]>([]);
-    const [selectedDecade, setSelectedDecade] = useState<number>(2013); // Default decade
+    const [selectedDecade, setSelectedDecade] = useState<number>(2012); // Default decade
     const svgRef = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const csvData = await d3.csv("/DataVis-Project/datasets/co-emissions-per-capita-ue.csv", (d) => ({
                 country: d.Entity,
+                code: d.Code,
                 year: d.Year,
                 emission: +d["Annual CO₂ emissions (per capita)"],
             }));
@@ -35,9 +37,9 @@ const UEEmissionDecade = () => {
 
         // Group data by country and calculate the average emissions for each country
         const decadeAverages = Array.from(
-            d3.group(decadeData, d => d.country),
-            ([country, values]) => ({
-                country,
+            d3.group(decadeData, d => d.code),
+            ([code, values]) => ({
+                code,
                 averageEmission: d3.mean(values, d => d.emission) || 0,
             })
         );
@@ -62,7 +64,7 @@ const UEEmissionDecade = () => {
 
         const x = d3
             .scaleBand()
-            .domain(decadeAverages.map(d => d.country))
+            .domain(decadeAverages.map(d => d.code))
             .range([0, width - margin.left - margin.right])
             .padding(0.2);
 
@@ -80,18 +82,26 @@ const UEEmissionDecade = () => {
             .attr('transform', 'rotate(-45)')
             .style('text-anchor', 'end');
 
-        svg.append('g').call(d3.axisLeft(y));
+        svg
+            .append("g")
+            .call(d3.axisLeft(y).tickFormat((d) => `${d} t`))
+            .append("text")
+            .attr("text-anchor", "end")
+            .attr("fill", "black")
+            .attr("font-weight", "bold")
+            .attr("y", -10)
+            .attr("x", -10);
 
         svg
             .selectAll('rect')
             .data(decadeAverages)
             .enter()
             .append('rect')
-            .attr('x', d => x(d.country)!)
+            .attr('x', d => x(d.code)!)
             .attr('y', d => y(d.averageEmission))
             .attr('width', x.bandwidth())
             .attr('height', d => height - margin.top - margin.bottom - y(d.averageEmission))
-            .attr('fill', '#9300b0');
+            .attr('fill', '#0F172A');
     }, [data, selectedDecade]);
 
     return (

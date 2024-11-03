@@ -77,7 +77,7 @@ const UEEmission1Year = () => {
 
         svg
             .append("g")
-            .call(d3.axisLeft(y).tickFormat((d) => `${d} t`)) // Add unit measure
+            .call(d3.axisLeft(y).tickFormat((d) => `${d} t`))
             .append("text")
             .attr("text-anchor", "end")
             .attr("fill", "black")
