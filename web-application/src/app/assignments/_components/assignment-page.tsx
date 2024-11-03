@@ -38,7 +38,7 @@ export default function AssignmentPage({
           onClick={() => setIsOpen((prev) => !prev)}
           variant={"outline"}
           size="icon"
-          className="fixed top-3 right-3 z-[999]"
+          className="fixed top-3 right-3 z-[1000]"
         >
           {isOpen ? <X /> : <Menu />}
         </Button>
