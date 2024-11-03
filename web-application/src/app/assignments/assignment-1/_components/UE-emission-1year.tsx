@@ -32,6 +32,8 @@ const UEEmission1Year = () => {
 
         if (filteredData.length === 0) return;
 
+        filteredData.sort((a, b) => b.emission - a.emission);
+
         const width = 800;
         const height = 500;
         const margin = { top: 20, right: 30, bottom: 40, left: 90 };
@@ -76,7 +78,7 @@ const UEEmission1Year = () => {
             .attr('y', d => y(d.emission))
             .attr('width', x.bandwidth())
             .attr('height', d => height - margin.top - margin.bottom - y(d.emission))
-            .attr('fill', '#69b3a2');
+            .attr('fill', '#9300b0');
     }, [data, selectedYear]);
 
     return (
