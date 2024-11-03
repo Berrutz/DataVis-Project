@@ -25,6 +25,10 @@ const StackedBarChart = () => {
 
             // Trova la riga "Others"
             const othersData = csvData.find(d => d.entity === "Others");
+            if (!othersData) {
+                console.error("No 'Others' data found in the dataset.");
+                return;
+            }
 
             // Calcola i dati strutturati per ogni paese
             const structuredData = top5.map(emitter => {
@@ -35,7 +39,7 @@ const StackedBarChart = () => {
                     .reduce((sum, d) => sum + d.emission, 0);
 
                 // Stampa il valore di otherSum per il paese corrente
-                console.log(`${emitter.entity} Others Sum: ${otherSum}`);
+                //console.log(`${emitter.entity} Others Sum: ${otherSum}`);
                 
                 return {
                     entity: emitter.entity,
@@ -114,21 +118,23 @@ const StackedBarChart = () => {
         const legend = svg.append("g")
             .attr("transform", `translate(0, -50)`); // Posiziona la legenda sopra l'asse x
 
-            ["Country", "Other"].forEach((key, i) => {
-                legend.append("rect")
-                    .attr("x", i * 100)
-                    .attr("y", -10)
-                    .attr("width", 15)
-                    .attr("height", 15)
-                    .attr("fill", color(key));
-                
-                legend.append("text")
-                    .attr("x", i * 100 + 20)
-                    .attr("y", 0)
-                    .text(key)
-                    .style("font-size", "12px")
-                    .attr("alignment-baseline", "middle");
-            });
+         // Position and add a label for "Country" above the left bar chart
+        svg.append("text")
+        .attr("x", margin.bottom / 2.0 )  
+        .attr("y", -20)  // Position above the chart area
+        .attr("text-anchor", "middle")
+        .style("fill", color("Country"))
+        .style("font-weight", "bold")
+        .text("Country");
+
+        // Position and add a label for "Other" above the right bar chart
+        svg.append("text")
+        .attr("x", 2.5 * ( margin.left )  )
+        .attr("y", -20)  // Position above the chart area
+        .attr("text-anchor", "middle")
+        .style("fill", color("Other"))
+        .style("font-weight", "bold")
+        .text("Other");
 
     }, [data]);
 

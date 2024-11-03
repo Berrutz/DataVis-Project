@@ -12,6 +12,8 @@ import {
 
 import UEEmission1Year from "./_components/UE-emission-1year";
 import UEEmissionDecade from "./_components/UE-emission-decade";
+import StackedBarChart from "./_components/UE-emission-top5-StackedBarChart";
+import StackedBarChart2 from "./_components/UE-emission-top5-StackedBarChart-2";
 
 export default function Assignment1() {
   return (
@@ -101,6 +103,95 @@ export default function Assignment1() {
           </ChartContainer>
         </ChartBody>
       </ChartSection>
+
+
+      <ChartSection
+        asidename="CO2 StackedBarChart Comparison"
+        id="CO2 StackedBarChart Comparison"
+        asidekey="CO2 StackedBarChart Comparison"
+      >
+        <ChartHeading>
+          <ChartH1Title>
+          StackedBarChart comparison of CO2 emissions per capita
+          </ChartH1Title>
+          <p>
+            This graph compares the CO2 emissions per capita of the European
+            Union (EU-27) member countries in a given StackedBarChart.
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          {
+          <ChartContainer asidename="Chart" asidekey="chart-3" id="chart-3">
+            <StackedBarChart />
+          </ChartContainer> 
+          }
+          <ChartContainer
+            asidename="Used Metodologies"
+            id="used-metodologies-3"
+            asidekey="used-metodologies-3"
+          >
+            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <p>
+              From the database provided by Our World In Data containing data on
+              per capita CO2 emissions of all countries, only those concerning
+              the countries of the European Union (EU-27) were extracted .
+            </p>
+          </ChartContainer>
+          <ChartContainer
+            asidename="Comment"
+            id="comment-3"
+            asidekey="comment-3"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+          </ChartContainer>
+        </ChartBody>
+      </ChartSection>
+
+      
+      <ChartSection
+        asidename="CO2 StackedBarChart Comparison"
+        id="CO2 StackedBarChart Comparison"
+        asidekey="CO2 StackedBarChart Comparison"
+      >
+        <ChartHeading>
+          <ChartH1Title>
+          StackedBarChart comparison of CO2 emissions per capita
+          </ChartH1Title>
+          <p>
+            This graph compares the CO2 emissions per capita of the European
+            Union (EU-27) member countries in a given StackedBarChart.
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          {
+          <ChartContainer asidename="Chart" asidekey="chart-4" id="chart-4">
+            <StackedBarChart2 />
+          </ChartContainer> 
+          }
+          <ChartContainer
+            asidename="Used Metodologies"
+            id="used-metodologies-4"
+            asidekey="used-metodologies-4"
+          >
+            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <p>
+              From the database provided by Our World In Data containing data on
+              per capita CO2 emissions of all countries, only those concerning
+              the countries of the European Union (EU-27) were extracted .
+            </p>
+          </ChartContainer>
+          <ChartContainer
+            asidename="Comment"
+            id="comment-4"
+            asidekey="comment-4"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+          </ChartContainer>
+        </ChartBody>
+      </ChartSection>
+
+
+
       <div className="h-[400vh]" />
     </AssignmentPage>
   );
