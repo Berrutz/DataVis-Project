@@ -44,7 +44,7 @@ export default function AssignmentPage({
         </Button>
         <PageAsideNavigation isOpen={isOpen} asideContent={asideContent} />
         <div className="flex flex-col items-center w-full">
-          <div className="max-w-[850px]">
+          <div className="w-[min(100%,_850px)]">
             <motion.h1
               variants={itemVariants}
               initial="hidden"

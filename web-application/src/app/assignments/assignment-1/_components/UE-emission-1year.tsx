@@ -107,7 +107,7 @@ const UEEmission1Year = () => {
 
   return (
     <div className="flex relative justify-center items-center w-full">
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-0 right-0 sm:top-4 sm:right-4">
         <label>Selected Year: </label>
         <select
           value={selectedYear}
@@ -121,7 +121,9 @@ const UEEmission1Year = () => {
           ))}
         </select>
       </div>
-      <svg ref={svgRef} />
+      <div className="overflow-x-auto h-full w-fit">
+        <svg ref={svgRef} />
+      </div>
     </div>
   );
 };
