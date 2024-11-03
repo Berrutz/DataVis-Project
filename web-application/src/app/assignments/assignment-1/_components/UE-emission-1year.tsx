@@ -105,25 +105,27 @@ const UEEmission1Year = () => {
         (_, i) => `${yearStart + i}`,
     );
 
-    return (
-        <div className="flex relative justify-center items-center w-full">
-            <div className="absolute top-4 right-4">
-                <label>Selected Year: </label>
-                <select
-                    value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
-                    className="py-1 px-2 ml-2 rounded-md border bg-background"
-                >
-                    {yearOptions.map((year) => (
-                        <option key={year} value={year}>
-                            {year}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <svg ref={svgRef} />
-        </div>
-    );
+  return (
+    <div className="flex relative justify-center items-center w-full">
+      <div className="absolute top-0 right-0 sm:top-4 sm:right-4">
+        <label>Selected Year: </label>
+        <select
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
+        >
+          {yearOptions.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="overflow-x-auto h-full w-fit">
+        <svg ref={svgRef} />
+      </div>
+    </div>
+  );
 };
 
 export default UEEmission1Year;
