@@ -9,6 +9,7 @@ import {
   ChartH2Title,
   ChartBody,
 } from "../_components/chart-section";
+import StackedBarChartCarousel from "./_components/stacked-barchart-carousel";
 
 import UEEmission1Year from "./_components/UE-emission-1year";
 import UEEmissionDecade from "./_components/UE-emission-decade";
@@ -146,7 +147,7 @@ export default function Assignment1() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-3" id="chart-3">
-            <StackedBarChart />
+            <StackedBarChartCarousel />
           </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
