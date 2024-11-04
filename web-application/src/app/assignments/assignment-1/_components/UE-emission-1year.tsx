@@ -98,7 +98,6 @@ const UEEmission1Year = () => {
                 (d) => height - margin.top - margin.bottom - y(d.emission),
             )
             .attr("fill", "#0F172A");
-
     }, [data, selectedYear]);
 
     const yearOptions = Array.from(
