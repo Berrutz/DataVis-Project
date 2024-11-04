@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import React, { ReactElement, useEffect, useRef } from "react";
 import { ReactNode } from "react";
 import {
@@ -33,7 +33,8 @@ export const PageAsideNavigation = ({
   isOpen: boolean;
   asideContent: AsideSection[];
 }) => {
-  const { activeAsideSection } = useActiveAsideSectionContext();
+  const { activeAsideSection, setActiveAsideSection, setTimeLastClick } =
+    useActiveAsideSectionContext();
 
   return (
     <aside
@@ -48,14 +49,26 @@ export const PageAsideNavigation = ({
             <Link
               className="relative z-20 py-1 px-2 w-full font-bold"
               href={`#${sec.elem.id}` || "#"}
+              onClick={() => {
+                setTimeLastClick(Date.now);
+                setActiveAsideSection({
+                  subsectionkey: "",
+                  sectionkey: sec.elem.asidekey,
+                });
+              }}
             >
               {sec.elem.name}
-              {activeAsideSection?.sectionkey === sec.elem.asidekey && (
-                <motion.span
-                  layoutId="section-aside-lid"
-                  className="absolute inset-0 bg-gray-300 rounded-md z-[-10]"
-                />
-              )}
+              <AnimatePresence>
+                {activeAsideSection?.sectionkey === sec.elem.asidekey && (
+                  <motion.span
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    layoutId="section-aside-lid"
+                    className="absolute inset-0 rounded-md border shadow-md z-[-10]"
+                  />
+                )}
+              </AnimatePresence>
             </Link>
           </div>
 
@@ -65,14 +78,26 @@ export const PageAsideNavigation = ({
                 className="relative z-20 py-1 pl-6"
                 href={`#${subsec.id}` || "#"}
                 key={`${secIndex}-${elemIndex}`}
+                onClick={() => {
+                  setTimeLastClick(Date.now);
+                  setActiveAsideSection({
+                    subsectionkey: subsec.asidekey,
+                    sectionkey: sec.elem.asidekey,
+                  });
+                }}
               >
                 {subsec.name}
-                {activeAsideSection?.subsectionkey === subsec.asidekey && (
-                  <motion.span
-                    layoutId="container-aside-lid"
-                    className="absolute inset-0 bg-gray-100 rounded-md z-[-10]"
-                  />
-                )}
+                <AnimatePresence>
+                  {activeAsideSection?.subsectionkey === subsec.asidekey && (
+                    <motion.span
+                      exit={{ opacity: 0 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      layoutId="container-aside-lid"
+                      className="absolute inset-0 bg-gray-100 rounded-md z-[-10]"
+                    />
+                  )}
+                </AnimatePresence>
               </Link>
             ))}
           </div>
@@ -252,6 +277,14 @@ function ContainerInViewWrapper({
           sectionkey: prev?.sectionkey || "",
         };
       });
+    } else if (!isInView && Date.now() - timeLastClick > 1000) {
+      setActiveAsideSection((prev) => {
+        return {
+          subsectionkey:
+            containerAsideKey === prev.subsectionkey ? "" : prev.subsectionkey,
+          sectionkey: prev?.sectionkey || "",
+        };
+      });
     }
   }, [isInView, timeLastClick, containerAsideKey, setActiveAsideSection]);
 
@@ -270,7 +303,7 @@ function SectionInViewWrapper({
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "0px 0px -98% 0px",
+    margin: "0px 0px -90% 0px",
   });
 
   useEffect(() => {
