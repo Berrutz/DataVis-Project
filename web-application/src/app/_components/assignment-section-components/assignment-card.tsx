@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { CurrentAssignmentType } from "../assignments-section";
 import { motion } from "framer-motion";
-import UEEmission1Year from "@/app/assignments/assignment-1/_components/UE-emission-1year";
+import UEEmission1Year from "@/app/assignments/assignment-1/_components/eu-emission-1year";
 import Image from "next/image";
 
 interface BaseAssignmentCardProps {

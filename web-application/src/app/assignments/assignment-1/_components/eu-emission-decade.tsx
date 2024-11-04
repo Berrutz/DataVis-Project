@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { getStaticFile } from '@/utils/general';
 
 interface Data {
     country: string;
@@ -23,7 +24,7 @@ const UEEmissionDecade = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const csvData = await d3.csv("/DataVis-Project/datasets/co-emissions-per-capita-ue.csv", (d) => ({
+            const csvData = await d3.csv(getStaticFile("/datasets/co-emissions-per-capita-ue.csv"), (d) => ({
                 country: d.Entity,
                 code: d.Code,
                 year: d.Year,

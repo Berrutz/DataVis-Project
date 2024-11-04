@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import StackedBarChart from './UE-emission-top5-StackedBarChart';
-import StackedBarChart2 from './UE-emission-top5-StackedBarChart-2';
+import StackedBarChart from './eu-emission-stacked-bar-chart';
+import StackedBarChart2 from './eu-emission-stacked-bar-chart-2';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 

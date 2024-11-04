@@ -11,10 +11,10 @@ import {
 } from "../_components/chart-section";
 import StackedBarChartCarousel from "./_components/stacked-barchart-carousel";
 
-import UEEmission1Year from "./_components/UE-emission-1year";
-import UEEmissionDecade from "./_components/UE-emission-decade";
-import StackedBarChart from "./_components/UE-emission-top5-StackedBarChart";
-import StackedBarChart2 from "./_components/UE-emission-top5-StackedBarChart-2";
+import UEEmission1Year from "./_components/eu-emission-1year";
+import UEEmissionDecade from "./_components/eu-emission-decade";
+import StackedBarChart from "./_components/eu-emission-stacked-bar-chart";
+import StackedBarChart2 from "./_components/eu-emission-stacked-bar-chart-2";
 
 export default function Assignment1() {
   return (
