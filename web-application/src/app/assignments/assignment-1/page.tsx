@@ -212,8 +212,6 @@ export default function Assignment1() {
           </ChartContainer>
         </ChartBody>
       </ChartSection>
-
-      <div className="h-[400vh]" />
     </AssignmentPage>
   );
 }
