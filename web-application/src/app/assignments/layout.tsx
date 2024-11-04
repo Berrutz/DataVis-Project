@@ -16,8 +16,7 @@ export default function AssignmentsLayout({
         </Button>
       </nav>
       {children}
-      <footer className="mt-auto min-h-[100vh]">
-        <div className="min-h-[50vh]" />
+      <footer className="mt-auto">
         <div className="flex justify-evenly p-6 min-h-[50vh] bg-primary text-primary-foreground">
           <div className="w-full">
             <div className="w-fit">
