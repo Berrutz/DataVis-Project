@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
+interface EmissionData {
+    entity: string;
+    country: number;
+    other: number;
+}
+
 const StackedBarChart = () => {
-    const svgRef = useRef();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<EmissionData[]>([]);
+    const svgRef = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
         // Load and prepare the data
@@ -25,6 +31,10 @@ const StackedBarChart = () => {
 
             // Trova la riga "Others"
             const othersData = csvData.find(d => d.entity === "Others");
+            if (!othersData) {
+                console.error("No 'Others' data found in the dataset.");
+                return;
+            }
 
             // Calcola i dati strutturati per ogni paese
             const structuredData = top5.map(emitter => {
@@ -35,7 +45,7 @@ const StackedBarChart = () => {
                     .reduce((sum, d) => sum + d.emission, 0);
 
                 // Stampa il valore di otherSum per il paese corrente
-                console.log(`${emitter.entity} Others Sum: ${otherSum}`);
+                //console.log(`${emitter.entity} Others Sum: ${otherSum}`);
                 
                 return {
                     entity: emitter.entity,
@@ -70,7 +80,7 @@ const StackedBarChart = () => {
             .padding(0.2);
 
         const x = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.country + d.other)])
+            .domain([0, d3.max(data, d => (d.country ?? 0) + (d.other ?? 0))!])
             .range([0, width - margin.left - margin.right]);
 
         const color = d3.scaleOrdinal()
@@ -79,7 +89,7 @@ const StackedBarChart = () => {
 
         // Stack generator for the "Country" and "Other" categories
         const stackGenerator = d3.stack()
-            .keys(["country", "other"]);
+            .keys(["entity","country", "other"]);
         
         const stackedData = stackGenerator(data);
 
@@ -87,13 +97,13 @@ const StackedBarChart = () => {
         svg.selectAll("g.layer")
             .data(stackedData)
             .join("g")
-            .attr("fill", d => color(d.key))
+            .attr("fill", d => color(d.key) as string )
             .selectAll("rect")
             .data(d => d)
             .join("rect")
-            .attr("y", d => y(d.data.entity))
-            .attr("x", d => x(d[0]))
-            .attr("width", d => x(d[1]) - x(d[0]))
+            .attr("y", d => y(d.data.entity) ?? 0)
+            .attr("x", d => x(d[0]) ?? 0 )
+            .attr("width", d => x(d[1]) - x(d[0])!)
             .attr("height", y.bandwidth());
 
         // X-axis
@@ -114,21 +124,23 @@ const StackedBarChart = () => {
         const legend = svg.append("g")
             .attr("transform", `translate(0, -50)`); // Posiziona la legenda sopra l'asse x
 
-            ["Country", "Other"].forEach((key, i) => {
-                legend.append("rect")
-                    .attr("x", i * 100)
-                    .attr("y", -10)
-                    .attr("width", 15)
-                    .attr("height", 15)
-                    .attr("fill", color(key));
-                
-                legend.append("text")
-                    .attr("x", i * 100 + 20)
-                    .attr("y", 0)
-                    .text(key)
-                    .style("font-size", "12px")
-                    .attr("alignment-baseline", "middle");
-            });
+         // Position and add a label for "Country" above the left bar chart
+        svg.append("text")
+        .attr("x", margin.bottom / 2.0 )  
+        .attr("y", -20)  // Position above the chart area
+        .attr("text-anchor", "middle")
+        .style("fill", color("Country") as string)
+        .style("font-weight", "bold")
+        .text("Country");
+
+        // Position and add a label for "Other" above the right bar chart
+        svg.append("text")
+        .attr("x", 2.5 * ( margin.left )  )
+        .attr("y", -20)  // Position above the chart area
+        .attr("text-anchor", "middle")
+        .style("fill", color("Other") as string )
+        .style("font-weight", "bold")
+        .text("Other");
 
     }, [data]);
 
