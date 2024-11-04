@@ -80,7 +80,7 @@ const StackedBarChart = () => {
             .padding(0.2);
 
         const x = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.country + d.other)])
+            .domain([0, d3.max(data, d => (d.country ?? 0) + (d.other ?? 0))])
             .range([0, width - margin.left - margin.right]);
 
         const color = d3.scaleOrdinal()
@@ -103,7 +103,7 @@ const StackedBarChart = () => {
             .join("rect")
             .attr("y", d => y(d.data.entity) ?? 0)
             .attr("x", d => x(d[0]) ?? 0 )
-            .attr("width", d => x(d[1]) - x(d[0]))
+            .attr("width", d => x(d[1]) - x(d[0]) ?? 0)
             .attr("height", y.bandwidth());
 
         // X-axis
