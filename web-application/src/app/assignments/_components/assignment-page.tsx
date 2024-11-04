@@ -33,18 +33,17 @@ export default function AssignmentPage({
 
   return (
     <ActiveAsideSectionProvider>
-      <main className="flex relative flex-col items-center p-3 sm:p-6 md:p-12 min-h-dvh">
+      <main className="flex relative flex-col items-center 2xl:flex-row 2xl:items-start min-h-dvh">
         <Button
           onClick={() => setIsOpen((prev) => !prev)}
           variant={"outline"}
           size="icon"
-          className="fixed top-3 right-3 z-[1000]"
+          className="fixed top-3 right-3 2xl:hidden z-[1000]"
         >
           {isOpen ? <X /> : <Menu />}
         </Button>
-        <PageAsideNavigation isOpen={isOpen} asideContent={asideContent} />
         <div className="flex flex-col items-center w-full">
-          <div className="w-[min(100%,_850px)]">
+          <div className="w-[min(100%,_850px)] p-3 sm:p-6 md:p-12">
             <motion.h1
               variants={itemVariants}
               initial="hidden"
@@ -56,6 +55,7 @@ export default function AssignmentPage({
             {newChildren}
           </div>
         </div>
+        <PageAsideNavigation isOpen={isOpen} asideContent={asideContent} />
       </main>
     </ActiveAsideSectionProvider>
   );

@@ -7,7 +7,7 @@ export default function AssignmentsLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="relative">
-      <nav className="p-3 w-full shadow-md">
+      <nav className="p-3 w-full border-b">
         <Button asChild>
           <Link href="/#assignments">
             <MdHome className="mr-2" />
