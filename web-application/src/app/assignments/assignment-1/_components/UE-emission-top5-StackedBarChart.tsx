@@ -97,12 +97,12 @@ const StackedBarChart = () => {
         svg.selectAll("g.layer")
             .data(stackedData)
             .join("g")
-            .attr("fill", d => color(d.key))
+            .attr("fill", d => color(d.key) as string )
             .selectAll("rect")
             .data(d => d)
             .join("rect")
-            .attr("y", d => y(d.data.entity))
-            .attr("x", d => x(d[0]))
+            .attr("y", d => y(d.data.entity) ?? 0)
+            .attr("x", d => x(d[0]) ?? 0 )
             .attr("width", d => x(d[1]) - x(d[0]))
             .attr("height", y.bandwidth());
 
@@ -129,7 +129,7 @@ const StackedBarChart = () => {
         .attr("x", margin.bottom / 2.0 )  
         .attr("y", -20)  // Position above the chart area
         .attr("text-anchor", "middle")
-        .style("fill", color("Country"))
+        .style("fill", color("Country") as string)
         .style("font-weight", "bold")
         .text("Country");
 
@@ -138,7 +138,7 @@ const StackedBarChart = () => {
         .attr("x", 2.5 * ( margin.left )  )
         .attr("y", -20)  // Position above the chart area
         .attr("text-anchor", "middle")
-        .style("fill", color("Other"))
+        .style("fill", color("Other") as string )
         .style("font-weight", "bold")
         .text("Other");
 

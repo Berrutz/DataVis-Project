@@ -121,7 +121,7 @@ const StackedBarChart2 = () => {
             .attr("x", 0)
             .attr("width", d => x(d.country))
             .attr("height", yCountry.bandwidth())
-            .attr("fill", color("Country"));
+            .attr("fill", color("Country") as string);
 
         // Add "Other" bars on the right side
         svg.selectAll(".bar-other")
@@ -132,7 +132,7 @@ const StackedBarChart2 = () => {
             .attr("x", (width - margin.left - margin.right) / 2 + margin.middle)
             .attr("width", d => x(d.other))
             .attr("height", yOther.bandwidth())
-            .attr("fill", color("Other"));
+            .attr("fill", color("Other") as string );
 
         // Add X-axis for "Country" (left side)
         /*svg.append("g")
@@ -172,7 +172,7 @@ const StackedBarChart2 = () => {
         .attr("x", (width - margin.left - margin.right) / 4)  // Position above the first chart
         .attr("y", -20)  // Position above the chart area
         .attr("text-anchor", "middle")
-        .style("fill", color("Country"))
+        .style("fill", color("Country") as string )
         .style("font-weight", "bold")
         .text("Country");
 
@@ -181,7 +181,7 @@ const StackedBarChart2 = () => {
         .attr("x", (3 * (width - margin.left - margin.right)) / 4 + margin.middle)  // Position above the second chart
         .attr("y", -20)  // Position above the chart area
         .attr("text-anchor", "middle")
-        .style("fill", color("Other"))
+        .style("fill", color("Other") as string)
         .style("font-weight", "bold")
         .text("Other");
 
