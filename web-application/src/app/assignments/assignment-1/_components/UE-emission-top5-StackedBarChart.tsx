@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
+interface Data {
+    country: string;
+    code: string;
+    year: string;
+    emission: number;
+}
+
 const StackedBarChart = () => {
-    const svgRef = useRef();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Data[]>([]);
+    const svgRef = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
         // Load and prepare the data
