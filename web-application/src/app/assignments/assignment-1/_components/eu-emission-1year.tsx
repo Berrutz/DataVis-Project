@@ -13,6 +13,7 @@ const UEEmission1Year = () => {
   const [data, setData] = useState<Data[]>([]);
   const [selectedYear, setSelectedYear] = useState<string>('2022'); // Set default year here
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   const yearStart = 1957;
   const yearEnd = 2022;
@@ -86,7 +87,7 @@ const UEEmission1Year = () => {
       .attr('y', -10)
       .attr('x', -10);
 
-    svg
+    /*     svg
       .selectAll('rect')
       .data(filteredData)
       .enter()
@@ -98,7 +99,36 @@ const UEEmission1Year = () => {
         'height',
         (d) => height - margin.top - margin.bottom - y(d.emission)
       )
-      .attr('fill', '#0F172A');
+      .attr('fill', '#0F172A'); */
+    const bars = svg
+      .selectAll('rect')
+      .data(filteredData)
+      .enter()
+      .append('rect')
+      .attr('x', (d) => x(d.code)!)
+      .attr('y', (d) => y(d.emission))
+      .attr('width', x.bandwidth())
+      .attr(
+        'height',
+        (d) => height - margin.top - margin.bottom - y(d.emission)
+      )
+      .attr('fill', '#0F172A')
+      .on('mouseover', (event, d) => {
+        const tooltip = d3.select(tooltipRef.current);
+        tooltip
+          .style('opacity', 1)
+          .style('left', `${event.pageX + 10}px`)
+          .style('top', `${event.pageY - 28}px`)
+          .html(`CO₂ Emissions: ${d.emission.toFixed(2)} t per capita`);
+      })
+      .on('mousemove', (event) => {
+        d3.select(tooltipRef.current)
+          .style('left', `${event.pageX + 10}px`)
+          .style('top', `${event.pageY - 28}px`);
+      })
+      .on('mouseout', () => {
+        d3.select(tooltipRef.current).style('opacity', 0);
+      });
   }, [data, selectedYear]);
 
   const yearOptions = Array.from(
@@ -122,8 +152,12 @@ const UEEmission1Year = () => {
           ))}
         </select>
       </div>
-      <div className="overflow-x-auto h-full w-fit">
+      <div className="relative overflow-x-auto h-full w-fit">
         <svg ref={svgRef} />
+        <div
+          ref={tooltipRef}
+          className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+        ></div>
         <p className="text-sm text-gray-500">
           <a className="font-medium text-gray-800">Data source: </a>
           Global Carbon Budget (2023); Population based on various sources

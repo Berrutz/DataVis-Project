@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import AssignmentPage from "../_components/assignment-page";
+import AssignmentPage from '../_components/assignment-page';
 import {
   ChartContainer,
   ChartHeading,
   ChartSection,
   ChartH1Title,
   ChartH2Title,
-  ChartBody,
-} from "../_components/chart-section";
-import StackedBarChartCarousel from "./_components/stacked-barchart-carousel";
+  ChartBody
+} from '../_components/chart-section';
+import StackedBarChartCarousel from './_components/stacked-barchart-carousel';
 
-import UEEmission1Year from "./_components/eu-emission-1year";
-import UEEmissionDecade from "./_components/eu-emission-decade";
-import StackedBarChart from "./_components/eu-emission-stacked-bar-chart";
-import StackedBarChart2 from "./_components/eu-emission-stacked-bar-chart-2";
+import UEEmission1Year from './_components/eu-emission-1year';
+import UEEmissionDecade from './_components/eu-emission-decade';
+import StackedBarChart from './_components/eu-emission-stacked-bar-chart';
+import StackedBarChart2 from './_components/eu-emission-stacked-bar-chart-2';
 
 export default function Assignment1() {
   return (
-    <AssignmentPage title={"Analysis of CO2 emissions per capita EU-27"}>
+    <AssignmentPage title={'Analysis of CO2 emissions per capita EU-27'}>
       <ChartSection
         asidename="Single Year Comparison of CO2"
         id="single-co2"
@@ -180,46 +180,6 @@ export default function Assignment1() {
       </ChartSection>
 
       <ChartSection
-        asidename="CO2 StackedBarChart Comparison"
-        id="CO2 StackedBarChart Comparison"
-        asidekey="CO2 StackedBarChart Comparison"
-      >
-        <ChartHeading>
-          <ChartH1Title>
-            StackedBarChart comparison of CO2 emissions per capita
-          </ChartH1Title>
-          <p>
-            This graph compares the CO2 emissions per capita of the European
-            Union (EU-27) member countries in a given StackedBarChart.
-          </p>
-        </ChartHeading>
-        <ChartBody>
-          <ChartContainer asidename="Chart" asidekey="chart-4" id="chart-4">
-            <StackedBarChart2 />
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Metodologies"
-            id="used-metodologies-4"
-            asidekey="used-metodologies-4"
-          >
-            <ChartH2Title>Used Medotologies</ChartH2Title>
-            <p>
-              From the database provided by Our World In Data containing data on
-              per capita CO2 emissions of all countries, only those concerning
-              the countries of the European Union (EU-27) were extracted .
-            </p>
-          </ChartContainer>
-          <ChartContainer
-            asidename="Comment"
-            id="comment-4"
-            asidekey="comment-4"
-          >
-            <ChartH2Title>Comment</ChartH2Title>
-          </ChartContainer>
-        </ChartBody>
-      </ChartSection>
-
-      <ChartSection
         asidename="First 5 emitters of CO2 per capita (100%)"
         id="First 5 emitters of CO2 per capita"
         asidekey="First 5 emitters of CO2 per capita (100%)"
@@ -236,13 +196,13 @@ export default function Assignment1() {
           </p>
         </ChartHeading>
         <ChartBody>
-          <ChartContainer asidename="Chart" asidekey="chart-5" id="chart-5">
+          <ChartContainer asidename="Chart" asidekey="chart-4" id="chart-4">
             <UEEmission1Year />
           </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
-            id="used-metodologies-5"
-            asidekey="used-metodologies-5"
+            id="used-metodologies-4"
+            asidekey="used-metodologies-4"
           >
             <ChartH2Title>Used Medotologies</ChartH2Title>
             <p>
@@ -254,8 +214,8 @@ export default function Assignment1() {
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
-            id="comment-5"
-            asidekey="comment-5"
+            id="comment-4"
+            asidekey="comment-4"
           >
             <ChartH2Title>Comment</ChartH2Title>
             <p>
