@@ -39,15 +39,16 @@ export const PageAsideNavigation = ({
   return (
     <aside
       className={cn(
-        "fixed right-0 top-0 z-[999] border-l bottom-0 bg-background w-[min(100%,_400px)] p-3 pt-16",
-        !isOpen && "hidden",
+        "fixed right-0 top-0 overflow-y-auto 2xl:block 2xl:sticky 2xl:h-dvh 2xl:pt-3 z-[999] max-2xl:border-l bottom-0 bg-background w-[min(100%,_600px)] p-3 pt-16",
+        !isOpen && "hidden 2xl:block",
       )}
     >
+      <h1 className="mb-4 text-xl font-bold">Table of contents:</h1>
       {asideContent.map((sec, secIndex) => (
-        <div className="mb-12" key={secIndex}>
-          <div className="flex mb-3 w-full">
+        <div className="mb-2" key={secIndex}>
+          <div className="flex mb-1 w-full">
             <Link
-              className="relative z-20 py-1 px-2 w-full font-bold"
+              className="relative z-20 py-px px-2 w-full font-bold"
               href={`#${sec.elem.id}` || "#"}
               onClick={() => {
                 setTimeLastClick(Date.now);
@@ -65,7 +66,7 @@ export const PageAsideNavigation = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     layoutId="section-aside-lid"
-                    className="absolute inset-0 rounded-md border shadow-md z-[-10]"
+                    className="absolute inset-0 rounded-md border shadow-sm z-[-10]"
                   />
                 )}
               </AnimatePresence>
@@ -75,7 +76,7 @@ export const PageAsideNavigation = ({
           <div className="flex flex-col gap-3 w-full">
             {sec.children.map((subsec, elemIndex) => (
               <Link
-                className="relative z-20 py-1 pl-6"
+                className="relative z-20 py-px pl-6"
                 href={`#${subsec.id}` || "#"}
                 key={`${secIndex}-${elemIndex}`}
                 onClick={() => {

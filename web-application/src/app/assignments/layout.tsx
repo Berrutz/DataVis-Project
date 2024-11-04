@@ -7,7 +7,7 @@ export default function AssignmentsLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="relative">
-      <nav className="p-3 w-full shadow-md">
+      <nav className="p-3 w-full border-b">
         <Button asChild>
           <Link href="/#assignments">
             <MdHome className="mr-2" />
@@ -16,8 +16,7 @@ export default function AssignmentsLayout({
         </Button>
       </nav>
       {children}
-      <footer className="mt-auto min-h-[100vh]">
-        <div className="min-h-[50vh]" />
+      <footer className="mt-auto">
         <div className="flex justify-evenly p-6 min-h-[50vh] bg-primary text-primary-foreground">
           <div className="w-full">
             <div className="w-fit">

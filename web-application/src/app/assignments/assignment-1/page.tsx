@@ -137,11 +137,12 @@ export default function Assignment1() {
       >
         <ChartHeading>
           <ChartH1Title>
-            Comparison of CO2 emissions per capita top 5 emitters with the others country
+            Comparison of CO2 emissions per capita top 5 emitters with the
+            others country
           </ChartH1Title>
           <p>
-            This chart compares the 5 EU countries with the highest per capita CO2
-            emissions in 2022 with all other member countries.
+            This chart compares the 5 EU countries with the highest per capita
+            CO2 emissions in 2022 with all other member countries.
           </p>
         </ChartHeading>
         <ChartBody>
@@ -155,11 +156,12 @@ export default function Assignment1() {
           >
             <ChartH2Title>Used Medotologies</ChartH2Title>
             <p>
-              From the database provided by Our World in Data containing data on per
-              capita CO2 emissions of all countries, only those relating to the countries
-              of the European Union (EU-27) in the year 2022 were extracted, from there
-              the 5 countries with the highest emissions were taken and a single entity
-              containing the sum of the emissions of all countries was created.
+              From the database provided by Our World in Data containing data on
+              per capita CO2 emissions of all countries, only those relating to
+              the countries of the European Union (EU-27) in the year 2022 were
+              extracted, from there the 5 countries with the highest emissions
+              were taken and a single entity containing the sum of the emissions
+              of all countries was created.
             </p>
           </ChartContainer>
           <ChartContainer
@@ -169,14 +171,13 @@ export default function Assignment1() {
           >
             <ChartH2Title>Comment</ChartH2Title>
             <p>
-              The information that can be extracted from this graph is that among
-              the 27 member countries there is none whose per capita emissions are
-              considerably higher than the others.
+              The information that can be extracted from this graph is that
+              among the 27 member countries there is none whose per capita
+              emissions are considerably higher than the others.
             </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
-
 
       <ChartSection
         asidename="CO2 StackedBarChart Comparison"
@@ -185,7 +186,6 @@ export default function Assignment1() {
       >
         <ChartHeading>
           <ChartH1Title>
-            StackedBarChart comparison of CO2 emissions per capita
             StackedBarChart comparison of CO2 emissions per capita
           </ChartH1Title>
           <p>
@@ -215,6 +215,65 @@ export default function Assignment1() {
             asidekey="comment-4"
           >
             <ChartH2Title>Comment</ChartH2Title>
+          </ChartContainer>
+        </ChartBody>
+      </ChartSection>
+
+      <ChartSection
+        asidename="First 5 emitters of CO2 per capita (100%)"
+        id="First 5 emitters of CO2 per capita"
+        asidekey="First 5 emitters of CO2 per capita (100%)"
+      >
+        <ChartHeading>
+          <ChartH1Title>
+            Comparison of the first 5 emitters of CO2 per capita with 100%
+          </ChartH1Title>
+          <p>
+            This graph compares the CO2 emissions per capita of the member
+            countries of the European Union (EU-27) in a given year, the
+            countries are sorted by their emissions per capita in descending
+            order.
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          <ChartContainer asidename="Chart" asidekey="chart-5" id="chart-5">
+            <UEEmission1Year />
+          </ChartContainer>
+          <ChartContainer
+            asidename="Used Metodologies"
+            id="used-metodologies-5"
+            asidekey="used-metodologies-5"
+          >
+            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <p>
+              From the database provided by Our World In Data containing data on
+              per capita CO2 emissions of all countries, only those relating to
+              the countries of the European Union (EU-27) have been extracted.
+              The data are displayed on request depending on the selected year.
+            </p>
+          </ChartContainer>
+          <ChartContainer
+            asidename="Comment"
+            id="comment-5"
+            asidekey="comment-5"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              From the graph it is possible to observe only the CO2 emissions
+              per capita in a given year, but this still allows us to make some
+              considerations. Taking the most recent year (2022) it is possible
+              to note how CO2 emissions per capita vary considerably between
+              countries that have an energy mix based largely on fossil fuels,
+              such as Germany (DEU) and Poland (POL), and countries that mainly
+              use low carbon energy sources such as France (FRA). A further
+              observation to make is that the country with the highest CO2
+              emissions per capita is Luxembourg, this is mainly due to the fact
+              that it is a highly industrialized country, has a small population
+              and is subject to the phenomenon of "fuel tourism", due to the
+              reduced taxation on fuels many non-residents buy fuel in
+              Luxembourg, thus artificially increasing fuel consumption and
+              consequently the statistics on CO2 emissions of the country.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>

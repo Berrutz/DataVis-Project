@@ -33,7 +33,7 @@ export interface AsideChartProps {
 // SECTION
 export interface ChartSectionProps
   extends AsideChartProps,
-    HTMLMotionProps<"section"> {}
+  HTMLMotionProps<"section"> { }
 export function ChartSection({
   children,
   className,
@@ -54,7 +54,7 @@ export function ChartSection({
 }
 
 // HEADING
-export interface ChartHeadingProps extends HTMLMotionProps<"div"> {}
+export interface ChartHeadingProps extends HTMLMotionProps<"div"> { }
 export function ChartHeading({
   children,
   className,
@@ -72,7 +72,7 @@ export function ChartHeading({
 }
 
 // BODY
-export interface ChartBodyProps extends HTMLMotionProps<"div"> {}
+export interface ChartBodyProps extends HTMLMotionProps<"div"> { }
 export function ChartBody({ children, className, ...props }: ChartBodyProps) {
   return (
     <motion.div
@@ -86,7 +86,7 @@ export function ChartBody({ children, className, ...props }: ChartBodyProps) {
 }
 
 // H1
-export interface ChartH1TitleProps extends React.HTMLAttributes<HTMLElement> {}
+export interface ChartH1TitleProps extends React.HTMLAttributes<HTMLElement> { }
 export function ChartH1Title({
   children,
   className,
@@ -95,7 +95,7 @@ export function ChartH1Title({
   return (
     <h1
       className={cn(
-        "font-sans text-2xl/6 sm:text-3xl/6 font-bold text-pretty",
+        "font-sans text-2xl/7 sm:text-3xl/7 font-bold text-pretty",
         className,
       )}
       {...props}
@@ -106,7 +106,7 @@ export function ChartH1Title({
 }
 
 // H2
-export interface ChartH2TitleProps extends React.HTMLAttributes<HTMLElement> {}
+export interface ChartH2TitleProps extends React.HTMLAttributes<HTMLElement> { }
 export function ChartH2Title({
   children,
   className,
@@ -122,7 +122,7 @@ export function ChartH2Title({
 // CONTAINER
 export interface ChartContainerProps
   extends HTMLMotionProps<"div">,
-    AsideChartProps {}
+  AsideChartProps { }
 export function ChartContainer({
   children,
   className,
