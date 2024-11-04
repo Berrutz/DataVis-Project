@@ -15,7 +15,7 @@ const whoWeAreData: WhoWeAreTypeData[] = [
   {
     imageUri: imagePrefix + "/spongebob.png",
     name: "Alex Valle",
-    content: "IncApache CEO, he works at the Krusty Krab this is just a hobby for him. group\"He is an idiot\"(COO of IncApache group). Whos don't like Spongebob?",
+    content: "IncApache CEO, he works at the Krusty Krab this is just a hobby for him. group\"I hate him\"(COO of IncApache group). Whos don't like Spongebob?",
   },
   {
     imageUri: imagePrefix + "/squiddi.png",

@@ -10,8 +10,16 @@ interface Data {
 
 const UEEmissionDecade = () => {
     const [data, setData] = useState<Data[]>([]);
-    const [selectedDecade, setSelectedDecade] = useState<number>(2012); // Default decade
+    const [selectedDecade, setSelectedDecade] = useState<number>(2013); // Default decade
     const svgRef = useRef<SVGSVGElement | null>(null);
+
+    const minDecade = 1963;
+    const maxDecade = 2013;
+
+    const decadeOptions = Array.from({ length: (maxDecade - minDecade) / 10 + 1 }, (_, i) => {
+        const startYear = minDecade + i * 10;
+        return `${startYear}-${startYear + 9}`;
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +59,7 @@ const UEEmissionDecade = () => {
 
         const width = 800;
         const height = 500;
-        const margin = { top: 20, right: 30, bottom: 100, left: 90 };
+        const margin = { top: 20, right: 0, bottom: 40, left: 30 };
 
         d3.select(svgRef.current).selectAll('*').remove();
 
@@ -104,18 +112,30 @@ const UEEmissionDecade = () => {
             .attr('fill', '#0F172A');
     }, [data, selectedDecade]);
 
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const startYear = parseInt(e.target.value.split('-')[0]);
+        setSelectedDecade(startYear);
+    };
+
     return (
-        <div>
-            <label>
-                Select Decade:
-                <input
-                    type="number"
-                    value={selectedDecade}
-                    onChange={e => setSelectedDecade(parseInt(e.target.value))}
-                    step={10} // Step by 10 for each decade
-                />
-            </label>
-            <svg ref={svgRef}></svg>
+        <div className="flex relative justify-center items-center w-full">
+            <div className="absolute top-0 right-0 sm:top-4 sm:right-4">
+                <label>Select Decade: </label>
+                <select
+                    value={`${selectedDecade}-${selectedDecade + 9}`}
+                    onChange={handleSelectChange}
+                    className="py-1 px-2 ml-2 rounded-md border bg-background"
+                >
+                    {decadeOptions.map(decade => (
+                        <option key={decade} value={decade}>
+                            {decade}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="overflow-x-auto h-full w-fit">
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
     );
 };

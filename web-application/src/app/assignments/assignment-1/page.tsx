@@ -55,6 +55,21 @@ export default function Assignment1() {
             asidekey="comment-1"
           >
             <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              From the graph it is possible to observe only the CO2 emissions per
+              capita in a given year, but this still allows us to make some considerations.
+              Taking the most recent year (2022) it is possible to note how CO2
+              emissions per capita vary considerably between countries that have
+              an energy mix based largely on fossil fuels, such as Germany (DEU)
+              and Poland (POL), and countries that mainly use low carbon energy
+              sources such as France (FRA). A further observation to make is that
+              the country with the highest CO2 emissions per capita is Luxembourg,
+              this is mainly due to the fact that it is a highly industrialized
+              country, has a small population and is subject to the phenomenon of
+              "fuel tourism", due to the reduced taxation on fuels many non-residents
+              buy fuel in Luxembourg, thus artificially increasing fuel consumption
+              and consequently the statistics on CO2 emissions of the country.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
@@ -75,9 +90,9 @@ export default function Assignment1() {
           </p>
         </ChartHeading>
         <ChartBody>
-          {/* <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
+          <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
             <UEEmissionDecade />
-          </ChartContainer> */}
+          </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
             id="used-metodologies-2"
@@ -98,6 +113,15 @@ export default function Assignment1() {
             asidekey="comment-2"
           >
             <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              From the graph it is possible to observe the CO2 emissions per capita
+              in a given decade, this allows us to make observations on a larger
+              time scale. Taking into account the decade 2003-2012 and 2013-2022
+              we can observe that in the latter there was a general decrease in
+              emissions per capita in the EU countries, this decrease can be
+              attributed to the efforts of the member countries to honor the Paris
+              agreements signed in 2016.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
