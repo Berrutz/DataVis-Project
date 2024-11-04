@@ -136,19 +136,17 @@ export default function Assignment1() {
       >
         <ChartHeading>
           <ChartH1Title>
-          StackedBarChart comparison of CO2 emissions per capita
+            Comparison of CO2 emissions per capita top 5 emitters with the others country
           </ChartH1Title>
           <p>
-            This graph compares the CO2 emissions per capita of the European
-            Union (EU-27) member countries in a given StackedBarChart.
+            This chart compares the 5 EU countries with the highest per capita CO2
+            emissions in 2022 with all other member countries.
           </p>
         </ChartHeading>
         <ChartBody>
-          {
           <ChartContainer asidename="Chart" asidekey="chart-3" id="chart-3">
             <StackedBarChart />
-          </ChartContainer> 
-          }
+          </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
             id="used-metodologies-3"
@@ -156,9 +154,11 @@ export default function Assignment1() {
           >
             <ChartH2Title>Used Medotologies</ChartH2Title>
             <p>
-              From the database provided by Our World In Data containing data on
-              per capita CO2 emissions of all countries, only those concerning
-              the countries of the European Union (EU-27) were extracted .
+              From the database provided by Our World in Data containing data on per
+              capita CO2 emissions of all countries, only those relating to the countries
+              of the European Union (EU-27) in the year 2022 were extracted, from there
+              the 5 countries with the highest emissions were taken and a single entity
+              containing the sum of the emissions of all countries was created.
             </p>
           </ChartContainer>
           <ChartContainer
@@ -167,11 +167,16 @@ export default function Assignment1() {
             asidekey="comment-3"
           >
             <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              The information that can be extracted from this graph is that among
+              the 27 member countries there is none whose per capita emissions are
+              considerably higher than the others.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
 
-      
+
       <ChartSection
         asidename="CO2 StackedBarChart Comparison"
         id="CO2 StackedBarChart Comparison"
@@ -179,7 +184,7 @@ export default function Assignment1() {
       >
         <ChartHeading>
           <ChartH1Title>
-          StackedBarChart comparison of CO2 emissions per capita
+            StackedBarChart comparison of CO2 emissions per capita
           </ChartH1Title>
           <p>
             This graph compares the CO2 emissions per capita of the European
@@ -187,11 +192,9 @@ export default function Assignment1() {
           </p>
         </ChartHeading>
         <ChartBody>
-          {
           <ChartContainer asidename="Chart" asidekey="chart-4" id="chart-4">
             <StackedBarChart2 />
-          </ChartContainer> 
-          }
+          </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
             id="used-metodologies-4"

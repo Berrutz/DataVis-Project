@@ -21,12 +21,12 @@ const StackedBarChart = () => {
                 year: +d.Year,
                 emission: +d["Annual CO₂ emissions (per capita)"]
             }));
-            
+
             // Sort data to get top 5 emitters
             const sortedData = csvData
                 .filter(d => d.entity !== "Others") // Ignore "Others"
                 .sort((a, b) => b.emission - a.emission);
-            
+
             const top5 = sortedData.slice(0, 5);
 
             // Trova la riga "Others"
@@ -46,7 +46,7 @@ const StackedBarChart = () => {
 
                 // Stampa il valore di otherSum per il paese corrente
                 //console.log(`${emitter.entity} Others Sum: ${otherSum}`);
-                
+
                 return {
                     entity: emitter.entity,
                     country: emitter.emission,
@@ -84,25 +84,25 @@ const StackedBarChart = () => {
             .range([0, width - margin.left - margin.right]);
 
         const color = d3.scaleOrdinal()
-            .domain(["Country", "Other"])
+            .domain(["Other", "Country"])
             .range(["#1f77b4", "#ff7f0e"]);
 
         // Stack generator for the "Country" and "Other" categories
         const stackGenerator = d3.stack()
-            .keys(["entity","country", "other"]);
-        
+            .keys(["entity", "country", "other"]);
+
         const stackedData = stackGenerator(data);
 
         // Add bars
         svg.selectAll("g.layer")
             .data(stackedData)
             .join("g")
-            .attr("fill", d => color(d.key) as string )
+            .attr("fill", d => color(d.key) as string)
             .selectAll("rect")
             .data(d => d)
             .join("rect")
             .attr("y", d => y(d.data.entity) ?? 0)
-            .attr("x", d => x(d[0]) ?? 0 )
+            .attr("x", d => x(d[0]) ?? 0)
             .attr("width", d => x(d[1]) - x(d[0])!)
             .attr("height", y.bandwidth());
 
@@ -114,7 +114,7 @@ const StackedBarChart = () => {
             .attr("x", (width - margin.left - margin.right) / 2)
             .attr("y", 30)
             .attr("fill", "black")
-            .text("CO₂ Emissions (Mt per capita)");
+            .text("CO₂ Emissions (t per capita)");
 
         // Y-axis
         svg.append("g")
@@ -124,23 +124,23 @@ const StackedBarChart = () => {
         const legend = svg.append("g")
             .attr("transform", `translate(0, -50)`); // Posiziona la legenda sopra l'asse x
 
-         // Position and add a label for "Country" above the left bar chart
+        // Position and add a label for "Country" above the left bar chart
         svg.append("text")
-        .attr("x", margin.bottom / 2.0 )  
-        .attr("y", -20)  // Position above the chart area
-        .attr("text-anchor", "middle")
-        .style("fill", color("Country") as string)
-        .style("font-weight", "bold")
-        .text("Country");
+            .attr("x", margin.bottom / 2.0)
+            .attr("y", -20)  // Position above the chart area
+            .attr("text-anchor", "middle")
+            .style("fill", color("Country") as string)
+            .style("font-weight", "bold")
+            .text("Country");
 
         // Position and add a label for "Other" above the right bar chart
         svg.append("text")
-        .attr("x", 2.5 * ( margin.left )  )
-        .attr("y", -20)  // Position above the chart area
-        .attr("text-anchor", "middle")
-        .style("fill", color("Other") as string )
-        .style("font-weight", "bold")
-        .text("Other");
+            .attr("x", 2.5 * (margin.left))
+            .attr("y", -20)  // Position above the chart area
+            .attr("text-anchor", "middle")
+            .style("fill", color("Other") as string)
+            .style("font-weight", "bold")
+            .text("Other");
 
     }, [data]);
 
