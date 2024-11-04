@@ -89,7 +89,7 @@ const StackedBarChart = () => {
 
         // Stack generator for the "Country" and "Other" categories
         const stackGenerator = d3.stack()
-            .keys(["country", "other"]);
+            .keys(["entity","country", "other"]);
         
         const stackedData = stackGenerator(data);
 
