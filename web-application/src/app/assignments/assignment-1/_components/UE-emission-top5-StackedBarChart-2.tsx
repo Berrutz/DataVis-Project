@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
-interface Data {
-    country: string;
-    code: string;
-    year: string;
-    emission: number;
+interface EmissionData {
+    entity: string;
+    country: number;
+    other: number;
 }
 
 const StackedBarChart2 = () => {
-    const [data, setData] = useState<Data[]>([]);
+    const [data, setData] = useState<EmissionData[]>([]);
     const svgRef = useRef<SVGSVGElement | null>(null);
 
     useEffect(() => {
