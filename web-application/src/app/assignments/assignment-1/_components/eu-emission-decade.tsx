@@ -153,8 +153,35 @@ const UEEmissionDecade = () => {
   };
 
   return (
-    <div className="flex relative justify-center items-center w-full">
-      <div className="absolute top-0 right-0 sm:top-4 sm:right-4">
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex relative justify-center items-center w-full">
+        <div className="absolute top-3 right-0 hidden sm:block">
+          <label>Select Decade: </label>
+          <select
+            value={`${selectedDecade}-${selectedDecade + 9}`}
+            onChange={handleSelectChange}
+            className="py-1 px-2 ml-2 rounded-md border bg-background"
+          >
+            {decadeOptions.map((decade) => (
+              <option key={decade} value={decade}>
+                {decade}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="overflow-x-auto h-full w-fit">
+          <svg ref={svgRef}></svg>
+          <div
+            ref={tooltipRef}
+            className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+          ></div>
+        </div>
+      </div>
+      <p className="text-sm text-gray-500">
+        <a className="font-medium text-gray-800">Data source: </a>
+        Global Carbon Budget (2023); Population based on various sources (2023)
+      </p>
+      <div className="mt-3 block sm:hidden">
         <label>Select Decade: </label>
         <select
           value={`${selectedDecade}-${selectedDecade + 9}`}
@@ -167,13 +194,6 @@ const UEEmissionDecade = () => {
             </option>
           ))}
         </select>
-      </div>
-      <div className="overflow-x-auto h-full w-fit">
-        <svg ref={svgRef}></svg>
-        <div
-          ref={tooltipRef}
-          className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
-        ></div>
       </div>
     </div>
   );

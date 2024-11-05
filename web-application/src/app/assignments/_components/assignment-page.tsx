@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import React from "react";
-import { PageAsideNavigation, parseChildren } from "./assignment-aside";
-import ActiveAsideSectionProvider from "@/context/active-aside-section-assignments";
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import React from 'react';
+import { PageAsideNavigation, parseChildren } from './assignment-aside';
+import ActiveAsideSectionProvider from '@/context/active-aside-section-assignments';
 
 export interface AssignmentPageProps {
   title: string;
@@ -16,17 +16,17 @@ export interface AssignmentPageProps {
 const itemVariants = {
   hidden: {
     opacity: 0,
-    y: -20,
+    y: -20
   },
   visible: {
     opacity: 1,
-    y: 0,
-  },
+    y: 0
+  }
 };
 
 export default function AssignmentPage({
   title,
-  children,
+  children
 }: AssignmentPageProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { newChildren, asideContent } = parseChildren(children);
@@ -36,7 +36,7 @@ export default function AssignmentPage({
       <main className="flex relative flex-col items-center 2xl:flex-row 2xl:items-start min-h-dvh">
         <Button
           onClick={() => setIsOpen((prev) => !prev)}
-          variant={"outline"}
+          variant={'outline'}
           size="icon"
           className="fixed top-3 right-3 2xl:hidden z-[1000]"
         >

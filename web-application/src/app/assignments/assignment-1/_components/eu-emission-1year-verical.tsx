@@ -9,7 +9,7 @@ interface Data {
   emission: number;
 }
 
-const UEEmission1Year = () => {
+const UEEmission1YearVertical = () => {
   const [data, setData] = useState<Data[]>([]);
   const [selectedYear, setSelectedYear] = useState<string>('2022'); // Set default year here
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -18,7 +18,7 @@ const UEEmission1Year = () => {
   const yearStart = 1957;
   const yearEnd = 2022;
 
-  // Fetch data when the component mounts
+  // Fetch data from the API when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await d3.csv(
@@ -44,9 +44,9 @@ const UEEmission1Year = () => {
 
     filteredData.sort((a, b) => b.emission - a.emission);
 
-    const width = 800;
-    const height = 500;
-    const margin = { top: 20, right: 0, bottom: 40, left: 30 };
+    const width = 600;
+    const height = 600;
+    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
     d3.select(svgRef.current).selectAll('*').remove();
 
@@ -58,57 +58,53 @@ const UEEmission1Year = () => {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const x = d3
-      .scaleBand()
-      .domain(filteredData.map((d) => d.code))
-      .range([0, width - margin.left - margin.right])
-      .padding(0.2);
-
-    const y = d3
       .scaleLinear()
       .domain([0, d3.max(filteredData, (d) => d.emission)!])
-      .nice()
-      .range([height - margin.top - margin.bottom, 0]);
+      .range([0, width - margin.left - margin.right]); // Linear scale for emissions
+
+    const y = d3
+      .scaleBand()
+      .domain(filteredData.map((d) => d.code))
+      .range([0, height - margin.top - margin.bottom])
+      .padding(0.1);
 
     svg
       .append('g')
       .attr('transform', `translate(0,${height - margin.top - margin.bottom})`)
-      .call(d3.axisBottom(x).tickSize(0))
-      .selectAll('text')
-      .attr('transform', 'rotate(-45)')
-      .style('text-anchor', 'end');
+      .call(
+        d3
+          .axisBottom(x)
+          .tickSize(0)
+          .tickFormat((d) => `${d} t`)
+      );
 
     svg
       .append('g')
-      .call(d3.axisLeft(y).tickFormat((d) => `${d} t`)) // Add unit measure
+      .call(d3.axisLeft(y))
       .append('text')
       .attr('text-anchor', 'end')
       .attr('fill', 'black')
       .attr('font-weight', 'bold')
       .attr('y', -10)
-      .attr('x', -10);
+      .attr('x', -10)
+      .text('Countries');
 
+    // Draw bars with tooltip
     svg
       .selectAll('rect')
       .data(filteredData)
       .enter()
       .append('rect')
-      .attr('x', (d) => x(d.code)!)
-      .attr('y', (d) => y(d.emission))
-      .attr('width', x.bandwidth())
-      .attr(
-        'height',
-        (d) => height - margin.top - margin.bottom - y(d.emission)
-      )
+      .attr('x', 0) // x is fixed at 0 for vertical bars
+      .attr('y', (d) => y(d.code)!)
+      .attr('width', (d) => x(d.emission))
+      .attr('height', y.bandwidth())
       .attr('fill', '#0F172A')
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
-          // Get bounding box of SVG to calculate relative positioning
           const svgRect = svgRef.current?.getBoundingClientRect();
-
-          // Calculate the position of the tooltip relative to the SVG
-          const tooltipX = event.clientX - (svgRect?.left || 0) + 15; // Offset by 10px for better visibility
-          const tooltipY = event.clientY - (svgRect?.top || 0) - 15; // Offset slightly above the cursor
-
+          const tooltipX = event.clientX - (svgRect?.left || 0) + 15;
+          const tooltipY = event.clientY - (svgRect?.top || 0) - 25;
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
@@ -128,24 +124,9 @@ const UEEmission1Year = () => {
     { length: yearEnd - yearStart + 1 },
     (_, i) => `${yearStart + i}`
   );
-
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center items-center w-full">
-        <div className="absolute top-3 right-0 hidden sm:block">
-          <label>Select Year: </label>
-          <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-            className="py-1 px-2 ml-2 rounded-md border bg-background"
-          >
-            {yearOptions.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
         <div className="overflow-x-auto h-full w-fit">
           <svg ref={svgRef} />
           <div
@@ -158,7 +139,7 @@ const UEEmission1Year = () => {
         <a className="font-medium text-gray-800">Data source: </a>
         Global Carbon Budget (2023); Population based on various sources (2023)
       </p>
-      <div className="mt-3 block sm:hidden">
+      <div className="mt-3">
         <label>Selected Year: </label>
         <select
           value={selectedYear}
@@ -176,4 +157,4 @@ const UEEmission1Year = () => {
   );
 };
 
-export default UEEmission1Year;
+export default UEEmission1YearVertical;

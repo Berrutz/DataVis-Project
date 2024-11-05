@@ -13,8 +13,7 @@ import StackedBarChartCarousel from './_components/stacked-barchart-carousel';
 
 import UEEmission1Year from './_components/eu-emission-1year';
 import UEEmissionDecade from './_components/eu-emission-decade';
-import StackedBarChart from './_components/eu-emission-stacked-bar-chart';
-import StackedBarChart2 from './_components/eu-emission-stacked-bar-chart-2';
+import UEEmission1YearVertical from './_components/eu-emission-1year-verical';
 
 export default function Assignment1() {
   return (
