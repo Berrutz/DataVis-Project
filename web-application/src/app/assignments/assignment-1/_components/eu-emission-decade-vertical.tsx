@@ -32,7 +32,7 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
     }
   );
 
-  // Fetch data from the API when the component mounts
+  // Fetch data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await d3.csv(

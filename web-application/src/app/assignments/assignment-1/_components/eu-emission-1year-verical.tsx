@@ -24,7 +24,7 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
   const yearStart = 1957;
   const yearEnd = 2022;
 
-  // Fetch data from the API when the component mounts
+  // Fetch data  when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await d3.csv(
@@ -51,7 +51,6 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
     filteredData.sort((a, b) => b.emission - a.emission);
 
     const width = +newWidth || 600;
-    console.log(width);
     const height = 600;
     const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 

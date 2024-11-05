@@ -22,18 +22,15 @@ export default function Assignment1() {
   const [isVertical, setIsVertical] = useState(false);
 
   useEffect(() => {
-    // Set initial window width on client-side only
     const handleResize = () => {
       const currentWidth = window.innerWidth;
       setWindowWidth(currentWidth);
-      setIsVertical(currentWidth < 1024); // Adjust threshold as needed
+      setIsVertical(currentWidth < 1024);
     };
 
-    // Run on initial load and add event listener for resize
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Cleanup event listener on unmount
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
