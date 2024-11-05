@@ -141,7 +141,7 @@ export default function Assignment1() {
             others country
           </ChartH1Title>
           <p>
-            This chart compares the 5 EU countries with the highest per capita
+            This charts compares the 5 EU countries with the highest per capita
             CO2 emissions in 2022 with all other member countries.
           </p>
         </ChartHeading>

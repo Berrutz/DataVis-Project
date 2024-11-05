@@ -13,6 +13,7 @@ const UEEmissionDecade = () => {
   const [data, setData] = useState<Data[]>([]);
   const [selectedDecade, setSelectedDecade] = useState<number>(2013); // Default decade
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   const minDecade = 1963;
   const maxDecade = 2013;
@@ -121,7 +122,29 @@ const UEEmissionDecade = () => {
         'height',
         (d) => height - margin.top - margin.bottom - y(d.averageEmission)
       )
-      .attr('fill', '#0F172A');
+      .attr('fill', '#0F172A')
+      .on('mousemove', (event, d) => {
+        if (tooltipRef.current) {
+          // Get bounding box of SVG to calculate relative positioning
+          const svgRect = svgRef.current?.getBoundingClientRect();
+
+          // Calculate the position of the tooltip relative to the SVG
+          const tooltipX = event.clientX - (svgRect?.left || 0) + 15; // Offset by 10px for better visibility
+          const tooltipY = event.clientY - (svgRect?.top || 0) - 15; // Offset slightly above the cursor
+
+          tooltipRef.current.style.left = `${tooltipX}px`;
+          tooltipRef.current.style.top = `${tooltipY}px`;
+          tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.textContent = `CO₂ Emissions: ${d.averageEmission.toFixed(
+            2
+          )} t per capita`;
+        }
+      })
+      .on('mouseleave', () => {
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = '0';
+        }
+      });
   }, [data, selectedDecade]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -147,6 +170,10 @@ const UEEmissionDecade = () => {
       </div>
       <div className="overflow-x-auto h-full w-fit">
         <svg ref={svgRef}></svg>
+        <div
+          ref={tooltipRef}
+          className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+        ></div>
       </div>
     </div>
   );

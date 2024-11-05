@@ -81,7 +81,7 @@ const StackedBarChart2 = () => {
 
     const width = 800;
     const height = 400;
-    const margin = { top: 60, right: 40, bottom: 40, left: 120, middle: 50 };
+    const margin = { top: 60, right: 10, bottom: 40, left: 65, middle: 50 };
 
     const svg = d3
       .select(svgRef.current)

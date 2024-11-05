@@ -87,20 +87,7 @@ const UEEmission1Year = () => {
       .attr('y', -10)
       .attr('x', -10);
 
-    /*     svg
-      .selectAll('rect')
-      .data(filteredData)
-      .enter()
-      .append('rect')
-      .attr('x', (d) => x(d.code)!)
-      .attr('y', (d) => y(d.emission))
-      .attr('width', x.bandwidth())
-      .attr(
-        'height',
-        (d) => height - margin.top - margin.bottom - y(d.emission)
-      )
-      .attr('fill', '#0F172A'); */
-    const bars = svg
+    svg
       .selectAll('rect')
       .data(filteredData)
       .enter()
@@ -113,21 +100,27 @@ const UEEmission1Year = () => {
         (d) => height - margin.top - margin.bottom - y(d.emission)
       )
       .attr('fill', '#0F172A')
-      .on('mouseover', (event, d) => {
-        const tooltip = d3.select(tooltipRef.current);
-        tooltip
-          .style('opacity', 1)
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY - 28}px`)
-          .html(`CO₂ Emissions: ${d.emission.toFixed(2)} t per capita`);
+      .on('mousemove', (event, d) => {
+        if (tooltipRef.current) {
+          // Get bounding box of SVG to calculate relative positioning
+          const svgRect = svgRef.current?.getBoundingClientRect();
+
+          // Calculate the position of the tooltip relative to the SVG
+          const tooltipX = event.clientX - (svgRect?.left || 0) + 15; // Offset by 10px for better visibility
+          const tooltipY = event.clientY - (svgRect?.top || 0) - 15; // Offset slightly above the cursor
+
+          tooltipRef.current.style.left = `${tooltipX}px`;
+          tooltipRef.current.style.top = `${tooltipY}px`;
+          tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.textContent = `CO₂ Emissions: ${d.emission.toFixed(
+            2
+          )} t per capita`;
+        }
       })
-      .on('mousemove', (event) => {
-        d3.select(tooltipRef.current)
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY - 28}px`);
-      })
-      .on('mouseout', () => {
-        d3.select(tooltipRef.current).style('opacity', 0);
+      .on('mouseleave', () => {
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = '0';
+        }
       });
   }, [data, selectedYear]);
 
@@ -152,7 +145,7 @@ const UEEmission1Year = () => {
           ))}
         </select>
       </div>
-      <div className="relative overflow-x-auto h-full w-fit">
+      <div className="overflow-x-auto h-full w-fit">
         <svg ref={svgRef} />
         <div
           ref={tooltipRef}
