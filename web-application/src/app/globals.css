@@ -33,7 +33,7 @@
 }
 
 @layer base {
-  :root { 
+  :root {
     @apply scroll-smooth;
   }
 
@@ -45,10 +45,43 @@
     @apply bg-background text-foreground font-sans;
   }
 
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    @apply bg-primary;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    @apply bg-secondary;
+  }
+  ::-webkit-scrollbar-track:active {
+    @apply bg-secondary;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 @layer components {
-  .grad-text{ 
+  .grad-text {
     @apply bg-text-grad bg-clip-text text-transparent;
   }
 }
