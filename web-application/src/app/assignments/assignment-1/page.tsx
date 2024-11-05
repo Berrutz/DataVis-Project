@@ -14,8 +14,29 @@ import StackedBarChartCarousel from './_components/stacked-barchart-carousel';
 import UEEmission1Year from './_components/eu-emission-1year';
 import UEEmissionDecade from './_components/eu-emission-decade';
 import UEEmission1YearVertical from './_components/eu-emission-1year-verical';
+import { useEffect, useState } from 'react';
+import UEEmissionDecadeVertical from './_components/eu-emission-decade-vertical';
 
 export default function Assignment1() {
+  const [windowWidth, setWindowWidth] = useState<number>(1024);
+  const [isVertical, setIsVertical] = useState(false);
+
+  useEffect(() => {
+    // Set initial window width on client-side only
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+      setWindowWidth(currentWidth);
+      setIsVertical(currentWidth < 1024); // Adjust threshold as needed
+    };
+
+    // Run on initial load and add event listener for resize
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <AssignmentPage title={'Analysis of CO2 emissions per capita EU-27'}>
       <ChartSection
@@ -36,7 +57,21 @@ export default function Assignment1() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-1" id="chart-1">
-            <UEEmission1Year />
+            {isVertical ? (
+              <UEEmission1YearVertical
+                newWidth={
+                  windowWidth < 450
+                    ? 300
+                    : windowWidth < 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
+                }
+              />
+            ) : (
+              <UEEmission1Year />
+            )}
           </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"
@@ -94,7 +129,21 @@ export default function Assignment1() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-2" id="chart-2">
-            <UEEmissionDecade />
+            {isVertical ? (
+              <UEEmissionDecadeVertical
+                newWidth={
+                  windowWidth < 450
+                    ? 300
+                    : windowWidth < 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
+                }
+              />
+            ) : (
+              <UEEmissionDecade />
+            )}
           </ChartContainer>
           <ChartContainer
             asidename="Used Metodologies"

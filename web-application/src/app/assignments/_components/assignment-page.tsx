@@ -43,7 +43,7 @@ export default function AssignmentPage({
           {isOpen ? <X /> : <Menu />}
         </Button>
         <div className="flex flex-col items-center w-full mb-[50vh]">
-          <div className="w-[min(100%,_850px)] p-3 sm:p-6 md:p-12">
+          <div className="w-[min(100%,_950px)] p-3 sm:p-6 md:p-12">
             <motion.h1
               variants={itemVariants}
               initial="hidden"

@@ -13,16 +13,24 @@ interface Data {
   emission: number;
 }
 
-const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
+const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
   newWidth
 }) => {
   const [data, setData] = useState<Data[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>('2022'); // Set default year here
+  const [selectedDecade, setSelectedDecade] = useState<number>(2013); // Default decade
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
-  const yearStart = 1957;
-  const yearEnd = 2022;
+  const minDecade = 1963;
+  const maxDecade = 2013;
+
+  const decadeOptions = Array.from(
+    { length: (maxDecade - minDecade) / 10 + 1 },
+    (_, i) => {
+      const startYear = minDecade + i * 10;
+      return `${startYear}-${startYear + 9}`;
+    }
+  );
 
   // Fetch data from the API when the component mounts
   useEffect(() => {
@@ -43,15 +51,30 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
   }, []);
 
   useEffect(() => {
-    // Filter data based on the selected year
-    const filteredData = data.filter((d) => d.year === selectedYear);
+    // Define the decade range
+    const startYear = selectedDecade;
+    const endYear = startYear + 9;
 
-    if (filteredData.length === 0) return;
+    // Filter data to only include years in the selected decade
+    const decadeData = data.filter(
+      (d) => +d.year >= startYear && +d.year <= endYear
+    );
 
-    filteredData.sort((a, b) => b.emission - a.emission);
+    // Group data by country and calculate the average emissions for each country
+    const decadeAverages = Array.from(
+      d3.group(decadeData, (d) => d.code),
+      ([code, values]) => ({
+        code,
+        averageEmission: d3.mean(values, (d) => d.emission) || 0
+      })
+    );
+
+    // Sort countries by average emission in descending order
+    decadeAverages.sort((a, b) => b.averageEmission - a.averageEmission);
+
+    if (decadeAverages.length === 0) return;
 
     const width = +newWidth || 600;
-    console.log(width);
     const height = 600;
     const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
@@ -66,12 +89,12 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
 
     const x = d3
       .scaleLinear()
-      .domain([0, d3.max(filteredData, (d) => d.emission)!])
+      .domain([0, d3.max(decadeAverages, (d) => d.averageEmission)!])
       .range([0, width - margin.left - margin.right]); // Linear scale for emissions
 
     const y = d3
       .scaleBand()
-      .domain(filteredData.map((d) => d.code))
+      .domain(decadeAverages.map((d) => d.code))
       .range([0, height - margin.top - margin.bottom])
       .padding(0.1);
 
@@ -99,12 +122,12 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
     // Draw bars with tooltip
     svg
       .selectAll('rect')
-      .data(filteredData)
+      .data(decadeAverages)
       .enter()
       .append('rect')
       .attr('x', 0) // x is fixed at 0 for vertical bars
       .attr('y', (d) => y(d.code)!)
-      .attr('width', (d) => x(d.emission))
+      .attr('width', (d) => x(d.averageEmission))
       .attr('height', y.bandwidth())
       .attr('fill', '#0F172A')
       .on('mousemove', (event, d) => {
@@ -115,7 +138,7 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
-          tooltipRef.current.textContent = `CO₂ Emissions: ${d.emission.toFixed(
+          tooltipRef.current.textContent = `CO₂ Emissions: ${d.averageEmission.toFixed(
             2
           )} t per capita`;
         }
@@ -125,12 +148,13 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
           tooltipRef.current.style.opacity = '0';
         }
       });
-  }, [data, selectedYear, newWidth]);
+  }, [data, selectedDecade, newWidth]);
 
-  const yearOptions = Array.from(
-    { length: yearEnd - yearStart + 1 },
-    (_, i) => `${yearStart + i}`
-  );
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const startYear = parseInt(e.target.value.split('-')[0]);
+    setSelectedDecade(startYear);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center items-center w-full">
@@ -147,15 +171,15 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
         Global Carbon Budget (2023); Population based on various sources (2023)
       </p>
       <div className="mt-3">
-        <label>Selected Year: </label>
+        <label>Select Decade: </label>
         <select
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
+          value={`${selectedDecade}-${selectedDecade + 9}`}
+          onChange={handleSelectChange}
           className="py-1 px-2 ml-2 rounded-md border bg-background"
         >
-          {yearOptions.map((year) => (
-            <option key={year} value={year}>
-              {year}
+          {decadeOptions.map((decade) => (
+            <option key={decade} value={decade}>
+              {decade}
             </option>
           ))}
         </select>
@@ -164,4 +188,4 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
   );
 };
 
-export default UEEmission1YearVertical;
+export default UEEmissionDecadeVertical;
