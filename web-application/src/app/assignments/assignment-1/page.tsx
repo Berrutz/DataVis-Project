@@ -98,10 +98,10 @@ export default function Assignment1() {
               such as Germany (DEU) and Poland (POL), and countries that mainly
               use low carbon energy sources such as France (FRA). A further
               observation to make is that the country with the highest CO2
-              emissions per capita is Luxembourg, this is mainly due to the fact
-              that it is a highly industrialized country, has a small population
-              and is subject to the phenomenon of "fuel tourism", due to the
-              reduced taxation on fuels many non-residents buy fuel in
+              emissions per capita is Luxembourg (LUX), this is mainly due to
+              the fact that it is a highly industrialized country, has a small
+              population and is subject to the phenomenon of "fuel tourism", due
+              to the reduced taxation on fuels many non-residents buy fuel in
               Luxembourg, thus artificially increasing fuel consumption and
               consequently the statistics on CO2 emissions of the country.
             </p>
