@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion, useInView } from "framer-motion";
-import React, { ReactElement, useEffect, useRef } from "react";
-import { ReactNode } from "react";
+import { cn } from '@/lib/utils';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
+import React, { ReactElement, useEffect, useRef } from 'react';
+import { ReactNode } from 'react';
 import {
   ChartBody,
   ChartBodyProps,
@@ -10,10 +10,10 @@ import {
   ChartHeading,
   ChartHeadingProps,
   ChartSection,
-  ChartSectionProps,
-} from "./chart-section";
-import Link from "next/link";
-import { useActiveAsideSectionContext } from "@/context/active-aside-section-assignments";
+  ChartSectionProps
+} from './chart-section';
+import Link from 'next/link';
+import { useActiveAsideSectionContext } from '@/context/active-aside-section-assignments';
 
 type AsideElement = {
   id?: string;
@@ -28,7 +28,7 @@ type AsideSection = {
 
 export const PageAsideNavigation = ({
   isOpen,
-  asideContent,
+  asideContent
 }: {
   isOpen: boolean;
   asideContent: AsideSection[];
@@ -39,8 +39,8 @@ export const PageAsideNavigation = ({
   return (
     <aside
       className={cn(
-        "fixed right-0 top-0 overflow-y-auto 2xl:block 2xl:sticky 2xl:h-dvh 2xl:pt-3 z-[999] max-2xl:border-l bottom-0 bg-background w-[min(100%,_600px)] p-3 pt-16",
-        !isOpen && "hidden 2xl:block",
+        'fixed right-0 top-0 overflow-y-auto 2xl:block 2xl:sticky 2xl:h-dvh 2xl:pt-3 z-[999] max-2xl:border-l bottom-0 bg-background w-[min(100%,_600px)] p-3 pt-16',
+        !isOpen && 'hidden 2xl:block'
       )}
     >
       <h1 className="mb-4 text-xl font-bold">Table of contents:</h1>
@@ -48,13 +48,18 @@ export const PageAsideNavigation = ({
         <div className="mb-2" key={secIndex}>
           <div className="flex mb-1 w-full">
             <Link
-              className="relative z-20 py-px px-2 w-full font-bold"
-              href={`#${sec.elem.id}` || "#"}
+              className={cn(
+                'relative z-20 py-px px-2 w-full font-bold transition-[color]',
+                activeAsideSection.sectionkey === sec.elem.asidekey
+                  ? 'text-primary-foreground'
+                  : 'text-foreground'
+              )}
+              href={`#${sec.elem.id}` || '#'}
               onClick={() => {
                 setTimeLastClick(Date.now);
                 setActiveAsideSection({
-                  subsectionkey: "",
-                  sectionkey: sec.elem.asidekey,
+                  subsectionkey: '',
+                  sectionkey: sec.elem.asidekey
                 });
               }}
             >
@@ -66,7 +71,7 @@ export const PageAsideNavigation = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     layoutId="section-aside-lid"
-                    className="absolute inset-0 rounded-md border shadow-sm z-[-10]"
+                    className="absolute inset-0 rounded-md z-[-10] bg-primary"
                   />
                 )}
               </AnimatePresence>
@@ -76,14 +81,14 @@ export const PageAsideNavigation = ({
           <div className="flex flex-col gap-3 w-full">
             {sec.children.map((subsec, elemIndex) => (
               <Link
-                className="relative z-20 py-px pl-6"
-                href={`#${subsec.id}` || "#"}
+                className="relative z-20 py-px pl-6 text-secondary-foreground"
+                href={`#${subsec.id}` || '#'}
                 key={`${secIndex}-${elemIndex}`}
                 onClick={() => {
                   setTimeLastClick(Date.now);
                   setActiveAsideSection({
                     subsectionkey: subsec.asidekey,
-                    sectionkey: sec.elem.asidekey,
+                    sectionkey: sec.elem.asidekey
                   });
                 }}
               >
@@ -95,7 +100,7 @@ export const PageAsideNavigation = ({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       layoutId="container-aside-lid"
-                      className="absolute inset-0 bg-gray-100 rounded-md z-[-10]"
+                      className="absolute inset-0 rounded-md bg-secondary z-[-10]"
                     />
                   )}
                 </AnimatePresence>
@@ -110,7 +115,7 @@ export const PageAsideNavigation = ({
 
 function ensureValidReactElement<T>(
   child: ReactNode,
-  type: React.JSXElementConstructor<T>,
+  type: React.JSXElementConstructor<T>
 ) {
   return React.isValidElement(child) && child.type === type;
 }
@@ -155,11 +160,11 @@ function parseChartSection(chartSection: ReactElement<ChartSectionProps>) {
       }
 
       return child;
-    },
+    }
   );
 
   const newChartSection = React.cloneElement(chartSection, {
-    children: chartSectionChildren,
+    children: chartSectionChildren
   });
   const wrappedChartSection = (
     <SectionInViewWrapper sectionAsideKey={newChartSection.props.asidekey}>
@@ -171,9 +176,9 @@ function parseChartSection(chartSection: ReactElement<ChartSectionProps>) {
     elem: {
       asidekey: chartSection.props.asidekey,
       id: chartSection.props.id,
-      name: chartSection.props.asidename,
+      name: chartSection.props.asidename
     },
-    children: asideSectionChildren,
+    children: asideSectionChildren
   };
 
   return { wrappedChartSection, asideSection };
@@ -195,15 +200,15 @@ function parseChartHeading(chartHeading: ReactElement<ChartHeadingProps>) {
 
       asideElements.push(asideElement);
       return wrappedChartContainer;
-    },
+    }
   );
 
   const newChartHeading = React.cloneElement(chartHeading, {
-    children: chartHeadingChildren,
+    children: chartHeadingChildren
   });
   return {
     newChartHeading,
-    asideElements,
+    asideElements
   };
 }
 
@@ -223,25 +228,25 @@ function parseChartBody(chartBody: ReactElement<ChartBodyProps>) {
 
       asideElements.push(asideElement);
       return wrappedChartContainer;
-    },
+    }
   );
 
   const newChartBody = React.cloneElement(chartBody, {
-    children: chartHeadingChildren,
+    children: chartHeadingChildren
   });
   return {
     newChartBody,
-    asideElements,
+    asideElements
   };
 }
 
 function parseChartContainer(
-  chartContainer: ReactElement<ChartContainerProps>,
+  chartContainer: ReactElement<ChartContainerProps>
 ) {
   const asideElement: AsideElement = {
     name: chartContainer.props.asidename,
     asidekey: chartContainer.props.asidekey,
-    id: chartContainer.props.id,
+    id: chartContainer.props.id
   };
 
   const wrappedChartContainer = (
@@ -251,7 +256,7 @@ function parseChartContainer(
   );
   return {
     wrappedChartContainer,
-    asideElement,
+    asideElement
   };
 }
 
@@ -261,13 +266,13 @@ interface ContainerInViewWrapperProps
 }
 function ContainerInViewWrapper({
   children,
-  containerAsideKey,
+  containerAsideKey
 }: ContainerInViewWrapperProps) {
   const { setActiveAsideSection, timeLastClick } =
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "0px 0px -98% 0px",
+    margin: '0px 0px -98% 0px'
   });
 
   useEffect(() => {
@@ -275,15 +280,15 @@ function ContainerInViewWrapper({
       setActiveAsideSection((prev) => {
         return {
           subsectionkey: containerAsideKey,
-          sectionkey: prev?.sectionkey || "",
+          sectionkey: prev?.sectionkey || ''
         };
       });
     } else if (!isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
           subsectionkey:
-            containerAsideKey === prev.subsectionkey ? "" : prev.subsectionkey,
-          sectionkey: prev?.sectionkey || "",
+            containerAsideKey === prev.subsectionkey ? '' : prev.subsectionkey,
+          sectionkey: prev?.sectionkey || ''
         };
       });
     }
@@ -298,21 +303,21 @@ interface SectionInViewWrapperProps
 }
 function SectionInViewWrapper({
   children,
-  sectionAsideKey,
+  sectionAsideKey
 }: SectionInViewWrapperProps) {
   const { setActiveAsideSection, timeLastClick } =
     useActiveAsideSectionContext();
   const ref = useRef(null);
   const isInView = useInView(ref, {
-    margin: "0px 0px -90% 0px",
+    margin: '0px 0px -90% 0px'
   });
 
   useEffect(() => {
     if (isInView && Date.now() - timeLastClick > 1000) {
       setActiveAsideSection((prev) => {
         return {
-          subsectionkey: prev?.subsectionkey || "",
-          sectionkey: sectionAsideKey,
+          subsectionkey: prev?.subsectionkey || '',
+          sectionkey: sectionAsideKey
         };
       });
     }

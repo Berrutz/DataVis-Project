@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { MdHome } from "react-icons/md";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { MdHome } from 'react-icons/md';
 
 export default function AssignmentsLayout({
-  children,
+  children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="relative">
       <nav className="p-3 w-full border-b">
-        <Button asChild>
+        <Button asChild variant={'ghost'}>
           <Link href="/#assignments">
             <MdHome className="mr-2" />
             Back to homepage
