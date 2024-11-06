@@ -1,9 +1,10 @@
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { CurrentAssignmentType } from "../assignments-section";
-import { motion } from "framer-motion";
-import UEEmission1Year from "@/app/assignments/assignment-1/_components/eu-emission-1year";
-import Image from "next/image";
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { CurrentAssignmentType } from '../assignments-section';
+import { motion } from 'framer-motion';
+import UEEmission1Year from '@/app/assignments/assignment-1/_components/eu-emission-1year';
+import Image from 'next/image';
+import { getStaticFile } from '@/utils/general';
 
 interface BaseAssignmentCardProps {
   className?: string;
@@ -14,15 +15,15 @@ interface BaseAssignmentCardProps {
 function BaseAssignmentCard({
   className,
   children,
-  isSelected,
+  isSelected
 }: BaseAssignmentCardProps) {
   return (
     isSelected && (
       <div
         className={cn(
-          "absolute left-1/2 top-0 aspect-square h-[250px] -translate-x-1/2 rounded-md sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0",
-          isSelected ? "opacity-100" : "opacity-0",
-          className,
+          'absolute left-1/2 top-0 aspect-square h-[250px] -translate-x-1/2 rounded-md sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0',
+          isSelected ? 'opacity-100' : 'opacity-0',
+          className
         )}
       >
         {children}
@@ -38,7 +39,7 @@ interface LinkAssignmentCardProps extends BaseAssignmentCardProps {
 function LinkAssignmentCard({ href, ...props }: LinkAssignmentCardProps) {
   return (
     <BaseAssignmentCard
-      className={cn("shadow-sm", props.className)}
+      className={cn('shadow-sm', props.className)}
       isSelected={props.isSelected}
     >
       <Link href={href} className="absolute inset-0">
@@ -60,7 +61,7 @@ interface SpecificAssignmentCardProps {
 }
 
 export const NoAssignmentCard = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <BaseAssignmentCard
@@ -79,12 +80,12 @@ export const NoAssignmentCard = ({
 };
 
 export const Assignment1Card = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <LinkAssignmentCard
       href="/assignments/assignment-1"
-      isSelected={selectedAssignment == "Assignment 1"}
+      isSelected={selectedAssignment == 'Assignment 1'}
       className="bg-gradient-to-br from-orange-50 to-orange-200 shadow-xl"
     >
       <div className="p-4 size-full">
@@ -104,7 +105,7 @@ export const Assignment1Card = ({
         >
           <Image
             className="object-cover size-full"
-            src={"DataVis-Project/barchart-ass1.png"}
+            src={getStaticFile('/barchart-ass1.png')}
             width={500}
             height={500}
             alt="barchart assignment 1"
@@ -119,7 +120,7 @@ export const Assignment1Card = ({
         >
           <Image
             className="object-cover size-full"
-            src={"DataVis-Project/barchart-ass1.png"}
+            src={getStaticFile('/stacked-barchart-ass1.png')}
             width={500}
             height={500}
             alt="barchart assignment 1"
@@ -131,48 +132,48 @@ export const Assignment1Card = ({
 };
 
 export const Assignment2Card = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <LinkAssignmentCard
       href="/assignments/assignment-2"
-      isSelected={selectedAssignment == "Assignment 2"}
+      isSelected={selectedAssignment == 'Assignment 2'}
       className="bg-gradient-to-br to-blue-200 from-background"
     ></LinkAssignmentCard>
   );
 };
 
 export const Assignment3Card = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <LinkAssignmentCard
       href="/assignments/assignment-3"
-      isSelected={selectedAssignment == "Assignment 3"}
+      isSelected={selectedAssignment == 'Assignment 3'}
       className="bg-gradient-to-br to-emerald-200 from-background"
     ></LinkAssignmentCard>
   );
 };
 
 export const Assignment4Card = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <LinkAssignmentCard
       href="/assignments/assignment-4"
-      isSelected={selectedAssignment == "Assignment 4"}
+      isSelected={selectedAssignment == 'Assignment 4'}
       className="bg-gradient-to-br to-red-200 from-background"
     ></LinkAssignmentCard>
   );
 };
 
 export const Assignment5Card = ({
-  selectedAssignment,
+  selectedAssignment
 }: SpecificAssignmentCardProps) => {
   return (
     <LinkAssignmentCard
       href="/assignments/assignment-5"
-      isSelected={selectedAssignment == "Assignment 5"}
+      isSelected={selectedAssignment == 'Assignment 5'}
       className="bg-gradient-to-br to-yellow-200 from-background"
     ></LinkAssignmentCard>
   );
