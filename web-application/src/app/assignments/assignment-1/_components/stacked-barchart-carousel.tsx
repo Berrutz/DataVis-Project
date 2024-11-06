@@ -1,14 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import StackedBarChart from './eu-emission-stacked-bar-chart';
-import StackedBarChart2 from './eu-emission-stacked-bar-chart-2';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+import StackedBarChart from './eu-emission-stacked-bar-chart';
+import StackedBarChart2 from './eu-emission-stacked-bar-chart-2';
+import StackedBarChart3 from './eu-emission-stacked-bar-chart-3';
 
 const StackedBarChartCarousel = () => {
   // Track the current slide index
   const [currentIndex, setCurrentIndex] = useState(0);
-  const svgComponents = [<StackedBarChart />, <StackedBarChart2 />];
+  const svgComponents = [<StackedBarChart />, <StackedBarChart2 /> , <StackedBarChart3 />];
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % svgComponents.length);

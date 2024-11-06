@@ -50,6 +50,9 @@ const StackedBarChart2 = () => {
             .filter((d) => d.entity !== emitter.entity) // Exclude the current emitter
             .reduce((sum, d) => sum + d.emission, 0);
 
+          // Uncomment if you want to check if the values are right
+          //console.log(`${emitter.entity} Others Sum: ${otherSum}`);
+
         return {
           entity: emitter.entity,
           country: emitter.emission,
@@ -70,6 +73,9 @@ const StackedBarChart2 = () => {
         other: d.other / maxSumOther
       }));
 
+      // Uncomment if you want to check if the values are right
+      //console.log('Normalized Data:', normalizedData);
+
       setData(normalizedData);
     };
 
@@ -81,7 +87,12 @@ const StackedBarChart2 = () => {
 
     const width = 800;
     const height = 400;
-    const margin = { top: 60, right: 10, bottom: 40, left: 65, middle: 50 };
+    const margin = { top: 50, bottom: 50 , right: 50, left: 100 , middle: 50 };
+
+    const color = d3
+    .scaleOrdinal()
+    .domain(['Country', 'Other'])
+    .range(['#1f77b4', '#ff7f0e']);
 
     const svg = d3
       .select(svgRef.current)
@@ -90,38 +101,39 @@ const StackedBarChart2 = () => {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+    // The height of the y axis depend of top and bottom margin
+    const height_y_axis = height - margin.top - margin.bottom  
+
     // Create separate y scales for "Country" and "Other"
+
+    const width_x_axis = ( (width - margin.right - margin.left) / 2) 
+    const translation_on_x = (width - margin.left - margin.right) / 2 
+
+    // Define the x-axis scale with a common domain for both charts
+
+    const xCountry = d3
+      .scaleLinear()
+      .domain([0, 1])   // Since values are normalized by maxSumOther, the range is 0 to 1
+      .range([0, width_x_axis ]);   
+
+    const xOther = d3
+    .scaleLinear()
+    .domain([0, 1])   // Since values are normalized by maxSumOther, the range is 0 to 1
+    .range([0, width_x_axis ]);   
+
     const yCountry = d3
       .scaleBand()
       .domain(data.map((d) => d.entity))
-      .range([0, height - margin.top - margin.bottom])
+      .range([0, height_y_axis])                      
       .padding(0.2);
-
+  
     const yOther = d3
       .scaleBand()
       .domain(data.map((d) => d.entity))
-      .range([0, height - margin.top - margin.bottom])
+      .range([0, height_y_axis])                    // 300 quanto è alta la scala Y di Country    
       .padding(0.2);
-
-    /*const xCountry = d3.scaleLinear()
-                    .domain([0, d3.max(data, d => d.country)])
-                    .range([0, (width - margin.left - margin.right - margin.middle) / 2]);*/
-
-    /*const xOther = d3.scaleLinear()
-                    .domain([0, d3.max(data, d => d.other)])
-                    .range([0, (width - margin.left - margin.right - margin.middle) / 2]);*/
-
-    // Define the x-axis scale with a common domain for both charts
-    const x = d3
-      .scaleLinear()
-      .domain([0, 1]) // Since values are normalized by maxSumOther, the range is 0 to 1
-      .range([0, (width - margin.left - margin.right) / 2 - margin.middle / 2]);
-
-    const color = d3
-      .scaleOrdinal()
-      .domain(['Country', 'Other'])
-      .range(['#1f77b4', '#ff7f0e']);
-
+    
+    
     // Add "Country" bars on the left side
     svg
       .selectAll('.bar-country')
@@ -130,7 +142,7 @@ const StackedBarChart2 = () => {
       .attr('class', 'bar-country')
       .attr('y', (d) => yCountry(d.entity) ?? 0)
       .attr('x', 0)
-      .attr('width', (d) => x(d.country))
+      .attr('width', (d) => xCountry(d.country))
       .attr('height', yCountry.bandwidth())
       .attr('fill', color('Country') as string);
 
@@ -141,30 +153,10 @@ const StackedBarChart2 = () => {
       .join('rect')
       .attr('class', 'bar-other')
       .attr('y', (d) => yCountry(d.entity) ?? 0)
-      .attr('x', (width - margin.left - margin.right) / 2 + margin.middle)
-      .attr('width', (d) => x(d.other))
+      .attr('x', translation_on_x )
+      .attr('width', (d) => xOther(d.other))
       .attr('height', yOther.bandwidth())
       .attr('fill', color('Other') as string);
-
-    // Add X-axis for "Country" (left side)
-    /*svg.append("g")
-                    .attr("transform", `translate(0, ${height - margin.top - margin.bottom})`)
-                    .call(d3.axisBottom(xCountry).ticks(5))
-                    .append("text")
-                    .attr("x", (width - margin.left - margin.right - margin.middle) / 4)
-                    .attr("y", 30)
-                    .attr("fill", "black")
-                    .text("CO₂ Emissions (Country)");*/
-
-    // Add X-axis for "Other" (right side)
-    /*svg.append("g")
-                    .attr("transform", `translate(${(width - margin.left - margin.right) / 2 + margin.middle}, ${height - margin.top - margin.bottom})`)
-                    .call(d3.axisBottom(xOther).ticks(5))
-                    .append("text")
-                    .attr("x", (width - margin.left - margin.right - margin.middle) / 4)
-                    .attr("y", 30)
-                    .attr("fill", "black")
-                    .text("CO₂ Emissions (Other)");*/
 
     // Y-axis for "Country" (left side)
     svg.append('g').call(d3.axisLeft(yCountry));
@@ -175,18 +167,17 @@ const StackedBarChart2 = () => {
       .attr(
         'transform',
         `translate(${
-          (width - margin.left - margin.right) / 2 + margin.middle
+          translation_on_x
         }, 0)`
-      )
-      .call(d3.axisRight(yOther).tickFormat(() => '')); // This hides the labels
-
-    // Legend
-    const legend = svg.append('g').attr('transform', `translate(0, -50)`); // Position the legend above the x-axis
+      ).call(d3.axisRight(yOther).tickFormat(() => '')); // This hides the labels
 
     // Position and add a label for "Country" above the left bar chart
+    const position_country_label = (width / 6)
+    const position_other_label = (width / 2 ) + margin.middle
+
     svg
       .append('text')
-      .attr('x', (width - margin.left - margin.right) / 4) // Position above the first chart
+      .attr('x', position_country_label) // Position above the first chart
       .attr('y', -20) // Position above the chart area
       .attr('text-anchor', 'middle')
       .style('fill', color('Country') as string)
@@ -196,12 +187,14 @@ const StackedBarChart2 = () => {
     // Position and add a label for "Other" above the right bar chart
     svg
       .append('text')
-      .attr('x', (3 * (width - margin.left - margin.right)) / 4 + margin.middle) // Position above the second chart
+      .attr('x', position_other_label) // Position above the second chart
       .attr('y', -20) // Position above the chart area
       .attr('text-anchor', 'middle')
       .style('fill', color('Other') as string)
       .style('font-weight', 'bold')
       .text('Other');
+
+
   }, [data]);
 
   return <svg ref={svgRef}></svg>;
