@@ -122,7 +122,7 @@ const UEEmissionDecade = () => {
         'height',
         (d) => height - margin.top - margin.bottom - y(d.averageEmission)
       )
-      .attr('fill', '#0F172A')
+      .attr('fill', '#22269c')
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning
@@ -130,7 +130,7 @@ const UEEmissionDecade = () => {
 
           // Calculate the position of the tooltip relative to the SVG
           const tooltipX = event.clientX - (svgRect?.left || 0) + 15; // Offset by 10px for better visibility
-          const tooltipY = event.clientY - (svgRect?.top || 0) - 15; // Offset slightly above the cursor
+          const tooltipY = event.clientY - (svgRect?.top || 0) - 30; // Offset slightly above the cursor
 
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;

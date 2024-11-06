@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 
-interface EmissionData {
+interface StackedData {
   entity: string;
   country: number;
   other: number;
 }
 
 const StackedBarChart = () => {
-  const [data, setData] = useState<EmissionData[]>([]);
+  const [data, setData] = useState<StackedData[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const StackedBarChart = () => {
 
       const top5 = sortedData.slice(0, 5);
 
-      // Trova la riga "Others"
+      // Find row "Others"
       const othersData = csvData.find((d) => d.entity === 'Others');
       if (!othersData) {
         console.error("No 'Others' data found in the dataset.");
@@ -42,7 +42,7 @@ const StackedBarChart = () => {
       }
 
       // Calcola i dati strutturati per ogni paese
-      const structuredData = top5.map((emitter) => {
+      const stackedData = top5.map((emitter) => {
         // Calcola "Other" come somma della riga "Others" e delle altre 4 nazioni (escludendo quella corrente)
         const otherSum =
           othersData.emission +
@@ -60,7 +60,7 @@ const StackedBarChart = () => {
         };
       });
 
-      setData(structuredData);
+      setData(stackedData);
     };
 
     fetchData();
@@ -93,11 +93,11 @@ const StackedBarChart = () => {
 
     const color = d3
       .scaleOrdinal()
-      .domain(['Other', 'Country'])
+      .domain(['Country', 'Other'])
       .range(['#1f77b4', '#ff7f0e']);
 
     // Stack generator for the "Country" and "Other" categories
-    const stackGenerator = d3.stack().keys(['entity', 'country', 'other']);
+    const stackGenerator = d3.stack<StackedData>().keys(['country', 'other']);
 
     const stackedData = stackGenerator(data);
 

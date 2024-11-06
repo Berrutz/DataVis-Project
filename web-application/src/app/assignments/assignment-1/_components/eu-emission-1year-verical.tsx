@@ -105,7 +105,7 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
       .attr('y', (d) => y(d.code)!)
       .attr('width', (d) => x(d.emission))
       .attr('height', y.bandwidth())
-      .attr('fill', '#0F172A')
+      .attr('fill', '#22269c')
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           const svgRect = svgRef.current?.getBoundingClientRect();
