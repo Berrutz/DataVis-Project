@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
+import DataSourceInfo from '../../_components/data-source';
 
 interface UEEmission1YearVerticalProps {
   newWidth: number | string;
@@ -166,10 +167,9 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
           ></div>
         </div>
       </div>
-      <p className="text-sm text-gray-500">
-        <a className="font-medium text-gray-800">Data source: </a>
+      <DataSourceInfo>
         Global Carbon Budget (2023); Population based on various sources (2023)
-      </p>
+      </DataSourceInfo>
       <div className="mt-3">
         <label>Select Decade: </label>
         <select

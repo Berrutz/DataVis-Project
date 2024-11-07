@@ -1,6 +1,7 @@
 import { getStaticFile } from '@/utils/general';
 import * as d3 from 'd3';
 import { useEffect, useRef, useState } from 'react';
+import DataSourceInfo from '../../_components/data-source';
 
 interface CSVRow {
   country: string;
@@ -212,36 +213,37 @@ export default function EUEmissionWithLandUsage() {
     return <h1>Loading ...</h1>;
 
   return (
-    <div>
+    <div className="flex flex-col relative justify-center items-center p-3 w-full">
       <div className="flex relative justify-center items-center w-full">
         <div className="overflow-x-auto h-full w-fit">
           <svg ref={svgRef} />
         </div>
       </div>
-      <div className="flex relative justify-center items-center p-3 w-full">
-        <div className="inline-flex gap-3 justify-center items-center">
-          <label>Select Decade: </label>
-          <select
-            value={`${currentYearRange.from}-${currentYearRange.to}`}
-            onChange={(selection) => {
-              const splitYearSelection = selection.target.value.split('-');
-              setCurrentYearRange({
-                from: +splitYearSelection[0],
-                to: +splitYearSelection[1]
-              });
-            }}
-            className="py-1 px-2 ml-2 rounded-md border bg-background"
-          >
-            {possibleYearRanges.map((range) => (
-              <option
-                key={`${range.from}-${range.to}`}
-                value={`${range.from}-${range.to}`}
-              >
-                {`${range.from}-${range.to}`}
-              </option>
-            ))}
-          </select>
-        </div>
+      <DataSourceInfo>
+        Global Carbon Budget (2023) - with major processing by Our World in Data
+      </DataSourceInfo>
+      <div className="inline-flex gap-3 justify-center items-center">
+        <label>Select Decade: </label>
+        <select
+          value={`${currentYearRange.from}-${currentYearRange.to}`}
+          onChange={(selection) => {
+            const splitYearSelection = selection.target.value.split('-');
+            setCurrentYearRange({
+              from: +splitYearSelection[0],
+              to: +splitYearSelection[1]
+            });
+          }}
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
+        >
+          {possibleYearRanges.map((range) => (
+            <option
+              key={`${range.from}-${range.to}`}
+              value={`${range.from}-${range.to}`}
+            >
+              {`${range.from}-${range.to}`}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
