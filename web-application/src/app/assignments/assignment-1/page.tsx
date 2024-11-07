@@ -61,10 +61,10 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                      ? 400
-                      : windowWidth < 800
-                        ? 500
-                        : 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
                 }
               />
             ) : (
@@ -72,11 +72,11 @@ export default function Assignment1() {
             )}
           </ChartContainer>
           <ChartContainer
-            asidename="Used Metodologies"
+            asidename="Used Methodologies"
             id="used-metodologies-1"
-            asidekey="used-metodologies-1"
+            asidekey="used-Methodologies-1"
           >
-            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <ChartH2Title>Used Methodologies</ChartH2Title>
             <p>
               From the database provided by Our World In Data containing data on
               per capita CO2 emissions of all countries, only those relating to
@@ -133,10 +133,10 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                      ? 400
-                      : windowWidth < 800
-                        ? 500
-                        : 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
                 }
               />
             ) : (
@@ -144,11 +144,11 @@ export default function Assignment1() {
             )}
           </ChartContainer>
           <ChartContainer
-            asidename="Used Metodologies"
+            asidename="Used Methodologies"
             id="used-metodologies-2"
-            asidekey="used-metodologies-2"
+            asidekey="used-Methodologies-2"
           >
-            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <ChartH2Title>Used Methodologies</ChartH2Title>
             <p>
               From the database provided by Our World In Data containing data on
               per capita CO2 emissions of all countries, only those concerning
@@ -196,11 +196,11 @@ export default function Assignment1() {
             <StackedBarChartCarousel />
           </ChartContainer>
           <ChartContainer
-            asidename="Used Metodologies"
+            asidename="Used Methodologies"
             id="used-metodologies-3"
-            asidekey="used-metodologies-3"
+            asidekey="used-Methodologies-3"
           >
-            <ChartH2Title>Used Medotologies</ChartH2Title>
+            <ChartH2Title>Used Methodologies</ChartH2Title>
             <p>
               From the database provided by Our World in Data containing data on
               per capita CO2 emissions of all countries, only those relating to
@@ -232,9 +232,16 @@ export default function Assignment1() {
       >
         <ChartHeading>
           <ChartH1Title>
-            Comparison of the first 10 emitters of CO2 considering the land
-            usage
+            Comparison of the top 10 CO2 emitters considering land use
           </ChartH1Title>
+          <p>
+            The graph shows for the 10 top emitting countries in a given decade
+            and belonging to the European Union (EU-27), the year-by-year
+            variation of CO2 emissions, calculated in millions of tons (Mt),
+            coming from the use of fossil fuels, to which are added the
+            emissions due to a lower or higher land consumption. It is possible
+            to select the decade to display.
+          </p>
         </ChartHeading>
         <ChartBody>
           <ChartContainer
@@ -244,6 +251,36 @@ export default function Assignment1() {
             id="chart-6"
           >
             <EUEmissionWithLandUsage />
+          </ChartContainer>
+          <ChartContainer
+            asidename="Used Methodologies"
+            id="used-metodologies-4"
+            asidekey="used-Methodologies-4"
+          >
+            <ChartH2Title>Used Methodologies</ChartH2Title>
+            <p>
+              From the database provided by Our World in Data containing data
+              from all countries on CO2 emissions from fossil fuel use and land
+              use, only those relating to the countries of the European Union
+              (EU-27) from 1955 to 2022 were extracted, from there for each
+              decade the 10 countries with the highest average emissions were
+              chosen.
+            </p>
+          </ChartContainer>
+          <ChartContainer
+            asidename="Comment"
+            id="comment-4"
+            asidekey="comment-4"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              In this graph you can see the rapid year-by-year variation of CO2
+              emissions in the last decade 2012-2022, as well as a clear general
+              decrease in emissions in the latter compared to the previous
+              decade 2002-2012. From the graph you can also see which countries
+              use more fossil fuels, but to compare them you have to keep in
+              mind the various levels of industrialization.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
