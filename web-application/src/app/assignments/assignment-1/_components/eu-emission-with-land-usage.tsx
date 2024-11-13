@@ -1,6 +1,7 @@
 import { getStaticFile } from '@/utils/general';
 import * as d3 from 'd3';
 import { useEffect, useRef, useState } from 'react';
+import DataSourceInfo from '../../_components/data-source';
 
 interface CSVRow {
   country: string;
@@ -94,9 +95,9 @@ export default function EUEmissionWithLandUsage() {
     const countries = [...new Set(data.map((row) => row.country))];
 
     // Create the heatmap
-    var margin = { top: 40, right: 0, bottom: 0, left: 80 },
+    var margin = { top: 40, right: 0, bottom: 80, left: 80 },
       width = 500 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      height = 550 - margin.top - margin.bottom;
 
     // Clear the previous svg
     d3.select(svgRef.current).selectAll('*').remove();
@@ -126,66 +127,123 @@ export default function EUEmissionWithLandUsage() {
       d3.min(csvData, (row) => row.emissionWithLandUsage) || 0, // Should never be 0 here
       d3.max(csvData, (row) => row.emissionWithLandUsage) || 0 // Should never be 0 here
     ]);
+
     // add the squares
     svg
       .selectAll()
-      .data(data, function(d) {
+      .data(data, function (d) {
         return d?.year + ':' + d?.country;
       })
       .enter()
       .append('rect')
-      .attr('x', function(d) {
+      .attr('x', function (d) {
         return x(d.year) || 0;
       })
-      .attr('y', function(d) {
+      .attr('y', function (d) {
         return y(d.country) || '';
       })
       .attr('rx', 4)
       .attr('ry', 4)
       .attr('width', x.bandwidth())
       .attr('height', y.bandwidth())
-      .style('fill', function(d) {
+      .style('fill', function (d) {
         return colorScale(d.emissionWithLandUsage);
       })
       .style('stroke-width', 4)
       .style('stroke', 'none')
       .style('opacity', 0.8);
+
+    // ********************Legend***********************
+    const legendWidth = width;
+    const legendHeight = 30;
+    const legendMargin = { top: 10, right: 80, bottom: 20, left: 80 };
+
+    const legendSvg = d3
+      .select(svgRef.current)
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${height + margin.top + legendMargin.top})`
+      );
+
+    const legendGradient = svg
+      .append('defs')
+      .append('linearGradient')
+      .attr('id', 'legend-gradient')
+      .attr('x1', '0%')
+      .attr('x2', '100%')
+      .attr('y1', '0%')
+      .attr('y2', '0%');
+
+    legendGradient
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', colorScale(colorScale.domain()[0]));
+
+    legendGradient
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', colorScale(colorScale.domain()[1]));
+
+    legendSvg
+      .append('rect')
+      .attr('width', legendWidth)
+      .attr('height', legendHeight)
+      .style('fill', 'url(#legend-gradient)');
+
+    const legendScale = d3
+      .scaleLinear()
+      .domain(colorScale.domain().map((d) => d / 1e6))
+      .range([0, legendWidth]);
+
+    legendSvg
+      .append('g')
+      .attr('transform', `translate(0, ${legendHeight})`)
+      .call(
+        d3
+          .axisBottom(legendScale)
+          .ticks(6)
+          .tickFormat((d) => `${d} Mt`)
+      )
+      .select('.domain')
+      .remove();
   }, [currentYearRange, setCurrentYearRange, csvData, setCsvData, svgRef]);
 
   if (!csvData || !currentYearRange || !possibleYearRanges)
     return <h1>Loading ...</h1>;
 
   return (
-    <div>
+    <div className="flex flex-col relative justify-center items-center p-3 w-full">
       <div className="flex relative justify-center items-center w-full">
         <div className="overflow-x-auto h-full w-fit">
           <svg ref={svgRef} />
         </div>
       </div>
-      <div className="flex relative justify-center items-center p-3 w-full">
-        <div className="inline-flex gap-3 justify-center items-center">
-          <label>Select Decade: </label>
-          <select
-            value={`${currentYearRange.from}-${currentYearRange.to}`}
-            onChange={(selection) => {
-              const splitYearSelection = selection.target.value.split('-');
-              setCurrentYearRange({
-                from: +splitYearSelection[0],
-                to: +splitYearSelection[1]
-              });
-            }}
-            className="py-1 px-2 ml-2 rounded-md border bg-background"
-          >
-            {possibleYearRanges.map((range) => (
-              <option
-                key={`${range.from}-${range.to}`}
-                value={`${range.from}-${range.to}`}
-              >
-                {`${range.from}-${range.to}`}
-              </option>
-            ))}
-          </select>
-        </div>
+      <DataSourceInfo>
+        Global Carbon Budget (2023) - with major processing by Our World in Data
+      </DataSourceInfo>
+      <div className="inline-flex gap-3 justify-center items-center">
+        <label>Select Decade: </label>
+        <select
+          value={`${currentYearRange.from}-${currentYearRange.to}`}
+          onChange={(selection) => {
+            const splitYearSelection = selection.target.value.split('-');
+            setCurrentYearRange({
+              from: +splitYearSelection[0],
+              to: +splitYearSelection[1]
+            });
+          }}
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
+        >
+          {possibleYearRanges.map((range) => (
+            <option
+              key={`${range.from}-${range.to}`}
+              value={`${range.from}-${range.to}`}
+            >
+              {`${range.from}-${range.to}`}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
