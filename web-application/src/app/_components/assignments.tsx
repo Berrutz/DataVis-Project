@@ -28,7 +28,7 @@ const assignmentData: AssignmentData[] = [
     title: 'Assignment 1',
     subtitle: 'Comparing Categories',
     description:
-      'In this assignment multiple charts compare emissions of cities of the European Union.'
+      'In this assignment multiple charts compare the emission of European Union cities.'
   },
   {
     assignmentHref: '/assignments/assignment-2',
@@ -170,7 +170,7 @@ const AssignmentCarousel = ({
                   className="object-cover bg-gray-50 border size-full rounded-[calc(theme(borderRadius.2xl)_-_1px)]"
                 />
               </div>
-              <div className="flex flex-col justify-between py-3 h-1/2">
+              <div className="flex flex-col justify-between pt-6 pb-3 h-1/2">
                 <div className="px-6">
                   <h1 className="text-2xl font-semibold">{ass.title}</h1>
                   <h2 className="font-medium text-sm/3 text-foreground/50">
