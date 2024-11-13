@@ -38,7 +38,7 @@ export default function WhoWeAre() {
           {whoWeAreData.map((value, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl transition-all hover:shadow-xl max-w-[350px] bg-card hover:scale-[1.03]"
+              className="p-6 rounded-2xl transition-all ease-in-out hover:shadow-xl max-w-[350px] bg-card hover:scale-[1.03]"
             >
               <div className="inline-flex gap-6 items-center text-xl font-semibold">
                 <Image

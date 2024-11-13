@@ -12,8 +12,9 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 type AssignmentData = {
-  pageUri: string;
-  pageBgUri: string;
+  assignmentHref: string;
+  imageSrc: string;
+  imageAlt: string;
   title: string;
   subtitle: string;
   description: string;
@@ -21,32 +22,36 @@ type AssignmentData = {
 
 const assignmentData: AssignmentData[] = [
   {
-    pageUri: '/assignments/assignment-1',
-    pageBgUri: getStaticFile('/barchart-ass1.png'),
+    assignmentHref: '/assignments/assignment-1',
+    imageSrc: getStaticFile('/barchart-ass1.png'),
+    imageAlt: 'Barchart of assignment 1',
     title: 'Assignment 1',
     subtitle: 'Comparing Categories',
     description:
       'In this assignment multiple charts compare emissions of cities of the European Union.'
   },
   {
-    pageUri: '/assignments/assignment-2',
-    pageBgUri: getStaticFile(''),
+    assignmentHref: '/assignments/assignment-2',
+    imageSrc: getStaticFile(''),
+    imageAlt: '',
     title: 'Assignment 2',
-    subtitle: 'Subtitle',
+    subtitle: 'Assignment 2 - Subtitle',
     description: ''
   },
   {
-    pageUri: '/assignments/assignment-3',
-    pageBgUri: getStaticFile('/barchart-ass1.png'),
+    assignmentHref: '/assignments/assignment-3',
+    imageSrc: getStaticFile(''),
+    imageAlt: '',
     title: 'Assignment 3',
-    subtitle: 'Subtitle',
+    subtitle: 'Assignment 3 - Subtitle',
     description: ''
   },
   {
-    pageUri: '/assignments/assignment-4',
-    pageBgUri: getStaticFile('/barchart-ass1.png'),
+    assignmentHref: '/assignments/assignment-4',
+    imageSrc: getStaticFile(''),
+    imageAlt: '',
     title: 'Assignment 4',
-    subtitle: 'Subtitle',
+    subtitle: 'Assignment 4 - Subtitle',
     description: ''
   }
 ];
@@ -97,7 +102,7 @@ export default function Assignments() {
               )
             }
             variant={'ghost'}
-            className="p-1 rounded-full transition-all scale-150 hover:scale-[1.50]"
+            className="p-1 rounded-full transition-all ease-in-out scale-150 hover:scale-[1.50]"
           >
             <ChevronRight />
           </Button>
@@ -153,16 +158,16 @@ const AssignmentCarousel = ({
               className={cn(
                 'flex flex-col rounded-2xl bg-card size-full opacity-30 transition-all duration-500',
                 index === currentFocusAssignment &&
-                'opacity-100 shadow-xl scale-105'
+                'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
               )}
             >
-              <div className="p-3 h-1/2">
+              <div className="px-3 pt-3 h-1/2">
                 <Image
-                  src={ass.pageBgUri}
+                  src={ass.imageSrc}
                   width={1000}
                   height={1000}
-                  alt="Assignment Image"
-                  className="object-cover bg-gray-50 size-full rounded-[calc(theme(borderRadius.2xl)_-_1px)]"
+                  alt={ass.imageAlt}
+                  className="object-cover bg-gray-50 border size-full rounded-[calc(theme(borderRadius.2xl)_-_1px)]"
                 />
               </div>
               <div className="flex flex-col justify-between py-3 h-1/2">
@@ -179,8 +184,11 @@ const AssignmentCarousel = ({
                     className="w-full rounded-[calc(theme(borderRadius.xl)_-_1px)]"
                   >
                     <Link
-                      href={ass.pageUri}
+                      href={ass.assignmentHref}
                       aria-disabled={!(index === currentFocusAssignment)}
+                      tabIndex={
+                        index === currentFocusAssignment ? undefined : -1
+                      }
                       className={cn(
                         'pointer-events-none',
                         index === currentFocusAssignment &&

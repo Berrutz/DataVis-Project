@@ -1,23 +1,19 @@
-import HeroSection from "./_components/hero-section";
-import HomepageNavbar from "./_components/homepage-nav";
-import WhoWeAreSection from "./_components/who-we-are-section";
-import AssignmentsSection from "./_components/assignments-section";
-import FinalProjectSection from "./_components/final-project-section";
-import TechnologicalStachSection from "./_components/technological-stack-section";
-import ActiveSectionContextProvider from "@/context/active-section-context-provider";
+import Assignments from './_components/assignments';
+import Header from './_components/header';
+import Hero from './_components/hero';
+import WhoWeAre from './_components/who-we-are';
+import FinalProject from './_components/final-project';
+import TeckStack from './_components/tech-stack';
 
-export default function Home() {
+export default function Homepage() {
   return (
-    <ActiveSectionContextProvider>
-      <main >
-        <HomepageNavbar />
-
-        <HeroSection />
-        <WhoWeAreSection />
-        <AssignmentsSection />
-        <FinalProjectSection />
-        <TechnologicalStachSection />
-      </main>
-    </ActiveSectionContextProvider>
+    <main>
+      <Header />
+      <Hero />
+      <WhoWeAre />
+      <Assignments />
+      <FinalProject />
+      <TeckStack />
+    </main>
   );
 }
