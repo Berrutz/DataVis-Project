@@ -165,10 +165,12 @@ const StackedBarChart3 = () => {
     if (tooltipRef.current) {
       // Get bounding box of SVG to calculate relative positioning
       const svgRect = svgRef.current?.getBoundingClientRect();
+      const horizontalOffset = 30;
+      const verticalOffset = 20;
 
       // Calculate the position of the tooltip relative to the SVG
-      const tooltipX = event.clientX - (svgRect?.left || 0) - 30;
-      const tooltipY = event.clientY - (svgRect?.top || 0) - 20;
+      const tooltipX = event.clientX - (svgRect?.left || 0) - horizontalOffset;
+      const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
 
       tooltipRef.current.style.left = `${tooltipX}px`;
       tooltipRef.current.style.top = `${tooltipY}px`;

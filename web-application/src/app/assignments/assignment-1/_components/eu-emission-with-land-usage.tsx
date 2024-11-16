@@ -156,13 +156,18 @@ export default function EUEmissionWithLandUsage() {
       .on('mouseover', function (event, d) {
         const svgRect = svgRef.current?.getBoundingClientRect();
         const scrollOffset = svgRef.current?.parentElement?.scrollLeft || 0;
+        const horizontalOffset = window.innerWidth < 640 ? 85 : 20;
+        const verticalOffset = 35;
 
         if (tooltipRef.current) {
           tooltipRef.current.style.left = `${
-            event.clientX - (svgRect?.left || 0) - 85 - scrollOffset
+            event.clientX -
+            (svgRect?.left || 0) -
+            horizontalOffset -
+            scrollOffset
           }px`;
           tooltipRef.current.style.top = `${
-            event.clientY - (svgRect?.top || 0) - 35
+            event.clientY - (svgRect?.top || 0) - verticalOffset
           }px`;
           tooltipRef.current.style.opacity = '1';
           tooltipRef.current.textContent = `${d.country}, ${d.year}: ${(

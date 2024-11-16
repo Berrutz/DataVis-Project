@@ -110,8 +110,12 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           const svgRect = svgRef.current?.getBoundingClientRect();
-          const tooltipX = event.clientX - (svgRect?.left || 0) - 100;
-          const tooltipY = event.clientY - (svgRect?.top || 0) - 35;
+          const horizontalOffset = 100;
+          const verticalOffset = 35;
+
+          const tooltipX =
+            event.clientX - (svgRect?.left || 0) - horizontalOffset;
+          const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
