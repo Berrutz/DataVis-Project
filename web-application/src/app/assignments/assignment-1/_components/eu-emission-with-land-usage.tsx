@@ -33,6 +33,7 @@ type YearRange = {
 
 export default function EUEmissionWithLandUsage() {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [possibleYearRanges, setPossibleYearRanges] = useState<
     YearRange[] | null
   >(null);
@@ -151,7 +152,33 @@ export default function EUEmissionWithLandUsage() {
       })
       .style('stroke-width', 4)
       .style('stroke', 'none')
-      .style('opacity', 0.8);
+      .style('opacity', 0.8)
+      .on('mouseover', function (event, d) {
+        const svgRect = svgRef.current?.getBoundingClientRect();
+        const scrollOffset = svgRef.current?.parentElement?.scrollLeft || 0;
+
+        if (tooltipRef.current) {
+          tooltipRef.current.style.left = `${
+            event.clientX - (svgRect?.left || 0) - 85 - scrollOffset
+          }px`;
+          tooltipRef.current.style.top = `${
+            event.clientY - (svgRect?.top || 0) - 35
+          }px`;
+          tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.textContent = `${d.country}, ${d.year}: ${(
+            d.emissionWithLandUsage / 1e6
+          ).toFixed(2)} Mt`;
+        }
+        d3.select(event.target)
+          .style('stroke', 'black')
+          .style('stroke-width', '2');
+      })
+      .on('mouseleave', function () {
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = '0';
+        }
+        d3.select(this).style('stroke', 'none');
+      });
 
     // ********************Legend***********************
     const legendWidth = width;
@@ -218,6 +245,10 @@ export default function EUEmissionWithLandUsage() {
         <div className="overflow-x-auto h-full w-fit">
           <svg ref={svgRef} />
         </div>
+        <div
+          ref={tooltipRef}
+          className="absolute px-2 py-1 text-sm bg-white border border-gray-400 rounded shadow opacity-0 pointer-events-none"
+        ></div>
       </div>
       <DataSourceInfo>
         Global Carbon Budget (2023) - with major processing by Our World in Data

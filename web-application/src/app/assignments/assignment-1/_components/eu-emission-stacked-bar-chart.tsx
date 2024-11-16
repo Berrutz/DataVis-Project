@@ -11,6 +11,7 @@ interface StackedData {
 const StackedBarChart = () => {
   const [data, setData] = useState<StackedData[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Load and prepare the data
@@ -49,9 +50,6 @@ const StackedBarChart = () => {
           top5
             .filter((d) => d.entity !== emitter.entity) // Esclude il paese corrente
             .reduce((sum, d) => sum + d.emission, 0);
-
-        // Stampa il valore di otherSum per il paese corrente
-        //console.log(`${emitter.entity} Others Sum: ${otherSum}`);
 
         return {
           entity: emitter.entity,
@@ -113,8 +111,41 @@ const StackedBarChart = () => {
       .attr('y', (d) => y(d.data.entity) ?? 0)
       .attr('x', (d) => x(d[0]) ?? 0)
       .attr('width', (d) => x(d[1]) - x(d[0])!)
-      .attr('height', y.bandwidth());
+      .attr('height', y.bandwidth())
+      .on('mouseover', function (event, d) {
+        if (tooltipRef.current) {
+          // Get bounding box of SVG to calculate relative positioning
+          const svgRect = svgRef.current?.getBoundingClientRect();
 
+          // Calculate the position of the tooltip relative to the SVG
+          const tooltipX = event.clientX - (svgRect?.left || 0) - 30; // Offset by 10px for better visibility
+          const tooltipY = event.clientY - (svgRect?.top || 0) - 20; // Offset slightly above the cursor
+
+          tooltipRef.current.style.left = `${tooltipX}px`;
+          tooltipRef.current.style.top = `${tooltipY}px`;
+          tooltipRef.current.style.opacity = '1';
+
+          tooltipRef.current.textContent = `${(d[1] - d[0]).toFixed(
+            2
+          )} t per capita`;
+        }
+
+        // Highlight the hovered bar
+        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+
+        d3.select(event.target as SVGRectElement)
+          .transition()
+          .duration(200)
+          .style('opacity', 1);
+      })
+      .on('mouseleave', function () {
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = '0';
+        }
+
+        // Reset opacity for all bars
+        d3.selectAll('rect').transition().duration(200).style('opacity', 1);
+      });
     // X-axis
     svg
       .append('g')
@@ -153,7 +184,15 @@ const StackedBarChart = () => {
       .text('Other');
   }, [data]);
 
-  return <svg ref={svgRef}></svg>;
+  return (
+    <div className="relative">
+      <svg ref={svgRef}></svg>
+      <div
+        ref={tooltipRef}
+        className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+      ></div>
+    </div>
+  );
 };
 
 export default StackedBarChart;

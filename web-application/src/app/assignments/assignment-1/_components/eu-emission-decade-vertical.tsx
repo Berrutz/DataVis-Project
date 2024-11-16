@@ -139,15 +139,26 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
-          tooltipRef.current.textContent = `CO₂ Emissions: ${d.averageEmission.toFixed(
+          tooltipRef.current.textContent = `${d.averageEmission.toFixed(
             2
           )} t per capita`;
         }
+
+        // Highlight the hovered bar
+        d3.selectAll('rect').transition().duration(200).style('opacity', 0.5);
+
+        d3.select(event.target as SVGRectElement)
+          .transition()
+          .duration(200)
+          .style('opacity', 1);
       })
       .on('mouseleave', () => {
         if (tooltipRef.current) {
           tooltipRef.current.style.opacity = '0';
         }
+
+        // Reset opacity for all bars
+        d3.selectAll('rect').transition().duration(200).style('opacity', 1);
       });
   }, [data, selectedDecade, newWidth]);
 
