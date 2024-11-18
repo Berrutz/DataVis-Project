@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
+import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 
 interface Data {
   country: string; // Country name
@@ -109,7 +110,7 @@ const AlluvialPlot = () => {
           value: d[source as keyof Data]
         }))
       );
-    /*    .filter((link) => link.value > 0); // Remove zero-value links
+    /*    .filter((link: { value: number; }) => link.value > 0); // Remove zero-value links
 
     const sankeyGenerator = sankey()
     .nodeWidth(15)
