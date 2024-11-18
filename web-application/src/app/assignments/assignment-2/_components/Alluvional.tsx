@@ -74,8 +74,7 @@ const AlluvialPlot = () => {
         d.nuclear +
         d.gas +
         d.coal +
-        d.oil +
-        d.other
+        d.oil
     }));
 
     // Get top 10 countries by total energy consumption
@@ -110,61 +109,75 @@ const AlluvialPlot = () => {
           value: d[source as keyof Data]
         }))
       );
-    /*    .filter((link: { value: number; }) => link.value > 0); // Remove zero-value links
+    /*       .filter((link) => link.value > 0); // Remove zero-value links
 
     const sankeyGenerator = sankey()
-    .nodeWidth(15)
-    .nodePadding(10)
-    .extent([
-      [0, 0],
-      [innerWidth, innerHeight],
-    ]);
+      .nodeWidth(15)
+      .nodePadding(10)
+      .extent([
+        [0, 0],
+        [innerWidth, innerHeight]
+      ]);
 
-  const sankeyData = sankeyGenerator({
-    nodes: nodes.map((d) => ({ ...d })),
-    links: links.map((d) => ({ ...d })),
-  });
+    const sankeyData = sankeyGenerator({
+      nodes: nodes.map((d) => ({ ...d })),
+      links: links.map((d) => ({ ...d }))
+    });
 
-  // Draw links
-  svg
-    .append('g')
-    .selectAll('path')
-    .data(sankeyData.links)
-    .join('path')
-    .attr('d', sankeyLinkHorizontal())
-    .attr('fill', 'none')
-    .attr('stroke', '#888')
-    .attr('stroke-width', (d) => Math.max(1, d.width))
-    .attr('opacity', 0.7);
+    // Draw links
+    svg
+      .append('g')
+      .selectAll('path')
+      .data(sankeyData.links)
+      .join('path')
+      .attr('d', sankeyLinkHorizontal())
+      .attr('fill', 'none')
+      .attr('stroke', '#888')
+      .attr('stroke-width', (d) => Math.max(1, d.width))
+      .attr('opacity', 0.7);
 
-  // Draw nodes
-  svg
-    .append('g')
-    .selectAll('rect')
-    .data(sankeyData.nodes)
-    .join('rect')
-    .attr('x', (d) => d.x0)
-    .attr('y', (d) => d.y0)
-    .attr('width', (d) => d.x1 - d.x0)
-    .attr('height', (d) => d.y1 - d.y0)
-    .attr('fill', '#007acc')
-    .attr('stroke', '#000');
+    // Draw nodes
+    svg
+      .append('g')
+      .selectAll('rect')
+      .data(sankeyData.nodes)
+      .join('rect')
+      .attr('x', (d) => d.x0)
+      .attr('y', (d) => d.y0)
+      .attr('width', (d) => d.x1 - d.x0)
+      .attr('height', (d) => d.y1 - d.y0)
+      .attr('fill', '#007acc')
+      .attr('stroke', '#000');
 
-  // Add labels
-  svg
-    .append('g')
-    .selectAll('text')
-    .data(sankeyData.nodes)
-    .join('text')
-    .attr('x', (d) => (d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6))
-    .attr('y', (d) => (d.y0 + d.y1) / 2)
-    .attr('text-anchor', (d) => (d.x0 < width / 2 ? 'start' : 'end'))
-    .attr('alignment-baseline', 'middle')
-    .text((d) => d.name); */
+    // Add labels
+    svg
+      .append('g')
+      .selectAll('text')
+      .data(sankeyData.nodes)
+      .join('text')
+      .attr('x', (d) => (d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6))
+      .attr('y', (d) => (d.y0 + d.y1) / 2)
+      .attr('text-anchor', (d) => (d.x0 < width / 2 ? 'start' : 'end'))
+      .attr('alignment-baseline', 'middle')
+      .text((d) => d.name); */
   }, [data, selectedYear]);
 
   return (
     <div>
+      <div>
+        <label htmlFor="year">Select Year: </label>
+        <select
+          id="year"
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
+        >
+          {[...new Set(data.map((d) => d.year))].map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
       <svg ref={svgRef}></svg>
     </div>
   );
