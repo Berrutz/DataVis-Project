@@ -28,15 +28,16 @@ const assignmentData: AssignmentData[] = [
     title: 'Assignment 1',
     subtitle: 'Comparing Categories',
     description:
-      'In this assignment multiple charts compare the emission of European Union cities.'
+      'In this assignment multiple charts compare the emission of European Union countries.'
   },
   {
     assignmentHref: '/assignments/assignment-2',
-    imageSrc: getStaticFile(''),
-    imageAlt: '',
+    imageSrc: getStaticFile('/alluvial-chart-ass2.png'),
+    imageAlt: 'Alluvial chart of assignment 2',
     title: 'Assignment 2',
-    subtitle: 'Assignment 2 - Subtitle',
-    description: ''
+    subtitle: 'Comparing Categories - Alluvial',
+    description:
+      'In this assigment the alluvial chart is used to compare the energy consumption mix of EU countries.'
   },
   {
     assignmentHref: '/assignments/assignment-3',
@@ -158,7 +159,7 @@ const AssignmentCarousel = ({
               className={cn(
                 'flex flex-col rounded-2xl bg-card size-full opacity-30 transition-all duration-500',
                 index === currentFocusAssignment &&
-                'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
+                  'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
               )}
             >
               <div className="px-3 pt-3 h-1/2">
@@ -192,7 +193,7 @@ const AssignmentCarousel = ({
                       className={cn(
                         'pointer-events-none',
                         index === currentFocusAssignment &&
-                        'pointer-events-auto'
+                          'pointer-events-auto'
                       )}
                     >
                       Go to the assignment <ChevronRight className="ml-2" />

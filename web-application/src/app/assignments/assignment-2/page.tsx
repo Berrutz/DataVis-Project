@@ -15,7 +15,7 @@ import AlluvionalPlot from './_components/Alluvional';
 
 export default function Assignment2() {
   return (
-    <AssignmentPage title={'Analysis of Energy Consumption EU Country 2021 '}>
+    <AssignmentPage title={'Analysis of Energy Consumption EU Countries 2021 '}>
       <ChartSection
         asidename="Single Year Energy Comparison"
         id="single-energy"
