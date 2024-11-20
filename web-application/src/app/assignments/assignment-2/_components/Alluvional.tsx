@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
+import DataSourceInfo from '../../_components/data-source';
 
 interface Data {
   country: string; // Country name
@@ -93,12 +94,12 @@ const AlluvialPlot = () => {
     if (!data || data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 800;
+    const width = 850;
     const height = 500;
 
     svg.attr('width', width).attr('height', height);
 
-    const margin = { top: 20, right: 20, bottom: 40, left: 20 };
+    const margin = { top: 20, right: 80, bottom: 40, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -119,7 +120,7 @@ const AlluvialPlot = () => {
         d.other
     }));
 
-    // Get top 10 countries by total energy consumption
+    // Get top 7 countries by total energy consumption
     const topCountries = countryTotals
       .sort((a, b) => b.total - a.total)
       .slice(0, 7)
@@ -222,9 +223,13 @@ const AlluvialPlot = () => {
       .selectAll('text')
       .data(sankeyData.nodes)
       .join('text')
-      .attr('x', (d) => (d.x0! < width / 2 ? (d.x1 ?? 0) + 6 : (d.x0 ?? 0) - 6))
+      .attr('x', (d) =>
+        energySources.includes(d.name) ? d.x0! - 10 : margin.left
+      ) // Fixed x for countries
       .attr('y', (d) => ((d.y0 ?? 0) + (d.y1 ?? 0)) / 2)
-      .attr('text-anchor', (d) => (d.x0! < width / 2 ? 'start' : 'end'))
+      .attr('text-anchor', (d) =>
+        energySources.includes(d.name) ? 'end' : 'start'
+      )
       .attr('alignment-baseline', 'middle')
       .text((d) => {
         if (!energySources.includes(d.name)) {
@@ -235,9 +240,12 @@ const AlluvialPlot = () => {
       .attr('fill', '#000');
 
     /***********************LEGEND*********************/
+    const legendMargin = 15;
+    const legendX = innerWidth + legendMargin;
+
     const legend = svg
       .append('g')
-      .attr('transform', `translate(${width - 200}, ${20})`);
+      .attr('transform', `translate(${legendX}, ${margin.top})`);
 
     legend
       .selectAll('rect')
@@ -261,13 +269,23 @@ const AlluvialPlot = () => {
   }, [data, selectedYear]);
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex relative justify-center items-center w-full">
+        <div className="overflow-x-auto h-full w-fit">
+          <svg ref={svgRef} />
+        </div>
+      </div>
+      <DataSourceInfo>
+        Energy Institute - Statistical Review of World Energy (2024) - with
+        major processing by Our World in Data
+      </DataSourceInfo>
+      <div className="mt-3">
         <label htmlFor="year">Select Year: </label>
         <select
           id="year"
           value={selectedYear}
           onChange={(e) => setSelectedYear(e.target.value)}
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
         >
           {[...new Set(data.map((d) => d.year))].map((year) => (
             <option key={year} value={year}>
@@ -276,7 +294,6 @@ const AlluvialPlot = () => {
           ))}
         </select>
       </div>
-      <svg ref={svgRef}></svg>
     </div>
   );
 };
