@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
+import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
 interface UEEmission1YearVerticalProps {
   newWidth: number | string;
@@ -153,12 +154,15 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
           <svg ref={svgRef} />
           <div
             ref={tooltipRef}
-            className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+            className="absolute py-1 px-2 text-sm bg-white rounded border-2 border-solid opacity-0 pointer-events-none border-primary"
           ></div>
         </div>
       </div>
       <DataSourceInfo>
-        Global Carbon Budget (2023); Population based on various sources (2023)
+        Global Carbon Budget (2023); Population based on various sources (2023){' '}
+        <ShowMoreChartDetailsModalDialog>
+          More graph details here
+        </ShowMoreChartDetailsModalDialog>
       </DataSourceInfo>
       <div className="mt-3">
         <label>Selected Year: </label>

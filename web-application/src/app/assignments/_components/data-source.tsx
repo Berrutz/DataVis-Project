@@ -1,10 +1,10 @@
 import React from 'react';
 
 const DataSourceInfo = ({ children }: { children?: React.ReactNode }) => (
-  <p className="text-sm text-gray-500 mb-3">
-    <a className="font-medium text-gray-800">Data source: </a>
+  <span className="mb-3 text-sm text-gray-500">
+    <span className="font-medium text-gray-800">Data source: </span>
     {children}
-  </p>
+  </span>
 );
 
 export default DataSourceInfo;

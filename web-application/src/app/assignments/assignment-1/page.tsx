@@ -61,10 +61,10 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                    ? 400
-                    : windowWidth < 800
-                    ? 500
-                    : 600
+                      ? 400
+                      : windowWidth < 800
+                        ? 500
+                        : 600
                 }
               />
             ) : (
@@ -134,10 +134,10 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                    ? 400
-                    : windowWidth < 800
-                    ? 500
-                    : 600
+                      ? 400
+                      : windowWidth < 800
+                        ? 500
+                        : 600
                 }
               />
             ) : (

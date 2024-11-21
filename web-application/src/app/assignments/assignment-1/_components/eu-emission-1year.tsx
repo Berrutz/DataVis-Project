@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
+import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
 interface Data {
   country: string;
@@ -147,7 +148,7 @@ const UEEmission1Year = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center items-center w-full">
-        <div className="absolute top-3 right-0 hidden sm:block">
+        <div className="hidden absolute right-0 top-3 sm:block">
           <label>Select Year: </label>
           <select
             value={selectedYear}
@@ -165,14 +166,20 @@ const UEEmission1Year = () => {
           <svg ref={svgRef} />
           <div
             ref={tooltipRef}
-            className="absolute px-2 py-1 text-sm bg-white border-solid border-2 border-primary rounded opacity-0 pointer-events-none"
+            className="absolute py-1 px-2 text-sm bg-white rounded border-2 border-solid opacity-0 pointer-events-none border-primary"
           ></div>
         </div>
       </div>
-      <DataSourceInfo>
-        Global Carbon Budget (2023); Population based on various sources (2023)
-      </DataSourceInfo>
-      <div className="mt-3 block sm:hidden">
+      <div className="flex">
+        <DataSourceInfo>
+          Global Carbon Budget (2023); Population based on various sources
+          (2023){' '}
+          <ShowMoreChartDetailsModalDialog>
+            More graph details here
+          </ShowMoreChartDetailsModalDialog>
+        </DataSourceInfo>
+      </div>
+      <div className="block mt-3 sm:hidden">
         <label>Selected Year: </label>
         <select
           value={selectedYear}
