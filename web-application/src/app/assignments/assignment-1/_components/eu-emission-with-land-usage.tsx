@@ -95,6 +95,21 @@ export default function EUEmissionWithLandUsage() {
     const years = [...new Set(data.map((row) => row.year))];
     const countries = [...new Set(data.map((row) => row.country))];
 
+    // Sort countries by average emissions in descending order
+    countries.sort((a, b) => {
+      const avgEmissionA =
+        d3.mean(
+          data.filter((row) => row.country === a),
+          (row) => row.emissionWithLandUsage
+        ) || 0;
+      const avgEmissionB =
+        d3.mean(
+          data.filter((row) => row.country === b),
+          (row) => row.emissionWithLandUsage
+        ) || 0;
+      return avgEmissionA - avgEmissionB; // Descending order
+    });
+
     // Create the heatmap
     var margin = { top: 40, right: 0, bottom: 80, left: 80 },
       width = 500 - margin.left - margin.right,
@@ -208,14 +223,14 @@ export default function EUEmissionWithLandUsage() {
       .attr('y2', '0%');
 
     legendGradient
-      .append('stop')
-      .attr('offset', '0%')
-      .attr('stop-color', colorScale(colorScale.domain()[0]));
-
-    legendGradient
-      .append('stop')
-      .attr('offset', '100%')
-      .attr('stop-color', colorScale(colorScale.domain()[1]));
+      .selectAll('stop')
+      .data(colorScale.domain())
+      .join('stop')
+      .attr(
+        'offset',
+        (d, i) => `${(i / (colorScale.domain().length - 1)) * 100}%`
+      )
+      .attr('stop-color', (d) => colorScale(d));
 
     legendSvg
       .append('rect')

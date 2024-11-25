@@ -89,13 +89,25 @@ if __name__ == "__main__":
             raise Error("The dataframe contains null, more processings are required")
 
     # Sort the dataframe by year
-    df = df.sort_values(by=[CSV_ENTRIES.YEAR, CSV_ENTRIES.ENTITY])
-        
+    df = df.sort_values(by=[CSV_ENTRIES.YEAR, CSV_ENTRIES.ENTITY])    
+
     # Rename the columns values
     df = df.rename(columns={
         CSV_ENTRIES.ENTITY: "country",
         CSV_ENTRIES.YEAR: "year",
         CSV_ENTRIES.ANNUAL_EMISSION_INCLUDING_LAND: "annual_emission_with_land_usage"
     })
+
+    # Compute the average `annual_emission_with_land_usage` per country, sorting them by average
+    # emission and taking only the first 10 country names
+    top10_emitter = df.groupby("country")["annual_emission_with_land_usage"]\
+        .mean()\
+        .sort_values(ascending=False)\
+        .head(10)\
+        .index.tolist()
+
+    df = df.query(f"country in {top10_emitter}")
+
+    print(df)
 
     store_csv_from_datframe(df)

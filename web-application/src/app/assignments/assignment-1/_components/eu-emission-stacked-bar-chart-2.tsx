@@ -222,7 +222,7 @@ const StackedBarChart2 = () => {
     }
 
     // Highlight the hovered bar
-    d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+    d3.selectAll('rect').transition().duration(200).style('opacity', 0.25);
     d3.select(event.target as SVGRectElement)
       .transition()
       .duration(200)

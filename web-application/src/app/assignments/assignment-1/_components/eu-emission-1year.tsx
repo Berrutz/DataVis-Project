@@ -118,11 +118,11 @@ const UEEmission1Year = () => {
           tooltipRef.current.style.opacity = '1';
           tooltipRef.current.textContent = `${d.emission.toFixed(
             2
-          )} t per capita`;
+          )} tonnes per person`;
         }
 
         // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.5);
+        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
 
         d3.select(event.target as SVGRectElement)
           .transition()

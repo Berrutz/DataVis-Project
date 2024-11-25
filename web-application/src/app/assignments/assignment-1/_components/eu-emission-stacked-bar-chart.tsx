@@ -130,11 +130,11 @@ const StackedBarChart = () => {
 
           tooltipRef.current.textContent = `${(d[1] - d[0]).toFixed(
             2
-          )} t per capita`;
+          )} tonnes per person`;
         }
 
         // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+        d3.selectAll('rect').transition().duration(200).style('opacity', 0.25);
 
         d3.select(event.target as SVGRectElement)
           .transition()
