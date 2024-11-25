@@ -58,6 +58,10 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
 
     d3.select(svgRef.current).selectAll('*').remove();
 
+    const colorScale = d3
+      .scaleSequential(d3.interpolateReds)
+      .domain([0, d3.max(filteredData, (d) => d.emission)!]);
+
     const svg = d3
       .select(svgRef.current)
       .attr('width', width)
@@ -107,7 +111,7 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
       .attr('y', (d) => y(d.code)!)
       .attr('width', (d) => x(d.emission))
       .attr('height', y.bandwidth())
-      .attr('fill', '#22269c')
+      .attr('fill', (d) => colorScale(d.emission))
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           const svgRect = svgRef.current?.getBoundingClientRect();
@@ -141,6 +145,16 @@ const UEEmission1YearVertical: React.FC<UEEmission1YearVerticalProps> = ({
         // Reset opacity for all bars
         d3.selectAll('rect').transition().duration(200).style('opacity', 1);
       });
+
+    const legendWidth = 300;
+    const legendHeight = 20;
+
+    const legendSvg = svg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${height - margin.bottom - 40})`
+      );
   }, [data, selectedYear, newWidth]);
 
   const yearOptions = Array.from(

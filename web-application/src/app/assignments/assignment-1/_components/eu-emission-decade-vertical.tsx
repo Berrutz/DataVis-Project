@@ -81,6 +81,10 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
 
     d3.select(svgRef.current).selectAll('*').remove();
 
+    const colorScale = d3
+      .scaleSequential(d3.interpolateReds)
+      .domain([0, d3.max(decadeAverages, (d) => d.averageEmission)!]);
+
     const svg = d3
       .select(svgRef.current)
       .attr('width', width)
@@ -130,7 +134,7 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
       .attr('y', (d) => y(d.code)!)
       .attr('width', (d) => x(d.averageEmission))
       .attr('height', y.bandwidth())
-      .attr('fill', '#22269c')
+      .attr('fill', (d) => colorScale(d.averageEmission))
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           const svgRect = svgRef.current?.getBoundingClientRect();

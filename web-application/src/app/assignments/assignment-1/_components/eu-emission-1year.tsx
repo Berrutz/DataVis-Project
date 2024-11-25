@@ -52,6 +52,10 @@ const UEEmission1Year = () => {
 
     d3.select(svgRef.current).selectAll('*').remove();
 
+    const colorScale = d3
+      .scaleSequential(d3.interpolateReds)
+      .domain([0, d3.max(filteredData, (d) => d.emission)!]);
+
     const svg = d3
       .select(svgRef.current)
       .attr('width', width)
@@ -101,7 +105,7 @@ const UEEmission1Year = () => {
         'height',
         (d) => height - margin.top - margin.bottom - y(d.emission)
       )
-      .attr('fill', '#22269c')
+      .attr('fill', (d) => colorScale(d.emission))
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning

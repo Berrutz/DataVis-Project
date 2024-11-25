@@ -2,8 +2,8 @@
 
 - [] Rendere le metodologie meno importanti
 - [] I commenti più specifici per le nazioni
-- [] Scale di colori anche già dal primo grafico rendere più chiare le altre
-  barre il blu quando vado sopra a uno
+- [x] Scale di colori anche già dal primo grafico rendere più chiare le altre
+      barre il blu quando vado sopra a uno
 - [] errore fatto mettere country in alto insieme ad other, serve un altra cosa
   non ricordo quale ha detto
 - [] ricordare a chi vogliamo rivolgerci e specificarlo nella home ricercatori o
