@@ -61,29 +61,15 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                      ? 400
-                      : windowWidth < 800
-                        ? 500
-                        : 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
                 }
               />
             ) : (
               <UEEmission1Year />
             )}
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Methodologies"
-            id="used-metodologies-1"
-            asidekey="used-Methodologies-1"
-          >
-            <ChartH2Title>Used Methodologies</ChartH2Title>
-            <p>
-              From the database provided by "Our World In Data" containing data
-              on per capita CO2 emissions of all countries, only those relating
-              to the countries of the European Union (EU-27) have been
-              extracted. The data are displayed on request depending on the
-              selected year.
-            </p>
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
@@ -134,29 +120,15 @@ export default function Assignment1() {
                   windowWidth < 450
                     ? 300
                     : windowWidth < 600
-                      ? 400
-                      : windowWidth < 800
-                        ? 500
-                        : 600
+                    ? 400
+                    : windowWidth < 800
+                    ? 500
+                    : 600
                 }
               />
             ) : (
               <UEEmissionDecade />
             )}
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Methodologies"
-            id="used-metodologies-2"
-            asidekey="used-Methodologies-2"
-          >
-            <ChartH2Title>Used Methodologies</ChartH2Title>
-            <p>
-              From the database provided by "Our World In Data" containing data
-              on per capita CO2 emissions of all countries, only those
-              concerning the countries of the European Union (EU-27) were
-              extracted, subsequently an average of the per capita emissions in
-              the selected decade was carried out.
-            </p>
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
@@ -195,21 +167,6 @@ export default function Assignment1() {
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-3" id="chart-3">
             <StackedBarChartCarousel />
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Methodologies"
-            id="used-metodologies-3"
-            asidekey="used-Methodologies-3"
-          >
-            <ChartH2Title>Used Methodologies</ChartH2Title>
-            <p>
-              From the database provided by "Our World in Data" containing data
-              on per capita CO2 emissions of all countries, only those relating
-              to the countries of the European Union (EU-27) in the year 2022
-              were extracted, from there the 5 countries with the highest
-              emissions were taken and a single entity containing the sum of the
-              emissions of all countries was created.
-            </p>
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
@@ -252,21 +209,6 @@ export default function Assignment1() {
             id="chart-6"
           >
             <EUEmissionWithLandUsage />
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Methodologies"
-            id="used-metodologies-4"
-            asidekey="used-Methodologies-4"
-          >
-            <ChartH2Title>Used Methodologies</ChartH2Title>
-            <p>
-              From the database provided by "Our World in Data" containing data
-              of all countries on CO2 emissions from fossil fuel use and land
-              use, only those relating to the countries of the European Union
-              (EU-27) from 1955 to 2022 were extracted, from there for each
-              decade the 10 countries with the highest average emissions were
-              chosen.
-            </p>
           </ChartContainer>
           <ChartContainer
             asidename="Comment"

@@ -2,6 +2,7 @@ import { getStaticFile } from '@/utils/general';
 import * as d3 from 'd3';
 import { useEffect, useRef, useState } from 'react';
 import DataSourceInfo from '../../_components/data-source';
+import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
 interface CSVRow {
   country: string;
@@ -272,6 +273,36 @@ export default function EUEmissionWithLandUsage() {
       </div>
       <DataSourceInfo>
         Global Carbon Budget (2023) - with major processing by Our World in Data
+        {'; '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-1 mr-4 ml-4">
+            <h2 className="mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this indicator
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>
+                This data is based on territorial emissions, which do not
+                account for emissions embedded in traded goods
+              </li>
+              <li>
+                Emissions from international aviation and shipping are not
+                included in any country or region's emissions. They are only
+                included in the global total emissions.
+              </li>
+            </ul>
+            <h2 className="mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p>
+              From the database provided by "Our World in Data" containing data
+              of all countries on CO2 emissions from fossil fuel use and land
+              use, only those relating to the countries of the European Union
+              (EU-27) from 1955 to 2022 were extracted, from there for each
+              decade the 10 countries with the highest average emissions were
+              chosen.
+            </p>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
       </DataSourceInfo>
       <div className="inline-flex gap-3 justify-center items-center">
         <label>Select Decade: </label>
