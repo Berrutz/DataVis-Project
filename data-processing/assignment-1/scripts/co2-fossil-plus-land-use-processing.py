@@ -81,8 +81,7 @@ if __name__ == "__main__":
     # Remove the countries that are not in eu
     df = df.query(f"{CSV_ENTRIES.ENTITY} in {EU_COUNTRIES}")
 
-    # This is only a guard that checks if the columns of interests
-    # have null values.
+    # This is only a guard that checks if the columns of interests have null values.
     hasNulls = df.isnull().sum()
     for col in hasNulls:
         if col > 0:
