@@ -17,7 +17,7 @@ export default function AssignmentsLayout({
       </nav>
       {children}
       <footer className="mt-auto">
-        <div className="flex justify-evenly p-6 min-h-[50vh] bg-primary text-primary-foreground">
+        <div className="flex justify-evenly p-6 bg-primary text-primary-foreground">
           <div className="w-full">
             <div className="w-fit">
               <h1 className="font-serif font-bold text-lg/3">IncApache</h1>
