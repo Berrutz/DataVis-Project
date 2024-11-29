@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
-import {
-  sankey,
-  sankeyLinkHorizontal,
-  SankeyNode,
-  SankeyNodeMinimal
-} from 'd3-sankey';
+import { sankey, sankeyLinkHorizontal, SankeyNodeMinimal } from 'd3-sankey';
 import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
+import {
+  generateLegend,
+  highlightLinks,
+  mouseOverLinks,
+  mouseOverNodes,
+  resetHighlight
+} from '../lib/alluvial';
 
 interface Data {
   country: string; // Country name
@@ -25,7 +27,7 @@ interface Data {
   total: number; // Total energy consumption - TWh
 }
 
-interface CustomNode {
+export interface CustomNode {
   name: string;
   index: number;
   x0?: number; // Optional, added by Sankey layout
@@ -34,14 +36,14 @@ interface CustomNode {
   y1?: number; // Optional, added by Sankey layout
 }
 
-interface CustomLink {
+export interface CustomLink {
   source: number; // Index of source node
   target: number; // Index of target node
   value: number; // Link value
   width?: number; // Optional, added by Sankey layout
 }
 
-const AlluvialPlot = () => {
+const Alluvial = () => {
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2023'); // Set default year here
@@ -200,7 +202,6 @@ const AlluvialPlot = () => {
       .style('background', 'hsl(var(--background))')
       .style('color', 'hsl(var(--foreground))')
       .style('border-radius', '0.5rem')
-      .style('border-color', 'hsl(var(--border))')
       .style('border-style', 'solid')
       .style('border-width', '1px')
       .style(
@@ -209,107 +210,6 @@ const AlluvialPlot = () => {
       )
       .style('pointer-events', 'none')
       .style('opacity', 0);
-
-    // Drawn nodes
-    svg
-      .append('g')
-      .selectAll('rect')
-      .data(sankeyData.nodes)
-      .join('rect')
-      .on('mouseover', function (event, d) {
-        // Highlight effect
-        linkPaths
-          .transition()
-          .duration(200)
-          .attr('opacity', (link) => {
-            const auxSource = link.source as SankeyNodeMinimal<
-              CustomNode,
-              CustomLink
-            >;
-            const auxTarget = link.target as SankeyNodeMinimal<
-              CustomNode,
-              CustomLink
-            >;
-            if (auxSource.index == undefined || auxTarget == undefined)
-              throw Error('index undefined');
-
-            return auxSource.index === d.index || auxTarget.index === d.index
-              ? 1
-              : 0.1;
-          });
-
-        const relatedLinks = links
-          .filter((link) => link.source === d.index || link.target === d.index)
-          .sort((a, b) => b.value - a.value);
-
-        // Tooltip for country nodes
-        if (!sortedEnergySources.includes(d.name)) {
-          // Generate the legend for energy sources
-          const legend = relatedLinks
-            .map((link) => {
-              const sourceName = nodes[link.target].name;
-              const energyColor = colorScale(sourceName); // Get color for the energy source
-              const value = link.value.toFixed(2);
-
-              return `
-                  <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="
-                      display: inline-block; 
-                      width: 12px; 
-                      height: 12px; 
-                      background-color: ${energyColor}; 
-                      border-radius: 2px;
-                    "></span>
-                    <span>${sourceName}: ${value} TWh</span>
-                  </div>
-                `;
-            })
-            .join('');
-
-          tooltip.style('opacity', 1).html(`
-                <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
-                ${legend}
-              `);
-        } else {
-          // Tooltip for energy resource nodes
-          const countriesPowerUsage = relatedLinks
-            .map((link) => {
-              return `${nodes[link.source].name} →
-                ${link.value.toFixed(2)} TWh`;
-            })
-            .join('<br>');
-
-          tooltip
-            .style('opacity', 1)
-            .html(
-              `
-                <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
-                ${countriesPowerUsage}
-              `
-            )
-            .style('border-color', `${colorScale(d.name)}`);
-        }
-
-        tooltip
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY - 40}px`);
-      })
-      .on('mouseout', function () {
-        linkPaths.transition().duration(200).attr('opacity', 0.7);
-        tooltip.style('opacity', 0);
-      })
-      .attr('x', (d) => d.x0 ?? 0)
-      .attr('y', (d) => d.y0 ?? 0)
-      .attr('width', (d) => (d.x1 ?? 0) - (d.x0 ?? 0))
-      .attr('height', (d) => (d.y1 ?? 0) - (d.y0 ?? 0))
-      .attr('fill', (d) => {
-        // If the node is an energy source, use the color scale
-        if (sortedEnergySources.includes(d.name)) {
-          return colorScale(d.name); // Energy type color
-        }
-        return '#f7f7f5'; // Default color for countries
-      })
-      .attr('stroke', '#000');
 
     // Draw links
     const linkPaths = svg
@@ -325,7 +225,47 @@ const AlluvialPlot = () => {
         return colorScale(nodes[aux.index].name) || '#888';
       })
       .attr('stroke-width', (d) => Math.max(1, d.width ?? 0)) // Fallback to 0 if `width` is undefined
-      .attr('opacity', 0.85);
+      .attr('opacity', 0.85)
+      .on('mouseover', function (event, d) {
+        mouseOverLinks(event, d, nodes, links, linkPaths, tooltip, colorScale);
+      })
+      .on('mouseout', function () {
+        resetHighlight(linkPaths, tooltip);
+      });
+
+    // Drawn nodes
+    svg
+      .append('g')
+      .selectAll('rect')
+      .data(sankeyData.nodes)
+      .join('rect')
+      .on('mouseover', function (event, d) {
+        mouseOverNodes(
+          event,
+          d,
+          linkPaths,
+          nodes,
+          links,
+          tooltip,
+          colorScale,
+          sortedEnergySources
+        );
+      })
+      .on('mouseout', function () {
+        resetHighlight(linkPaths, tooltip);
+      })
+      .attr('x', (d) => d.x0 ?? 0)
+      .attr('y', (d) => d.y0 ?? 0)
+      .attr('width', (d) => (d.x1 ?? 0) - (d.x0 ?? 0))
+      .attr('height', (d) => (d.y1 ?? 0) - (d.y0 ?? 0))
+      .attr('fill', (d) => {
+        // If the node is an energy source, use the color scale
+        if (sortedEnergySources.includes(d.name)) {
+          return colorScale(d.name); // Energy type color
+        }
+        return '#f7f7f5'; // Default color for countries
+      })
+      .attr('stroke', '#000');
 
     svg
       .append('g')
@@ -342,7 +282,35 @@ const AlluvialPlot = () => {
         }
         return '';
       })
-      .attr('fill', '#000');
+      .attr('fill', '#000')
+      .on('mouseover', function (event, d) {
+        // Highlight effect
+        highlightLinks(linkPaths, d);
+
+        const relatedLinks = links
+          .filter((link) => link.source === d.index || link.target === d.index)
+          .sort((a, b) => b.value - a.value);
+
+        // Tooltip for country nodes
+        if (!sortedEnergySources.includes(d.name)) {
+          // Generate the legend for energy sources
+          const legend = generateLegend(relatedLinks, nodes, colorScale);
+
+          tooltip
+            .style('opacity', 1)
+            .html(
+              `
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
+                ${legend}
+              `
+            )
+            .style('left', `${event.pageX + 10}px`)
+            .style('top', `${event.pageY - 40}px`);
+        }
+      })
+      .on('mouseout', function () {
+        resetHighlight(linkPaths, tooltip);
+      });
 
     /***********************LEGEND*********************/
     const legendMargin = 15;
@@ -431,4 +399,4 @@ const AlluvialPlot = () => {
   );
 };
 
-export default AlluvialPlot;
+export default Alluvial;

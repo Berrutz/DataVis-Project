@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import AssignmentPage from '../_components/assignment-page';
 
 import {
@@ -10,10 +11,24 @@ import {
   ChartBody
 } from '../_components/chart-section';
 
-import AlluvionalPlot from './_components/Alluvional';
+import Alluvial from './_components/Alluvial';
+import AlluvialVertical from './_components/AlluvialVertical';
 //import AlluvionalVertical from './_components/AlluvionalVertical';
 
 export default function Assignment2() {
+  const [isVertical, setIsVertical] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsVertical(window.innerWidth < 940);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <AssignmentPage title={'Analysis of Energy Consumption EU-27'}>
       <ChartSection
@@ -36,7 +51,8 @@ export default function Assignment2() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-1" id="chart-1">
-            {<AlluvionalPlot />}
+            {/* {isVertical ? <AlluvialVertical /> : <Alluvial />} */}
+            <Alluvial />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
