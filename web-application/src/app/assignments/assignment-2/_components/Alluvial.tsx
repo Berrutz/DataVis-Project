@@ -6,11 +6,17 @@ import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 import {
   generateLegend,
+  handleResize,
   highlightLinks,
   mouseOverLinks,
   mouseOverNodes,
-  resetHighlight
+  resetHighlight,
+  updateLegendLayout
 } from '../lib/alluvial';
+
+interface AlluvialSmallScreenProps {
+  newWidth: number | string;
+}
 
 interface Data {
   country: string; // Country name
@@ -43,7 +49,7 @@ export interface CustomLink {
   width?: number; // Optional, added by Sankey layout
 }
 
-const Alluvial = () => {
+const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2023'); // Set default year here
@@ -105,7 +111,7 @@ const Alluvial = () => {
     if (!data || data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 850;
+    const width = +newWidth || 850;
     const height = 500;
 
     svg.attr('width', width).attr('height', height);
@@ -209,7 +215,8 @@ const Alluvial = () => {
         '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)'
       )
       .style('pointer-events', 'none')
-      .style('opacity', 0);
+      .style('opacity', 0)
+      .style('display', 'none');
 
     // Draw links
     const linkPaths = svg
@@ -298,6 +305,7 @@ const Alluvial = () => {
 
           tooltip
             .style('opacity', 1)
+            .style('display', 'block')
             .html(
               `
                 <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
@@ -315,31 +323,32 @@ const Alluvial = () => {
     /***********************LEGEND*********************/
     const legendMargin = 15;
     const legendX = innerWidth + legendMargin;
+    const legendY = innerHeight;
 
-    const legend = svg
-      .append('g')
-      .attr('transform', `translate(${legendX}, ${margin.top})`);
+    const legend = svg.append('g');
 
-    legend
-      .selectAll('rect')
-      .data(sortedEnergySources)
-      .join('rect')
-      .attr('x', 0)
-      .attr('y', (_, i) => i * 20)
-      .attr('width', 15)
-      .attr('height', 15)
-      .attr('fill', (d) => colorScale(d));
+    const updateLegend = () => {
+      const screenWidth = window.innerWidth;
+      updateLegendLayout(
+        legend,
+        sortedEnergySources,
+        colorScale,
+        screenWidth,
+        legendX,
+        legendY,
+        margin
+      );
+    };
 
-    legend
-      .selectAll('text')
-      .data(sortedEnergySources)
-      .join('text')
-      .attr('x', 20)
-      .attr('y', (_, i) => i * 20 + 12)
-      .text((d) => d)
-      .attr('font-size', '12px')
-      .attr('fill', '#000');
-  }, [data, selectedYear]);
+    const cleanupResize = handleResize(updateLegend);
+
+    // Initial layout adjustment
+    updateLegend();
+
+    return () => {
+      cleanupResize();
+    };
+  }, [data, selectedYear, newWidth]);
 
   return (
     <div className="flex flex-col justify-center items-center">

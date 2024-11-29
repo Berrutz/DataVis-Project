@@ -12,15 +12,13 @@ import {
 } from '../_components/chart-section';
 
 import Alluvial from './_components/Alluvial';
-import AlluvialVertical from './_components/AlluvialVertical';
-//import AlluvionalVertical from './_components/AlluvionalVertical';
 
 export default function Assignment2() {
-  const [isVertical, setIsVertical] = useState(false);
+  const [windowWidth, setWindowWidth] = useState<number>(1200);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsVertical(window.innerWidth < 940);
+      setWindowWidth(window.innerWidth);
     };
 
     handleResize();
@@ -51,8 +49,11 @@ export default function Assignment2() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-1" id="chart-1">
-            {/* {isVertical ? <AlluvialVertical /> : <Alluvial />} */}
-            <Alluvial />
+            <Alluvial
+              newWidth={
+                windowWidth < 768 ? 600 : windowWidth < 1024 ? 700 : 850
+              }
+            />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
