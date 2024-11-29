@@ -15,7 +15,7 @@ import AlluvionalPlot from './_components/Alluvional';
 
 export default function Assignment2() {
   return (
-    <AssignmentPage title={'Analysis of Energy Consumption EU Countries 2021 '}>
+    <AssignmentPage title={'Analysis of Energy Consumption EU-27'}>
       <ChartSection
         asidename="Single Year Energy Comparison"
         id="single-energy"
@@ -23,7 +23,7 @@ export default function Assignment2() {
       >
         <ChartHeading>
           <ChartH1Title>
-            Single year comparison of energy consumption mix
+            Single year comparison of energy consumption by source
           </ChartH1Title>
           <p>
             This chart compares, in terms of primary energy, the energy
@@ -37,20 +37,6 @@ export default function Assignment2() {
         <ChartBody>
           <ChartContainer asidename="Chart" asidekey="chart-1" id="chart-1">
             {<AlluvionalPlot />}
-          </ChartContainer>
-          <ChartContainer
-            asidename="Used Methodologies"
-            id="used-metodologies-1"
-            asidekey="used-Methodologies-1"
-          >
-            <ChartH2Title>Used Methodologies</ChartH2Title>
-            <p>
-              From the database provided by "Our World In Data" containing data
-              on energy consumption divided by energy source for all countries,
-              only those relating to the countries of the European Union (EU-27)
-              have been extracted. The data are displayed on request depending
-              on the selected year.
-            </p>
           </ChartContainer>
           <ChartContainer
             asidename="Comment"

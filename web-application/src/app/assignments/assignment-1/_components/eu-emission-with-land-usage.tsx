@@ -290,7 +290,7 @@ export default function EUEmissionWithLandUsage() {
                 included in the global total emissions.
               </li>
             </ul>
-            <h2 className="mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
               Methodologies
             </h2>
             <p>

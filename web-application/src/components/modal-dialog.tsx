@@ -47,7 +47,7 @@ export default function ModalDialog({
       )}
     >
       <div className="flex justify-center items-center size-full">
-        <div className="shadow-md p-3 rounded-xl border bg-background max-w-[min(800px,_100%)]">
+        <div className="shadow-md p-3 rounded-xl border bg-background w-[min(800px,_100%)]">
           <div className="flex justify-end w-full">
             <Button
               variant={'ghost'}

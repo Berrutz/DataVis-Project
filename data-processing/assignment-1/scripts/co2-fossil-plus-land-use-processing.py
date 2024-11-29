@@ -108,6 +108,4 @@ if __name__ == "__main__":
 
     df = df.query(f"country in {top10_emitter}")
 
-    print(df)
-
     store_csv_from_datframe(df)

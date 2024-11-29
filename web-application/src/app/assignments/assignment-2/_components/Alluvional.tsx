@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
-import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
+import {
+  sankey,
+  sankeyLinkHorizontal,
+  SankeyNode,
+  SankeyNodeMinimal
+} from 'd3-sankey';
 import DataSourceInfo from '../../_components/data-source';
+import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
 interface Data {
   country: string; // Country name
-  code: string; // Country ID
   year: number; // year considered
   biofuels: number; // Biofuels consumption - TWh
   solar: number; // Solar consumption - TWh
@@ -17,6 +22,7 @@ interface Data {
   coal: number; // Coal consumption - TWh
   oil: number; // Oil consumption - TWh
   other: number; // Other renewables (including geothermal and biomass) - TWh
+  total: number; // Total energy consumption - TWh
 }
 
 interface CustomNode {
@@ -38,7 +44,7 @@ interface CustomLink {
 const AlluvialPlot = () => {
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [selectedYear, setSelectedYear] = useState<string>('2021'); // Set default year here
+  const [selectedYear, setSelectedYear] = useState<string>('2023'); // Set default year here
 
   const colorScale = d3
     .scaleOrdinal<string>()
@@ -55,23 +61,24 @@ const AlluvialPlot = () => {
     ])
     .range([
       '#66c2a5',
-      '#fc8d62',
+      '#ffd92f',
       '#8da0cb',
       '#e78ac3',
       '#a6d854',
-      '#ffd92f',
-      '#e5c494',
+      '#d73027',
+      '#2d2e33',
       '#543937',
-      '#d73027'
+      '#fd6925'
     ]);
 
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await d3.csv(
-        getStaticFile('/datasets/assignment2/energy-consumption-2021.csv'),
+        getStaticFile(
+          '/datasets/assignment2/eu-27-countries-energy-consumption-by-source.csv'
+        ),
         (d) => ({
-          country: d.Entity,
-          code: d.Code,
+          country: d.Country,
           year: +d.Year,
           biofuels: +d['Biofuels consumption - TWh'],
           solar: +d['Solar consumption - TWh'],
@@ -81,7 +88,9 @@ const AlluvialPlot = () => {
           gas: +d['Gas consumption - TWh'],
           coal: +d['Coal consumption - TWh'],
           oil: +d['Oil consumption - TWh'],
-          other: +d['Other renewables (including geothermal and biomass) - TWh']
+          other:
+            +d['Other renewables (including geothermal and biomass) - TWh'],
+          total: +d['Total energy consumption - TWh']
         })
       );
       setData(csvData);
@@ -103,28 +112,15 @@ const AlluvialPlot = () => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    // Clear previous SVG contents to prevent overlapping graphs
+    svg.selectAll('*').remove();
+
     const filteredData = data.filter((d) => d.year === +selectedYear);
 
-    // Calculate total energy consumption for each country
-    const countryTotals = filteredData.map((d) => ({
-      country: d.country,
-      total:
-        d.biofuels +
-        d.solar +
-        d.wind +
-        d.hydro +
-        d.nuclear +
-        d.gas +
-        d.coal +
-        d.oil +
-        d.other
-    }));
-
     // Get top 7 countries by total energy consumption
-    const topCountries = countryTotals
+    const sortedCountries = filteredData
       .sort((a, b) => b.total - a.total)
-      .slice(0, 7)
-      .map((d) => d.country);
+      .slice(0, 7);
 
     // Create nodes and links for Sankey layout
     const energySources = [
@@ -139,17 +135,28 @@ const AlluvialPlot = () => {
       'other'
     ];
 
+    const energySourceTotals = energySources.map((source) => ({
+      source,
+      total: d3.sum(filteredData, (d) =>
+        sortedCountries ? +d[source as keyof Data] : 0
+      )
+    }));
+
+    // Sort energy sources by total usage in descending order
+    energySourceTotals.sort((a, b) => b.total - a.total);
+
+    const sortedEnergySources = energySourceTotals.map((d) => d.source);
+
     const nodes = [
-      ...topCountries.map((country, i) => ({ name: country, index: i })),
-      ...energySources.map((source, i) => ({
+      ...sortedCountries.map((d, i) => ({ name: d.country, index: i })),
+      ...sortedEnergySources.map((source, i) => ({
         name: source,
-        index: topCountries.length + i
+        index: sortedCountries.length + i
       }))
     ];
 
     // Update links to reference `index` instead of relying on array position
-    const links = filteredData
-      .filter((d) => topCountries.includes(d.country))
+    const links = sortedCountries
       .flatMap((d) =>
         energySources.map((source) => ({
           source: +nodes.find((node) => node.name === d.country)?.index!, // Match country node index
@@ -162,6 +169,10 @@ const AlluvialPlot = () => {
     const sankeyGenerator = sankey<CustomNode, CustomLink>()
       .nodeWidth(15)
       .nodePadding(10)
+      .nodeSort((a, b) => {
+        // Sort by index or a custom order you define
+        return a.index - b.index;
+      })
       .extent([
         [0, 0],
         [innerWidth, innerHeight]
@@ -172,39 +183,136 @@ const AlluvialPlot = () => {
       links: links.map((d) => ({ ...d }))
     });
 
-    // Add labels
+    // Adjust the x1 position for country nodes
+    sankeyData.nodes.forEach((node) => {
+      if (!sortedEnergySources.includes(node.name)) {
+        const additionalWidth = 95;
+        node.x1 = (node.x1 ?? 0) + additionalWidth;
+      }
+    });
+
+    const tooltip = d3
+      .select('body')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('position', 'absolute')
+      .style('padding', '1rem')
+      .style('background', 'hsl(var(--background))')
+      .style('color', 'hsl(var(--foreground))')
+      .style('border-radius', '0.5rem')
+      .style('border-color', 'hsl(var(--border))')
+      .style('border-style', 'solid')
+      .style('border-width', '1px')
+      .style(
+        'box-shadow',
+        '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)'
+      )
+      .style('pointer-events', 'none')
+      .style('opacity', 0);
+
+    // Drawn nodes
     svg
       .append('g')
       .selectAll('rect')
       .data(sankeyData.nodes)
       .join('rect')
+      .on('mouseover', function (event, d) {
+        // Highlight effect
+        linkPaths
+          .transition()
+          .duration(200)
+          .attr('opacity', (link) => {
+            const auxSource = link.source as SankeyNodeMinimal<
+              CustomNode,
+              CustomLink
+            >;
+            const auxTarget = link.target as SankeyNodeMinimal<
+              CustomNode,
+              CustomLink
+            >;
+            if (auxSource.index == undefined || auxTarget == undefined)
+              throw Error('index undefined');
+
+            return auxSource.index === d.index || auxTarget.index === d.index
+              ? 1
+              : 0.1;
+          });
+
+        const relatedLinks = links
+          .filter((link) => link.source === d.index || link.target === d.index)
+          .sort((a, b) => b.value - a.value);
+
+        // Tooltip for country nodes
+        if (!sortedEnergySources.includes(d.name)) {
+          // Generate the legend for energy sources
+          const legend = relatedLinks
+            .map((link) => {
+              const sourceName = nodes[link.target].name;
+              const energyColor = colorScale(sourceName); // Get color for the energy source
+              const value = link.value.toFixed(2);
+
+              return `
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="
+                      display: inline-block; 
+                      width: 12px; 
+                      height: 12px; 
+                      background-color: ${energyColor}; 
+                      border-radius: 2px;
+                    "></span>
+                    <span>${sourceName}: ${value} TWh</span>
+                  </div>
+                `;
+            })
+            .join('');
+
+          tooltip.style('opacity', 1).html(`
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
+                ${legend}
+              `);
+        } else {
+          // Tooltip for energy resource nodes
+          const countriesPowerUsage = relatedLinks
+            .map((link) => {
+              return `${nodes[link.source].name} →
+                ${link.value.toFixed(2)} TWh`;
+            })
+            .join('<br>');
+
+          tooltip
+            .style('opacity', 1)
+            .html(
+              `
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">${d.name}</div>
+                ${countriesPowerUsage}
+              `
+            )
+            .style('border-color', `${colorScale(d.name)}`);
+        }
+
+        tooltip
+          .style('left', `${event.pageX + 10}px`)
+          .style('top', `${event.pageY - 40}px`);
+      })
+      .on('mouseout', function () {
+        linkPaths.transition().duration(200).attr('opacity', 0.7);
+        tooltip.style('opacity', 0);
+      })
       .attr('x', (d) => d.x0 ?? 0)
       .attr('y', (d) => d.y0 ?? 0)
       .attr('width', (d) => (d.x1 ?? 0) - (d.x0 ?? 0))
       .attr('height', (d) => (d.y1 ?? 0) - (d.y0 ?? 0))
       .attr('fill', (d) => {
         // If the node is an energy source, use the color scale
-        if (energySources.includes(d.name)) {
+        if (sortedEnergySources.includes(d.name)) {
           return colorScale(d.name); // Energy type color
         }
-        return '#007acc'; // Default color for countries
+        return '#f7f7f5'; // Default color for countries
       })
       .attr('stroke', '#000');
 
     // Draw links
-    svg
-      .append('g')
-      .selectAll('path')
-      .data(sankeyData.links)
-      .join('path')
-      .attr('d', sankeyLinkHorizontal())
-      .attr('fill', 'none')
-      .attr('stroke', '#888')
-      .attr('stroke-width', (d) => Math.max(1, d.width ?? 0)) // Fallback to 0 if `width` is undefined
-      .attr('opacity', 0.7);
-
-    // Draw nodes
-    svg
+    const linkPaths = svg
       .append('g')
       .selectAll('path')
       .data(sankeyData.links)
@@ -212,27 +320,24 @@ const AlluvialPlot = () => {
       .attr('d', sankeyLinkHorizontal())
       .attr('fill', 'none')
       .attr('stroke', (d) => {
-        const targetNode = d.target as CustomNode;
-        return colorScale(targetNode.name); // Use the energy source name for the color
+        const aux = d.target as SankeyNodeMinimal<CustomNode, CustomLink>;
+        if (aux.index == undefined) throw Error('index undefined');
+        return colorScale(nodes[aux.index].name) || '#888';
       })
-      .attr('stroke-width', (d) => Math.max(1, d.width ?? 0))
-      .attr('opacity', 0.7);
+      .attr('stroke-width', (d) => Math.max(1, d.width ?? 0)) // Fallback to 0 if `width` is undefined
+      .attr('opacity', 0.85);
 
     svg
       .append('g')
       .selectAll('text')
       .data(sankeyData.nodes)
       .join('text')
-      .attr('x', (d) =>
-        energySources.includes(d.name) ? d.x0! - 10 : margin.left
-      ) // Fixed x for countries
+      .attr('x', (d) => (d.x0 ?? 0) + ((d.x1 ?? 0) - (d.x0 ?? 0)) / 2)
       .attr('y', (d) => ((d.y0 ?? 0) + (d.y1 ?? 0)) / 2)
-      .attr('text-anchor', (d) =>
-        energySources.includes(d.name) ? 'end' : 'start'
-      )
+      .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
       .text((d) => {
-        if (!energySources.includes(d.name)) {
+        if (!sortedEnergySources.includes(d.name)) {
           return d.name; // Display country name (only for country nodes)
         }
         return '';
@@ -249,7 +354,7 @@ const AlluvialPlot = () => {
 
     legend
       .selectAll('rect')
-      .data(energySources)
+      .data(sortedEnergySources)
       .join('rect')
       .attr('x', 0)
       .attr('y', (_, i) => i * 20)
@@ -259,7 +364,7 @@ const AlluvialPlot = () => {
 
     legend
       .selectAll('text')
-      .data(energySources)
+      .data(sortedEnergySources)
       .join('text')
       .attr('x', 20)
       .attr('y', (_, i) => i * 20 + 12)
@@ -277,7 +382,35 @@ const AlluvialPlot = () => {
       </div>
       <DataSourceInfo>
         Energy Institute - Statistical Review of World Energy (2024) - with
-        major processing by Our World in Data
+        major processing by Our World in Data;{' '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-3 mr-4 ml-4">
+            <h2 className="mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this indicator
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>
+                This data is based on territorial emissions, which do not
+                account for emissions embedded in traded goods
+              </li>
+              <li>
+                Emissions from international aviation and shipping are not
+                included in any country or region's emissions. They are only
+                included in the global total emissions.
+              </li>
+            </ul>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p>
+              From the database provided by "Our World In Data" containing data
+              on energy consumption divided by energy source for all countries,
+              only those relating to the countries of the European Union (EU-27)
+              have been extracted. The data are displayed on request depending
+              on the selected year.
+            </p>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
       </DataSourceInfo>
       <div className="mt-3">
         <label htmlFor="year">Select Year: </label>
