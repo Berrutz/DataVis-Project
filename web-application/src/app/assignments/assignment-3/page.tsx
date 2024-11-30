@@ -9,14 +9,30 @@ import {
   ChartHeading,
   ChartSection
 } from '../_components/chart-section';
+
+import { useEffect, useState } from 'react';
 import ChoroplethMapDensityOne from './_components/choropleth_map_density_one';
 import ChoroplethMapDensityTwo from './_components/choropleth_map_density_two';
 import ChoroplethMapTotalEmisionsOne from './_components/choropleth_map_total_emissions_one';
 import ChoroplethMapTotalEmisionsTwo from './_components/choropleth_map_total_emissions_two';
 
 export default function Assignment3() {
+
+  const [windowWidth, setWindowWidth] = useState<number>(1200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <AssignmentPage title={'Analysis of CO2 emissions from world prospective'}>
+    <AssignmentPage title={'Analysis of CO2 Per Capita and based on Density'}>
       {/* CHOROPLETH MAP TOTAL EMISSION ONE & TWO (both are in the same section since both refears to the same data) */}
       <ChartSection
         asidename="Choropleth Map Total Emission per capita"
@@ -25,7 +41,7 @@ export default function Assignment3() {
         <ChartHeading>
           <ChartH1Title>
             {/* TODO: CHANGE TITLE*/}
-            Total CO2 emissions from different perspectives
+            Total CO2 emissions Per Capita
           </ChartH1Title>
           <p>Some words here</p>
         </ChartHeading>
@@ -34,8 +50,14 @@ export default function Assignment3() {
             asidename="Chart"
             asidekey="choropleth-map-total-emission-per-capita-chart"
           >
-            <ChoroplethMapTotalEmisionsOne />
-            <ChoroplethMapTotalEmisionsTwo />
+            <ChoroplethMapTotalEmisionsOne 
+            newWidth={
+              windowWidth < 768 ? 600 : windowWidth < 1024 ? 700 : 850
+            }
+            />
+            <ChoroplethMapTotalEmisionsTwo 
+            
+            />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"

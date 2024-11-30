@@ -36,7 +36,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2021'); // Set default year here
-  const [geoData, setGeoData] = useState<any>(null); // For GeoJSON
+  const [geoData, setGeoData] = useState<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1); // size of the zoom
 
   
@@ -45,7 +45,6 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
 
       const csvData = await d3.csv(
         getStaticFile(
-          //'/datasets/assignment2/eu-27-countries-energy-consumption-by-source.csv'
           '/datasets/assignment3/World-data.csv'   
         ),
         (d) => ({
@@ -120,9 +119,9 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
      // Draw the map
      const g = svg.append('g');
      g.selectAll('path')
-     .data(geoData.features)
+     .data(geoData?.features || [])
      .join('path')
-     .attr('d', pathGenerator)
+     .attr('d', (d: GeoJSON.Feature<GeoJSON.Geometry, any>) => pathGenerator(d) || '')
      .attr('fill', (d: any) => {
        const countryName = d.properties.name;
        const value = emissionsByCountry.get(countryName);
@@ -195,7 +194,6 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
 
     svg.call(zoom);
 
-    // Applica il livello di zoom quando cambia
     svg.transition().call(
       zoom.transform, 
       d3.zoomIdentity.scale(zoomLevel)
