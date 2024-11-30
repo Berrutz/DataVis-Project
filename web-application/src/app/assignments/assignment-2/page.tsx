@@ -40,11 +40,9 @@ export default function Assignment2() {
           </ChartH1Title>
           <p>
             This chart compares, in terms of primary energy, the energy
-            consumption mix of the 10 European Union (EU-27) member countries
+            consumption mix of the 7 European Union (EU-27) member countries
             with the highest energy consumption (TWh) for a given year; the
-            countries are ranked in descending order of consumption. It's
-            important to note that the energy consumption is based on gross
-            generation and does not account for cross-border electricity supply.
+            countries are ranked in descending order of consumption.
           </p>
         </ChartHeading>
         <ChartBody>
@@ -62,13 +60,20 @@ export default function Assignment2() {
           >
             <ChartH2Title>Comment</ChartH2Title>
             <p>
-              From the graph it is possible to observe the energy consumption
-              mix and in a given year. Taking the most recent year (2022) it is
-              possible to note how Energy Consumption per capita vary
-              considerably between countries that have an energy mix based
-              largely on fossil fuels, such as Germany (DEU) and Poland (POL),
-              and countries that mainly use low carbon energy sources such as
-              France (FRA).
+              Let's take the year 2023. From the graph it is immediately evident
+              the great dependence of European countries on oil, although it is
+              almost no longer used for the production of electricity, its use
+              is dominant in the transport sector. Another observation that can
+              be made is on the high consumption of energy from methane gas,
+              this is due to its widespread use for residential buildings (e.g.
+              heating) and the fact that in many countries it is an important
+              source for the production of electricity. Unfortunately,
+              low-carbon sources cover a minority part of total energy
+              consumption. From the graph one could conclude that in the year
+              2023 Italy did not consume energy produced by nuclear fission,
+              this is not true, the graph shows the energy consumption based on
+              gross generation and does not account for cross-border electricity
+              supply.
             </p>
           </ChartContainer>
         </ChartBody>

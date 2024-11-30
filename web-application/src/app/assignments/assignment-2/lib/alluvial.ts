@@ -93,6 +93,10 @@ export function createEnergyNodeTooltip(
     .map((link) => `${nodes[link.source].name}: ${link.value.toFixed(2)} TWh`)
     .join('<br>');
 
+  const totalPowerUsage = relatedLinks
+    .reduce((sum, link) => sum + link.value, 0)
+    .toFixed(2);
+
   tooltip
     .style('opacity', 1)
     .style('display', 'block')
@@ -100,6 +104,9 @@ export function createEnergyNodeTooltip(
       `
         <div style="font-weight: bold; margin-bottom: 0.5rem;">${nodeData.name}</div>
         ${countriesPowerUsage}
+        <div style="margin-top: 0.5rem;">
+          <a style="font-weight: bold;">Total:</a> ${totalPowerUsage} TWh
+        </div>
       `
     )
     .style('border-color', colorScale(nodeData.name));
@@ -203,15 +210,19 @@ export function mouseOverNodes(
       `
       )
       .style('border-color', 'hsl(var(--border))');
+    // Position tooltip near the mouse cursor
+    tooltip
+      .style('left', `${event.pageX + 10}px`)
+      .style('top', `${event.pageY - 40}px`);
   } else {
     // Tooltip for energy resource nodes
     createEnergyNodeTooltip(tooltip, d, relatedLinks, nodes, colorScale);
-  }
 
-  // Position tooltip near the mouse cursor
-  tooltip
-    .style('left', `${event.pageX + 10}px`)
-    .style('top', `${event.pageY - 40}px`);
+    // Position tooltip on the left side of the mouse cursor
+    tooltip
+      .style('left', `${event.pageX - 175}px`)
+      .style('top', `${event.pageY - 40}px`);
+  }
 }
 
 export const handleResize = (updateLegendLayout: () => void) => {

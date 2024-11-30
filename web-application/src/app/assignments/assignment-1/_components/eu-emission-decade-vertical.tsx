@@ -197,8 +197,8 @@ const UEEmissionDecadeVertical: React.FC<UEEmission1YearVerticalProps> = ({
             </h2>
             <ul className="list-disc pl-5">
               <li>
-                Per capita emissions represent the emissions of an average
-                person in a country or region - they are calculated as the total
+                <b>Per capita emissions</b> the emissions of an average person
+                in a country or region - they are calculated as the total
                 emissions divided by population
               </li>
               <li>

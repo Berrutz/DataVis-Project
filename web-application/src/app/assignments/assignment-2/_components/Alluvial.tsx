@@ -116,7 +116,7 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
 
     svg.attr('width', width).attr('height', height);
 
-    const margin = { top: 20, right: 80, bottom: 40, left: 20 };
+    const margin = { top: 20, right: 80, bottom: 50, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -129,6 +129,8 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
     const sortedCountries = filteredData
       .sort((a, b) => b.total - a.total)
       .slice(0, 7);
+
+    console.log(sortedCountries);
 
     // Create nodes and links for Sankey layout
     const energySources = [
@@ -145,12 +147,15 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
 
     const energySourceTotals = energySources.map((source) => ({
       source,
-      total: d3.sum(filteredData, (d) =>
-        sortedCountries ? +d[source as keyof Data] : 0
+      total: d3.sum(
+        filteredData.filter((d) =>
+          sortedCountries.some((country) => country.country === d.country)
+        ),
+        (d) => +d[source as keyof Data]
       )
     }));
 
-    // Sort energy sources by total usage in descending order
+    // Sort energy sources sorted by total usage in descending order
     energySourceTotals.sort((a, b) => b.total - a.total);
 
     const sortedEnergySources = energySourceTotals.map((d) => d.source);
@@ -363,17 +368,26 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
         <ShowMoreChartDetailsModalDialog>
           <div className="mt-1 mb-3 mr-4 ml-4">
             <h2 className="mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this data
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>
+                The energy consumption is based on gross generation and does not
+                account for cross-border electricity supply
+              </li>
+            </ul>
+            <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
               What you should know about this indicator
             </h2>
             <ul className="list-disc pl-5">
               <li>
-                This data is based on territorial emissions, which do not
-                account for emissions embedded in traded goods
-              </li>
-              <li>
-                Emissions from international aviation and shipping are not
-                included in any country or region's emissions. They are only
-                included in the global total emissions.
+                <b>Primary energy</b> is the energy available as resources -
+                such as the fuels burnt in power plants - before it has been
+                transformed. This relates to the coal before it has been burned,
+                the uranium, or the barrels of oil. Primary energy includes
+                energy that the end user needs, in the form of electricity,
+                transport and heating, plus inefficiencies and energy that is
+                lost when raw resources are transformed into a usable form.
               </li>
             </ul>
             <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
