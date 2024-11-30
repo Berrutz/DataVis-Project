@@ -59,9 +59,8 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
       setData(csvData);
 
       // Load GeoJSON data about the World
-      const geoJson = await d3.json(
+      const geoJson = await d3.json<GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>>(
       getStaticFile('/datasets/assignment3/world-borders.json')
-    
       );
 
       setGeoData(geoJson);
