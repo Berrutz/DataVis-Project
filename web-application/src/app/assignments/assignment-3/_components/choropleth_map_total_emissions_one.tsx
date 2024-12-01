@@ -79,7 +79,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
   useEffect(() => {
     if (!data || data.length === 0) return;
 
-    if(!geoData || geoData.lenght == 0) return ;
+    if(!geoData || geoData.length == 0) return ;
 
     //console.log("Data arrived : ",data);
 
