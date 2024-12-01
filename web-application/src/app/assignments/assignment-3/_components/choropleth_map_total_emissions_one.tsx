@@ -63,7 +63,13 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
       getStaticFile('/datasets/assignment3/world-borders.json')
       );
 
-      setGeoData(geoJson);
+      // Check if geoJson is valid (not undefined)
+      if (geoJson) {
+        setGeoData(geoJson);
+      } else {
+        console.error("Failed to load GeoJSON data");
+        setGeoData(null); // Optionally set null or handle error state
+      }
 
     };
 
