@@ -189,20 +189,23 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
       .attr('height', legendHeight)
       .style('fill', 'url(#legendGradient)');
 
-      // Zoom 
-      const zoom = d3.zoom()
-      .scaleExtent([1, 15])
-      .on('zoom', (event) => {
-        g.attr('transform', event.transform);
-      });
+    if (svg.node() !== null) {
 
-    svg.call(zoom);
+        const zoom = d3.zoom()
+          .scaleExtent([1, 15])
+          .on('zoom', (event) => {
+            svg.selectAll('g') 
+            .attr('transform', event.transform);
+          });
 
-    svg.transition().call(
-      zoom.transform, 
-      d3.zoomIdentity.scale(zoomLevel)
-    );
+        svg.call(zoom);
 
+        svg.transition().call(
+          zoom.transform, 
+          d3.zoomIdentity.scale(zoomLevel)
+        );
+    }
+    
   }, [zoomLevel,data, geoData, selectedYear, newWidth]);
 
 
