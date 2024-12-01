@@ -64,12 +64,12 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
       );
 
       // Check if geoJson is valid (not undefined)
-      if (geoJson) {
-        setGeoData(geoJson);
-      } else {
-        console.error("Failed to load GeoJSON data");
-        setGeoData(null); // Optionally set null or handle error state
-      }
+    if (geoJson) {
+      setGeoData(geoJson);
+    } else {
+      console.error("Failed to load GeoJSON data");
+      setGeoData(null); // Optionally set null or handle error state
+    }
 
     };
 
@@ -77,9 +77,8 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
   }, []);
 
   useEffect(() => {
-    if (!data || data.length === 0) return;
+    if (!data || data.length === 0 || !geoData) return;
 
-    if(!geoData || geoData.length == 0) return ;
 
     //console.log("Data arrived : ",data);
 
