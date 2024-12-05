@@ -17,7 +17,6 @@ import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-d
 } from '../lib/alluvial'; 
  */
 
-
 interface ChoroplethMapTotalEmisionsOneSmallScreenPops {
   newWidth: number | string;
 }
@@ -25,52 +24,47 @@ interface ChoroplethMapTotalEmisionsOneSmallScreenPops {
 interface Data {
   country: string; // Country name
   year: number; // year considered
-  total_emission_per_capita : number; // Total emission per capita 
-  fossil_emissions : number;
-  annual_emission_density : number;
+  total_emission_per_capita: number; // Total emission per capita
+  fossil_emissions: number;
+  annual_emission_density: number;
 }
 
-const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmallScreenPops> = ({ newWidth }) =>
-{
-
+const ChoroplethMapTotalEmisionsOne: React.FC<
+  ChoroplethMapTotalEmisionsOneSmallScreenPops
+> = ({ newWidth }) => {
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2021'); // Set default year here
-  const [geoData, setGeoData] = useState<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(null);
+  const [geoData, setGeoData] =
+    useState<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1); // size of the zoom
 
-  
   useEffect(() => {
     const fetchData = async () => {
-
       const csvData = await d3.csv(
-        getStaticFile(
-          '/datasets/assignment3/World-data.csv'   
-        ),
+        getStaticFile('/datasets/assignment3/World-data.csv'),
         (d) => ({
           country: d.country_name,
           year: +d.year,
-          total_emission_per_capita : +d['total_emission_per_capita'],
-          fossil_emissions : +d['fossil_emissions'],
-          annual_emission_density : +d['annual_emission_density']
-          
+          total_emission_per_capita: +d['total_emission_per_capita'],
+          fossil_emissions: +d['fossil_emissions'],
+          annual_emission_density: +d['annual_emission_density']
         })
       );
       setData(csvData);
 
       // Load GeoJSON data about the World
-      const geoJson = await d3.json<GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>>(
-      getStaticFile('/datasets/assignment3/world-borders.json')
-      );
+      const geoJson = await d3.json<
+        GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>
+      >(getStaticFile('/datasets/assignment3/world-borders.json'));
 
       // Check if geoJson is valid (not undefined)
-    if (geoJson) {
-      setGeoData(geoJson);
-    } else {
-      console.error("Failed to load GeoJSON data");
-      setGeoData(null); // Optionally set null or handle error state
-    }
-
+      if (geoJson) {
+        setGeoData(geoJson);
+      } else {
+        console.error('Failed to load GeoJSON data');
+        setGeoData(null); // Optionally set null or handle error state
+      }
     };
 
     fetchData();
@@ -78,7 +72,6 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
 
   useEffect(() => {
     if (!data || data.length === 0 || !geoData) return;
-
 
     //console.log("Data arrived : ",data);
 
@@ -89,7 +82,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
     svg.attr('width', width).attr('height', height);
 
     const margin = { top: 20, right: 80, bottom: 50, left: 20 };
-    const innerWidth = width - margin.left - margin.right ;
+    const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
     // Clear previous SVG contents to prevent overlapping graphs
@@ -99,129 +92,135 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
 
     //console.log("Filtered Data :",filteredData);
 
-   // TODO : Complete 
+    // TODO : Complete
 
     // Map country names to emission values
     const emissionsByCountry = new Map(
-      filteredData.map((d) => 
-      [d.country , d.total_emission_per_capita])
+      filteredData.map((d) => [d.country, d.total_emission_per_capita])
     );
 
-    console.log("emissionsByCountry Data :",emissionsByCountry);
+    console.log('emissionsByCountry Data :', emissionsByCountry);
 
     const colorScale = d3
       .scaleSequential(d3.interpolateBlues)
-      .domain(d3.extent(filteredData, (d) => 
-      d.total_emission_per_capita) as [number, number]
+      .domain(
+        d3.extent(filteredData, (d) => d.total_emission_per_capita) as [
+          number,
+          number
+        ]
       );
 
     // Create projection of Mercator
-    const projection = d3.geoMercator().fitSize([innerWidth, innerHeight], geoData);
+    const projection = d3
+      .geoMercator()
+      .fitSize([innerWidth, innerHeight], geoData);
     // Path generator
     const pathGenerator = d3.geoPath().projection(projection);
-    
-     // Draw the map
-     const g = svg.append('g');
-     g.selectAll('path')
-     .data(geoData?.features || [])
-     .join('path')
-     .attr('d', (d: GeoJSON.Feature<GeoJSON.Geometry, any>) => pathGenerator(d) || '')
-     .attr('fill', (d: any) => {
-       const countryName = d.properties.name;
-       const value = emissionsByCountry.get(countryName);
-       return value != null ? colorScale(value) : '#ccc';
-     })
-     .attr('stroke', '#000')
-     .attr('stroke-width', 0.5)
-     .on('mouseover', 
-       function (event, d: any) {
-       const countryName = d.properties.name;
-       const value = emissionsByCountry.get(countryName);
 
-       d3.select(this).attr('stroke', '#66c2a5')
-       .attr('stroke-width', 1.5);
+    // Draw the map
+    const g = svg.append('g');
+    g.selectAll('path')
+      .data(geoData?.features || [])
+      .join('path')
+      .attr(
+        'd',
+        (d: GeoJSON.Feature<GeoJSON.Geometry, any>) => pathGenerator(d) || ''
+      )
+      .attr('fill', (d: any) => {
+        const countryName = d.properties.name;
+        const value = emissionsByCountry.get(countryName);
+        return value != null ? colorScale(value) : '#ccc';
+      })
+      .attr('stroke', '#000')
+      .attr('stroke-width', 0.5)
+      .on('mouseover', function (event, d: any) {
+        const countryName = d.properties.name;
+        const value = emissionsByCountry.get(countryName);
 
-       // Tooltip logic here
-     })
-     .on('mouseout', function () {
-       d3.select(this).attr('stroke', '#000')
-       .attr('stroke-width', 0.5);
-     });
+        d3.select(this).attr('stroke', '#66c2a5').attr('stroke-width', 1.5);
 
-     const zoom = d3.zoom()
-        .scaleExtent([1, 15])
-        .on('zoom', (event) => {
-          svg.selectAll('g') 
-          .attr('transform', event.transform);
-        });
+        // Tooltip logic here
+      })
+      .on('mouseout', function () {
+        d3.select(this).attr('stroke', '#000').attr('stroke-width', 0.5);
+      });
 
-      svg.call(zoom);
+    const zoom = d3
+      .zoom<SVGSVGElement, unknown>()
+      .scaleExtent([1, 15])
+      .on('zoom', (event) => {
+        svg.selectAll('g').attr('transform', event.transform);
+      });
 
-      svg.transition().call(
-        zoom.transform, 
-        d3.zoomIdentity.scale(zoomLevel)
-      );
+    svg.call(zoom as any);
 
-      // TODO: Add Legend with Gradient 
+    const svgTransition = svg.transition() as unknown as d3.Transition<
+      SVGSVGElement,
+      unknown,
+      null,
+      undefined
+    >;
 
-      const legendWidth = 300;
-      const legendHeight = 20;
-      const legendX = width - legendWidth - 20 ;
-      const legendY = height - margin.bottom ;
+    svgTransition.call(zoom.transform, d3.zoomIdentity.scale(zoomLevel));
 
-      // Gradiente
-      const defs = svg.append('defs');
-      const linearGradient = defs
-        .append('linearGradient')
-        .attr('id', 'legend-gradient')
-        .attr('x1', '0%')
-        .attr('x2', '100%')
-        .attr('y1', '0%')
-        .attr('y2', '0%');
+    // TODO: Add Legend with Gradient
 
-      linearGradient
-        .append('stop')
-        .attr('offset', '0%')
-        .attr('stop-color', d3.interpolateBlues(0)); // Colore minimo
+    const legendWidth = 300;
+    const legendHeight = 20;
+    const legendX = width - legendWidth - 20;
+    const legendY = height - margin.bottom;
 
-      linearGradient
-        .append('stop')
-        .attr('offset', '100%')
-        .attr('stop-color', d3.interpolateBlues(1)); // Colore massimo
+    // Gradiente
+    const defs = svg.append('defs');
+    const linearGradient = defs
+      .append('linearGradient')
+      .attr('id', 'legend-gradient')
+      .attr('x1', '0%')
+      .attr('x2', '100%')
+      .attr('y1', '0%')
+      .attr('y2', '0%');
 
-      // Rettangolo della legenda
-      svg
-        .append('rect')
-        .attr('x', legendX)
-        .attr('y', legendY)
-        .attr('width', legendWidth)
-        .attr('height', legendHeight)
-        .style('fill', 'url(#legend-gradient)');
+    linearGradient
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', d3.interpolateBlues(0)); // Colore minimo
 
-      // Etichette
-      const [minValue, maxValue] = d3.extent(filteredData, (d) => d.total_emission_per_capita) as [
-        number,
-        number
-      ];
+    linearGradient
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', d3.interpolateBlues(1)); // Colore massimo
 
-      svg
-        .append('text')
-        .attr('x', legendX)
-        .attr('y', legendY - 5)
-        .text(minValue.toFixed(2))
-        .style('font-size', '10px')
-        .attr('text-anchor', 'start');
+    // Rettangolo della legenda
+    svg
+      .append('rect')
+      .attr('x', legendX)
+      .attr('y', legendY)
+      .attr('width', legendWidth)
+      .attr('height', legendHeight)
+      .style('fill', 'url(#legend-gradient)');
 
-      svg
-        .append('text')
-        .attr('x', legendX + legendWidth)
-        .attr('y', legendY - 5)
-        .text(maxValue.toFixed(2))
-        .style('font-size', '10px')
-        .attr('text-anchor', 'end');
-    
-  }, [zoomLevel,data, geoData, selectedYear, newWidth]);
+    // Etichette
+    const [minValue, maxValue] = d3.extent(
+      filteredData,
+      (d) => d.total_emission_per_capita
+    ) as [number, number];
 
+    svg
+      .append('text')
+      .attr('x', legendX)
+      .attr('y', legendY - 5)
+      .text(minValue.toFixed(2))
+      .style('font-size', '10px')
+      .attr('text-anchor', 'start');
+
+    svg
+      .append('text')
+      .attr('x', legendX + legendWidth)
+      .attr('y', legendY - 5)
+      .text(maxValue.toFixed(2))
+      .style('font-size', '10px')
+      .attr('text-anchor', 'end');
+  }, [zoomLevel, data, geoData, selectedYear, newWidth]);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -248,29 +247,27 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
           </div>
         </div>
       </div>
-    <DataSourceInfo>
-      Energy Institute - Statistical Review of World Energy (2024) - with
-      major processing by Our World in Data;{' '}
-    </DataSourceInfo>
-    <div className="mt-3">
-      <label htmlFor="year">Select Year: </label>
-      <select
-        id="year"
-        value={selectedYear}
-        onChange={(e) => setSelectedYear(e.target.value)}
-        className="py-1 px-2 ml-2 rounded-md border bg-background"
-      >
-        {[...new Set(data.map((d) => d.year))].map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
+      <DataSourceInfo>
+        Energy Institute - Statistical Review of World Energy (2024) - with
+        major processing by Our World in Data;{' '}
+      </DataSourceInfo>
+      <div className="mt-3">
+        <label htmlFor="year">Select Year: </label>
+        <select
+          id="year"
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
+        >
+          {[...new Set(data.map((d) => d.year))].map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
-  </div>
   );
 };
-
-
 
 export default ChoroplethMapTotalEmisionsOne;
