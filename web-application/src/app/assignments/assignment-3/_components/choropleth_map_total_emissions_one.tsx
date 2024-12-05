@@ -89,7 +89,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
     svg.attr('width', width).attr('height', height);
 
     const margin = { top: 20, right: 80, bottom: 50, left: 20 };
-    const innerWidth = width - margin.left - margin.right;
+    const innerWidth = width - margin.left - margin.right ;
     const innerHeight = height - margin.top - margin.bottom;
 
     // Clear previous SVG contents to prevent overlapping graphs
@@ -148,72 +148,91 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
        .attr('stroke-width', 0.5);
      });
 
-    // Add a legend (optional)
-    const legendHeight = 10;
-    const legendWidth = 300;
+     const zoom = d3.zoom()
+        .scaleExtent([1, 15])
+        .on('zoom', (event) => {
+          svg.selectAll('g') 
+          .attr('transform', event.transform);
+        });
 
-    const legend = svg
-      .append('g')
-      .attr('transform', 
-        `translate(${innerWidth - legendWidth - 10}, 
-        ${innerHeight - legendHeight + 10})`);
+      svg.call(zoom);
 
-    const legendScale = d3.scaleLinear()
-      .domain(colorScale.domain())
-      .range([0, legendWidth]);
+      svg.transition().call(
+        zoom.transform, 
+        d3.zoomIdentity.scale(zoomLevel)
+      );
 
-    const legendAxis = d3.axisBottom(legendScale).ticks(7);
+      // TODO: Add Legend with Gradient 
 
-    legend.append('g')
-      .attr('transform', `translate(0, ${legendHeight})`)
-      .call(legendAxis);
+      const legendWidth = 300;
+      const legendHeight = 20;
+      const legendX = width - legendWidth - 20 ;
+      const legendY = height - margin.bottom ;
 
-    const legendGradient = svg.append('defs')
-      .append('linearGradient')
-      .attr('id', 'legendGradient')
-      .attr('x1', '0%').attr('x2', '100%')
-      .attr('y1', '0%').attr('y2', '0%');
+      // Gradiente
+      const defs = svg.append('defs');
+      const linearGradient = defs
+        .append('linearGradient')
+        .attr('id', 'legend-gradient')
+        .attr('x1', '0%')
+        .attr('x2', '100%')
+        .attr('y1', '0%')
+        .attr('y2', '0%');
 
-    legendGradient.append('stop')
-      .attr('offset', '0%')
-      .attr('stop-color', 
-      colorScale(colorScale.domain()[0]));
+      linearGradient
+        .append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', d3.interpolateBlues(0)); // Colore minimo
 
-    legendGradient.append('stop')
-      .attr('offset', '100%')
-      .attr('stop-color', 
-      colorScale(colorScale.domain()[1]));
+      linearGradient
+        .append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', d3.interpolateBlues(1)); // Colore massimo
 
-    legend.append('rect')
-      .attr('width', legendWidth)
-      .attr('height', legendHeight)
-      .style('fill', 'url(#legendGradient)');
+      // Rettangolo della legenda
+      svg
+        .append('rect')
+        .attr('x', legendX)
+        .attr('y', legendY)
+        .attr('width', legendWidth)
+        .attr('height', legendHeight)
+        .style('fill', 'url(#legend-gradient)');
 
-    if (svg.node() !== null) {
+      // Etichette
+      const [minValue, maxValue] = d3.extent(filteredData, (d) => d.total_emission_per_capita) as [
+        number,
+        number
+      ];
 
-        const zoom = d3.zoom()
-          .scaleExtent([1, 15])
-          .on('zoom', (event) => {
-            svg.selectAll('g') 
-            .attr('transform', event.transform);
-          });
+      svg
+        .append('text')
+        .attr('x', legendX)
+        .attr('y', legendY - 5)
+        .text(minValue.toFixed(2))
+        .style('font-size', '10px')
+        .attr('text-anchor', 'start');
 
-        svg.call(zoom);
-
-        svg.transition().call(
-          zoom.transform, 
-          d3.zoomIdentity.scale(zoomLevel)
-        );
-    }
+      svg
+        .append('text')
+        .attr('x', legendX + legendWidth)
+        .attr('y', legendY - 5)
+        .text(maxValue.toFixed(2))
+        .style('font-size', '10px')
+        .attr('text-anchor', 'end');
     
   }, [zoomLevel,data, geoData, selectedYear, newWidth]);
 
 
   return (
     <div className="flex flex-col justify-center items-center">
-    <div className="relative w-full">
-      {/* Pulsanti di zoom */}
-        <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+      <div className="relative w-full">
+        {/* Mappa */}
+        <div className="flex relative justify-center items-center w-full">
+          <div className="overflow-x-auto h-full w-fit">
+            <svg ref={svgRef} />
+          </div>
+          {/* Pulsanti di zoom */}
+          <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
             <button
               className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
@@ -226,14 +245,9 @@ const ChoroplethMapTotalEmisionsOne: React.FC<ChoroplethMapTotalEmisionsOneSmall
             >
               -
             </button>
-        </div>
-      {/* Mappa */}
-      <div className="flex relative justify-center items-center w-full">
-        <div className="overflow-x-auto h-full w-fit">
-          <svg ref={svgRef} />
+          </div>
         </div>
       </div>
-    </div>
     <DataSourceInfo>
       Energy Institute - Statistical Review of World Energy (2024) - with
       major processing by Our World in Data;{' '}
