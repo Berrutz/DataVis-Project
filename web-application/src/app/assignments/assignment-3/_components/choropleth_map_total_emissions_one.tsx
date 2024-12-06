@@ -35,6 +35,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
   const [data, setData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2021'); // Set default year here
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [geoData, setGeoData] =
     useState<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1); // size of the zoom
@@ -76,6 +77,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     //console.log("Data arrived : ",data);
 
     const svg = d3.select(svgRef.current);
+    // const tooltip = d3.select(tooltipRef.current);
     const width = +newWidth || 850;
     const height = 500;
 
@@ -99,7 +101,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
       filteredData.map((d) => [d.country, d.total_emission_per_capita])
     );
 
-    console.log('emissionsByCountry Data :', emissionsByCountry);
+    // console.log('emissionsByCountry Data :', emissionsByCountry);
 
     const colorScale = d3
       .scaleSequential(d3.interpolateBlues)
@@ -118,8 +120,10 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     const pathGenerator = d3.geoPath().projection(projection);
 
     // Draw the map
-    const g = svg.append('g');
-    g.selectAll('path')
+    const mapGroup = svg.append('g'); // Zoomable group
+
+    mapGroup
+      .selectAll('path')
       .data(geoData?.features || [])
       .join('path')
       .attr(
@@ -140,16 +144,53 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
         d3.select(this).attr('stroke', '#66c2a5').attr('stroke-width', 1.5);
 
         // Tooltip logic here
+        if (tooltipRef.current) {
+          const svgRect = svgRef.current?.getBoundingClientRect();
+          const horizontalOffset = 5;
+          const verticalOffset = 50;
+
+          const tooltipX =
+            event.clientX - (svgRect?.left || 0) - horizontalOffset;
+          const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+          tooltipRef.current.style.left = `${tooltipX}px`;
+          tooltipRef.current.style.top = `${tooltipY}px`;
+          tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.innerHTML = `
+          <strong>Country:</strong> ${countryName}<br>
+          <strong>Tons of CO₂ per person:</strong> ${
+            value != null ? value.toFixed(2) : 'N/A'
+          }
+        `;
+        }
+      })
+      .on('mousemove', function (event) {
+        if (tooltipRef.current) {
+          // Get the bounding box of the SVG container
+          const svgRect = svgRef.current?.getBoundingClientRect();
+          const horizontalOffset = 5;
+          const verticalOffset = 50;
+
+          // Adjust tooltip position dynamically
+          const tooltipX =
+            event.clientX - (svgRect?.left || 0) + horizontalOffset;
+          const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+
+          tooltipRef.current.style.left = `${tooltipX}px`;
+          tooltipRef.current.style.top = `${tooltipY}px`;
+        }
       })
       .on('mouseout', function () {
         d3.select(this).attr('stroke', '#000').attr('stroke-width', 0.5);
+        if (tooltipRef.current) {
+          tooltipRef.current.style.opacity = '0';
+        }
       });
 
     const zoom = d3
       .zoom<SVGSVGElement, unknown>()
       .scaleExtent([1, 15])
       .on('zoom', (event) => {
-        svg.selectAll('g').attr('transform', event.transform);
+        mapGroup.attr('transform', event.transform);
       });
 
     svg.call(zoom as any);
@@ -163,14 +204,18 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
 
     svgTransition.call(zoom.transform, d3.zoomIdentity.scale(zoomLevel));
 
-    // TODO: Add Legend with Gradient
+    // Legend
+    const legendGroup = svg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${height - margin.bottom})`
+      );
 
     const legendWidth = 300;
     const legendHeight = 20;
-    const legendX = width - legendWidth - 20;
-    const legendY = height - margin.bottom;
 
-    // Gradiente
+    // Gradient
     const defs = svg.append('defs');
     const linearGradient = defs
       .append('linearGradient')
@@ -183,43 +228,35 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     linearGradient
       .append('stop')
       .attr('offset', '0%')
-      .attr('stop-color', d3.interpolateBlues(0)); // Colore minimo
+      .attr('stop-color', d3.interpolateBlues(0)); // Minimum color
 
     linearGradient
       .append('stop')
       .attr('offset', '100%')
-      .attr('stop-color', d3.interpolateBlues(1)); // Colore massimo
+      .attr('stop-color', d3.interpolateBlues(1)); // Maximum color
 
-    // Rettangolo della legenda
-    svg
+    // Legend rectangle
+    legendGroup
       .append('rect')
-      .attr('x', legendX)
-      .attr('y', legendY)
       .attr('width', legendWidth)
       .attr('height', legendHeight)
       .style('fill', 'url(#legend-gradient)');
 
-    // Etichette
-    const [minValue, maxValue] = d3.extent(
-      filteredData,
-      (d) => d.total_emission_per_capita
-    ) as [number, number];
+    // Legend scale
+    const legendScale = d3
+      .scaleLinear()
+      .domain(colorScale.domain()) // Match the domain of the color scale
+      .range([0, legendWidth]);
 
-    svg
-      .append('text')
-      .attr('x', legendX)
-      .attr('y', legendY - 5)
-      .text(minValue.toFixed(2))
-      .style('font-size', '10px')
-      .attr('text-anchor', 'start');
+    const legendAxis = d3
+      .axisBottom(legendScale)
+      .ticks(5)
+      .tickFormat((d) => `${d} t`);
 
-    svg
-      .append('text')
-      .attr('x', legendX + legendWidth)
-      .attr('y', legendY - 5)
-      .text(maxValue.toFixed(2))
-      .style('font-size', '10px')
-      .attr('text-anchor', 'end');
+    legendGroup
+      .append('g')
+      .attr('transform', `translate(0, ${legendHeight})`) // Position below the rectangle
+      .call(legendAxis);
   }, [zoomLevel, data, geoData, selectedYear, newWidth]);
 
   return (
@@ -227,24 +264,33 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
       <div className="relative w-full">
         {/* Mappa */}
         <div className="flex relative justify-center items-center w-full">
-          <div className="overflow-x-auto h-full w-fit">
+          <div className="relative overflow-x-auto h-full w-fit">
             <svg ref={svgRef} />
+            {/* Pulsanti di zoom */}
+            <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+              <button
+                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
+              >
+                +
+              </button>
+              <button
+                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
+              >
+                -
+              </button>
+            </div>
           </div>
-          {/* Pulsanti di zoom */}
-          <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
-            <button
-              className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
-            >
-              +
-            </button>
-            <button
-              className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
-            >
-              -
-            </button>
-          </div>
+          <div
+            ref={tooltipRef}
+            className="absolute bg-white text-sm text-gray-800 p-2 rounded shadow-lg pointer-events-none"
+            style={{
+              opacity: 0,
+              position: 'absolute',
+              pointerEvents: 'none'
+            }}
+          ></div>
         </div>
       </div>
       <DataSourceInfo>
