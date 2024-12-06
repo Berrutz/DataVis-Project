@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
-import ChoroplethMapEmisionsPerCapita from './choropleth-map-emissions-per-capita'; // Your first map component
-import ChoroplethMapTotalEmission from './choropleth-map-total-emissions'; // Your second map component
+import ChoroplethMapEmisionsPerCapita from './choropleth-map-emissions-per-capita';
+import ChoroplethMapTotalEmission from './choropleth-map-total-emissions';
 
 interface MapContainerProps {
   width: number | string;
 }
 
 const MapContainer: React.FC<MapContainerProps> = ({ width }) => {
-  const [activeTab, setActiveTab] = useState<string>('total'); // Default to the 'total' map
+  const [activeTab, setActiveTab] = useState<string>('total');
+  const [isTransitioning, setIsTransitioning] = useState(false); // Track transition state
+
+  const handleTabChange = (tab: string) => {
+    if (activeTab !== tab) {
+      setIsTransitioning(true); // Start transition
+      setTimeout(() => {
+        setActiveTab(tab);
+        setIsTransitioning(false); // End transition after fade-out
+      }, 300); // Match CSS animation duration
+    }
+  };
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg">
@@ -19,7 +30,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ width }) => {
               ? 'bg-primary text-white'
               : 'bg-gray-100 text-gray-600'
           }`}
-          onClick={() => setActiveTab('total')}
+          onClick={() => handleTabChange('total')}
         >
           Total Emissions
         </button>
@@ -29,14 +40,18 @@ const MapContainer: React.FC<MapContainerProps> = ({ width }) => {
               ? 'bg-primary text-white'
               : 'bg-gray-100 text-gray-600'
           }`}
-          onClick={() => setActiveTab('perCapita')}
+          onClick={() => handleTabChange('perCapita')}
         >
           Emissions Per Capita
         </button>
       </div>
 
       {/* Graph container */}
-      <div className="p-4">
+      <div
+        className={`p-4 transition-opacity duration-300 ${
+          isTransitioning ? 'opacity-0' : 'opacity-100'
+        }`}
+      >
         {activeTab === 'total' && (
           <div className="graph-container">
             <ChoroplethMapTotalEmission newWidth={width} />
