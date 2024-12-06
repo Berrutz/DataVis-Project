@@ -13,11 +13,10 @@ import {
 import { useEffect, useState } from 'react';
 import ChoroplethMapDensityOne from './_components/choropleth_map_density_one';
 import ChoroplethMapDensityTwo from './_components/choropleth_map_density_two';
-import ChoroplethMapTotalEmisionsOne from './_components/choropleth_map_total_emissions_one';
 import ChoroplethMapTotalEmisionsTwo from './_components/choropleth_map_total_emissions_two';
+import MapContainer from './_components/map-switch-container';
 
 export default function Assignment3() {
-
   const [windowWidth, setWindowWidth] = useState<number>(1200);
 
   useEffect(() => {
@@ -32,7 +31,9 @@ export default function Assignment3() {
   }, []);
 
   return (
-    <AssignmentPage title={'Analysis of CO2 Per Capita and based on Density'}>
+    <AssignmentPage
+      title={'Global analysis of CO2 Emissions and Population Density'}
+    >
       {/* CHOROPLETH MAP TOTAL EMISSION ONE & TWO (both are in the same section since both refears to the same data) */}
       <ChartSection
         asidename="Choropleth Map Total Emission per capita"
@@ -40,23 +41,29 @@ export default function Assignment3() {
       >
         <ChartHeading>
           <ChartH1Title>
-            {/* TODO: CHANGE TITLE*/}
-            Total CO2 emissions Per Capita
+            Annual overview of per capita and total CO2 emissions of the world's
+            countries
           </ChartH1Title>
-          <p>Some words here</p>
+          <p>
+            The map gives a global view of the CO2 emissions per capita and
+            total CO2 emissions for all the countries in a given year.
+          </p>
         </ChartHeading>
         <ChartBody>
           <ChartContainer
             asidename="Chart"
             asidekey="choropleth-map-total-emission-per-capita-chart"
           >
-            <ChoroplethMapTotalEmisionsOne 
-            newWidth={
-              windowWidth < 768 ? 600 : windowWidth < 1024 ? 700 : 850
-            }
-            />
-            <ChoroplethMapTotalEmisionsTwo 
-            
+            <MapContainer
+              width={
+                windowWidth < 480
+                  ? 450
+                  : windowWidth < 768
+                  ? 600
+                  : windowWidth < 1024
+                  ? 720
+                  : 820
+              }
             />
           </ChartContainer>
           <ChartContainer
@@ -64,7 +71,14 @@ export default function Assignment3() {
             asidekey="choropleth-map-total-emission-per-capita-comment"
           >
             <ChartH2Title>Comment</ChartH2Title>
-            <p>The final comment here</p>
+            <p>
+              Looking first at the total CO2 emissions of countries and then
+              their emissions in relation to the number of inhabitants allows us
+              to have a more complete view of the global situation. China is by
+              far the country that emits the most tons of CO2 into the
+              atmosphere, but if we relate its emissions to the population it is
+              placed below other countries such as the USA
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>

@@ -18,14 +18,19 @@ class CSV_ENTRIES_LAND:
     CODE = "Code"
     LAND_SQUARE_KM = "Land area (sq. km)"
 
+class CSV_ENTRIES_TOTAL_EMISSIONS:
+    CODE = "Code"
+    TOTAL_EMISSIONS = "Annual CO₂ emissions"
+
 
 
 # Define Path for system
 DATA_PATH = os.getcwd() + "\\..\\original-datasets\\"
 FILES = {
-    "co_emissions_per_capita": "co-emissions-per-capita.csv",
+    "co2_emissions_per_capita": "co2-emissions-per-capita.csv",
     "co2_fossil_plus_land_use": "co2-fossil-plus-land-use.csv",
     "land_area_km": "land-area-km.csv",
+    "co2_total_emissions" : "annual-co2-emissions-per-country.csv"
 }
 
 # Load CSV
@@ -56,9 +61,10 @@ def store_csv_from_datframe(dataframe: pd.DataFrame):
 def preprocess_and_merge_data():
 
     # Load the datasets 
-    df_per_capita = load_csv("co_emissions_per_capita")
+    df_per_capita = load_csv("co2_emissions_per_capita")
     df_fossil_land = load_csv("co2_fossil_plus_land_use")
     df_land_area = load_csv("land_area_km")
+    df_total_emissions = load_csv("co2_total_emissions")
 
     # Manage null values 
 
@@ -87,9 +93,17 @@ def preprocess_and_merge_data():
 
     print("Shape of df_land_area :",df_land_area.shape)
 
+    # DROP CODE Coloumn 
+    df_total_emissions = df_total_emissions.drop(CSV_ENTRIES_LAND.CODE, axis=1)
+    # drop All the Rows which have Null values in the coloumn "Land area (sq. km)"
+    df_total_emissions = df_total_emissions.dropna(subset=[CSV_ENTRIES_TOTAL_EMISSIONS.TOTAL_EMISSIONS])
+
+    print("Shape of df_land_area :",df_total_emissions.shape) 
+
     check_null(df_per_capita)
     check_null(df_fossil_land)
     check_null(df_land_area)
+    check_null(df_total_emissions)
 
     # Rename coloumn 
     df_per_capita = df_per_capita.rename(columns={
@@ -110,15 +124,23 @@ def preprocess_and_merge_data():
         "Land area (sq. km)": "land_area_km"
     })
 
+    df_total_emissions = df_total_emissions.rename(columns={
+        "Entity": "country_name",
+        "Year": "year",
+        "Annual CO₂ emissions": "total_emissions"
+    })
+
     # Filter data after `year > 1954`
-    year = 1954
+    year = 1960
     df_per_capita = df_per_capita[df_per_capita["year"] > year]
     df_fossil_land = df_fossil_land[df_fossil_land["year"] > year]
     df_land_area = df_land_area[df_land_area["year"] > year]
+    df_total_emissions = df_total_emissions[df_total_emissions["year"] > year]
 
     # Merge on the coloumn `country_name` e `year`
     merged_df = pd.merge(df_per_capita, df_fossil_land, on=["country_name", "year"], how="inner")
     merged_df = pd.merge(merged_df, df_land_area, on=["country_name", "year"], how="inner")
+    merged_df = pd.merge(merged_df, df_total_emissions, on=["country_name", "year"], how="inner")
 
     print(merged_df.head())
 
@@ -132,6 +154,7 @@ def preprocess_and_merge_data():
         "country_name", 
         "year", 
         "total_emission_per_capita", 
+        "total_emissions",
         "fossil_emissions", 
         "annual_emission_density"
     ]]

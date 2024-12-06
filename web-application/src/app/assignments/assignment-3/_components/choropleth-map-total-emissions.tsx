@@ -24,12 +24,12 @@ interface ChoroplethMapTotalEmisionsOneSmallScreenPops {
 interface Data {
   country: string; // Country name
   year: number; // year considered
-  total_emission_per_capita: number; // Total emission per capita
+  total_emission: number; // Total emission per capita
   fossil_emissions: number;
   annual_emission_density: number;
 }
 
-const ChoroplethMapTotalEmisionsOne: React.FC<
+const ChoroplethMapTotalEmission: React.FC<
   ChoroplethMapTotalEmisionsOneSmallScreenPops
 > = ({ newWidth }) => {
   const [data, setData] = useState<Data[]>([]);
@@ -47,7 +47,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
         (d) => ({
           country: d.country_name,
           year: +d.year,
-          total_emission_per_capita: +d['total_emission_per_capita'],
+          total_emission: +d['total_emissions'],
           fossil_emissions: +d['fossil_emissions'],
           annual_emission_density: +d['annual_emission_density']
         })
@@ -77,9 +77,8 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     //console.log("Data arrived : ",data);
 
     const svg = d3.select(svgRef.current);
-    // const tooltip = d3.select(tooltipRef.current);
-    const width = +newWidth || 850;
-    const height = 500;
+    const width = +newWidth || 820;
+    const height = 550;
 
     svg.attr('width', width).attr('height', height);
 
@@ -90,7 +89,11 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     // Clear previous SVG contents to prevent overlapping graphs
     svg.selectAll('*').remove();
 
-    const filteredData = data.filter((d) => d.year === +selectedYear);
+    const filteredData = data
+      .filter((d) => d.year === +selectedYear)
+      .filter((d) => d.country !== 'World') // Exclude "World" country
+      .filter((d) => d.country !== 'Upper-middle-income countries') // Exclude Upper middle income countries
+      .filter((d) => d.country !== 'High-income countries'); // Exclude High income countries
 
     //console.log("Filtered Data :",filteredData);
 
@@ -98,19 +101,20 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
 
     // Map country names to emission values
     const emissionsByCountry = new Map(
-      filteredData.map((d) => [d.country, d.total_emission_per_capita])
+      filteredData.map((d) => [d.country, d.total_emission])
     );
 
     // console.log('emissionsByCountry Data :', emissionsByCountry);
 
     const colorScale = d3
-      .scaleSequential(d3.interpolateBlues)
+      .scaleSequential(d3.interpolateReds)
       .domain(
-        d3.extent(filteredData, (d) => d.total_emission_per_capita) as [
-          number,
-          number
-        ]
+        d3.extent(filteredData, (d) => d.total_emission) as [number, number]
       );
+
+    console.log(
+      d3.extent(filteredData, (d) => d.total_emission) as [number, number]
+    );
 
     // Create projection of Mercator
     const projection = d3
@@ -139,25 +143,30 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
       .attr('stroke-width', 0.5)
       .on('mouseover', function (event, d: any) {
         const countryName = d.properties.name;
-        const value = emissionsByCountry.get(countryName);
+        var value = emissionsByCountry.get(countryName);
+        value = value != null ? value / 1e6 : 0;
 
-        d3.select(this).attr('stroke', '#66c2a5').attr('stroke-width', 1.5);
+        d3.select(this).attr('stroke', '#000').attr('stroke-width', 1.5);
 
         // Tooltip logic here
         if (tooltipRef.current) {
           const svgRect = svgRef.current?.getBoundingClientRect();
-          const horizontalOffset = 5;
-          const verticalOffset = 50;
+          const horizontalOffset = 3;
+          const verticalOffset = 55;
 
           const tooltipX =
             event.clientX - (svgRect?.left || 0) - horizontalOffset;
           const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+          tooltipRef.current.style.borderRadius = '0.5rem';
+          tooltipRef.current.style.borderStyle = 'solid';
+          tooltipRef.current.style.borderWidth = '1px';
+          tooltipRef.current.style.borderColor = 'hsl(var(--border))';
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
           tooltipRef.current.innerHTML = `
           <strong>Country:</strong> ${countryName}<br>
-          <strong>Tons of CO₂ per person:</strong> ${
+          <strong>Mt of CO₂:</strong> ${
             value != null ? value.toFixed(2) : 'N/A'
           }
         `;
@@ -167,8 +176,8 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
         if (tooltipRef.current) {
           // Get the bounding box of the SVG container
           const svgRect = svgRef.current?.getBoundingClientRect();
-          const horizontalOffset = 5;
-          const verticalOffset = 50;
+          const horizontalOffset = 3;
+          const verticalOffset = 55;
 
           // Adjust tooltip position dynamically
           const tooltipX =
@@ -228,12 +237,12 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     linearGradient
       .append('stop')
       .attr('offset', '0%')
-      .attr('stop-color', d3.interpolateBlues(0)); // Minimum color
+      .attr('stop-color', d3.interpolateReds(0)); // Minimum color
 
     linearGradient
       .append('stop')
       .attr('offset', '100%')
-      .attr('stop-color', d3.interpolateBlues(1)); // Maximum color
+      .attr('stop-color', d3.interpolateReds(1)); // Maximum color
 
     // Legend rectangle
     legendGroup
@@ -245,13 +254,13 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
     // Legend scale
     const legendScale = d3
       .scaleLinear()
-      .domain(colorScale.domain()) // Match the domain of the color scale
+      .domain(colorScale.domain().map((d) => d / 1e9)) // Match the domain of the color scale
       .range([0, legendWidth]);
 
     const legendAxis = d3
       .axisBottom(legendScale)
       .ticks(5)
-      .tickFormat((d) => `${d} t`);
+      .tickFormat((d) => `${d} Gt`);
 
     legendGroup
       .append('g')
@@ -261,7 +270,7 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="relative w-full">
+      <div className="relative w-full mb-2">
         {/* Mappa */}
         <div className="flex relative justify-center items-center w-full">
           <div className="relative overflow-x-auto h-full w-fit">
@@ -269,13 +278,13 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
             {/* Pulsanti di zoom */}
             <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
               <button
-                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-5 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-3xl"
                 onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
               >
                 +
               </button>
               <button
-                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-5 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-3xl"
                 onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
               >
                 -
@@ -293,11 +302,8 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
           ></div>
         </div>
       </div>
-      <DataSourceInfo>
-        Energy Institute - Statistical Review of World Energy (2024) - with
-        major processing by Our World in Data;{' '}
-      </DataSourceInfo>
-      <div className="mt-3">
+      <DataSourceInfo>Global Carbon Budget (2024); </DataSourceInfo>
+      <div>
         <label htmlFor="year">Select Year: </label>
         <select
           id="year"
@@ -316,4 +322,4 @@ const ChoroplethMapTotalEmisionsOne: React.FC<
   );
 };
 
-export default ChoroplethMapTotalEmisionsOne;
+export default ChoroplethMapTotalEmission;
