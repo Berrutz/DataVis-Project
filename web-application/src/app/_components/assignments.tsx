@@ -28,7 +28,7 @@ const assignmentData: AssignmentData[] = [
     title: 'Assignment 1',
     subtitle: 'Comparing Categories',
     description:
-      'In this assignment multiple charts compare the emission of European Union countries.'
+      'In this assignment multiple charts compare the CO2 emissions of European Union countries.'
   },
   {
     assignmentHref: '/assignments/assignment-2',
@@ -41,11 +41,12 @@ const assignmentData: AssignmentData[] = [
   },
   {
     assignmentHref: '/assignments/assignment-3',
-    imageSrc: getStaticFile(''),
-    imageAlt: '',
+    imageSrc: getStaticFile('/map-chart-ass3.png'),
+    imageAlt: 'Map chart of assignment 3',
     title: 'Assignment 3',
-    subtitle: 'Assignment 3 - Subtitle',
-    description: ''
+    subtitle: 'Displaying maps',
+    description:
+      'In this assignment the maps are used to show data by country regarding CO2 emissions and population density'
   },
   {
     assignmentHref: '/assignments/assignment-4',
