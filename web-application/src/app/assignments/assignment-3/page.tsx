@@ -101,7 +101,17 @@ export default function Assignment3() {
             asidename="Chart"
             asidekey="choropleth-map-density-total-emission-chart"
           >
-            <ChoroplethMapDensityOne />
+            <ChoroplethMapDensityOne
+              newWidth={
+                windowWidth < 480
+                  ? 450
+                  : windowWidth < 768
+                  ? 600
+                  : windowWidth < 1024
+                  ? 720
+                  : 820
+              }
+            />
             <ChoroplethMapDensityTwo />
           </ChartContainer>
           <ChartContainer
