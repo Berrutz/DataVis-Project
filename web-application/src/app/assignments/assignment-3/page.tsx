@@ -77,7 +77,7 @@ export default function Assignment3() {
               to have a more complete view of the global situation. China is by
               far the country that emits the most tons of CO2 into the
               atmosphere, but if we relate its emissions to the population it is
-              placed below other countries such as the USA
+              placed below other countries such as the USA.
             </p>
           </ChartContainer>
         </ChartBody>
