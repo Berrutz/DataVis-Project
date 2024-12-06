@@ -4,7 +4,6 @@ import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
-
 interface ChoroplethMapTotalEmisionsOneSmallScreenPops {
   newWidth: number | string;
 }
@@ -81,7 +80,9 @@ const ChoroplethMapDensityOne: React.FC<
       .filter((d) => d.year === +selectedYear)
       .filter((d) => d.country !== 'World') // Exclude "World" country
       .filter((d) => d.country !== 'Upper-middle-income countries') // Exclude Upper middle income countries
-      .filter((d) => d.country !== 'High-income countries'); // Exclude High income countries
+      .filter((d) => d.country !== 'High-income countries') // Exclude High income countries
+      .filter((d) => d.country !== 'Singapore')
+      .filter((d) => d.country !== 'Bahrain');
 
     //console.log("Filtered Data :",filteredData);
 
@@ -97,18 +98,24 @@ const ChoroplethMapDensityOne: React.FC<
     const colorScale = d3
       .scaleSequential(d3.interpolateReds)
       .domain(
-        d3.extent(filteredData, (d) => d.annual_emission_density) as [number, number]
+        d3.extent(filteredData, (d) => d.annual_emission_density) as [
+          number,
+          number
+        ]
       );
 
     console.log(
-      d3.extent(filteredData, (d) => d.annual_emission_density) as [number, number]
+      d3.extent(filteredData, (d) => d.annual_emission_density) as [
+        number,
+        number
+      ]
     );
 
     // Create projection of Mercator
     const projection = d3
       .geoConicConformal()
       .fitSize([innerWidth, innerHeight], geoData);
-      
+
     // Path generator
     const pathGenerator = d3.geoPath().projection(projection);
 

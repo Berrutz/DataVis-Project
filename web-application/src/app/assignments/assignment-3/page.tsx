@@ -92,7 +92,7 @@ export default function Assignment3() {
           <ChartHeading>
             <ChartH1Title>
               {/* TODO: CHANGE TITLE*/}
-              Total CO2 emissions scaled by country side from different
+              Total CO2 emissions scaled by country size from different
               perspectives
             </ChartH1Title>
             <p>Some words here</p>

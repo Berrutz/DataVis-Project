@@ -112,10 +112,6 @@ const ChoroplethMapTotalEmission: React.FC<
         d3.extent(filteredData, (d) => d.total_emission) as [number, number]
       );
 
-    console.log(
-      d3.extent(filteredData, (d) => d.total_emission) as [number, number]
-    );
-
     // Create projection of Mercator
     const projection = d3
       .geoMercator()
