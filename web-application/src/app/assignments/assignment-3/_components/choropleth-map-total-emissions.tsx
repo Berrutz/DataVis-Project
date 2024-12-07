@@ -224,7 +224,7 @@ const ChoroplethMapTotalEmission: React.FC<
     const defs = svg.append('defs');
     const linearGradient = defs
       .append('linearGradient')
-      .attr('id', 'legend-gradient')
+      .attr('id', 'total-legend-gradient')
       .attr('x1', '0%')
       .attr('x2', '100%')
       .attr('y1', '0%')
@@ -245,7 +245,7 @@ const ChoroplethMapTotalEmission: React.FC<
       .append('rect')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .style('fill', 'url(#legend-gradient)');
+      .style('fill', 'url(#total-legend-gradient)');
 
     // Legend scale
     const legendScale = d3
