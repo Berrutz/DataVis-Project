@@ -1,0 +1,21 @@
+Data Taken from here : 
+https://www.ncei.noaa.gov/pub/data/cirs/climdiv/ ( Bulk Download )
+
+
+Minimum values : 
+https://www.ncei.noaa.gov/pub/data/cirs/climdiv/climdiv-tminst-v1.0.0-20241205
+
+Saved as "Min.csv" inside the "web-application/datasets/assignment4"
+
+Maximum values :
+https://www.ncei.noaa.gov/pub/data/cirs/climdiv/climdiv-tmaxst-v1.0.0-20241205
+
+Saved as "Max.csv" inside the "web-application/datasets/assignment4"
+
+Average values :
+https://www.ncei.noaa.gov/pub/data/cirs/climdiv/climdiv-tmpcst-v1.0.0-20241205
+
+Saved as "Avg.csv" inside the "web-application/datasets/assignment4"
+
+Read the README of the site to understand the form of the data
+This file is saved in this Folder with the name "README_STRUCTURE"
