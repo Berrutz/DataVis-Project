@@ -112,10 +112,6 @@ const ChoroplethMapTotalEmission: React.FC<
         d3.extent(filteredData, (d) => d.total_emission) as [number, number]
       );
 
-    console.log(
-      d3.extent(filteredData, (d) => d.total_emission) as [number, number]
-    );
-
     // Create projection of Mercator
     const projection = d3
       .geoMercator()
@@ -228,7 +224,7 @@ const ChoroplethMapTotalEmission: React.FC<
     const defs = svg.append('defs');
     const linearGradient = defs
       .append('linearGradient')
-      .attr('id', 'legend-gradient')
+      .attr('id', 'total-legend-gradient')
       .attr('x1', '0%')
       .attr('x2', '100%')
       .attr('y1', '0%')
@@ -249,7 +245,7 @@ const ChoroplethMapTotalEmission: React.FC<
       .append('rect')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .style('fill', 'url(#legend-gradient)');
+      .style('fill', 'url(#total-legend-gradient)');
 
     // Legend scale
     const legendScale = d3
@@ -302,7 +298,45 @@ const ChoroplethMapTotalEmission: React.FC<
           ></div>
         </div>
       </div>
-      <DataSourceInfo>Global Carbon Budget (2024); </DataSourceInfo>
+      <DataSourceInfo>
+        Global Carbon Budget (2024);{' '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-4 mr-4 ml-4">
+            <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this data
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>The total CO2 emissions exclude land-use change.</li>
+              <li>
+                This data is based on territorial emissions, which do not
+                account for emissions embedded in traded goods.
+              </li>
+              <li>
+                Emissions from international aviation and shipping are not
+                included in any country or region's emissions. They are only
+                included in the global total emissions.
+              </li>
+            </ul>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p>
+              To create the maps, the geographical data of the various countries
+              were coupled with the database provided by "Our World In Data"
+              containing data on the total CO2 emissions of all countries. The
+              data are displayed on request depending on the selected year.
+            </p>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Data Source
+            </h2>
+            <p>
+              Global Carbon Budget (2024) - with major processing by Our World
+              in Data. “Annual CO₂ emissions - GCB” [dataset]. Global Carbon
+              Project, “Global Carbon Budget” [original data].
+            </p>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
+      </DataSourceInfo>
       <div>
         <label htmlFor="year">Select Year: </label>
         <select

@@ -77,7 +77,7 @@ export default function Assignment3() {
               to have a more complete view of the global situation. China is by
               far the country that emits the most tons of CO2 into the
               atmosphere, but if we relate its emissions to the population it is
-              placed below other countries such as the USA
+              placed below other countries such as the USA.
             </p>
           </ChartContainer>
         </ChartBody>
@@ -92,24 +92,49 @@ export default function Assignment3() {
           <ChartHeading>
             <ChartH1Title>
               {/* TODO: CHANGE TITLE*/}
-              Total CO2 emissions scaled by country side from different
-              perspectives
+              Global annual overview of total CO2 emissions in relation to
+              country size
             </ChartH1Title>
-            <p>Some words here</p>
+            <p>
+              The map gives a global view of the total CO2 emissions divided by
+              country size for all the countries in a given year. The emissions
+              are displayed as tons of CO2 per square kilometer. The map has
+              been created using the Lambert conformal conic projection.
+            </p>
           </ChartHeading>
           <ChartContainer
             asidename="Chart"
             asidekey="choropleth-map-density-total-emission-chart"
           >
-            <ChoroplethMapDensityOne />
-            <ChoroplethMapDensityTwo />
+            <ChoroplethMapDensityOne
+              newWidth={
+                windowWidth < 480
+                  ? 450
+                  : windowWidth < 768
+                  ? 600
+                  : windowWidth < 1024
+                  ? 720
+                  : 820
+              }
+            />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
             asidekey="choropleth-map-density-total-emission-chart"
           >
             <ChartH2Title>Comment</ChartH2Title>
-            <p>The final comment here</p>
+            <p>
+              This representation may not fully capture the total emissions
+              (absolute values) but emphasizes emissions density, which can
+              sometimes mislead the interpretation (e.g., larger countries may
+              appear less polluting simply because of their vast size or
+              viceversa). Countries like Canada, Australia, show light shading
+              despite their advanced economies, this is because their emissions
+              are spread over large geographic areas. Regions with smaller land
+              areas but dense populations (e.g., Western Europe) tend to have
+              higher emissions per unit area, as their energy demands and
+              industrial activities are concentrated.
+            </p>
           </ChartContainer>
         </ChartBody>
       </ChartSection>

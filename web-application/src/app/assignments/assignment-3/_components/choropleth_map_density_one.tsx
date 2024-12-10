@@ -4,7 +4,6 @@ import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 
-
 interface ChoroplethMapTotalEmisionsOneSmallScreenPops {
   newWidth: number | string;
 }
@@ -77,11 +76,14 @@ const ChoroplethMapDensityOne: React.FC<
     // Clear previous SVG contents to prevent overlapping graphs
     svg.selectAll('*').remove();
 
-    const filteredData = data
+    // Filter for the selcted year and exclude not country values and countries not visible on the map
+    var filteredData = data
       .filter((d) => d.year === +selectedYear)
-      .filter((d) => d.country !== 'World') // Exclude "World" country
-      .filter((d) => d.country !== 'Upper-middle-income countries') // Exclude Upper middle income countries
-      .filter((d) => d.country !== 'High-income countries'); // Exclude High income countries
+      .filter((d) => d.country !== 'World')
+      .filter((d) => d.country !== 'Upper-middle-income countries')
+      .filter((d) => d.country !== 'High-income countries')
+      .filter((d) => d.country !== 'Singapore')
+      .filter((d) => d.country !== 'Bahrain');
 
     //console.log("Filtered Data :",filteredData);
 
@@ -92,23 +94,23 @@ const ChoroplethMapDensityOne: React.FC<
       filteredData.map((d) => [d.country, d.annual_emission_density])
     );
 
-    // console.log('emissionsByCountry Data :', emissionsByCountry);
+    // Remove Qatar from the color scale to have a more homogeneous color distribution
+    filteredData = filteredData.filter((d) => d.country !== 'Qatar');
 
     const colorScale = d3
-      .scaleSequential(d3.interpolateReds)
+      .scaleSequential(d3.interpolateGreens)
       .domain(
-        d3.extent(filteredData, (d) => d.annual_emission_density) as [number, number]
+        d3.extent(filteredData, (d) => d.annual_emission_density) as [
+          number,
+          number
+        ]
       );
 
-    console.log(
-      d3.extent(filteredData, (d) => d.annual_emission_density) as [number, number]
-    );
-
-    // Create projection of Mercator
+    // Create projection of Lambert
     const projection = d3
       .geoConicConformal()
       .fitSize([innerWidth, innerHeight], geoData);
-      
+
     // Path generator
     const pathGenerator = d3.geoPath().projection(projection);
 
@@ -133,7 +135,6 @@ const ChoroplethMapDensityOne: React.FC<
       .on('mouseover', function (event, d: any) {
         const countryName = d.properties.name;
         var value = emissionsByCountry.get(countryName);
-        //value = value != null ? value / 1e6 : 0;
 
         d3.select(this).attr('stroke', '#000').attr('stroke-width', 1.5);
 
@@ -155,7 +156,7 @@ const ChoroplethMapDensityOne: React.FC<
           tooltipRef.current.style.opacity = '1';
           tooltipRef.current.innerHTML = `
           <strong>Country:</strong> ${countryName}<br>
-          <strong>Mt of CO₂:</strong> ${
+          <strong>tCO₂/km&sup2:</strong> ${
             value != null ? value.toFixed(2) : 'N/A'
           }
         `;
@@ -217,7 +218,7 @@ const ChoroplethMapDensityOne: React.FC<
     const defs = svg.append('defs');
     const linearGradient = defs
       .append('linearGradient')
-      .attr('id', 'legend-gradient')
+      .attr('id', 'density-legend-gradient')
       .attr('x1', '0%')
       .attr('x2', '100%')
       .attr('y1', '0%')
@@ -226,19 +227,19 @@ const ChoroplethMapDensityOne: React.FC<
     linearGradient
       .append('stop')
       .attr('offset', '0%')
-      .attr('stop-color', d3.interpolateReds(0)); // Minimum color
+      .attr('stop-color', d3.interpolateGreens(0)); // Minimum color
 
     linearGradient
       .append('stop')
       .attr('offset', '100%')
-      .attr('stop-color', d3.interpolateReds(1)); // Maximum color
+      .attr('stop-color', d3.interpolateGreens(1)); // Maximum color
 
     // Legend rectangle
     legendGroup
       .append('rect')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .style('fill', 'url(#legend-gradient)');
+      .style('fill', 'url(#density-legend-gradient)');
 
     // Legend scale
     const legendScale = d3
@@ -249,7 +250,7 @@ const ChoroplethMapDensityOne: React.FC<
     const legendAxis = d3
       .axisBottom(legendScale)
       .ticks(5)
-      .tickFormat((d) => `${d} Gt`);
+      .tickFormat((d) => `${d} t`);
 
     legendGroup
       .append('g')
@@ -267,13 +268,13 @@ const ChoroplethMapDensityOne: React.FC<
             {/* Pulsanti di zoom */}
             <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
               <button
-                className="px-5 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-3xl"
+                className="px-5 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-3xl"
                 onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
               >
                 +
               </button>
               <button
-                className="px-5 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-3xl"
+                className="px-5 py-2 bg-green-500 text-white rounded hover:bg-green-600 text-3xl"
                 onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
               >
                 -
@@ -291,7 +292,59 @@ const ChoroplethMapDensityOne: React.FC<
           ></div>
         </div>
       </div>
-      <DataSourceInfo>Global Carbon Budget (2024); </DataSourceInfo>
+      <DataSourceInfo>
+        Global Carbon Budget (2024), Multiple sources compiled by World Bank
+        (2024);{' '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-4 mr-4 ml-4">
+            <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this data
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>The total CO2 emissions include land-use change.</li>
+              <li>
+                This data is based on territorial emissions, which do not
+                account for emissions embedded in traded goods.
+              </li>
+              <li>
+                Emissions from international aviation and shipping are not
+                included in any country or region's emissions. They are only
+                included in the global total emissions.
+              </li>
+              <li>
+                Land area is a country's total area, excluding area under inland
+                water bodies, national claims to continental shelf, and
+                exclusive economic zones. In most cases the definition of inland
+                water bodies includes major rivers and lakes.
+              </li>
+            </ul>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p>
+              To create the maps, the geographical data of the various countries
+              were coupled with the databases provided by "Our World In Data"
+              containing data on the total CO2 emissions and land area in square
+              kilometers of all countries. The data are displayed on request
+              depending on the selected year.
+            </p>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Data Sources
+            </h2>
+            <ul className="list-disc pl-5">
+              <li>
+                Global Carbon Budget (2024) - with major processing by Our World
+                in Data. “Annual CO₂ emissions - GCB” [dataset]. Global Carbon
+                Project, “Global Carbon Budget” [original data].
+              </li>
+              <li>
+                Multiple sources compiled by World Bank (2024) - processed by
+                Our World in Data.
+              </li>
+            </ul>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
+      </DataSourceInfo>
       <div>
         <label htmlFor="year">Select Year: </label>
         <select
