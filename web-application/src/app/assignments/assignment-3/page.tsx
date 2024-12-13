@@ -12,8 +12,6 @@ import {
 
 import { useEffect, useState } from 'react';
 import ChoroplethMapDensityOne from './_components/choropleth_map_density_one';
-import ChoroplethMapDensityTwo from './_components/choropleth_map_density_two';
-import ChoroplethMapTotalEmisionsTwo from './_components/choropleth_map_total_emissions_two';
 import MapContainer from './_components/map-switch-container';
 
 export default function Assignment3() {
@@ -38,6 +36,7 @@ export default function Assignment3() {
       <ChartSection
         asidename="Choropleth Map Total Emission per capita"
         asidekey="choropleth-map-total-emission-per-capita"
+        id="choropleth-map-total-emission-per-capita"
       >
         <ChartHeading>
           <ChartH1Title>
@@ -52,23 +51,25 @@ export default function Assignment3() {
         <ChartBody>
           <ChartContainer
             asidename="Chart"
-            asidekey="choropleth-map-total-emission-per-capita-chart"
+            asidekey="choropleth-map-total-emission-per-capita-chart-1"
+            id="choropleth-map-total-emission-per-capita-chart-1"
           >
             <MapContainer
               width={
                 windowWidth < 480
                   ? 450
                   : windowWidth < 768
-                  ? 600
-                  : windowWidth < 1024
-                  ? 720
-                  : 820
+                    ? 600
+                    : windowWidth < 1024
+                      ? 720
+                      : 820
               }
             />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
-            asidekey="choropleth-map-total-emission-per-capita-comment"
+            id="choropleth-map-total-emission-per-capita-comment-1"
+            asidekey="choropleth-map-total-emission-per-capita-comment-1"
           >
             <ChartH2Title>Comment</ChartH2Title>
             <p>
@@ -87,6 +88,7 @@ export default function Assignment3() {
       <ChartSection
         asidename="Choropleth Map Desity Total Emission"
         asidekey="choropleth-map-density-total-emission"
+        id="choropleth-map-density-total-emission"
       >
         <ChartBody>
           <ChartHeading>
@@ -104,23 +106,25 @@ export default function Assignment3() {
           </ChartHeading>
           <ChartContainer
             asidename="Chart"
-            asidekey="choropleth-map-density-total-emission-chart"
+            asidekey="choropleth-map-density-total-emission-chart-2"
+            id="choropleth-map-density-total-emission-chart-2"
           >
             <ChoroplethMapDensityOne
               newWidth={
                 windowWidth < 480
                   ? 450
                   : windowWidth < 768
-                  ? 600
-                  : windowWidth < 1024
-                  ? 720
-                  : 820
+                    ? 600
+                    : windowWidth < 1024
+                      ? 720
+                      : 820
               }
             />
           </ChartContainer>
           <ChartContainer
             asidename="Comment"
-            asidekey="choropleth-map-density-total-emission-chart"
+            asidekey="choropleth-map-density-total-emission-comment-2"
+            id="choropleth-map-density-total-emission-comment-2"
           >
             <ChartH2Title>Comment</ChartH2Title>
             <p>
