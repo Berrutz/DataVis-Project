@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
+import Tooltip from '../../_components/tooltip';
 
 interface LineChartSmallScreenPops {
   newWidth: number | string;
@@ -12,7 +13,7 @@ interface Data {
   year: number;
   month: number;
   value: number;
-  countryCode: string; // Cambia a string se il codice del paese è una stringa
+  countryName: string;
 }
 
 // Array to map month numbers to month names
@@ -37,7 +38,12 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
   const [avgData, setAvgData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2021);
-  const [selectedCountryCode, setSelectedCountryCode] = useState<string>('001'); // Stato per il codice dello stato
+  const [selectedCountryCode, setSelectedCountryCode] =
+    useState<string>('Alabama');
+
+  const maxColor = '#ff851a';
+  const minColor = '#b35300';
+  const avgColor = '#ffd000';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +54,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           year: +d.year,
           month: +d.month,
           value: +d.value,
-          countryCode: d.state_code.toString() // Usa state_code come stringa
+          countryName: d.country
         })
       );
       setMinData(minCsvData);
@@ -59,7 +65,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           year: +d.year,
           month: +d.month,
           value: +d.value,
-          countryCode: d.state_code.toString() // Usa state_code come stringa
+          countryName: d.country
         })
       );
       setMaxData(maxCsvData);
@@ -70,7 +76,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           year: +d.year,
           month: +d.month,
           value: +d.value,
-          countryCode: d.state_code.toString() // Usa state_code come stringa
+          countryName: d.country
         })
       );
       setAvgData(avgCsvData);
@@ -98,21 +104,18 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
     const filteredMinData = minData.filter(
       (d) =>
         d.year === selectedYear &&
-        (selectedCountryCode ? d.countryCode === selectedCountryCode : true)
+        (selectedCountryCode ? d.countryName === selectedCountryCode : true)
     );
     const filteredMaxData = maxData.filter(
       (d) =>
         d.year === selectedYear &&
-        (selectedCountryCode ? d.countryCode === selectedCountryCode : true)
+        (selectedCountryCode ? d.countryName === selectedCountryCode : true)
     );
     const filteredAvgData = avgData.filter(
       (d) =>
         d.year === selectedYear &&
-        (selectedCountryCode ? d.countryCode === selectedCountryCode : true)
+        (selectedCountryCode ? d.countryName === selectedCountryCode : true)
     );
-
-    console.log(filteredMinData);
-    console.log(filteredMaxData);
 
     // Creiamo le scale
     const xScale = d3
@@ -120,8 +123,6 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       .domain(filteredMinData.map((d) => d.month.toString())) // Mesi sull'asse X
       .range([0, innerWidth])
       .padding(0.1);
-
-    console.log(xScale.domain());
 
     const yScale = d3
       .scaleLinear()
@@ -134,32 +135,23 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       ])
       .range([innerHeight, 0]);
 
-    // Creiamo le linee
+    // Create lines
     const line = d3
       .line<Data>()
       .x((d) => (xScale(d.month.toString()) || 0) + xScale.bandwidth() / 2)
       .y((d) => yScale(d.value));
 
-    /*     const lineMax = d3
-      .line<Data>()
-      .x(
-        (d) =>
-          (xScale(d.month.toString()) || 0) +
-          xScale.bandwidth() / 2 +
-          margin.left
-      )
-      .y((d) => yScale(d.value)); */
     const chartGroup = svg
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-    // Aggiungiamo le linee Min, Max e Avg
+    // Aggiungiamo le linee Min, Max e Avg to the chartGroup
     chartGroup
       .append('path')
       .data([filteredMinData])
       .attr('d', line)
       .attr('fill', 'none')
-      .attr('stroke', '#4287f5')
+      .attr('stroke', `${minColor}`)
       .attr('stroke-width', 2);
 
     chartGroup
@@ -167,28 +159,56 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       .data([filteredMaxData])
       .attr('d', line)
       .attr('fill', 'none')
-      .attr('stroke', '#f54842')
+      .attr('stroke', `${maxColor}`)
       .attr('stroke-width', 2);
 
+    // Add circles for average
     chartGroup
-      .append('path')
-      .data([filteredAvgData])
-      .attr('d', line)
-      .attr('fill', 'none')
-      .attr('stroke', '#1f8739')
-      .attr('stroke-width', 2);
+      .selectAll('.avg-circle')
+      .data(filteredAvgData)
+      .enter()
+      .append('circle')
+      .attr('class', 'avg-circle')
+      .attr(
+        'cx',
+        (d) => (xScale(d.month.toString()) || 0) + xScale.bandwidth() / 2
+      )
+      .attr('cy', (d) => yScale(d.value))
+      .attr('r', 5)
+      .attr('fill', `${avgColor}`);
+
+    // Append circles for Min points
+    chartGroup
+      .selectAll('.min-circle')
+      .data(filteredMinData)
+      .enter()
+      .append('circle')
+      .attr('class', 'min-circle')
+      .attr(
+        'cx',
+        (d) => (xScale(d.month.toString()) || 0) + xScale.bandwidth() / 2
+      )
+      .attr('cy', (d) => yScale(d.value))
+      .attr('r', 3)
+      .attr('fill', `${minColor}`);
+
+    // Append circles for Max points
+    chartGroup
+      .selectAll('.max-circle')
+      .data(filteredMaxData)
+      .enter()
+      .append('circle')
+      .attr('class', 'max-circle')
+      .attr(
+        'cx',
+        (d) => (xScale(d.month.toString()) || 0) + xScale.bandwidth() / 2
+      )
+      .attr('cy', (d) => yScale(d.value))
+      .attr('r', 3)
+      .attr('fill', `${maxColor}`);
 
     // Create tooltip
-    const tooltip = d3
-      .select('body')
-      .append('div')
-      .style('position', 'absolute')
-      .style('background', 'white')
-      .style('border', '1px solid gray')
-      .style('padding', '8px')
-      .style('border-radius', '4px')
-      .style('visibility', 'hidden')
-      .style('pointer-events', 'none');
+    const tooltip = d3.select('#tooltip');
 
     // Create vertical line and points
     const verticalLine = chartGroup
@@ -255,10 +275,40 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           .data(points)
           .attr('cx', xScale(hoveredMonth)! + xScale.bandwidth() / 2)
           .attr('cy', (d) => (d ? yScale(d.value) : 0))
-          .attr('fill', (_, i) => ['blue', 'red', 'green'][i])
+          .attr(
+            'fill',
+            (_, i) => [`${minColor}`, `${maxColor}`, `${avgColor}`][i]
+          )
           .style('visibility', (d) => (d ? 'visible' : 'hidden'));
 
         // Update tooltip
+        // Update tooltip position
+        const svgRect = svgRef.current?.getBoundingClientRect();
+        const tooltipWidth = (tooltip.node() as HTMLElement)?.offsetWidth || 0; // Get tooltip width dynamically
+        const tooltipHeight =
+          (tooltip.node() as HTMLElement)?.offsetHeight || 0; // Get tooltip height dynamically
+        const horizontalOffset = 10;
+        const verticalOffset = 10;
+
+        let tooltipX = event.clientX - (svgRect?.left || 0) + horizontalOffset;
+        let tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+
+        // Check if the tooltip would overflow the graph's width and hieght
+        if (tooltipX + tooltipWidth > innerWidth) {
+          tooltipX =
+            event.clientX -
+            (svgRect?.left || 0) -
+            tooltipWidth -
+            horizontalOffset;
+        }
+        if (tooltipY + tooltipHeight > innerHeight) {
+          tooltipY =
+            event.clientY -
+            (svgRect?.top || 0) -
+            tooltipHeight -
+            verticalOffset;
+        }
+
         tooltip
           .html(
             `
@@ -270,7 +320,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
 
             <!-- Line 2: Max -->
             <div style="display: flex; align-items: center; gap: 5px;">
-              <div style="width: 15px; height: 15px; background-color: red;"></div>
+              <div style="width: 15px; height: 15px; background-color: ${maxColor};"></div>
               <span> 
                 Max: <a style="font-weight: bold">${maxPoint?.value.toFixed(
                   1
@@ -280,7 +330,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
 
             <!-- Line 3: Avg -->
             <div style="display: flex; align-items: center; gap: 5px;">
-              <div style="width: 15px; height: 15px; background-color: green;"></div>
+              <div style="width: 15px; height: 15px; background-color: ${avgColor};"></div>
               <span>
                 Avg: <a style="font-weight: bold">${avgPoint?.value.toFixed(
                   1
@@ -290,7 +340,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       
             <!-- Line 1: Min -->
             <div style="display: flex; align-items: center; gap: 5px;">
-              <div style="width: 15px; height: 15px; background-color: blue;"></div>
+              <div style="width: 15px; height: 15px; background-color: ${minColor};"></div>
               <span>
                 Min: <a style="font-weight: bold">${minPoint?.value.toFixed(
                   1
@@ -300,14 +350,15 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           </div>
         `
           )
-          .style('left', `${event.pageX + 10}px`)
-          .style('top', `${event.pageY + 10}px`)
-          .style('visibility', 'visible');
+          .style('left', `${tooltipX}px`)
+          .style('top', `${tooltipY}px`)
+          .style('display', 'block')
+          .style('opacity', 1);
       })
       .on('mouseout', () => {
         verticalLine.style('visibility', 'hidden');
         circles.style('visibility', 'hidden');
-        tooltip.style('visibility', 'hidden');
+        tooltip.style('display', 'none').style('opacity', 0);
       });
 
     // Add y-axis grid lines
@@ -326,7 +377,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       .attr('stroke-width', 1)
       .attr('stroke-dasharray', '4 4'); // Dotted line pattern
 
-    // Aggiungiamo gli assi
+    // Add axis
     svg
       .append('g')
       .attr(
@@ -347,10 +398,27 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
         <div className="flex relative justify-center items-center w-full">
           <div className="relative overflow-x-auto h-full w-fit">
             <svg ref={svgRef} />
+            <Tooltip id="tooltip" />
           </div>
         </div>
       </div>
-      <DataSourceInfo>Global Carbon Budget (2024);</DataSourceInfo>
+      <DataSourceInfo>
+        National Centers for Environmental Information (NCEI);{' '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-3 mr-4 ml-4">
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p>
+              From the database provided by the National Centers for
+              Environmental Information containing data on minimum, maximum and
+              average temperatures, only those relating to the states and nation
+              have been extracted. The data are displayed on request depending
+              on the selected year.
+            </p>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
+      </DataSourceInfo>
       <div>
         <label htmlFor="year">Select Year: </label>
         <select
@@ -366,7 +434,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="mt-3">
         <label htmlFor="country">Select country: </label>
         <select
           id="country"
@@ -374,10 +442,10 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           onChange={(e) => setSelectedCountryCode(e.target.value)} // Nessuna conversione a number
           className="py-1 px-2 ml-2 rounded-md border bg-background"
         >
-          {[...new Set(minData.map((d) => d.countryCode))].map(
-            (countryCode) => (
-              <option key={countryCode} value={countryCode}>
-                {countryCode}
+          {[...new Set(minData.map((d) => d.countryName))].map(
+            (countryName) => (
+              <option key={countryName} value={countryName}>
+                {countryName}
               </option>
             )
           )}

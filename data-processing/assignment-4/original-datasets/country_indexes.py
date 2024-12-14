@@ -61,7 +61,7 @@ x: np.ndarray = np.array(
         {"index": 108, "country": "Northwest Region"},
         {"index": 29, "country": "New Mexico"},
         {"index": 109, "country": "West Region"},
-        {"index": 110, "country": "National (contiguous 48 States)"},
+        {"index": 110, "country": "National"},
         {"index": 111, "country": "Great Plains"},
         {"index": 115, "country": "Southern Plains and Gulf Coast"},
         {"index": 120, "country": "US Rockies and Westward"},

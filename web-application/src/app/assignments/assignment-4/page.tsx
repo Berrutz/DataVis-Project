@@ -37,12 +37,10 @@ export default function Assignment3() {
       : 820;
 
   return (
-    <AssignmentPage
-      title={'Global analysis of CO2 Emissions and Population Density'}
-    >
+    <AssignmentPage title={'Analysis of Temperatures USA'}>
       <ChartSection
-        asidename="Line Chart CO2 Emissions"
-        asidekey="line-chart-co2-emissions"
+        asidename="Line Chart Temperatures"
+        asidekey="line-chart-temperatures"
       >
         <ChartHeading>
           <ChartH1Title>CO2 Emissions by Year</ChartH1Title>
@@ -54,16 +52,16 @@ export default function Assignment3() {
         <ChartBody>
           <ChartContainer
             asidename="Chart"
-            asidekey="line-chart-co2-emissions-chart"
+            asidekey="line-chart-temperatures-chart"
           >
             <MapContainer
               components={[
                 {
-                  buttonText: 'Total',
+                  buttonText: 'Line',
                   component: <LineChart newWidth={chartsWidth} />
                 },
                 {
-                  buttonText: 'Per Capita',
+                  buttonText: 'Radar',
                   component: <LineChart newWidth={chartsWidth} />
                 }
               ]}
