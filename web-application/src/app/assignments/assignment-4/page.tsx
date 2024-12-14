@@ -11,12 +11,10 @@ import {
 } from '../_components/chart-section';
 
 import { useEffect, useState } from 'react';
-import LineChart from './_components/LineChart';
 import MapContainer from './_components/map-switch-container';
 
 export default function Assignment3() {
   const [windowWidth, setWindowWidth] = useState<number>(1200);
-  const [selectedYear, setSelectedYear] = useState<string>('2021');
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,14 +28,25 @@ export default function Assignment3() {
   }, []);
 
   return (
-    <AssignmentPage title={'Global analysis of CO2 Emissions and Population Density'}>
-      <ChartSection asidename="Line Chart CO2 Emissions" asidekey="line-chart-co2-emissions">
+    <AssignmentPage
+      title={'Global analysis of CO2 Emissions and Population Density'}
+    >
+      <ChartSection
+        asidename="Line Chart CO2 Emissions"
+        asidekey="line-chart-co2-emissions"
+      >
         <ChartHeading>
           <ChartH1Title>CO2 Emissions by Year</ChartH1Title>
-          <p>This chart shows the CO2 emissions by year for different metrics (Min, Max, Avg).</p>
+          <p>
+            This chart shows the CO2 emissions by year for different metrics
+            (Min, Max, Avg).
+          </p>
         </ChartHeading>
         <ChartBody>
-          <ChartContainer asidename="Chart" asidekey="line-chart-co2-emissions-chart">
+          <ChartContainer
+            asidename="Chart"
+            asidekey="line-chart-co2-emissions-chart"
+          >
             <MapContainer
               width={
                 windowWidth < 480
@@ -55,8 +64,3 @@ export default function Assignment3() {
     </AssignmentPage>
   );
 }
-
-
-
-
-
