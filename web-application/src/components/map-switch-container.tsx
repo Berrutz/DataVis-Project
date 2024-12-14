@@ -44,7 +44,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl rounded-2xl border shadow-md bg-background">
+    <div className="mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background">
       {/* Tab buttons */}
       <div className="flex">
         {components.map((component, index) => (
@@ -54,14 +54,18 @@ const MapContainer: React.FC<MapContainerProps> = ({
             onClick={() => handleTabChange(index)}
             className={cn(
               'flex-1 text-lg font-medium rounded-none hover:scale-100',
-              index === 0 && `rounded-tl-2xl`,
+              index === 0 &&
+                `rounded-tl-2xl ${activeComponentIdex !== 0 && 'border-l'}`,
               index === components.length - 1 &&
-                `rounded-tr-2xl ${activeComponentIdex !== components.length - 1 && 'border-l'}`,
-              index > 0 &&
+                `rounded-tr-2xl ${activeComponentIdex !== components.length - 1 && 'border-r'}`,
+
+              index >= 0 &&
                 index < components.length - 1 &&
+                index + 1 !== activeComponentIdex &&
                 activeComponentIdex !== index &&
-                'border-l',
-              activeComponentIdex !== index && 'border-b'
+                'border-r',
+
+              activeComponentIdex !== index && 'bg-gray-100 border-y'
             )}
           >
             {component.buttonText}
@@ -71,7 +75,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
       {/* Graph container */}
       <div
-        className={`p-4 transition-opacity duration-300 ${
+        className={`p-4 transition-opacity duration-300 border-b- border-x ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
