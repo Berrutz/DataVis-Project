@@ -1,15 +1,15 @@
 'use client';
 
 import Container from '@/components/container';
-import SectionTitle from './section-title';
 import { getStaticFile } from '@/utils/general';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { HTMLMotionProps, motion, motionValue } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type AssignmentData = {
   assignmentHref: string;
@@ -59,8 +59,20 @@ const assignmentData: AssignmentData[] = [
 ];
 
 export default function Assignments() {
+  const searchParams = useSearchParams();
+  const searchParamsAssignment = searchParams.get('assignment');
+
+  var assignmentIndex = searchParamsAssignment
+    ? Math.max(parseInt(searchParamsAssignment) - 1, 0)
+    : 0;
   const [currentFocusAssignment, setCurrentFocusAssignment] =
-    useState < number > (0);
+    useState < number > (assignmentIndex);
+
+  useEffect(() => {
+    const currentParams = new URLSearchParams(searchParams?.toString());
+    currentParams.set('assignment', (currentFocusAssignment + 1).toString());
+    window.history.replaceState(null, '', `?${currentParams.toString()}`);
+  }, [currentFocusAssignment]);
 
   return (
     <section className="overflow-x-hidden pt-32 scroll-mt-24" id="assignments">
