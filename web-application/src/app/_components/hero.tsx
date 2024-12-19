@@ -57,20 +57,7 @@ export default function Hero() {
             <Link href="#assignments">Our Works</Link>
           </Button>
         </motion.div>
-        <div className="flex flex-col items-center lg:flex-row lg:gap-6 lg:mt-24">
-          <motion.div
-            variants={itemVariant2}
-            initial="hidden"
-            animate="visible"
-            className="hidden lg:block lg:w-2/5"
-          >
-            <Image
-              height={500}
-              width={500}
-              alt="Spongebob"
-              src={getStaticFile('/spongebob_hero_img.jpg')}
-            />
-          </motion.div>
+        <div className="flex justify-center items-center mt-12">
           <div className="flex flex-col gap-12 items-center lg:w-3/5">
             <motion.div
               variants={generalVariants}
@@ -114,19 +101,6 @@ export default function Hero() {
               </motion.h4>
             </motion.div>
           </div>
-          <motion.div
-            variants={itemVariant2}
-            initial="hidden"
-            animate="visible"
-            className="mt-12 lg:hidden max-w-[400px]"
-          >
-            <Image
-              height={500}
-              width={500}
-              alt="Spongebob"
-              src={getStaticFile('/spongebob_hero_img.jpg')}
-            />
-          </motion.div>
         </div>
       </Container>
     </section>
