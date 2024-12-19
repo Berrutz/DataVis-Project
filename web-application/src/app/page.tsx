@@ -10,9 +10,9 @@ export default function Homepage() {
     <main>
       <Header />
       <Hero />
-      <WhoWeAre />
       <Assignments />
       <FinalProject />
+      <WhoWeAre />
       <TeckStack />
     </main>
   );
