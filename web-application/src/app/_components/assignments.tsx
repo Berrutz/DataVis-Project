@@ -60,7 +60,7 @@ const assignmentData: AssignmentData[] = [
 
 export default function Assignments() {
   const [currentFocusAssignment, setCurrentFocusAssignment] =
-    useState<number>(0);
+    useState < number > (0);
 
   return (
     <section className="overflow-x-hidden pt-32 scroll-mt-24" id="assignments">
@@ -155,12 +155,21 @@ const AssignmentCarousel = ({
         className="flex relative"
       >
         {assignmentData.map((ass, index) => (
-          <div key={index} className="min-w-[min(400px,_100%)] px-3">
+          <div
+            key={index}
+            className={cn(
+              'min-w-[min(400px,_100%)] px-3',
+              index !== currentFocusAssignment && 'cursor-pointer'
+            )}
+            onClick={() => {
+              setCurrentFocusAssignment(index);
+            }}
+          >
             <motion.div
               className={cn(
                 'flex flex-col rounded-2xl bg-card size-full opacity-30 transition-all duration-500',
                 index === currentFocusAssignment &&
-                  'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
+                'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
               )}
             >
               <div className="px-3 pt-3 h-1/2">
@@ -194,7 +203,7 @@ const AssignmentCarousel = ({
                       className={cn(
                         'pointer-events-none',
                         index === currentFocusAssignment &&
-                          'pointer-events-auto'
+                        'pointer-events-auto'
                       )}
                     >
                       Go to the assignment <ChevronRight className="ml-2" />
