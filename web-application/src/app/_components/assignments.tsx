@@ -1,15 +1,15 @@
 'use client';
 
 import Container from '@/components/container';
-import SectionTitle from './section-title';
 import { getStaticFile } from '@/utils/general';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { HTMLMotionProps, motion, motionValue } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type AssignmentData = {
   assignmentHref: string;
@@ -59,8 +59,20 @@ const assignmentData: AssignmentData[] = [
 ];
 
 export default function Assignments() {
+  const searchParams = useSearchParams();
+  const searchParamsAssignment = searchParams.get('assignment');
+
+  var assignmentIndex = searchParamsAssignment
+    ? Math.max(parseInt(searchParamsAssignment) - 1, 0)
+    : 0;
   const [currentFocusAssignment, setCurrentFocusAssignment] =
-    useState<number>(0);
+    useState < number > (assignmentIndex);
+
+  useEffect(() => {
+    const currentParams = new URLSearchParams(searchParams?.toString());
+    currentParams.set('assignment', (currentFocusAssignment + 1).toString());
+    window.history.replaceState(null, '', `?${currentParams.toString()}`);
+  }, [currentFocusAssignment]);
 
   return (
     <section className="overflow-x-hidden pt-32 scroll-mt-24" id="assignments">
@@ -155,12 +167,21 @@ const AssignmentCarousel = ({
         className="flex relative"
       >
         {assignmentData.map((ass, index) => (
-          <div key={index} className="min-w-[min(400px,_100%)] px-3">
+          <div
+            key={index}
+            className={cn(
+              'min-w-[min(400px,_100%)] px-3',
+              index !== currentFocusAssignment && 'cursor-pointer'
+            )}
+            onClick={() => {
+              setCurrentFocusAssignment(index);
+            }}
+          >
             <motion.div
               className={cn(
                 'flex flex-col rounded-2xl bg-card size-full opacity-30 transition-all duration-500',
                 index === currentFocusAssignment &&
-                  'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
+                'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
               )}
             >
               <div className="px-3 pt-3 h-1/2">
@@ -194,7 +215,7 @@ const AssignmentCarousel = ({
                       className={cn(
                         'pointer-events-none',
                         index === currentFocusAssignment &&
-                          'pointer-events-auto'
+                        'pointer-events-auto'
                       )}
                     >
                       Go to the assignment <ChevronRight className="ml-2" />
