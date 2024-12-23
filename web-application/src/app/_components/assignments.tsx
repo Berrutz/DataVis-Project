@@ -50,11 +50,11 @@ const assignmentData: AssignmentData[] = [
   },
   {
     assignmentHref: '/assignments/assignment-4',
-    imageSrc: getStaticFile(''),
-    imageAlt: '',
+    imageSrc: getStaticFile('/line-chart-ass4.png'),
+    imageAlt: 'Line chart of assignment 4',
     title: 'Assignment 4',
-    subtitle: 'Assignment 4 - Subtitle',
-    description: ''
+    subtitle: 'Displaying time and distributions',
+    description: 'In this assignment we use Line chart to display c'
   }
 ];
 

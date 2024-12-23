@@ -4,46 +4,33 @@ import { getStaticFile } from '@/utils/general';
 import DataSourceInfo from '../../_components/data-source';
 import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-details-modal-dialog';
 import Tooltip from '../../_components/tooltip';
+import { fahrenheitToCelsius, monthNames } from '../lib/utils';
+import { Data } from '../lib/interfaces';
+import { updateTooltipPosition } from '../../lib/utils';
 
 interface LineChartSmallScreenPops {
   newWidth: number | string;
 }
-
-interface Data {
-  year: number;
-  month: number;
-  value: number;
-  countryName: string;
-}
-
-// Array to map month numbers to month names
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
 
 const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
   const [minData, setMinData] = useState<Data[]>([]);
   const [maxData, setMaxData] = useState<Data[]>([]);
   const [avgData, setAvgData] = useState<Data[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number>(2021);
+  const [selectedYear, setSelectedYear] = useState<number>(2023);
   const [selectedCountryCode, setSelectedCountryCode] =
     useState<string>('Alabama');
 
   const maxColor = '#ff851a';
   const minColor = '#b35300';
   const avgColor = '#ffd000';
+
+  // Legend items
+  const legendData = [
+    { label: 'Min', color: minColor },
+    { label: 'Max', color: maxColor },
+    { label: 'Avg', color: avgColor }
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +81,7 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
 
     svg.attr('width', width).attr('height', height);
 
-    const margin = { top: 20, right: 80, bottom: 50, left: 40 };
+    const margin = { top: 20, right: 80, bottom: 80, left: 40 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -282,32 +269,13 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
           .style('visibility', (d) => (d ? 'visible' : 'hidden'));
 
         // Update tooltip
-        // Update tooltip position
-        const svgRect = svgRef.current?.getBoundingClientRect();
-        const tooltipWidth = (tooltip.node() as HTMLElement)?.offsetWidth || 0; // Get tooltip width dynamically
-        const tooltipHeight =
-          (tooltip.node() as HTMLElement)?.offsetHeight || 0; // Get tooltip height dynamically
-        const horizontalOffset = 10;
-        const verticalOffset = 10;
-
-        let tooltipX = event.clientX - (svgRect?.left || 0) + horizontalOffset;
-        let tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
-
-        // Check if the tooltip would overflow the graph's width and hieght
-        if (tooltipX + tooltipWidth > innerWidth) {
-          tooltipX =
-            event.clientX -
-            (svgRect?.left || 0) -
-            tooltipWidth -
-            horizontalOffset;
-        }
-        if (tooltipY + tooltipHeight > innerHeight) {
-          tooltipY =
-            event.clientY -
-            (svgRect?.top || 0) -
-            tooltipHeight -
-            verticalOffset;
-        }
+        const tooltipCoordinates = updateTooltipPosition(
+          event,
+          svgRef,
+          innerWidth,
+          innerHeight,
+          tooltip
+        );
 
         tooltip
           .html(
@@ -324,7 +292,9 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
               <span> 
                 Max: <a style="font-weight: bold">${maxPoint?.value.toFixed(
                   1
-                )} °F</a>
+                )} °F</a> (${fahrenheitToCelsius(maxPoint?.value!).toFixed(
+              1
+            )} °C)
               </span>
             </div>
 
@@ -334,7 +304,9 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
               <span>
                 Avg: <a style="font-weight: bold">${avgPoint?.value.toFixed(
                   1
-                )} °F</a>
+                )} °F</a> (${fahrenheitToCelsius(avgPoint?.value!).toFixed(
+              1
+            )} °C)
               </span>
             </div>
       
@@ -344,14 +316,16 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
               <span>
                 Min: <a style="font-weight: bold">${minPoint?.value.toFixed(
                   1
-                )} °F</a>
+                )} °F</a> (${fahrenheitToCelsius(minPoint?.value!).toFixed(
+              1
+            )} °C)
               </span>
             </div>
           </div>
         `
           )
-          .style('left', `${tooltipX}px`)
-          .style('top', `${tooltipY}px`)
+          .style('left', `${tooltipCoordinates.x}px`)
+          .style('top', `${tooltipCoordinates.y}px`)
           .style('display', 'block')
           .style('opacity', 1);
       })
@@ -390,6 +364,42 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
       .call(d3.axisLeft(yScale));
+
+    // Legend group
+    const legendGroup = svg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${margin.top + innerHeight + 40})`
+      );
+    // Add legend elements
+    const legendSpacing = 80; // Space between legend items
+    legendGroup
+      .selectAll('.legend-item')
+      .data(legendData)
+      .enter()
+      .append('g')
+      .attr('class', 'legend-item')
+      .attr('transform', (_, i) => `translate(${i * legendSpacing}, 0)`) // Space items horizontally
+      .each(function (d) {
+        const item = d3.select(this);
+
+        // Add colored rectangle
+        item
+          .append('rect')
+          .attr('width', 20)
+          .attr('height', 20)
+          .attr('fill', d.color);
+
+        // Add label
+        item
+          .append('text')
+          .attr('x', 30) // Position text relative to the rectangle
+          .attr('y', 15) // Align vertically to the center of the rectangle
+          .attr('fill', '#000')
+          .style('font-size', '14px')
+          .text(d.label);
+      });
   }, [minData, maxData, avgData, selectedYear, selectedCountryCode, newWidth]);
 
   return (
