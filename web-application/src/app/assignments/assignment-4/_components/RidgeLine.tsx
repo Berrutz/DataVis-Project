@@ -102,9 +102,15 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
   };
 
   // Funzione kernel di Epanechnikov
-  const epanechnikovKernel = (u: number) => {
+  /*   const epanechnikovKernel = (u: number) => {
     return Math.abs(u) <= 1 ? 0.75 * (1 - u * u) : 0;
-  };
+  }; */
+
+  function epanechnikovKernel(k: number) {
+    return function (v: number) {
+      return Math.abs((v /= k)) <= 1 ? (0.75 * (1 - v * v)) / k : 0;
+    };
+  }
 
   useEffect(() => {
     if (!minData.length || !maxData.length) return;
@@ -179,11 +185,10 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
     const yNameScale = d3
       .scaleBand()
       .domain(decades) // Decadi come categorie
-      .range([innerHeight, 0]) // Da basso a alto
-      .padding(0.4);
+      .range([innerHeight, 0]); // Da basso a alto
 
     // Applica la KDE per min, max e avg usando il kernel di Epanechnikov
-    const kde = kernelDensityEstimator(epanechnikovKernel, xScale.ticks(40));
+    const kde = kernelDensityEstimator(epanechnikovKernel(1), xScale.ticks(30));
     const densityDataMin = decades.map((decade) => ({
       decade: decade,
       density: kde(minAverages[decade]?.values).filter((v) => v !== undefined)
@@ -194,20 +199,32 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
     }));
 
     densityDataMin.forEach((data) => {
-      data.density.sort((a, b) => a[0] - b[0]);
+      data.density.sort((a, b) => a[0]! - b[0]!);
     });
     densityDataMax.forEach((data) => {
-      data.density.sort((a, b) => a[0] - b[0]);
+      data.density.sort((a, b) => a[0]! - b[0]!);
     });
+
+    const avgMaxDensity = d3.mean([...densityDataMin], (d) =>
+      d3.mean(d.density, ([, y]) => y)
+    );
+    const avgMinDensity = d3.mean([...densityDataMax], (d) =>
+      d3.mean(d.density, ([, y]) => y)
+    );
+
+    console.log('avgMaxDensity: ', avgMaxDensity);
+    console.log('avgMinDensity: ', avgMinDensity);
 
     // Log dei risultati della KDE
     console.log('densities: ', densityDataMin.slice(0, 5));
 
     [...densityDataMin, ...densityDataMax].forEach(({ decade, density }, i) => {
       const isMin = i < densityDataMin.length; // Check if it's min or max
-      /*       console.log(
-        (yScale(String(decade)) ?? 0) + yScale.bandwidth() / 2 + margin.top
-      ); */
+      console.log(
+        (yNameScale(String(decade)) ?? 0) +
+          yNameScale.bandwidth() / 2 +
+          margin.top
+      );
       const yOffset =
         (yNameScale(String(decade)) ?? 0) + // Default to 0 if undefined
         yNameScale.bandwidth() / 2 +
@@ -218,7 +235,9 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
         .line()
         .curve(d3.curveBasis) // Smooth curves
         .x(([x, _]: any) => xScale(x))
-        .y(([_, y]: any) => yOffset - y * 1000); // Scale density height
+        .y(([_, y]: any) => {
+          return yOffset - y;
+        }); // Scale density height
 
       svg
         .append('path')
