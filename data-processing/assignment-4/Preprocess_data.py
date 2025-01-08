@@ -128,6 +128,11 @@ def process_and_merge_data():
     df_min = df_min.dropna(subset=["country"])
     df_avg = df_avg.dropna(subset=["country"])
 
+    # Drop the rows in which the "value" is null
+    df_max = df_max.dropna(subset=["value"])
+    df_min = df_min.dropna(subset=["value"])
+    df_avg = df_avg.dropna(subset=["value"])
+
     # Drop the redundant 'index' column
     df_max.drop(columns=["index"], inplace=True)
     df_min.drop(columns=["index"], inplace=True)

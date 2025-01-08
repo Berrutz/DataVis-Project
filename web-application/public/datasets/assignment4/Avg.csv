@@ -1558,7 +1558,6 @@ state_code,year,month,value,country
 1,2024,9,75.5,Alabama
 1,2024,10,66.2,Alabama
 1,2024,11,61.6,Alabama
-1,2024,12,,Alabama
 2,1895,1,40.4,Arizona
 2,1895,2,43.5,Arizona
 2,1895,3,50.0,Arizona
@@ -3118,7 +3117,6 @@ state_code,year,month,value,country
 2,2024,9,76.2,Arizona
 2,2024,10,67.8,Arizona
 2,2024,11,48.5,Arizona
-2,2024,12,,Arizona
 3,1895,1,36.1,Arkansas
 3,1895,2,33.0,Arkansas
 3,1895,3,51.2,Arkansas
@@ -4678,7 +4676,6 @@ state_code,year,month,value,country
 3,2024,9,73.4,Arkansas
 3,2024,10,66.1,Arkansas
 3,2024,11,56.6,Arkansas
-3,2024,12,,Arkansas
 4,1895,1,40.5,California
 4,1895,2,46.0,California
 4,1895,3,47.8,California
@@ -6238,7 +6235,6 @@ state_code,year,month,value,country
 4,2024,9,72.6,California
 4,2024,10,65.6,California
 4,2024,11,48.4,California
-4,2024,12,,California
 5,1895,1,21.6,Colorado
 5,1895,2,19.2,Colorado
 5,1895,3,31.7,Colorado
@@ -7798,7 +7794,6 @@ state_code,year,month,value,country
 5,2024,9,61.6,Colorado
 5,2024,10,52.6,Colorado
 5,2024,11,33.0,Colorado
-5,2024,12,,Colorado
 6,1895,1,22.8,Connecticut
 6,1895,2,18.7,Connecticut
 6,1895,3,31.5,Connecticut
@@ -9358,7 +9353,6 @@ state_code,year,month,value,country
 6,2024,9,63.6,Connecticut
 6,2024,10,54.1,Connecticut
 6,2024,11,46.0,Connecticut
-6,2024,12,,Connecticut
 7,1895,1,31.1,Delaware
 7,1895,2,24.2,Delaware
 7,1895,3,39.5,Delaware
@@ -10918,7 +10912,6 @@ state_code,year,month,value,country
 7,2024,9,69.2,Delaware
 7,2024,10,59.0,Delaware
 7,2024,11,51.2,Delaware
-7,2024,12,,Delaware
 8,1895,1,57.6,Florida
 8,1895,2,50.7,Florida
 8,1895,3,63.6,Florida
@@ -12478,7 +12471,6 @@ state_code,year,month,value,country
 8,2024,9,81.5,Florida
 8,2024,10,74.4,Florida
 8,2024,11,70.2,Florida
-8,2024,12,,Florida
 9,1895,1,44.9,Georgia
 9,1895,2,38.5,Georgia
 9,1895,3,55.0,Georgia
@@ -14038,7 +14030,6 @@ state_code,year,month,value,country
 9,2024,9,75.5,Georgia
 9,2024,10,66.3,Georgia
 9,2024,11,61.4,Georgia
-9,2024,12,,Georgia
 10,1895,1,20.0,Idaho
 10,1895,2,23.6,Idaho
 10,1895,3,30.5,Idaho
@@ -15598,7 +15589,6 @@ state_code,year,month,value,country
 10,2024,9,59.6,Idaho
 10,2024,10,48.6,Idaho
 10,2024,11,31.9,Idaho
-10,2024,12,,Idaho
 11,1895,1,18.6,Illinois
 11,1895,2,17.6,Illinois
 11,1895,3,37.5,Illinois
@@ -17158,7 +17148,6 @@ state_code,year,month,value,country
 11,2024,9,68.8,Illinois
 11,2024,10,58.8,Illinois
 11,2024,11,46.9,Illinois
-11,2024,12,,Illinois
 12,1895,1,20.8,Indiana
 12,1895,2,18.4,Indiana
 12,1895,3,36.6,Indiana
@@ -18718,7 +18707,6 @@ state_code,year,month,value,country
 12,2024,9,68.4,Indiana
 12,2024,10,57.7,Indiana
 12,2024,11,47.4,Indiana
-12,2024,12,,Indiana
 13,1895,1,11.2,Iowa
 13,1895,2,14.6,Iowa
 13,1895,3,33.4,Iowa
@@ -20278,7 +20266,6 @@ state_code,year,month,value,country
 13,2024,9,66.7,Iowa
 13,2024,10,56.9,Iowa
 13,2024,11,40.8,Iowa
-13,2024,12,,Iowa
 14,1895,1,23.5,Kansas
 14,1895,2,23.9,Kansas
 14,1895,3,42.0,Kansas
@@ -21838,7 +21825,6 @@ state_code,year,month,value,country
 14,2024,9,71.2,Kansas
 14,2024,10,62.5,Kansas
 14,2024,11,46.6,Kansas
-14,2024,12,,Kansas
 15,1895,1,28.4,Kentucky
 15,1895,2,24.4,Kentucky
 15,1895,3,43.1,Kentucky
@@ -23398,7 +23384,6 @@ state_code,year,month,value,country
 15,2024,9,70.8,Kentucky
 15,2024,10,59.9,Kentucky
 15,2024,11,52.2,Kentucky
-15,2024,12,,Kentucky
 16,1895,1,47.6,Louisiana
 16,1895,2,41.2,Louisiana
 16,1895,3,59.3,Louisiana
@@ -24958,7 +24943,6 @@ state_code,year,month,value,country
 16,2024,9,77.7,Louisiana
 16,2024,10,70.5,Louisiana
 16,2024,11,66.0,Louisiana
-16,2024,12,,Louisiana
 17,1895,1,12.2,Maine
 17,1895,2,11.8,Maine
 17,1895,3,21.3,Maine
@@ -26518,7 +26502,6 @@ state_code,year,month,value,country
 17,2024,9,59.2,Maine
 17,2024,10,47.8,Maine
 17,2024,11,38.9,Maine
-17,2024,12,,Maine
 18,1895,1,29.3,Maryland
 18,1895,2,23.6,Maryland
 18,1895,3,39.3,Maryland
@@ -28078,7 +28061,6 @@ state_code,year,month,value,country
 18,2024,9,68.4,Maryland
 18,2024,10,58.3,Maryland
 18,2024,11,50.2,Maryland
-18,2024,12,,Maryland
 19,1895,1,22.4,Massachusetts
 19,1895,2,18.5,Massachusetts
 19,1895,3,30.8,Massachusetts
@@ -29638,7 +29620,6 @@ state_code,year,month,value,country
 19,2024,9,63.1,Massachusetts
 19,2024,10,52.7,Massachusetts
 19,2024,11,44.9,Massachusetts
-19,2024,12,,Massachusetts
 20,1895,1,13.3,Michigan
 20,1895,2,11.5,Michigan
 20,1895,3,22.8,Michigan
@@ -31198,7 +31179,6 @@ state_code,year,month,value,country
 20,2024,9,63.9,Michigan
 20,2024,10,52.2,Michigan
 20,2024,11,41.5,Michigan
-20,2024,12,,Michigan
 21,1895,1,-0.6,Minnesota
 21,1895,2,5.7,Minnesota
 21,1895,3,23.3,Minnesota
@@ -32758,7 +32738,6 @@ state_code,year,month,value,country
 21,2024,9,65.2,Minnesota
 21,2024,10,51.4,Minnesota
 21,2024,11,34.3,Minnesota
-21,2024,12,,Minnesota
 22,1895,1,42.5,Mississippi
 22,1895,2,37.4,Mississippi
 22,1895,3,55.4,Mississippi
@@ -34318,7 +34297,6 @@ state_code,year,month,value,country
 22,2024,9,76.2,Mississippi
 22,2024,10,68.0,Mississippi
 22,2024,11,62.6,Mississippi
-22,2024,12,,Mississippi
 23,1895,1,24.5,Missouri
 23,1895,2,23.6,Missouri
 23,1895,3,42.6,Missouri
@@ -35878,7 +35856,6 @@ state_code,year,month,value,country
 23,2024,9,69.9,Missouri
 23,2024,10,61.6,Missouri
 23,2024,11,49.0,Missouri
-23,2024,12,,Missouri
 24,1895,1,9.6,Montana
 24,1895,2,15.3,Montana
 24,1895,3,28.6,Montana
@@ -37438,7 +37415,6 @@ state_code,year,month,value,country
 24,2024,9,61.1,Montana
 24,2024,10,48.6,Montana
 24,2024,11,30.9,Montana
-24,2024,12,,Montana
 25,1895,1,16.7,Nebraska
 25,1895,2,18.4,Nebraska
 25,1895,3,34.4,Nebraska
@@ -38998,7 +38974,6 @@ state_code,year,month,value,country
 25,2024,9,68.6,Nebraska
 25,2024,10,56.3,Nebraska
 25,2024,11,40.0,Nebraska
-25,2024,12,,Nebraska
 26,1895,1,27.3,Nevada
 26,1895,2,31.5,Nevada
 26,1895,3,38.4,Nevada
@@ -40558,7 +40533,6 @@ state_code,year,month,value,country
 26,2024,9,65.8,Nevada
 26,2024,10,56.2,Nevada
 26,2024,11,37.2,Nevada
-26,2024,12,,Nevada
 27,1895,1,15.7,New Hampshire
 27,1895,2,13.3,New Hampshire
 27,1895,3,24.4,New Hampshire
@@ -42118,7 +42092,6 @@ state_code,year,month,value,country
 27,2024,9,60.1,New Hampshire
 27,2024,10,48.4,New Hampshire
 27,2024,11,40.0,New Hampshire
-27,2024,12,,New Hampshire
 28,1895,1,26.5,New Jersey
 28,1895,2,21.8,New Jersey
 28,1895,3,35.0,New Jersey
@@ -43678,7 +43651,6 @@ state_code,year,month,value,country
 28,2024,9,67.0,New Jersey
 28,2024,10,57.6,New Jersey
 28,2024,11,49.1,New Jersey
-28,2024,12,,New Jersey
 29,1895,1,33.3,New Mexico
 29,1895,2,31.0,New Mexico
 29,1895,3,44.1,New Mexico
@@ -45238,7 +45210,6 @@ state_code,year,month,value,country
 29,2024,9,67.7,New Mexico
 29,2024,10,60.8,New Mexico
 29,2024,11,43.5,New Mexico
-29,2024,12,,New Mexico
 30,1895,1,17.6,New York
 30,1895,2,14.1,New York
 30,1895,3,24.7,New York
@@ -46798,7 +46769,6 @@ state_code,year,month,value,country
 30,2024,9,62.4,New York
 30,2024,10,50.6,New York
 30,2024,11,41.8,New York
-30,2024,12,,New York
 31,1895,1,37.7,North Carolina
 31,1895,2,30.8,North Carolina
 31,1895,3,46.9,North Carolina
@@ -48358,7 +48328,6 @@ state_code,year,month,value,country
 31,2024,9,71.0,North Carolina
 31,2024,10,61.1,North Carolina
 31,2024,11,55.1,North Carolina
-31,2024,12,,North Carolina
 32,1895,1,-3.2,North Dakota
 32,1895,2,6.2,North Dakota
 32,1895,3,23.4,North Dakota
@@ -49918,7 +49887,6 @@ state_code,year,month,value,country
 32,2024,9,64.8,North Dakota
 32,2024,10,49.6,North Dakota
 32,2024,11,29.4,North Dakota
-32,2024,12,,North Dakota
 33,1895,1,21.8,Ohio
 33,1895,2,18.4,Ohio
 33,1895,3,34.2,Ohio
@@ -51478,7 +51446,6 @@ state_code,year,month,value,country
 33,2024,9,68.1,Ohio
 33,2024,10,56.3,Ohio
 33,2024,11,47.4,Ohio
-33,2024,12,,Ohio
 34,1895,1,32.1,Oklahoma
 34,1895,2,29.4,Oklahoma
 34,1895,3,49.0,Oklahoma
@@ -53038,7 +53005,6 @@ state_code,year,month,value,country
 34,2024,9,74.7,Oklahoma
 34,2024,10,68.1,Oklahoma
 34,2024,11,53.5,Oklahoma
-34,2024,12,,Oklahoma
 35,1895,1,26.8,Oregon
 35,1895,2,31.8,Oregon
 35,1895,3,35.1,Oregon
@@ -54598,7 +54564,6 @@ state_code,year,month,value,country
 35,2024,9,61.4,Oregon
 35,2024,10,50.9,Oregon
 35,2024,11,37.3,Oregon
-35,2024,12,,Oregon
 36,1895,1,20.7,Pennsylvania
 36,1895,2,17.0,Pennsylvania
 36,1895,3,31.3,Pennsylvania
@@ -56158,7 +56123,6 @@ state_code,year,month,value,country
 36,2024,9,64.0,Pennsylvania
 36,2024,10,52.9,Pennsylvania
 36,2024,11,44.4,Pennsylvania
-36,2024,12,,Pennsylvania
 37,1895,1,25.9,Rhode Island
 37,1895,2,21.6,Rhode Island
 37,1895,3,33.2,Rhode Island
@@ -57718,7 +57682,6 @@ state_code,year,month,value,country
 37,2024,9,63.7,Rhode Island
 37,2024,10,54.8,Rhode Island
 37,2024,11,47.0,Rhode Island
-37,2024,12,,Rhode Island
 38,1895,1,42.7,South Carolina
 38,1895,2,36.2,South Carolina
 38,1895,3,51.5,South Carolina
@@ -59278,7 +59241,6 @@ state_code,year,month,value,country
 38,2024,9,74.8,South Carolina
 38,2024,10,64.7,South Carolina
 38,2024,11,59.4,South Carolina
-38,2024,12,,South Carolina
 39,1895,1,6.9,South Dakota
 39,1895,2,12.1,South Dakota
 39,1895,3,29.0,South Dakota
@@ -60838,7 +60800,6 @@ state_code,year,month,value,country
 39,2024,9,68.2,South Dakota
 39,2024,10,53.7,South Dakota
 39,2024,11,34.6,South Dakota
-39,2024,12,,South Dakota
 40,1895,1,34.0,Tennessee
 40,1895,2,29.3,Tennessee
 40,1895,3,47.0,Tennessee
@@ -62398,7 +62359,6 @@ state_code,year,month,value,country
 40,2024,9,71.5,Tennessee
 40,2024,10,61.7,Tennessee
 40,2024,11,55.0,Tennessee
-40,2024,12,,Tennessee
 41,1895,1,44.6,Texas
 41,1895,2,38.5,Texas
 41,1895,3,56.4,Texas
@@ -63958,7 +63918,6 @@ state_code,year,month,value,country
 41,2024,9,77.4,Texas
 41,2024,10,72.8,Texas
 41,2024,11,60.9,Texas
-41,2024,12,,Texas
 42,1895,1,22.8,Utah
 42,1895,2,24.8,Utah
 42,1895,3,34.7,Utah
@@ -65518,7 +65477,6 @@ state_code,year,month,value,country
 42,2024,9,65.5,Utah
 42,2024,10,55.8,Utah
 42,2024,11,35.0,Utah
-42,2024,12,,Utah
 43,1895,1,15.0,Vermont
 43,1895,2,11.6,Vermont
 43,1895,3,22.3,Vermont
@@ -67078,7 +67036,6 @@ state_code,year,month,value,country
 43,2024,9,60.1,Vermont
 43,2024,10,48.1,Vermont
 43,2024,11,38.5,Vermont
-43,2024,12,,Vermont
 44,1895,1,31.1,Virginia
 44,1895,2,25.4,Virginia
 44,1895,3,42.6,Virginia
@@ -68638,7 +68595,6 @@ state_code,year,month,value,country
 44,2024,9,68.1,Virginia
 44,2024,10,58.2,Virginia
 44,2024,11,51.4,Virginia
-44,2024,12,,Virginia
 45,1895,1,26.2,Washington
 45,1895,2,34.7,Washington
 45,1895,3,37.7,Washington
@@ -70198,7 +70154,6 @@ state_code,year,month,value,country
 45,2024,9,61.7,Washington
 45,2024,10,48.5,Washington
 45,2024,11,37.9,Washington
-45,2024,12,,Washington
 46,1895,1,26.5,West Virginia
 46,1895,2,21.5,West Virginia
 46,1895,3,38.9,West Virginia
@@ -71758,7 +71713,6 @@ state_code,year,month,value,country
 46,2024,9,66.5,West Virginia
 46,2024,10,55.2,West Virginia
 46,2024,11,47.9,West Virginia
-46,2024,12,,West Virginia
 47,1895,1,7.3,Wisconsin
 47,1895,2,8.9,Wisconsin
 47,1895,3,25.7,Wisconsin
@@ -73318,7 +73272,6 @@ state_code,year,month,value,country
 47,2024,9,63.9,Wisconsin
 47,2024,10,52.0,Wisconsin
 47,2024,11,38.7,Wisconsin
-47,2024,12,,Wisconsin
 48,1895,1,14.4,Wyoming
 48,1895,2,14.5,Wyoming
 48,1895,3,25.2,Wyoming
@@ -74878,7 +74831,6 @@ state_code,year,month,value,country
 48,2024,9,60.1,Wyoming
 48,2024,10,48.9,Wyoming
 48,2024,11,30.0,Wyoming
-48,2024,12,,Wyoming
 50,1925,1,-10.9,Alaska
 50,1925,2,-3.5,Alaska
 50,1925,3,10.8,Alaska
@@ -76078,7 +76030,6 @@ state_code,year,month,value,country
 50,2024,9,42.2,Alaska
 50,2024,10,27.8,Alaska
 50,2024,11,13.6,Alaska
-50,2024,12,,Alaska
 110,1895,1,26.69,National
 110,1895,2,26.6,National
 110,1895,3,39.97,National
@@ -77638,4 +77589,3 @@ state_code,year,month,value,country
 110,2024,9,68.61,National
 110,2024,10,58.98,National
 110,2024,11,45.28,National
-110,2024,12,,National

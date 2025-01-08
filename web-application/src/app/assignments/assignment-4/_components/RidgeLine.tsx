@@ -16,19 +16,19 @@ interface Data {
   countryName: string;
 }
 
-
 const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
   const [minData, setMinData] = useState<Data[]>([]);
   const [maxData, setMaxData] = useState<Data[]>([]);
-  
+
   const svgRef = useRef<SVGSVGElement | null>(null);
-  
+
   const [selectedCountryCode, setSelectedCountryCode] =
     useState<string>('Alabama');
 
-  const maxColor = '#ff851a';
-  const minColor = '#b35300';
-  const avgColor = '#ffd000';
+  const maxColorStroke = '#ff851a';
+  const maxColorFill = '#ffbb80';
+  const minColorStroke = '#0055ff';
+  const minColorFill = '#80aaff';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +54,6 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
         })
       );
       setMaxData(maxCsvData);
-
     };
 
     fetchData();
@@ -63,59 +62,58 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
   // Funzione per raggruppare i dati per decadi e calcolare la media
   const groupByDecade = (data: Data[]) => {
     const groupedData: Record<string, { values: number[] }> = {};
-  
+
     // Raggruppa i dati per decadi
-    data.forEach(d => {
-      const decade = Math.floor(d.year / 10) * 10;  // Calcola il decennio
+    data.forEach((d) => {
+      const decade = Math.floor(d.year / 10) * 10; // Calcola il decennio
       if (!groupedData[decade]) {
-        groupedData[decade] = { values: [] };  // Inizializza l'array per il decennio se non esiste
+        groupedData[decade] = { values: [] }; // Inizializza l'array per il decennio se non esiste
       }
       // Aggiungi il valore al decennio appropriato
       groupedData[decade].values.push(d.value);
     });
-  
-    // Calcola la media per ogni decennio
-    const averages = Object.keys(groupedData).map(decade => {
+
+    /*     // Calcola la media per ogni decennio
+    const averages = Object.keys(groupedData).map((decade) => {
       const values = groupedData[decade].values;
       return {
         decade,
-        average: d3.mean(values)  // Calcola la media dei valori per ogni decennio
+        average: d3.mean(values) // Calcola la media dei valori per ogni decennio
       };
-    });
-  
-    return averages;
+    }); */
+
+    return groupedData;
   };
 
   // Funzione di Kernel Density Estimation (KDE) usando il kernel di Epanechnikov
-const kernelDensityEstimator = (kernel: Function, X: number[]) => {
+  const kernelDensityEstimator = (kernel: Function, X: number[]) => {
     return (V: number[]) => {
       return V.map((v) => {
         const weights = X.map((x) => kernel(v - x));
         const sum = d3.sum(weights);
         const densityValue = sum / X.length;
-       // Ignoriamo i valori di densità non validi (NaN o undefined)
-      return densityValue && !isNaN(densityValue) ? [v, densityValue] : null;
-    }).filter(d => d !== null); // Rimuovi le coppie [v, densityValue] dove densityValue è invalid
+
+        // Return the valid [v, densityValue] pair or nothing if invalid
+        return densityValue && !isNaN(densityValue)
+          ? [v, densityValue]
+          : undefined;
+      }).filter((d): d is [number, number] => d !== undefined); // Remove invalid results
+    };
   };
-  };
-  
+
   // Funzione kernel di Epanechnikov
   const epanechnikovKernel = (u: number) => {
     return Math.abs(u) <= 1 ? 0.75 * (1 - u * u) : 0;
   };
 
   useEffect(() => {
-    if (!minData.length || !maxData.length ) return;
+    if (!minData.length || !maxData.length) return;
 
     const svg = d3.select(svgRef.current);
     const width = +newWidth || 820;
-    const height = 550;
+    const height = 1050;
 
     svg.attr('width', width).attr('height', height);
-
-    console.log('SVG Width:', width);
-    console.log('SVG Height:', height);
-
 
     const margin = { top: 20, right: 80, bottom: 50, left: 40 };
     const innerWidth = width - margin.left - margin.right;
@@ -124,13 +122,11 @@ const kernelDensityEstimator = (kernel: Function, X: number[]) => {
     svg.selectAll('*').remove(); // Pulisce il contenuto precedente
 
     // Filtriamo i dati in base all'anno e al codice dello stato selezionato
-    const filteredMinData = minData.filter(
-      (d) =>
-        (selectedCountryCode ? d.countryName === selectedCountryCode : true)
+    const filteredMinData = minData.filter((d) =>
+      selectedCountryCode ? d.countryName === selectedCountryCode : true
     );
-    const filteredMaxData = maxData.filter(
-      (d) =>
-        (selectedCountryCode ? d.countryName === selectedCountryCode : true)
+    const filteredMaxData = maxData.filter((d) =>
+      selectedCountryCode ? d.countryName === selectedCountryCode : true
     );
 
     // Log dei dati filtrati e la dimensione
@@ -145,83 +141,138 @@ const kernelDensityEstimator = (kernel: Function, X: number[]) => {
     const maxAverages = groupByDecade(filteredMaxData);
 
     // Log della struttura di minAverages e maxAverages
-    console.log('Min Averages:', minAverages.slice(0, 5)); // Mostra i primi 5 decenni e i loro valori medi
-    console.log('Max Averages:', maxAverages.slice(0, 5)); // Mostra i primi 5 decenni e i loro valori medi
-
+    console.log('Min Averages:', minAverages['1900'].values.slice(5)); // Mostra i primi 5 decenni e i loro valori medi
+    console.log('Max Averages:', maxAverages['1900'].values.slice(5)); // Mostra i primi 5 decenni e i loro valori medi
 
     // Estrai i valori medi per la KDE
-    const minAvgValues = minAverages.map(d => d.average ?? 0); // Usa 0 se `minAvg` è undefined
-    const maxAvgValues = maxAverages.map(d => d.average ?? 0); // Usa 0 se `maxAvg` è undefined
-
-    // list of number 
-    console.log('Min Avg Values:', minAvgValues);  // Stampa i valori medi dei minimi
-    console.log('Max Avg Values:', maxAvgValues);  // Stampa i valori medi dei massimi
-
+    /*     const minAvgValues = minAverages.map((d) => d.average ?? 0); // Usa 0 se `minAvg` è undefined
+    const maxAvgValues = maxAverages.map((d) => d.average ?? 0); // Usa 0 se `maxAvg` è undefined
+ */
     // Creiamo le scale
-    const decades = [...new Set(minData.map(d => Math.floor(d.year / 10) * 10))].sort().map(d => d.toString());
+    const decades = [
+      ...new Set(minData.map((d) => Math.floor(d.year / 10) * 10))
+    ]
+      .sort()
+      .map((d) => d.toString());
 
-    const xExtent = d3.extent([
-        ...filteredMinData.map(d => d.value),
-        ...filteredMaxData.map(d => d.value),
-      ]);
-      
-    const validXExtent = xExtent[0] !== undefined && xExtent[1] !== undefined
-    ? xExtent
-    : [0, 100]; // Valori di default, es. [0, 100]
-    
-    const xScale = d3.scaleLinear()
-    .domain(validXExtent as [number, number]) // Assicura che il dominio sia definito
-    .range([0, innerWidth]); // Da sinistra a destra
+    const xExtent = d3.extent([0, ...filteredMaxData.map((d) => d.value)]);
 
-    const yScale = d3.scaleBand()
-    .domain(decades) // Decadi come categorie
-    .range([innerHeight, 0]) // Da basso a alto
-    .padding(0.1);
-    
+    const smallestValueElement = filteredMinData.reduce(
+      (min, current) => (current.value < min.value ? current : min),
+      filteredMinData[0]
+    );
+
+    console.log('min value:', smallestValueElement);
+
+    const validXExtent =
+      xExtent[0] !== undefined && xExtent[1] !== undefined
+        ? xExtent
+        : ([0, 100] as [number, number]); // Valori di default, es. [0, 100]
+
+    const xScale = d3
+      .scaleLinear()
+      .domain(validXExtent) // Assicura che il dominio sia definito
+      .range([0, innerWidth]); // Da sinistra a destra
+
+    var yScale = d3.scaleLinear().domain([0, 0.4]).range([innerHeight, 0]);
+
+    const yNameScale = d3
+      .scaleBand()
+      .domain(decades) // Decadi come categorie
+      .range([innerHeight, 0]) // Da basso a alto
+      .padding(0.4);
+
     // Applica la KDE per min, max e avg usando il kernel di Epanechnikov
     const kde = kernelDensityEstimator(epanechnikovKernel, xScale.ticks(40));
+    const densityDataMin = decades.map((decade) => ({
+      decade: decade,
+      density: kde(minAverages[decade]?.values).filter((v) => v !== undefined)
+    }));
+    const densityDataMax = decades.map((decade) => ({
+      decade,
+      density: kde(maxAverages[decade]?.values).filter((v) => v !== undefined)
+    }));
 
-    const minDensity = kde(minAvgValues).filter(d => d !== null && d !== undefined);
-    const maxDensity = kde(maxAvgValues).filter(d => d !== null && d !== undefined);
+    densityDataMin.forEach((data) => {
+      data.density.sort((a, b) => a[0] - b[0]);
+    });
+    densityDataMax.forEach((data) => {
+      data.density.sort((a, b) => a[0] - b[0]);
+    });
 
     // Log dei risultati della KDE
-    console.log('Min Density:', minDensity.slice(0, 5));
-    console.log('Max Density:', maxDensity.slice(0, 5));
- 
-    // TODO :
-    // Creazione delle linee di densità
-    const lineGenerator = d3.line()
-    .x((d: any) => xScale(d[0]))
-    .y((d: any) => {
-        // Verifica che il valore di Y sia un numero valido
-        const yValue = yScale(d[1]);
-        return yValue !== undefined ? yValue : 0;  // Imposta un valore di default se `undefined`
-      });
+    console.log('densities: ', densityDataMin.slice(0, 5));
 
-    // Creazione delle linee di densità con i dati validi
-    svg
-    .append('path')
-    .data([minDensity]) // Passa un array di dati
-    .attr('class', 'min-density-line')
-    .attr('d', (d: any) => lineGenerator(d))  // Chiamata alla funzione lineGenerator per ottenere la stringa del percorso
-    .attr('fill', 'none')
-    .attr('stroke', minColor)
-    .attr('stroke-width', 2)
-    
-    // Add axis
+    [...densityDataMin, ...densityDataMax].forEach(({ decade, density }, i) => {
+      const isMin = i < densityDataMin.length; // Check if it's min or max
+      /*       console.log(
+        (yScale(String(decade)) ?? 0) + yScale.bandwidth() / 2 + margin.top
+      ); */
+      const yOffset =
+        (yNameScale(String(decade)) ?? 0) + // Default to 0 if undefined
+        yNameScale.bandwidth() / 2 +
+        margin.top;
+
+      // Create the density line
+      const lineGenerator = d3
+        .line()
+        .curve(d3.curveBasis) // Smooth curves
+        .x(([x, _]: any) => xScale(x))
+        .y(([_, y]: any) => yOffset - y * 1000); // Scale density height
+
+      svg
+        .append('path')
+        .datum(density)
+        .attr('fill', isMin ? minColorFill : maxColorFill)
+        .attr('opacity', 0.7)
+        .attr('stroke', isMin ? minColorStroke : maxColorStroke) // Use minColor for min, maxColor for max
+        .attr('stroke-width', 1.2)
+        .attr('d', lineGenerator);
+
+      // Add horizontal baseline for zero density
+      svg
+        .append('line')
+        .attr('x1', xScale(validXExtent[0] + 5)) // Start of the line
+        .attr('x2', xScale(validXExtent[1])) // End of the line
+        .attr('y1', yOffset) // Align with decade
+        .attr('y2', yOffset) // Align with decade
+        .attr('opacity', 0.5)
+        .attr('stroke', 'gray') // Use the single gradient
+        .attr('stroke-width', 1)
+        .attr('stroke-linecap', 'round'); // Optional: Rounded edges
+    });
+
+    // Add X-axis
     svg
       .append('g')
       .attr(
         'transform',
         `translate(${margin.left}, ${margin.top + innerHeight})`
       )
-      .call(d3.axisBottom(xScale));
+      .call(d3.axisBottom(xScale).ticks(10).tickSizeOuter(0));
 
+    // Add Y-axis
     svg
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .call(d3.axisLeft(yScale));
+      .call(d3.axisLeft(yNameScale).tickSizeOuter(0));
 
+    // Add labels
+    /*   svg
+      .append('text')
+      .attr('x', innerWidth / 2 + margin.left)
+      .attr('y', margin.top - 20)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '16px')
+      .text('Mean Monthly Temperature by Decade');
+ */
+    svg
+      .append('text')
+      .attr('x', innerWidth / 2 + margin.left)
+      .attr('y', height - 10)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px')
+      .text('Temperature (°F)');
   }, [minData, maxData, selectedCountryCode, newWidth]);
 
   return (

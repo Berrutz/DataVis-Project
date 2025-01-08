@@ -31,8 +31,6 @@ export function updateTooltipPosition(
 
   let tooltipX = event.clientX - (svgRect?.left || 0) + horizontalOffset;
   let tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
-  console.log('innerWidth: ' + innerWidth);
-  console.log('tooltipWidth + tooltipX: ' + (tooltipWidth + tooltipX));
 
   // Check if the tooltip would overflow the graph's width and height
   if (tooltipX + tooltipWidth > innerWidth) {

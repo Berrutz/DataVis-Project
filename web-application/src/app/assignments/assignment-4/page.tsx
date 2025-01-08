@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import LineChart from './_components/LineChart';
 import MapContainer from '@/components/map-switch-container';
 import RadarChart from './_components/radar-chart';
+import RidgeLine from './_components/RidgeLine';
 
 export default function Assignment3() {
   const [windowWidth, setWindowWidth] = useState<number>(1200);
@@ -76,6 +77,27 @@ export default function Assignment3() {
                 }
               ]}
             />
+          </ChartContainer>
+        </ChartBody>
+      </ChartSection>
+
+      <ChartSection
+        asidename="Ridgeline Chart Temperatures"
+        asidekey="ridge-chart-temperatures"
+      >
+        <ChartHeading>
+          <ChartH1Title>CO2 Emissions by Year</ChartH1Title>
+          <p>
+            This chart shows the CO2 emissions by year for different metrics
+            (Min, Max, Avg).
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          <ChartContainer
+            asidename="Chart"
+            asidekey="ridge-chart-temperatures-chart"
+          >
+            <RidgeLine newWidth={lineChartWidth} />
           </ChartContainer>
         </ChartBody>
       </ChartSection>
