@@ -147,8 +147,8 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
     const maxAverages = groupByDecade(filteredMaxData);
 
     // Log della struttura di minAverages e maxAverages
-    console.log('Min Averages:', minAverages['1900'].values.slice(5)); // Mostra i primi 5 decenni e i loro valori medi
-    console.log('Max Averages:', maxAverages['1900'].values.slice(5)); // Mostra i primi 5 decenni e i loro valori medi
+    console.log('Min Averages:', minAverages['1900'].values); // Mostra i primi 5 decenni e i loro valori medi
+    console.log('Max Averages:', maxAverages['1900'].values); // Mostra i primi 5 decenni e i loro valori medi
 
     // Estrai i valori medi per la KDE
     /*     const minAvgValues = minAverages.map((d) => d.average ?? 0); // Usa 0 se `minAvg` è undefined
@@ -161,7 +161,10 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
       .sort()
       .map((d) => d.toString());
 
-    const xExtent = d3.extent([0, ...filteredMaxData.map((d) => d.value)]);
+    const xExtent = d3.extent([
+      ...filteredMinData.map((d) => d.value),
+      ...filteredMaxData.map((d) => d.value)
+    ]);
 
     const smallestValueElement = filteredMinData.reduce(
       (min, current) => (current.value < min.value ? current : min),
@@ -180,73 +183,96 @@ const RidgeLine: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
       .domain(validXExtent) // Assicura che il dominio sia definito
       .range([0, innerWidth]); // Da sinistra a destra
 
-    var yScale = d3.scaleLinear().domain([0, 0.4]).range([innerHeight, 0]);
+    var yScale = d3.scaleLinear().domain([0, 0.8]).range([innerHeight, 0]);
 
     const yNameScale = d3
       .scaleBand()
       .domain(decades) // Decadi come categorie
-      .range([innerHeight, 0]); // Da basso a alto
+      .range([innerHeight, 0]) // Da basso a alto
+      .paddingInner(1);
 
     // Applica la KDE per min, max e avg usando il kernel di Epanechnikov
-    const kde = kernelDensityEstimator(epanechnikovKernel(1), xScale.ticks(30));
-    const densityDataMin = decades.map((decade) => ({
+    const kde = kernelDensityEstimator(epanechnikovKernel(2), xScale.ticks(10));
+    /*     const densityDataMin = decades.map((decade) => ({
       decade: decade,
       density: kde(minAverages[decade]?.values).filter((v) => v !== undefined)
     }));
     const densityDataMax = decades.map((decade) => ({
       decade,
       density: kde(maxAverages[decade]?.values).filter((v) => v !== undefined)
+    })); */
+
+    const densities = decades.map((decade) => ({
+      decade: decade,
+      minDensity: kde(minAverages[decade]?.values).filter(
+        (v) => v !== undefined
+      ),
+      maxDensity: kde(maxAverages[decade]?.values).filter(
+        (v) => v !== undefined
+      )
     }));
 
-    densityDataMin.forEach((data) => {
+    densities.forEach((data) => {
+      data.minDensity.sort((a, b) => a[0]! - b[0]!);
+      data.maxDensity.sort((a, b) => a[0]! - b[0]!);
+    });
+
+    /*     densityDataMin.forEach((data) => {
       data.density.sort((a, b) => a[0]! - b[0]!);
     });
     densityDataMax.forEach((data) => {
       data.density.sort((a, b) => a[0]! - b[0]!);
-    });
-
-    const avgMaxDensity = d3.mean([...densityDataMin], (d) =>
-      d3.mean(d.density, ([, y]) => y)
-    );
-    const avgMinDensity = d3.mean([...densityDataMax], (d) =>
-      d3.mean(d.density, ([, y]) => y)
-    );
-
-    console.log('avgMaxDensity: ', avgMaxDensity);
-    console.log('avgMinDensity: ', avgMinDensity);
-
+    }); */
     // Log dei risultati della KDE
-    console.log('densities: ', densityDataMin.slice(0, 5));
+    console.log('densities: ', densities.slice(0, 5));
 
-    [...densityDataMin, ...densityDataMax].forEach(({ decade, density }, i) => {
-      const isMin = i < densityDataMin.length; // Check if it's min or max
-      console.log(
-        (yNameScale(String(decade)) ?? 0) +
-          yNameScale.bandwidth() / 2 +
-          margin.top
-      );
+    // Add areas for both minDensity and maxDensity
+    densities.forEach(({ decade, minDensity, maxDensity }) => {
+      // Min Density
       const yOffset =
         (yNameScale(String(decade)) ?? 0) + // Default to 0 if undefined
         yNameScale.bandwidth() / 2 +
         margin.top;
-
-      // Create the density line
-      const lineGenerator = d3
-        .line()
-        .curve(d3.curveBasis) // Smooth curves
-        .x(([x, _]: any) => xScale(x))
-        .y(([_, y]: any) => {
-          return yOffset - y;
-        }); // Scale density height
-
       svg
         .append('path')
-        .datum(density)
-        .attr('fill', isMin ? minColorFill : maxColorFill)
-        .attr('opacity', 0.7)
-        .attr('stroke', isMin ? minColorStroke : maxColorStroke) // Use minColor for min, maxColor for max
-        .attr('stroke-width', 1.2)
-        .attr('d', lineGenerator);
+        .datum(minDensity)
+        .attr('transform', 'translate(0,' + (yOffset - innerHeight) + ')')
+        .attr('fill', '#69b3a2')
+        .attr('stroke', '#000')
+        .attr('stroke-width', 1)
+        .attr(
+          'd',
+          d3
+            .line()
+            .curve(d3.curveBasis)
+            .x(function (d) {
+              return xScale(d[0]);
+            })
+            .y(function (d) {
+              return yScale(d[1]);
+            })
+        );
+
+      // Max Density
+      svg
+        .append('path')
+        .datum(maxDensity)
+        .attr('transform', 'translate(0,' + (yOffset - innerHeight) + ')')
+        .attr('fill', 'none')
+        .attr('stroke', 'red') // Different color for maxDensity
+        .attr('stroke-width', 1.5)
+        .attr(
+          'd',
+          d3
+            .line()
+            .curve(d3.curveBasis)
+            .x(function (d) {
+              return xScale(d[0]);
+            })
+            .y(function (d) {
+              return yScale(d[1]);
+            })
+        );
 
       // Add horizontal baseline for zero density
       svg

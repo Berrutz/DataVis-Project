@@ -14,6 +14,8 @@ import LineChart from './_components/LineChart';
 import MapContainer from '@/components/map-switch-container';
 import RadarChart from './_components/radar-chart';
 import RidgeLine from './_components/RidgeLine';
+import RidgeLineChart from './_components/RidgeLine-example';
+import MyRidgeLineChart from './_components/my-Ridge-Chart';
 
 export default function Assignment3() {
   const [windowWidth, setWindowWidth] = useState<number>(1200);
@@ -97,7 +99,7 @@ export default function Assignment3() {
             asidename="Chart"
             asidekey="ridge-chart-temperatures-chart"
           >
-            <RidgeLine newWidth={lineChartWidth} />
+            <MyRidgeLineChart newWidth={800}></MyRidgeLineChart>
           </ChartContainer>
         </ChartBody>
       </ChartSection>
