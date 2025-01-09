@@ -358,12 +358,14 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
         'transform',
         `translate(${margin.left}, ${margin.top + innerHeight})`
       )
-      .call(d3.axisBottom(xScale));
+      .call(d3.axisBottom(xScale))
+      .style('font-size', '0.8rem');
 
     svg
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .call(d3.axisLeft(yScale));
+      .call(d3.axisLeft(yScale))
+      .style('font-size', '0.8rem');
 
     // Legend group
     const legendGroup = svg
@@ -445,9 +447,9 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
         </select>
       </div>
       <div className="mt-3">
-        <label htmlFor="country">Select country: </label>
+        <label htmlFor="line-chart-country">Select country: </label>
         <select
-          id="country"
+          id="line-chart-country"
           value={selectedCountryCode}
           onChange={(e) => setSelectedCountryCode(e.target.value)} // Nessuna conversione a number
           className="py-1 px-2 ml-2 rounded-md border bg-background"

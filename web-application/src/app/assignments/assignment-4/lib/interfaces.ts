@@ -10,3 +10,9 @@ export interface MonthData {
   max: number | null;
   avg: number | null;
 }
+
+export interface Colors {
+  colorStroke: string;
+  colorFill: string;
+  colorHovered: string;
+}

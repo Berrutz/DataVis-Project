@@ -6,16 +6,12 @@ import ShowMoreChartDetailsModalDialog from '../../_components/show-more-chart-d
 import { getStaticFile } from '@/utils/general';
 import {
   dxAdjustments,
-  fahrenheitToCelsius,
   getAngleDeg,
   monthNames,
   shortMonthNames
 } from '../lib/utils';
 import { Data, MonthData } from '../lib/interfaces';
-import {
-  handleMouseMove,
-  handleMouseOut
-} from '../lib/radar-chart-event-handler';
+import { handleMouseMove, handleMouseOut } from '../lib/radar-chart';
 
 interface RadarChartProps {
   newWidth: number;

@@ -44,7 +44,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background">
+    <div className="mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background mb-2">
       {/* Tab buttons */}
       <div className="flex">
         {components.map((component, index) => (
@@ -57,7 +57,9 @@ const MapContainer: React.FC<MapContainerProps> = ({
               index === 0 &&
                 `rounded-tl-2xl ${activeComponentIdex !== 0 && 'border-l'}`,
               index === components.length - 1 &&
-                `rounded-tr-2xl ${activeComponentIdex !== components.length - 1 && 'border-r'}`,
+                `rounded-tr-2xl ${
+                  activeComponentIdex !== components.length - 1 && 'border-r'
+                }`,
 
               index >= 0 &&
                 index < components.length - 1 &&
