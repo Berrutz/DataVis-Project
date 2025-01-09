@@ -64,6 +64,7 @@ export default function Assignment3() {
       <ChartSection
         asidename="Line Chart Temperatures"
         asidekey="line-chart-temperatures"
+        id="line-chart-temperatures"
       >
         <ChartHeading>
           <ChartH1Title>
@@ -81,7 +82,8 @@ export default function Assignment3() {
         <ChartBody>
           <ChartContainer
             asidename="Chart"
-            asidekey="line-chart-temperatures-chart"
+            asidekey="line-chart-temperatures-chart-1"
+            id="line-chart-temperatures-chart-1"
           >
             <MapContainer
               components={[
@@ -97,7 +99,11 @@ export default function Assignment3() {
             />
           </ChartContainer>
         </ChartBody>
-        <ChartContainer asidename="Comment" id="comment-1" asidekey="comment-1">
+        <ChartContainer
+          asidename="Comment"
+          id="line-chart-temperatures-chart-comment-1"
+          asidekey="line-chart-temperatures-chart-comment-1"
+        >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
             Viewing average maximum and minimum temperatures for a single year
@@ -111,7 +117,8 @@ export default function Assignment3() {
 
       <ChartSection
         asidename="Ridgeline Chart Temperatures"
-        asidekey="ridge-chart-temperatures"
+        asidekey="ridgeline-chart-temperatures"
+        id="ridgeline-chart-temperatures"
       >
         <ChartHeading>
           <ChartH1Title>Temperature Distribution per Decade</ChartH1Title>
@@ -129,12 +136,17 @@ export default function Assignment3() {
         <ChartBody>
           <ChartContainer
             asidename="Chart"
-            asidekey="ridge-chart-temperatures-chart"
+            asidekey="ridgeline-chart-temperatures-chart-2"
+            id="ridgeline-chart-temperatures-chart-2"
           >
             <RidgeLineChart newWidth={ridgeChartWidth}></RidgeLineChart>
           </ChartContainer>
         </ChartBody>
-        <ChartContainer asidename="Comment" id="comment-2" asidekey="comment-2">
+        <ChartContainer
+          asidename="Comment"
+          id="ridgeline-chart-temperatures-comment-2"
+          asidekey="ridgeline-chart-temperatures-comment-2"
+        >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
             Regardless of the state selected, looking at the graph, it is
