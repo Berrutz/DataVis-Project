@@ -193,7 +193,7 @@ const MyRidgeLineChart: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
       <div className="relative w-full mb-2">
         <div className="flex relative justify-center items-center w-full">
           <div className="relative overflow-x-auto h-full w-fit">
-            <svg ref={svgRef}></svg>
+            <svg ref={svgRef} />
             <Tooltip id="tooltip" />
           </div>
         </div>
@@ -215,6 +215,23 @@ const MyRidgeLineChart: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
           </div>
         </ShowMoreChartDetailsModalDialog>
       </DataSourceInfo>
+      <div className="mt-3">
+        <label htmlFor="country">Select country: </label>
+        <select
+          id="country"
+          value={selectedCountryCode}
+          onChange={(e) => setSelectedCountryCode(e.target.value)} // Nessuna conversione a number
+          className="py-1 px-2 ml-2 rounded-md border bg-background"
+        >
+          {[...new Set(minData.map((d) => d.countryName))].map(
+            (countryName) => (
+              <option key={countryName} value={countryName}>
+                {countryName}
+              </option>
+            )
+          )}
+        </select>
+      </div>
     </div>
   );
 };
