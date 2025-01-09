@@ -130,8 +130,6 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
       .sort((a, b) => b.total - a.total)
       .slice(0, 7);
 
-    console.log(sortedCountries);
-
     // Create nodes and links for Sankey layout
     const energySources = [
       'biofuels',
@@ -149,8 +147,7 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
       source,
       total: d3.sum(
         filteredData.filter((d) =>
-          sortedCountries.some((country) => 
-          country.country === d.country)
+          sortedCountries.some((country) => country.country === d.country)
         ),
         (d) => +d[source as keyof Data]
       )
@@ -159,8 +156,7 @@ const Alluvial: React.FC<AlluvialSmallScreenProps> = ({ newWidth }) => {
     // Sort energy sources sorted by total usage in descending order
     energySourceTotals.sort((a, b) => b.total - a.total);
 
-    const sortedEnergySources = energySourceTotals.map(
-      (d) => d.source);
+    const sortedEnergySources = energySourceTotals.map((d) => d.source);
 
     const nodes = [
       ...sortedCountries.map((d, i) => ({ name: d.country, index: i })),

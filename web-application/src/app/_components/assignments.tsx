@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { HTMLMotionProps, motion, motionValue } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type AssignmentData = {
   assignmentHref: string;
@@ -44,7 +44,7 @@ const assignmentData: AssignmentData[] = [
     imageSrc: getStaticFile('/map-chart-ass3.png'),
     imageAlt: 'Map chart of assignment 3',
     title: 'Assignment 3',
-    subtitle: 'Displaying maps',
+    subtitle: 'Displaying Maps',
     description:
       'In this assignment the maps are used to show data by country regarding CO2 emissions and population density'
   },
@@ -53,8 +53,9 @@ const assignmentData: AssignmentData[] = [
     imageSrc: getStaticFile('/line-chart-ass4.png'),
     imageAlt: 'Line chart of assignment 4',
     title: 'Assignment 4',
-    subtitle: 'Displaying time and distributions',
-    description: 'In this assignment we use Line chart to display c'
+    subtitle: 'Displaying Time and Distributions',
+    description:
+      'In this assignment the Line and Ridgeline charts are used to display temperature changes and distributions over the time'
   }
 ];
 
@@ -66,7 +67,7 @@ export default function Assignments() {
     ? Math.max(parseInt(searchParamsAssignment) - 1, 0)
     : 0;
   const [currentFocusAssignment, setCurrentFocusAssignment] =
-    useState < number > (assignmentIndex);
+    useState<number>(assignmentIndex);
 
   useEffect(() => {
     const currentParams = new URLSearchParams(searchParams?.toString());
@@ -181,7 +182,7 @@ const AssignmentCarousel = ({
               className={cn(
                 'flex flex-col rounded-2xl bg-card size-full opacity-30 transition-all duration-500',
                 index === currentFocusAssignment &&
-                'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
+                  'opacity-100 sm:shadow-xl sm:scale-105 sm:border'
               )}
             >
               <div className="px-3 pt-3 h-1/2">
@@ -215,7 +216,7 @@ const AssignmentCarousel = ({
                       className={cn(
                         'pointer-events-none',
                         index === currentFocusAssignment &&
-                        'pointer-events-auto'
+                          'pointer-events-auto'
                       )}
                     >
                       Go to the assignment <ChevronRight className="ml-2" />
