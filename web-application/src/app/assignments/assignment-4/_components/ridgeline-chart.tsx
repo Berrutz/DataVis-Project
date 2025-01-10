@@ -102,7 +102,7 @@ const RidgeLineChart: React.FC<RidgeLineSmallScreenPops> = ({ newWidth }) => {
 
     // Define the categories ('1890', '1900', ...)
     const categories = [
-      ...new Set(minData.map((d) => Math.floor(d.year / 10) * 10))
+      ...new Set(filteredMinData.map((d) => Math.floor(d.year / 10) * 10))
     ]
       .sort((a, b) => b - a)
       .map((d) => d.toString());
