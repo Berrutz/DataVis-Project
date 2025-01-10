@@ -111,10 +111,16 @@ const LineChart: React.FC<LineChartSmallScreenPops> = ({ newWidth }) => {
       .range([0, innerWidth])
       .padding(0.1);
 
+    const xLowerDomain =
+      d3.min(
+        [...filteredMinData, ...filteredMaxData, ...filteredAvgData],
+        (d) => d.value
+      ) || 0;
+
     const yScale = d3
       .scaleLinear()
       .domain([
-        0,
+        xLowerDomain > 0 ? 0 : xLowerDomain,
         d3.max(
           [...filteredMinData, ...filteredMaxData, ...filteredAvgData],
           (d) => d.value
