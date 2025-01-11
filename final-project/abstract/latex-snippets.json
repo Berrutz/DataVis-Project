@@ -1,0 +1,312 @@
+{
+	"new article paper": {
+		"scope": "latex",
+		"prefix": "new-article-twocol",
+		"body": [
+			"\\documentclass[twocolumn]{article} % A4 paper and 11pt font size\n",
+			
+			"\\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template",
+			"\\usepackage[english]{babel} % English language/hyphenation",
+			"\\usepackage[protrusion=true,expansion=true]{microtype} % Better typography",
+			"\\usepackage{amsmath,amsfonts,amsthm} % Math packages",
+			"\\usepackage[svgnames]{xcolor} % Enabling colors by their 'svgnames'",
+			"\\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures",
+			"\\usepackage{booktabs} % Horizontal rules in tables",
+			"\\usepackage{fix-cm} % Custom font sizes - used for the initial letter in the document",
+			"\\usepackage{float}",
+			"\\usepackage{bookmark}",
+			"\\usepackage{enumitem}",
+			"\\usepackage[parfill]{parskip}",
+			"\\usepackage{minted} ",
+			"\\usepackage{multicol}",
+			"\\usepackage{caption}",
+			"\\usepackage{caption}",
+			"\\captionsetup{justification=raggedright}",
+			"\\usepackage{graphicx} % Package to insert images\n",
+			
+			"\\usepackage{sectsty} % Enables custom section titles",
+			"\\allsectionsfont{\\usefont{OT1}{phv}{b}{n}} % Change the font of all section commands\n",
+			
+			"\\usepackage{fancyhdr} % Needed to define custom headers/footers",
+			"\\pagestyle{fancy} % Enables the custom headers/footers",
+			"\\usepackage{lastpage} % Used to determine the number of pages in the document (for Page X of Total)\n",
+			
+			"% Headers of all the pages - all currently empty",
+			"\\lhead{}",
+			"\\chead{}",
+			"\\rhead{}\n",
+		
+			"% Footers of all the pages",
+			"% \\lfoot{}",
+			"\\cfoot{\\thepage}",
+			"\\rfoot{\\footnotesize Page \\thepage\\ of \\pageref{LastPage}} % Format for Footnote: Page 1 of 2",
+			
+			"\\renewcommand{\\headrulewidth}{0.0pt} % No header rule",
+			"\\renewcommand{\\footrulewidth}{0.4pt} % Thin footer rule\n",
+			
+			"\\usepackage{lettrine} % Package to accentuate the first letter of the text",
+			"\\newcommand{\\initial}[1]{ % Defines the command and style for the first letter",
+			"\\lettrine[lines=3,lhang=0.3,nindent=0em]{",
+			"\\color{DarkGoldenrod}",
+			"{\\textsf{#1}}}{}}\n\n",
+			
+			
+			"%----------------------------------------------------------------------------------------",
+			"% TITLE SECTION",
+			"%----------------------------------------------------------------------------------------\n",
+			
+			"\\usepackage{titling} % Allows custom title configuration\n",
+			
+			"\\pretitle{\\vspace{-30pt} \\begin{flushleft} \\fontsize{35}{35} \\usefont{OT1}{phv}{b}{n} \\selectfont} % Horizontal rule before the title\n",
+			
+			"% Title here",
+			"\\title{Title Here} ",
+			
+			"\\posttitle{\\par\\end{flushleft}\\vskip 0.0em} % Whitespace under the title",
+			
+			"\\preauthor{\\begin{flushleft}\\large \\lineskip 0.0em \\usefont{OT1}{phv}{m}{sl} \\color{Black}} % Author font configuration",
+			
+			"% Author here",
+			"\\author{Author Here}",
+			
+			"\\postauthor{\\footnotesize \\lineskip 1em \\usefont{OT1}{phv}{m}{sl} % Configuration for the institution name",
+			
+			"% Add other iformations here if needed",
+			
+			"\\par\\end{flushleft}} % Horizontal rule after the title",
+			
+			"\\date{} % Add a date here",
+			
+			"%----------------------------------------------------------------------------------------",
+			
+			"\\begin{document}",
+			
+			"\\maketitle % Print the title",
+			
+			"\\thispagestyle{empty} % Enabling the custom headers/footers for the second page forward\n\n",
+			
+			"%----------------------------------------------------------------------------------------",
+			"% ABSTRACT",
+			"%----------------------------------------------------------------------------------------",
+			
+			"% The first character should be within \\initial{}",
+			"\\initial{L}\\textbf{\\lipsum[1]}",
+			
+			"%----------------------------------------------------------------------------------------",
+			"% ARTICLE CONTENTS",
+			"%----------------------------------------------------------------------------------------\n\n",
+			"\\section{Section Title}",
+			"\\lipsum[1]\n\n",
+			"%----------------------------------------------------------------------------------------",
+			"% REFERENCE LIST",
+			"%----------------------------------------------------------------------------------------\n",
+			
+			"% \\begin{thebibliography}{10} % 10 is a random guess of the total number of references",
+			
+			"% \\bibitem{MG} Goossens, M., Mittelbach, F., Samarin, \\emph{A LaTeX",
+			"% Companion}, Addison-Wesley, Reading, MA, 1994.",
+			
+			"% \\end{thebibliography}",
+			
+			"%----------------------------------------------------------------------------------------",
+			
+			"\\end{document}",
+			
+		]
+	},
+	"new document": {
+		"scope": "latex",
+		"prefix": "new-document",
+		"body": [
+			"\\documentclass[12pt]{${1:article}}\n",
+			
+			"\\usepackage[a4paper, total={6in, 9in}]{geometry}",
+			"\\usepackage[hidelinks]{hyperref}",
+			"\\usepackage[english, activeacute]{babel}",
+			"\\usepackage[utf8]{inputenc}",
+			"\\usepackage[T1]{fontenc}",
+			"\\usepackage{amsmath}",
+			"\\usepackage{graphicx}",
+			"\\usepackage{float}",
+			"\\usepackage{amsthm}",
+			"\\usepackage{amsfonts}",
+			"\\usepackage{bookmark}",
+			"\\usepackage{enumitem}",
+			"\\usepackage[parfill]{parskip}",
+			"\\usepackage{minted} ",
+			"\\usepackage{multicol}",
+			"\\usepackage{caption}",
+
+			"\n\\title{$2}",
+			"\\author{${3:Alex Valle}}",
+			"\\date{$4}\n",
+			"\\begin{document}",
+			"\t\\maketitle",
+			"\t\\newpage",
+			"\t\\tableofcontents",
+			"\t\\newpage\n\n\n",
+			"\\end{document}",
+		],
+		"description": "Create a new document class."
+	},
+
+	"Create Image": {
+		"scope": "latex",
+		"prefix": "img",
+		"body": [
+			"\\begin{figure}[H]",
+			"\t\\centering",
+			"\t\\includegraphics[width=${1:0.5}\\linewidth]{$2}",
+			"\t\\caption{$3.}",
+			"\t\\label{img:$4}",
+			"\\end{figure}"
+		],
+		"description": "Add a new image."
+	},
+
+	"Create Row Image": {
+		"scope": "latex",
+		"prefix": "rowimg",
+		"body": [
+			"\\begin{figure}[H]",
+			"\t\\includegraphics[width=${1:0.45}\\linewidth]{$2}\\hfill",
+			"\t\\includegraphics[width=${3:0.45}\\linewidth]{$4}",
+			"\t\\caption{$5.}",
+			"\t\\label{img:$6}",
+			"\\end{figure}"
+		],
+		"description": "Add a images in a row."
+	},
+
+	"Section": {
+		"scope": "latex",
+		"prefix": "sec",
+		"body": [
+			"\\section{$1}"
+		],
+		"description": "Add a section."
+	},
+
+	"Sub Section": {
+		"scope": "latex",
+		"prefix": "subsec",
+		"body": [
+			"\\subsection{$1}"
+		],
+		"description": "Add a sub section."
+	},
+
+	"Sub Sub Section": {
+		"scope": "latex",
+		"prefix": "subsubsec",
+		"body": [
+			"\\subsubsection{$1}"
+		],
+		"description": "Add a sub sub section."
+	},
+	
+	"Paragraph": {
+		"scope": "latex",
+		"prefix": "par",
+		"body": [
+			"\\paragraph{$1}"
+		],
+		"description": "Add a paragraph."
+	},
+
+	"Unordered List": {
+		"scope": "latex",
+		"prefix": "unlist",
+		"body": [
+			"\\begin{itemize}[noitemsep]",
+			"\t\\item $TM_SELECTED_TEXT$1",
+			"\\end{itemize}"
+		],
+		"description": "Add an itemize block."
+	},
+
+	"Ordered List": {
+		"scope": "latex",
+		"prefix": "orlist",
+		"body": [
+			"\\begin{enumerate}[noitemsep]",
+			"\t\\item $TM_SELECTED_TEXT$1",
+			"\\end{enumerate}"
+		],
+		"description": "Add an enumerate block."
+	},
+
+	"Bold Font": {
+		"scope": "latex",
+		"prefix": "bf",
+		"body": [
+			"\\textbf{$TM_SELECTED_TEXT$1}",
+		],
+		"description": "Add an textbf block."
+	},
+
+	"Code": {
+		"scope": "latex",
+		"prefix": "code",
+		"body": [
+			"\\begin{minted}{$1}",
+			"\t$TM_SELECTED_TEXT$2",
+			"\\end{minted}"
+		],
+		"description": "Add an minted block."
+	},
+	// MATH
+	"Inline Math": {
+		"scope": "latex",
+		"prefix": "inmath",
+		"body": [
+			"$$TM_SELECTED_TEXT$1$",
+		],
+		"description": "Add a inline math block."
+	},
+
+	"Display Math": {
+		"scope": "latex",
+		"prefix": "dismath",
+		"body": [
+			"\n\\begin{displaymath}",
+			"\t$TM_SELECTED_TEXT$1",
+			"\\end{displaymath}\n"
+		],
+		"description": "Add a display math block."
+	},
+
+	"Equation": {
+		"scope": "latex",
+		"prefix": "eqmath",
+		"body": [
+			"\\begin{equation}",
+    		"\t$TM_SELECTED_TEXT$1",
+			"\\end{equation}"
+		],
+		"description": "Add an Equation block."
+	},
+
+	"Matrix": {
+		"scope": "latex",
+		"prefix": "matrix",
+		"body": [
+			"\\begin{bmatrix}",
+			"\t$1",
+			"\\end{bmatrix}"
+		],
+		"description": "Add a matrix."
+	},
+	
+
+	"System": {
+		"scope": "latex",
+		"prefix": "system",
+		"body": [
+    		"\\begin{cases}",
+    		"\t$TM_SELECTED_TEXT$1",
+    		"\\end{cases}",
+		],
+		"description": "Add a case block (system)."
+	},
+}
