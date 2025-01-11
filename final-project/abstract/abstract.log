@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.10)  11 JAN 2025 01:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.10)  11 JAN 2025 15:42
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -150,7 +150,9 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip51
-) (C:\Users\chiol\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 11.
+ (C:\Users\chiol\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
 Package: babel 2024/11/08 v24.13 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
 \babel@savecnt=\count285
 \U@D=\dimen154
@@ -495,24 +497,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (abstract.aux)
 \openout1 = `abstract.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -548,7 +550,7 @@ LaTeX Font Info:    ... okay on input line 24.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring ON on input line 33.
 (C:\Users\chiol\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count346
@@ -571,11 +573,11 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 Couldn't patch \deferred@thm@head!
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
 (C:\Users\chiol\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
  (C:\Users\chiol\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -583,16 +585,44 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 {C:/Users/chiol/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Overfull \hbox (90.96457pt too wide) in paragraph at lines 56--58
-\T1/cmr/m/n/12 Digitalization datasets https://ec.europa.eu/eurostat/web/digital-economy-and-society/database 
- []
-
+<images/bar-charts.png, id=12, 841.1425pt x 542.025pt>
+File: images/bar-charts.png Graphic file (type png)
+<use images/bar-charts.png>
+Package pdftex.def Info: images/bar-charts.png  used on input line 83.
+(pdftex.def)             Requested size: 284.5215pt x 199.1649pt.
 
 
 [2]
+<images/clusterstack1.png, id=25, 442.65375pt x 269.33958pt>
+File: images/clusterstack1.png Graphic file (type png)
+<use images/clusterstack1.png>
+Package pdftex.def Info: images/clusterstack1.png  used on input line 90.
+(pdftex.def)             Requested size: 284.54022pt x 199.17665pt.
 
-[3]
-runsystem(latexminted cleantemp  --timestamp 20250111010852 CE28071E1A0424BA1B7956DD3853C7FB)...executed.
+
+[3 <./images/bar-charts.png> <./images/clusterstack1.png>]
+<images/alluvial-plot-quintic.png, id=38, 433.62pt x 361.35pt>
+File: images/alluvial-plot-quintic.png Graphic file (type png)
+<use images/alluvial-plot-quintic.png>
+Package pdftex.def Info: images/alluvial-plot-quintic.png  used on input line 99.
+(pdftex.def)             Requested size: 284.54257pt x 199.16766pt.
+<images/choropleth_basic.png, id=39, 481.8pt x 481.8pt>
+File: images/choropleth_basic.png Graphic file (type png)
+<use images/choropleth_basic.png>
+Package pdftex.def Info: images/choropleth_basic.png  used on input line 106.
+(pdftex.def)             Requested size: 284.53154pt x 199.16399pt.
+
+
+[4 <./images/alluvial-plot-quintic.png> <./images/choropleth_basic.png>]
+<images/line-chart.png, id=49, 482.80376pt x 290.08376pt>
+File: images/line-chart.png Graphic file (type png)
+<use images/line-chart.png>
+Package pdftex.def Info: images/line-chart.png  used on input line 115.
+(pdftex.def)             Requested size: 284.53497pt x 199.17093pt.
+
+
+[5 <./images/line-chart.png>]
+runsystem(latexminted cleantemp  --timestamp 20250111154238 CE28071E1A0424BA1B7956DD3853C7FB)...executed.
 
  (abstract.aux)
  ***********
@@ -601,17 +631,17 @@ L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 17834 strings out of 473681
- 340195 string characters out of 5719194
- 862317 words of memory out of 5000000
- 40691 multiletter control sequences out of 15000+600000
- 565928 words of font info for 55 fonts, out of 8000000 for 9000
+ 17908 strings out of 473681
+ 342008 string characters out of 5719194
+ 862344 words of memory out of 5000000
+ 40749 multiletter control sequences out of 15000+600000
+ 566703 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,81p,619b,662s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk>
-Output written on abstract.pdf (3 pages, 45391 bytes).
+ 75i,6n,81p,619b,521s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk>
+Output written on abstract.pdf (5 pages, 267106 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 7 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 238 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 50 words of extra memory for PDF output out of 10000 (max. 10000000)
 
