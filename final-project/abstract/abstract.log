@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.10)  17 JAN 2025 17:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.11.10)  17 JAN 2025 19:09
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -633,10 +633,15 @@ File: images/bubble-chart.png Graphic file (type png)
 <use images/bubble-chart.png>
 Package pdftex.def Info: images/bubble-chart.png  used on input line 163.
 (pdftex.def)             Requested size: 369.90976pt x 227.63596pt.
+<images/area-chart.png, id=69, 476.833pt x 298.02061pt>
+File: images/area-chart.png Graphic file (type png)
+<use images/area-chart.png>
+Package pdftex.def Info: images/area-chart.png  used on input line 170.
+(pdftex.def)             Requested size: 369.89825pt x 227.62122pt.
 
 
-[7 <./images/bubble-chart.png (PNG copy)>]
-runsystem(latexminted cleantemp  --timestamp 20250117173253 CE28071E1A0424BA1B7956DD3853C7FB)...executed.
+[7 <./images/bubble-chart.png (PNG copy)> <./images/area-chart.png (PNG copy)>]
+runsystem(latexminted cleantemp  --timestamp 20250117190926 CE28071E1A0424BA1B7956DD3853C7FB)...executed.
 
  (abstract.aux)
  ***********
@@ -645,17 +650,17 @@ L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 17935 strings out of 473681
- 342636 string characters out of 5719194
+ 17946 strings out of 473681
+ 342899 string characters out of 5719194
  862344 words of memory out of 5000000
- 40767 multiletter control sequences out of 15000+600000
+ 40776 multiletter control sequences out of 15000+600000
  566703 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,6n,81p,619b,678s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\chiol\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk>
-Output written on abstract.pdf (7 pages, 772341 bytes).
+Output written on abstract.pdf (7 pages, 982973 bytes).
 PDF statistics:
- 275 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 60 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 278 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 
