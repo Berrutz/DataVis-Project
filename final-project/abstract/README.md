@@ -46,6 +46,6 @@ Submit it on AulaWeb and drop an email to annalisa.barla@unige.it + ilaria.stanz
   (merge datasets from 2019 to 2021).
 - Stacked bar chart to show the percentage of males and females employed with ICT education (A line/area chart can be added to show how this percentage varies
   over time).
-- Stacked bar chart to show the percentage of individuals employed with ICT education that are between two age grou (A line/area chart can be added to show
+- Stacked bar chart to show the percentage of individuals employed with ICT education that are between two age groups (A line/area chart can be added to show
   how this percentage varies over time).
 - Alluvial chart to see how the employed persons with ICT education are distributed by educational attainment level.
