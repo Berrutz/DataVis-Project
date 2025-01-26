@@ -7,7 +7,8 @@ export interface BarChartProps {
     width: number;
     height: number;
     colorInterpoaltor: ((t: number) => string) | Iterable<string>;
-    yDomain?: [number, number];
+    yDomainMin?: number;
+    yDomainMax?: number;
     yLabelsPrefix?: string;
     yLabelsSuffix?: string;
     tooltipMapper?: (x: string, y: number) => string;
@@ -25,7 +26,8 @@ export interface BarChartProps {
  * @param {number} BarChartProps.width - The width of the bartchart (e.g. 100px or 100% or ... <css-props>)
  * @param {number} BarChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
  * @param {((t: number) => string) | Iterable<string>} BarChartProps.colorInterpoaltor - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
- * @param {[number, number]} BarChartProps.yDomain - The range as array of 2 values (min, max) of the y domain
+ * @param {[number, number]} BarChartProps.yDomainMin- The min value for the y domain (e.g. 0 or min(y))
+ * @param {[number, number]} BarChartProps.yDomainMax- The max value for the y domain (e.g. 100 or max(y))
  * @param {string} BarChartProps.yLabelsPrefix - The prefix for the y labels
  * @param {string} BarChartProps.yLabelsSuffix - The suffix for the y labelsc
  * @param {(x: string, y: number) => string} BarChartProps.tooltipMapper - A functions that map from a pair x, y values from input the correspoding tooltip
@@ -43,7 +45,8 @@ export default function BarChart({
     width,
     height,
     colorInterpoaltor,
-    yDomain,
+    yDomainMin,
+    yDomainMax,
     yLabelsPrefix,
     yLabelsSuffix,
     tooltipMapper,
@@ -83,10 +86,13 @@ export default function BarChart({
         };
 
         // Define the Y domain
-        yDomain = yDomain || [Math.min(0, Math.min(...y)), Math.max(...y)];
+        var domain = [
+            yDomainMin || Math.min(0, Math.min(...y)),
+            yDomainMax || Math.max(...y)
+        ];
 
         // The colorscale of the chart
-        const colorScale = d3.scaleSequential(colorInterpoaltor).domain(yDomain);
+        const colorScale = d3.scaleSequential(colorInterpoaltor).domain(domain);
 
         // Define current svg dimension and properties
         const svg = d3
@@ -105,7 +111,7 @@ export default function BarChart({
 
         const yD3 = d3
             .scaleLinear()
-            .domain(yDomain)
+            .domain(domain)
             .nice()
             .range([height - margin.top - margin.bottom, 0]);
 
