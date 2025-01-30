@@ -1,6 +1,6 @@
-import Tooltip from '@/app/assignments/_components/tooltip';
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
+import Tooltip from '../tooltip';
 
 // Interface that represent a single point x and y
 export interface Point {
@@ -63,11 +63,11 @@ export default function BarChart({
   ml
 }: BarChartProps) {
   // The ref of the chart created by d3
-  const svgRef = useRef < SVGSVGElement | null > (null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   // The ref of the tooltip and its content
-  const tooltipRef = useRef < HTMLDivElement | null > (null);
-  const [tooltipContent, setTooltipContent] = useState < React.ReactNode | null > (
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
     null
   );
 
