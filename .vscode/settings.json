@@ -1,5 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./data-processing/assignment-4/original-datasets"
-    ]
-}
