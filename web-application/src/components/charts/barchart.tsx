@@ -1,5 +1,12 @@
+import Tooltip from '@/app/assignments/_components/tooltip';
 import * as d3 from 'd3';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+// Interface that represent a single point x and y
+export interface Point {
+  x: string;
+  y: number;
+}
 
 export interface BarChartProps {
   x: string[];
@@ -11,7 +18,7 @@ export interface BarChartProps {
   yDomainMax?: number;
   yLabelsPrefix?: string;
   yLabelsSuffix?: string;
-  tooltipMapper?: (x: string, y: number) => string;
+  tooltipMapper?: (point: Point) => React.ReactNode;
   mt?: number;
   mr?: number;
   mb?: number;
@@ -30,7 +37,7 @@ export interface BarChartProps {
  * @param {[number, number]} BarChartProps.yDomainMax- The max value for the y domain (e.g. 100 or max(y))
  * @param {string} BarChartProps.yLabelsPrefix - The prefix for the y labels
  * @param {string} BarChartProps.yLabelsSuffix - The suffix for the y labelsc
- * @param {(x: string, y: number) => string} BarChartProps.tooltipMapper - A functions that map from a pair x, y values from input the correspoding tooltip
+ * @param {(point: Point) => React.ReactNode} BarChartProps.tooltipMapper - A react node used to create a tooltip from a poitn x, y
  * @param {number} BarChartProps.mt - The margin top
  * @param {number} BarChartProps.mr - The margin right
  * @param {number} BarChartProps.mb - The margin bottom
@@ -56,10 +63,13 @@ export default function BarChart({
   ml
 }: BarChartProps) {
   // The ref of the chart created by d3
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const svgRef = useRef < SVGSVGElement | null > (null);
 
-  // The ref of the tooltip
-  const tooltipRef = useRef<HTMLDivElement | null>(null);
+  // The ref of the tooltip and its content
+  const tooltipRef = useRef < HTMLDivElement | null > (null);
+  const [tooltipContent, setTooltipContent] = useState < React.ReactNode | null > (
+    null
+  );
 
   useEffect(() => {
     // Check that x and y data has some data to display
@@ -138,17 +148,25 @@ export default function BarChart({
       .attr('x', -10);
 
     // Zip the X and Y values together
-    var data = y.map((value, index) => {
+    const data: Point[] = y.map((value, index) => {
       return {
         x: x[index],
         y: value
       };
     });
 
-    // Iterate over the data and create the svg bars and tooltips
+    // Create the default tooltip mapper
     tooltipMapper =
-      tooltipMapper || ((x, y) => `${x}: ${prefix}${y.toString()}${suffix}`);
+      tooltipMapper ||
+      ((point: Point) => {
+        return (
+          <p>
+            {point.x}: <span>{point.y}</span>
+          </p>
+        );
+      });
 
+    // Iterate over the data and create the svg bars and tooltips
     svg
       .selectAll('rect')
       .data(data)
@@ -163,7 +181,7 @@ export default function BarChart({
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning
           const svgRect = svgRef.current?.getBoundingClientRect();
-          const horizontalOffset = 15;
+          const horizontalOffset = 25;
           const verticalOffset = 30;
 
           // Calculate the position of the tooltip relative to the SVG
@@ -174,7 +192,8 @@ export default function BarChart({
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.opacity = '1';
-          tooltipRef.current.textContent = tooltipMapper!(d.x, d.y);
+
+          setTooltipContent(tooltipMapper!(d));
         }
 
         // Highlight the hovered bar
@@ -198,10 +217,7 @@ export default function BarChart({
   return (
     <div className="overflow-x-auto h-full w-fit">
       <svg ref={svgRef} />
-      <div
-        ref={tooltipRef}
-        className="absolute py-1 px-2 text-sm bg-white rounded border-2 border-solid opacity-0 pointer-events-none border-primary"
-      />
+      <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>
   );
 }
