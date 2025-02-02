@@ -92,4 +92,7 @@ df.drop(
     inplace=True,
 )
 
+# Export the dataframe
+df.to_csv("../processed-datasets/ilods-2019.csv")
+
 pass

@@ -92,4 +92,4 @@ df.drop(
     inplace=True,
 )
 
-pass
+df.to_csv("../processed-datasets/ilods-2021.csv")
