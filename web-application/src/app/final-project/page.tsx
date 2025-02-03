@@ -20,6 +20,13 @@
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
+
+
+import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
+
 export default function FinalProject() {
-  return <h1>Fianl Project</h1>;
+  return (
+    <Useoftheinternet> 
+    </Useoftheinternet>
+  );
 }
