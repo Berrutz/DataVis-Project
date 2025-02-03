@@ -6,9 +6,6 @@ import { FinancialData } from '../lib/interfaces';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 
-// add alex barchart general solution
-import BarChart from '@/components/charts/barchart';   
-
 import BubbleChart from '@/components/charts/BubbleChart';
 
 export default function Financial() {
