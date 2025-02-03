@@ -24,6 +24,10 @@ import InternetUseLineChart from './internet-access/_components/internet-use-lin
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
+
+
+import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
+
 export default function FinalProject() {
   return (
     <div>

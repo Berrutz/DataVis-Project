@@ -1,0 +1,18 @@
+// freq,indic_is,unit,ind_type,geo,TIME_PERIOD,OBS_VALUE
+export interface FrequencyData {
+    freq: string;
+    indic_is: string;
+    ind_type: string;
+    geo: string;
+    TIME_PERIOD: string;
+    OBS_VALUE: number;
+  }
+
+  export interface FinancialData {
+    geo: string;
+    TIME_PERIOD: string;
+    OBS_VALUE: number;
+    population: number;
+  }
+  
+  
