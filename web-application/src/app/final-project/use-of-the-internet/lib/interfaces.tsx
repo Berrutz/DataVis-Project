@@ -14,5 +14,12 @@ export interface FrequencyData {
     OBS_VALUE: number;
     population: number;
   }
+
+  export interface DegradingData {
+    reason: string;
+    country: string;
+    percentage: number;
+  }
+  
   
   

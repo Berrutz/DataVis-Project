@@ -9,9 +9,10 @@ import {
     ChartHeading,
     ChartSection
   } from '../../assignments/_components/chart-section';
-import Frequencies from './_components/frequencies';
 
+import Frequencies from './_components/frequencies';
 import Financial from './_components/financial';
+import DegradingMessages from './_components/degrading_messages';
 
 export default function Useoftheinternet() {
 
@@ -84,7 +85,6 @@ export default function Useoftheinternet() {
             asidekey="Bubble-chart"
             id="Bubble-chart"
           >
-           {/*<Frequencies></Frequencies>*/}
           <Financial></Financial>
          </ChartContainer>
         </ChartBody>
@@ -92,6 +92,48 @@ export default function Useoftheinternet() {
           asidename="Comment"
           id="line-chart-temperatures-chart-comment-1"
           asidekey="line-chart-temperatures-chart-comment-1"
+        >
+          <ChartH2Title>Comment</ChartH2Title>
+          <p>
+            Viewing average maximum and minimum temperatures for a single year
+            does not allow us to comment on trends or patterns except for
+            typical seasonal variations, with colder months (winter) at the
+            start and end of the year and warmer months (summer) in the middle
+            of the year.
+          </p>
+        </ChartContainer>
+      </ChartSection>
+      <ChartSection
+        asidename="Stacked Bar Chart Degrading Messages"
+        asidekey="stacked-bar-chart-degrading-messages"
+        id="stacked-bar-chart-degrading-messages"
+        >
+        <ChartHeading>
+          <ChartH1Title>
+          Stacked Bar Chart Degrading Messages
+          </ChartH1Title>
+          <p>
+            These graphs show the maximum (max), minimum (min) and average (avg)
+            temperatures month by month over a year. The y-axis displays the
+            temperature values in degrees Fahrenheit (°F), while the x-axis
+            indicates the month. The graph provides the option to select the
+            year and state you want to view. The data can be displayed using a
+            Line chart or a Radar chart.
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          <ChartContainer
+            asidename="Degrading Messages"
+            asidekey="Stacked Bar Chart"
+            id="stacked-bar-chart"
+          >
+          <DegradingMessages></DegradingMessages>
+         </ChartContainer>
+        </ChartBody>
+        <ChartContainer
+          asidename="Comment"
+          id="stacked-bar-chart-degrading-messages-comment-1"
+          asidekey="stacked-bar-chart-degrading-messages-comment-1"
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
