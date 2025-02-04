@@ -174,9 +174,13 @@ def merge_population_internet_usage(df_p: pd.DataFrame, df_iu: pd.DataFrame) -> 
     return df_merged
     
 
-def remove_str(df: pd.DataFrame, column, old) -> pd.DataFrame:
+def replace_str(df: pd.DataFrame, column, old_values, new_values) -> pd.DataFrame:
     # Remove "old" from every value in "column"
-    df[column] = df[column].str.replace(old, "", regex=False)
+    if len(old_values) != len(new_values):
+        raise ValueError("old_values and new_values must have the same length")
+
+    for old, new in zip(old_values, new_values):
+        df[column] = df[column].str.replace(old, new, regex=False)
 
     return df
 
@@ -252,9 +256,20 @@ if __name__ == "__main__":
     df_iu = df_iu.query(f"{IU_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
 
     # Remove "Last internet use: " from every value in the column
-    str = "Last internet use: "
-    df_iu_age_group = remove_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, "Last internet use: ")
-    df_iu_age_edu = remove_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, "Last internet use: ")
+    str1 = "Last internet use: "
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
+
+    # Change entities names into their short version for better display
+    oldStr1 = "European Union - 27 countries (from 2020)"
+    oldStr2 = "European Union - 28 countries (2013-2020)"
+    newStr1 = "EU-27(from 2020)"
+    newStr2 = "EU-28(2013-2020)"
+
+    df_ia = replace_str(df_ia, IA_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
+    df_iu = replace_str(df_iu, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
 
     # Sort the dataframe by year and country
     df_ia = df_ia.sort_values(by=[IA_CSV_ENTRIES.YEAR, IA_CSV_ENTRIES.COUNTRY])
