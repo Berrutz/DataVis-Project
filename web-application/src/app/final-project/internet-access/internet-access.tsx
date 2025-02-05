@@ -62,7 +62,7 @@ const InternetAccess: React.FC<InternetAccessProps> = ({ newWidth }) => {
         height={height}
         yUpperBound={50}
         yLowerBound={-10}
-        yFullTags={['Puppo', 'Verri', 'Pippo', 'Odone']}
+        xFullTags={['Puppo', 'Verri', 'Pippo', 'Odone']}
         unitOfMeasurement="t"
         mt={20}
         mr={80}

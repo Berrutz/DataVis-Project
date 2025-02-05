@@ -1,5 +1,9 @@
 'use client';
 
+import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
+import InternetAccessMap from './internet-access/_components/internet-access-map';
+import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
+
 /*
  * Final Project:
  * The idea is to create 3 folders under this `final-project` folder that subdivide the
@@ -21,5 +25,9 @@
  * Or you can do whatever you want and make this more messy (o_o)
  */
 export default function FinalProject() {
-  return <h1>Fianl Project</h1>;
+  return (
+    <div>
+      <h1>Fianl Project</h1>
+    </div>
+  );
 }

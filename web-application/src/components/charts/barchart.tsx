@@ -182,7 +182,7 @@ export default function BarChart({
           // Get bounding box of SVG to calculate relative positioning
           const svgRect = svgRef.current?.getBoundingClientRect();
           const horizontalOffset = 25;
-          const verticalOffset = 30;
+          const verticalOffset = 60;
 
           // Calculate the position of the tooltip relative to the SVG
           const tooltipX =
@@ -191,6 +191,7 @@ export default function BarChart({
 
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
+          tooltipRef.current.style.display = 'block';
           tooltipRef.current.style.opacity = '1';
 
           setTooltipContent(tooltipMapper!(d));
@@ -206,6 +207,7 @@ export default function BarChart({
       })
       .on('mouseleave', () => {
         if (tooltipRef.current) {
+          tooltipRef.current.style.display = 'none';
           tooltipRef.current.style.opacity = '0';
         }
 
