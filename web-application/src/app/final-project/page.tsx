@@ -1,6 +1,8 @@
 'use client';
 
 import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
+import InternetAccessMap from './internet-access/_components/internet-access-map';
+import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
 
 /*
  * Final Project:

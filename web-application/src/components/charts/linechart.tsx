@@ -23,9 +23,11 @@ export interface LineChartProps {
   height?: number;
   yUpperBound?: number | undefined;
   yLowerBound?: number | undefined;
-  yFullTags?: string[];
+  xFullTags?: string[];
   unitOfMeasurement?: string;
   tooltipMapper?: (point: DataPoint[], unitM: string) => React.ReactNode;
+  xLabelsFontSize?: string;
+  yLabelsFontSize?: string;
   mt?: number;
   mr?: number;
   mb?: number;
@@ -40,16 +42,18 @@ export interface LineChartProps {
  * @param LineChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
  * @param LineChartProps.yUpperBound - Upper limit for y values, default is the maximum of the y values
  * @param LineChartProps.yLowerBound - Lower limit for y values, default is the minimum of the y values
- * @param LineChartProps.yFullTags - Long names for y values, used in the tooltip
+ * @param LineChartProps.xFullTags - Long names for x values, used in the tooltip
  * @param LineChartProps.unitOfMeasurement - Unit of measurement
  * @param {(point: DataPoint[], unitM: string) => React.ReactNode} LineChartProps.tooltipMapper - A functions that map from a pair x, y values from input the correspoding tooltip
+ * @param LineChartProps.xLabelsFontSize - Font size for the labels of the x values
+ * @param LineChartProps.yLabelsFontSize - Font size for the labels of the y values
  * @param {number} LineChartProps.mt - The margin top
  * @param {number} LineChartProps.mr - The margin right
  * @param {number} LineChartProps.mb - The margin bottom
  * @param {number} LineChartProps.ml - The margin left
  * @throws {Error} - If the length of x or y is less or equals to 0
  * @throws {Error} - If the lenght of x and y are different
- * @throws {Error} - If the lenght of yFullTags and y are different
+ * @throws {Error} - If the lenght of xFullTags and y are different
  * @returns
  */
 const LineChart: React.FC<LineChartProps> = ({
@@ -58,9 +62,11 @@ const LineChart: React.FC<LineChartProps> = ({
   data,
   yUpperBound,
   yLowerBound,
-  yFullTags,
+  xFullTags: xFullTags,
   unitOfMeasurement,
   tooltipMapper,
+  xLabelsFontSize,
+  yLabelsFontSize,
   mt,
   mr,
   mb,
@@ -89,11 +95,11 @@ const LineChart: React.FC<LineChartProps> = ({
         throw new Error('X and Y data must have the same lenght');
       }
     });
-    if (yFullTags != undefined) {
+    if (xFullTags != undefined) {
       data.forEach((line) => {
-        if (line.y.length != yFullTags.length) {
+        if (line.x.length != xFullTags.length) {
           throw new Error(
-            `Y data and relative names must have the same lenght: y=${line.y.length} yFullTags=${yFullTags.length}`
+            `X data and relative names must have the same lenght: x=${line.x.length} xFullTags=${xFullTags.length}`
           );
         }
       });
@@ -274,19 +280,20 @@ const LineChart: React.FC<LineChartProps> = ({
 
         if (!hoveredPoint) return;
 
-        // Convert hoveredMonth (string) to an integer for lookup
-        let yName: string = '';
-        if (yFullTags != undefined) {
+        // Set x value to display to a custom tag if any. defualt is "hoveredPoint"
+        let xName: string = '';
+        if (xFullTags != undefined) {
           const index = parseInt(hoveredPoint, 10) - 1; // Adjust 1-based index
-          yName = yFullTags[index] || ''; // Fallback for safety
+          xName = xFullTags[index] || ''; // Fallback for safety
         } else {
-          yName = hoveredPoint;
+          xName = hoveredPoint;
         }
 
+        // Construct the DataPoints usefull for the tooltip
         const points: DataPoint[] = data.map((line) => {
           const index = line.x.indexOf(hoveredPoint); // Find the index of targetX in x array
           return {
-            x: yName,
+            x: xName,
             y: index !== -1 ? line.y[index] : NaN, // Get corresponding y value or NaN if not found
             color: line.color,
             tag: line.tag
@@ -380,7 +387,7 @@ const LineChart: React.FC<LineChartProps> = ({
         `translate(${margin.left}, ${margin.top + innerHeight})`
       )
       .call(d3.axisBottom(xScale))
-      .style('font-size', '0.8rem');
+      .style('font-size', `${xLabelsFontSize || '0.8rem'}`);
 
     svg
       .append('g')
@@ -391,7 +398,7 @@ const LineChart: React.FC<LineChartProps> = ({
           .ticks(ticksNumber)
           .tickFormat((d) => `${d} ${unitOfMeasurement || ''}`)
       )
-      .style('font-size', '0.8rem');
+      .style('font-size', `${yLabelsFontSize || '0.8rem'}`);
   }, [data, width]);
 
   return (

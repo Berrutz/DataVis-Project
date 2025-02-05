@@ -244,6 +244,7 @@ if __name__ == "__main__":
         IU_CSV_ENTRIES.DATAFLOW,
         IU_CSV_ENTRIES.LAST_UPDATE,
         IU_CSV_ENTRIES.FREQ,
+        IU_CSV_ENTRIES.CATEGORY,
         IU_CSV_ENTRIES.UNIT,
         IU_CSV_ENTRIES.INDIVIDUAL_TYPE,
         IU_CSV_ENTRIES.OBS_FLAG,
@@ -306,7 +307,6 @@ if __name__ == "__main__":
     df_iu = df_iu.rename(columns={
         IU_CSV_ENTRIES.COUNTRY: "Country",
         IU_CSV_ENTRIES.YEAR: "Year",
-        IU_CSV_ENTRIES.CATEGORY: "Category",
         IU_CSV_ENTRIES.OBS_VALUE: "Value"
     })
 
