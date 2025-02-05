@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef , useState} from 'react';
+import Tooltip from '../tooltip';
 
 export interface Point {
     x: string;
@@ -63,6 +64,11 @@ export default function FacetedBarChart({
 }: FacetedBarChartProps) {
 
   const svgRef = useRef<SVGSVGElement | null>(null);
+  // The ref of the tooltip and its content
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
+    null
+  );
 
   useEffect(() => {
 
@@ -160,7 +166,6 @@ export default function FacetedBarChart({
       console.log("G : " ,groupData)
 
       // Aggiunta delle barre
-
       facet
             .selectAll("rect")
             .data(groupData)
@@ -171,6 +176,32 @@ export default function FacetedBarChart({
             .attr("width", (d) => xScale(d.value))  // Larghezza della barra proporzionale al valore
             .attr("height", rectHeight)  // Altezza prefissata per il rettangolo
             .attr("fill", (d) => colorScale(d.group));  // Colora le barre in base al gruppo
+
+        // Aggiungi un rettangolo nero attorno a ogni paese (categoria)
+        groupData.forEach(function (l,i) {
+         
+          const Heightrect = 50; // Imposta l'altezza del rettangolo in base alla larghezza della scala Y
+
+          // Definisci i margini per il rettangolo attorno alla categoria
+          const marginTop = -20;   // Margine superiore
+          const marginBottom = 0; // Margine inferiore
+          const marginLeft = 0;   // Margine sinistro
+          const marginRight = 20;  // Margine destro
+
+          // Aggiungi il rettangolo per il paese (categoria)
+          facet
+              .append("rect")
+              .attr("x", marginLeft)  // Sposta a destra rispetto al margine sinistro
+              .attr("y", yScale(l.category)! + (i * rectHeight) + marginTop)  // Sposta in basso rispetto al margine superiore
+              .attr("width", facetWidth - marginLeft - marginRight)  // Riduci la larghezza in base ai margini
+              .attr("height", Heightrect - marginBottom )  // Riduci l'altezza in base ai margini
+              .attr("fill", "none")  // Nessun riempimento
+              .attr("stroke", "black")  // Colore del bordo
+              .attr("stroke-width", 2);  // Larghezza del bordo
+      });
+
+
+
 
       const center_width = 3;
       const center_distance = 30;
@@ -190,6 +221,8 @@ export default function FacetedBarChart({
       }
     );
 
+
+
     const maxLength = 10; // Numero massimo di caratteri per l'etichetta PAESI
     const label_offset = 20
     // Aggiunta delle etichette sulla sinistra per ogni categoria
@@ -203,8 +236,9 @@ export default function FacetedBarChart({
      .attr("y", (d, i) => yScale(d)! + (i * rectHeight) + rectHeight/2 )  // Posiziona verticalmente in base alla categoria
      .attr("dy", ".25em")  // Allinea verticalmente al centro
      .attr("text-anchor", "end")  // Allinea l'etichetta a sinistra
-     .style("font-size", "10px")  // <-- Riduci la dimensione del font
-     .text((d) => d.length > maxLength ? d.slice(0, maxLength) + "…" : d);
+     .style("font-size", "12px")  // <-- Riduci la dimensione del font
+     .text((d) => d.length > maxLength ? d.slice(0, maxLength) + "…" : d)
+    
 
 
   }, [data, width, height]);
