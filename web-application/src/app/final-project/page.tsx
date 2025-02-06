@@ -3,6 +3,7 @@
 import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
 import InternetAccessMap from './internet-access/_components/internet-access-map';
 import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
+import DegradingMessages from './use-of-the-internet/_components/degrading_messages';
 
 /*
  * Final Project:
@@ -24,7 +25,6 @@ import InternetUseLineChart from './internet-access/_components/internet-use-lin
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
-
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 
