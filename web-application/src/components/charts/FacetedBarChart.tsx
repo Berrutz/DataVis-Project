@@ -97,7 +97,7 @@ export default function FacetedBarChart({
     console.log("Categories : ",categories)
     console.log("groups : ",groups)
 
-    // Costante per il filtro dei dati: solo le prime 2 categorie e 2 gruppi
+  
     const filterCondition = (d: any) => {
         return categories.includes(d.category) && groups.includes(d.group);
     };
@@ -177,6 +177,69 @@ export default function FacetedBarChart({
             .attr("height", rectHeight)  // Altezza prefissata per il rettangolo
             .attr("fill", (d) => colorScale(d.group));  // Colora le barre in base al gruppo
 
+            // Zip the X and Y values together
+          const info: Point[] = groupData.map((c,index) => {
+            return {
+              x: c.group,
+              y: c.value
+            };
+          });
+
+          console.log("info:",info)
+        
+          // Create the default tooltip mapper
+          tooltipMapper =
+            tooltipMapper ||
+            ((point: Point) => {
+              return (
+                <p>
+                  {point.x}: <span>{point.y}</span>
+                </p>
+              );
+            });
+
+            facet
+            .selectAll('rect')  // Seleziona solo i rettangoli all'interno di ogni "facet"
+            .data(info)
+            .enter()
+            .on('mousemove', (event, d) => {
+              if (tooltipRef.current) {
+                console.log("Move");
+                
+                // Calcola la posizione del tooltip
+                const svgRect = svgRef.current?.getBoundingClientRect();
+                const horizontalOffset = 25;
+                const verticalOffset = 60;
+          
+                const tooltipX = event.clientX - (svgRect?.left || 0) + horizontalOffset;
+                const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+          
+                tooltipRef.current.style.left = `${tooltipX}px`;
+                tooltipRef.current.style.top = `${tooltipY}px`;
+                tooltipRef.current.style.display = 'block';
+                tooltipRef.current.style.opacity = '1';
+          
+                setTooltipContent(tooltipMapper!(d));
+              }
+          
+              // Evidenzia la barra su cui è il mouse
+              d3.select(event.target as SVGRectElement)
+                .transition()
+                .duration(200)
+                .style('opacity', 1);
+            })
+            .on('mouseleave', () => {
+              if (tooltipRef.current) {
+                tooltipRef.current.style.display = 'none';
+                tooltipRef.current.style.opacity = '0';
+              }
+          
+              // Reset opacity per tutte le barre
+              d3.selectAll('rect').transition().duration(200).style('opacity', 1);
+            });
+
+
+
         // Aggiungi un rettangolo nero attorno a ogni paese (categoria)
         groupData.forEach(function (l,i) {
          
@@ -186,7 +249,8 @@ export default function FacetedBarChart({
           const marginTop = -20;   // Margine superiore
           const marginBottom = 0; // Margine inferiore
           const marginLeft = 0;   // Margine sinistro
-          const marginRight = 20;  // Margine destro
+          const marginRight = 0;  // Margine destro
+
 
           // Aggiungi il rettangolo per il paese (categoria)
           facet
@@ -197,7 +261,9 @@ export default function FacetedBarChart({
               .attr("height", Heightrect - marginBottom )  // Riduci l'altezza in base ai margini
               .attr("fill", "none")  // Nessun riempimento
               .attr("stroke", "black")  // Colore del bordo
-              .attr("stroke-width", 2);  // Larghezza del bordo
+              .attr("stroke-width", 2)  // Larghezza del bordo
+
+
       });
 
 
@@ -238,14 +304,13 @@ export default function FacetedBarChart({
      .attr("text-anchor", "end")  // Allinea l'etichetta a sinistra
      .style("font-size", "12px")  // <-- Riduci la dimensione del font
      .text((d) => d.length > maxLength ? d.slice(0, maxLength) + "…" : d)
-    
-
 
   }, [data, width, height]);
 
   return (
     <div className="overflow-x-auto overflow-y-auto h-full w-fit">
       <svg ref={svgRef} />
+      <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>
   );
 }
