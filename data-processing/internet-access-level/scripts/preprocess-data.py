@@ -212,6 +212,7 @@ if __name__ == "__main__":
     # Merge population age groups to match the age groups of the internet use datasets
     df_p_age_group = merge_population_age_group(df_p_age_group)
 
+    # Merge population and internet usage datasets
     df_iu_age_group = merge_population_internet_usage(df_p_age_group, df_iu_age_group)
 
     # Remove the columns that we are not interested in
@@ -258,8 +259,9 @@ if __name__ == "__main__":
 
     # Remove "Last internet use: " from every value in the column
     str1 = "Last internet use: "
-    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
-    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
+    str2 = "Internet use: "
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
 
     # Change entities names into their short version for better display
     oldStr1 = "European Union - 27 countries (from 2020)"
