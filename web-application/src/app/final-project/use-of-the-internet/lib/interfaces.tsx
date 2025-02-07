@@ -27,5 +27,11 @@ export interface FrequencyData {
     percentage: number;
   }
 
+  export interface ActivitiesData{
+    forwhat:string;
+    country:string;
+    year:string;
+    percentage:number;
+  }
   
   

@@ -32,6 +32,8 @@ export interface LineChartProps {
   mr?: number;
   mb?: number;
   ml?: number;
+  xLabel?: string;
+  yLabel?: string;
 }
 
 /**
@@ -70,7 +72,9 @@ const LineChart: React.FC<LineChartProps> = ({
   mt,
   mr,
   mb,
-  ml
+  ml,
+  xLabel,
+  yLabel
 }) => {
   // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -156,6 +160,7 @@ const LineChart: React.FC<LineChartProps> = ({
       .range([innerHeight, 0]);
 
     type Data = { x: string; y: number };
+
     // Create lines
     const line = d3
       .line<Data>()
@@ -262,6 +267,7 @@ const LineChart: React.FC<LineChartProps> = ({
           </div>
         );
       });
+
     // Mouse event listener
     svg
       .append('rect')
@@ -361,6 +367,7 @@ const LineChart: React.FC<LineChartProps> = ({
       });
 
     const ticksNumber = 8;
+  
     // Add y-axis grid lines
     const yTicks = yScale
       .ticks(8)
@@ -399,6 +406,27 @@ const LineChart: React.FC<LineChartProps> = ({
           .tickFormat((d) => `${d} ${unitOfMeasurement || ''}`)
       )
       .style('font-size', `${yLabelsFontSize || '0.8rem'}`);
+
+
+      var ylabel = yLabel || ''
+      svg.append("text")
+      .attr("transform", `rotate(-90)`)
+      .attr("x", -height / 2) // Centrare verticalmente
+      .attr("y", margin.left / 2 - 10) // Posizionarla vicino all'asse Y
+      .attr("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("fill", "black")
+      .text(ylabel); // Testo della label
+
+      var xlabel = xLabel || ''
+      svg.append("text")
+      .attr("x", width / 1.8)
+      .attr("y", height - margin.bottom / 4)
+      .attr("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("fill", "black")
+      .text(xlabel); 
+
   }, [data, width]);
 
   return (

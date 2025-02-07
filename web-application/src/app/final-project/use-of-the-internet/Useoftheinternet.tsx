@@ -14,12 +14,13 @@ import Frequencies from './_components/frequencies';
 import Financial from './_components/financial';
 import DegradingMessages from './_components/degrading_messages';
 import Purchase from './_components/purchase';
+import Activities from './_components/activities';
 
 export default function Useoftheinternet() {
 
     return (
     <AssignmentPage title={'Use of the Internet'}>
-       {/* <BarChart x={} ></BarChart> */}
+       {/* ALLUVIAL & BAR CHART - FREQUENCIES */}
        <ChartSection
         asidename="Line Chart Temperatures"
         asidekey="line-chart-temperatures"
@@ -27,15 +28,10 @@ export default function Useoftheinternet() {
         >
         <ChartHeading>
           <ChartH1Title>
-            Maximum, Minimum and Average Monthly Temperatures per Year
+          Individuals frequencies of access over the internet
           </ChartH1Title>
           <p>
-            These graphs show the maximum (max), minimum (min) and average (avg)
-            temperatures month by month over a year. The y-axis displays the
-            temperature values in degrees Fahrenheit (°F), while the x-axis
-            indicates the month. The graph provides the option to select the
-            year and state you want to view. The data can be displayed using a
-            Line chart or a Radar chart.
+            These graphs show 
           </p>
         </ChartHeading>
         <ChartBody>
@@ -62,6 +58,48 @@ export default function Useoftheinternet() {
           </p>
         </ChartContainer>
       </ChartSection>
+       {/* LINE CHART - FOR WHAT PEOPLE USE INTERNET */}
+       <ChartSection
+        asidename="Activities on the Internet"
+        asidekey="activities-on-the-Internet"
+        id="activities-on-the-Internet"
+        >
+        <ChartHeading>
+          <ChartH1Title>
+            Individual Activities on the Internet
+          </ChartH1Title>
+          <p>
+            These graph show on a selected country from the EU the percentage of invididuals that 
+            search information about good and services , sell good and services and partecipate in the
+            social network along the years . On the X-axis there the years while the Y-axis is related 
+            to the percentage of the population that perform the selected activity .
+
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          <ChartContainer
+            asidename="LineChart"
+            asidekey="LineChart-chart"
+            id="LineChart-chart"
+          >
+          <Activities></Activities>
+         </ChartContainer>
+        </ChartBody>
+        <ChartContainer
+          asidename="Comment"
+          id="line-chart-activities-chart-comment-1"
+          asidekey="line-chart-activities-chart-comment-1"
+        >
+          <ChartH2Title>Comment</ChartH2Title>
+          <p>
+            Observing the charts related to the select country in general in the EU we observe
+            an increasing trend from 2013 to 2024 in the perctange of individuals that partecipate in 
+            social network activities or search for information about goods and services and 
+            sell goods and services .
+          </p>
+        </ChartContainer>
+      </ChartSection>
+      {/* BUBBLE - FINANCIAL*/}
       <ChartSection
         asidename="Bubble Chart Financial"
         asidekey="bubble-chart-financial"
@@ -72,12 +110,7 @@ export default function Useoftheinternet() {
           Bubble Chart Financial
           </ChartH1Title>
           <p>
-            These graphs show the maximum (max), minimum (min) and average (avg)
-            temperatures month by month over a year. The y-axis displays the
-            temperature values in degrees Fahrenheit (°F), while the x-axis
-            indicates the month. The graph provides the option to select the
-            year and state you want to view. The data can be displayed using a
-            Line chart or a Radar chart.
+
           </p>
         </ChartHeading>
         <ChartBody>
@@ -96,14 +129,10 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            Viewing average maximum and minimum temperatures for a single year
-            does not allow us to comment on trends or patterns except for
-            typical seasonal variations, with colder months (winter) at the
-            start and end of the year and warmer months (summer) in the middle
-            of the year.
           </p>
         </ChartContainer>
       </ChartSection>
+      {/* FACETED BAR CHART - DEGRADING MESSAGES */}
       <ChartSection
         asidename="Stacked Bar Chart Degrading Messages"
         asidekey="stacked-bar-chart-degrading-messages"
@@ -146,6 +175,7 @@ export default function Useoftheinternet() {
           </p>
         </ChartContainer>
       </ChartSection>
+      {/* BAR CHART - PURCHASE */}
       <ChartSection
         asidename="Bar Chart Purchase"
         asidekey="Bar-Chart-Purchase"

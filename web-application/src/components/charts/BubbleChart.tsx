@@ -18,6 +18,9 @@ const BubbleChart: React.FC<BubbleChartProps> = ({ x, y, r, p, width, height, co
   useEffect(() => {
     if (!svgRef.current || x.length === 0 || y.length === 0 || r.length === 0 || p.length === 0) return;
 
+    console.log("BUBBLE - x : ",x)
+
+
     // Rimuove il contenuto precedente
     d3.select(svgRef.current).selectAll('*').remove();
 
