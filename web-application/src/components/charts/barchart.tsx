@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
+import ChartScrollableWrapper from '../chart-scrollable-wrapper';
 
 // Interface that represent a single point x and y
 export interface Point {
@@ -64,6 +65,9 @@ export default function BarChart({
 }: BarChartProps) {
   // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  // The container of the svg
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // The ref of the tooltip and its content
   const tooltipRef = useRef<HTMLDivElement | null>(null);
@@ -180,14 +184,15 @@ export default function BarChart({
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning
-          const svgRect = svgRef.current?.getBoundingClientRect();
+          const containerRect = containerRef.current?.getBoundingClientRect();
           const horizontalOffset = 25;
           const verticalOffset = 60;
 
           // Calculate the position of the tooltip relative to the SVG
           const tooltipX =
-            event.clientX - (svgRect?.left || 0) + horizontalOffset;
-          const tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+            event.clientX - (containerRect?.left || 0) + horizontalOffset;
+          const tooltipY =
+            event.clientY - (containerRect?.top || 0) - verticalOffset;
 
           tooltipRef.current.style.left = `${tooltipX}px`;
           tooltipRef.current.style.top = `${tooltipY}px`;
@@ -217,8 +222,10 @@ export default function BarChart({
   }, [x, y]);
 
   return (
-    <div className="overflow-x-auto h-full w-fit">
-      <svg ref={svgRef} />
+    <div className="relative" ref={containerRef}>
+      <ChartScrollableWrapper>
+        <svg ref={svgRef} />
+      </ChartScrollableWrapper>
       <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>
   );
