@@ -30,8 +30,6 @@ import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 
 export default function FinalProject() {
   return (
-    <div>
-      <h1>Fianl Project</h1>
-    </div>
+    <Useoftheinternet/>
   );
 }

@@ -13,6 +13,7 @@ import {
 import Frequencies from './_components/frequencies';
 import Financial from './_components/financial';
 import DegradingMessages from './_components/degrading_messages';
+import Purchase from './_components/purchase';
 
 export default function Useoftheinternet() {
 
@@ -128,6 +129,44 @@ export default function Useoftheinternet() {
             id="stacked-bar-chart"
           >
           <DegradingMessages></DegradingMessages>
+         </ChartContainer>
+        </ChartBody>
+        <ChartContainer
+          asidename="Comment"
+          id="stacked-bar-chart-degrading-messages-comment-1"
+          asidekey="stacked-bar-chart-degrading-messages-comment-1"
+        >
+          <ChartH2Title>Comment</ChartH2Title>
+          <p>
+            Viewing average maximum and minimum temperatures for a single year
+            does not allow us to comment on trends or patterns except for
+            typical seasonal variations, with colder months (winter) at the
+            start and end of the year and warmer months (summer) in the middle
+            of the year.
+          </p>
+        </ChartContainer>
+      </ChartSection>
+      <ChartSection
+        asidename="Bar Chart Purchase"
+        asidekey="Bar-Chart-Purchase"
+        id="Bar-Chart-Purchase"
+        >
+        <ChartHeading>
+          <ChartH1Title>
+          Percentage of individual that purchase online in the last 3 month of the year in the Europe Continent from 2010 to 2024
+          </ChartH1Title>
+          <p>
+          This graph compares the percentage of individuals that purchase online in the last 3 month of one of the selected country in the Europe Continent . 
+          On the x-axis the are the years related to the country and the corresponding percentage on the y-axis .
+          </p>
+        </ChartHeading>
+        <ChartBody>
+          <ChartContainer
+            asidename="Degrading Messages"
+            asidekey="Stacked Bar Chart"
+            id="stacked-bar-chart"
+          >
+          <Purchase></Purchase>
          </ChartContainer>
         </ChartBody>
         <ChartContainer

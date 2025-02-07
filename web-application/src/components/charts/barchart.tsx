@@ -23,6 +23,8 @@ export interface BarChartProps {
   mr?: number;
   mb?: number;
   ml?: number;
+  yLabel?: string; 
+  xLabel?: string; 
 }
 
 /**
@@ -42,6 +44,7 @@ export interface BarChartProps {
  * @param {number} BarChartProps.mr - The margin right
  * @param {number} BarChartProps.mb - The margin bottom
  * @param {number} BarChartProps.ml - The margin left
+ * @param {string} BarChartProps.yLabel - The label of the Y-axis
  * @throws {Error} - If the length of x or y is less or equals to 0
  * @throws {Error} - If the lenght of x and y are different
  * @returns The react component
@@ -60,7 +63,9 @@ export default function BarChart({
   mt,
   mr,
   mb,
-  ml
+  ml,
+  yLabel,
+  xLabel
 }: BarChartProps) {
   // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -147,6 +152,27 @@ export default function BarChart({
       .attr('y', -10)
       .attr('x', -10);
 
+    // Set Y-Label
+    var ylabel = yLabel || '';
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 10) // Posizione rispetto all'asse
+      .attr("x", -height / 2) // Centrare rispetto al grafico
+      .attr("dy", "1em") // Spostamento fine per l'allineamento
+      .style("text-anchor", "middle")
+      .style("font-weight", "bold")
+      .text(ylabel);
+    
+    // Set X-Label
+    var xlabel = xLabel || '';
+    svg.append("text")
+      .attr("x", (width - margin.left - margin.right) / 2) // Centrare rispetto all'asse X
+      .attr("y", height - margin.top - margin.bottom + 35) // Posizionare sotto l'asse X
+      .attr("dy", "1em") // Spostamento fine per l'allineamento
+      .style("text-anchor", "middle")
+      .style("font-weight", "bold")
+      .text(xlabel);
+    
     // Zip the X and Y values together
     const data: Point[] = y.map((value, index) => {
       return {

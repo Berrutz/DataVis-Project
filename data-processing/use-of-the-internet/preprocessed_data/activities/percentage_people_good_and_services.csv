@@ -1,423 +1,1230 @@
-freq,indic_is,unit,ind_type,geo,TIME_PERIOD,OBS_VALUE
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2018,28.01
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2019,34.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2020,37.53
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2021,44.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2022,51.21
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Albania,2023,52.95
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2013,67.39
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2014,68.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2015,61.96
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2016,70.33
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2017,62.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2018,60.79
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2019,61.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2020,67.38
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2021,70.9
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2022,75.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2023,76.32
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Austria,2024,77.96
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2018,51.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2019,39.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2020,49.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2021,50.68
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2023,58.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bosnia and Herzegovina,2024,65.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2013,66.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2014,71.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2015,69.79
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2016,72.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2017,73.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2018,74.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2019,76.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2020,77.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2021,75.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2022,79.23
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2023,78.53
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Belgium,2024,81.57
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2013,34.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2014,41.27
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2015,34.52
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2016,38.46
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2017,39.34
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2018,43.0
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2019,37.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2020,50.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2021,45.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2022,60.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2023,50.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Bulgaria,2024,61.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Switzerland,2014,71.68
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Switzerland,2017,77.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Switzerland,2019,80.93
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Switzerland,2021,85.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Switzerland,2023,87.74
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2013,56.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2014,61.74
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2015,53.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2016,61.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2017,61.45
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2018,71.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2019,71.57
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2020,78.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2021,79.08
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2022,73.09
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2023,81.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Cyprus,2024,89.22
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2013,63.36
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2014,69.3
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2015,68.01
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2016,73.69
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2017,73.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2018,76.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2019,76.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2020,76.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2021,79.51
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2022,81.57
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2023,84.33
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Czechia,2024,86.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2013,77.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2014,79.32
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2015,80.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2016,82.21
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2017,83.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2018,86.14
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2019,85.56
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2020,86.74
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2021,60.93
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2022,60.86
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2023,41.67
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Germany,2024,77.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2013,82.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2014,83.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2015,77.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2016,86.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2017,79.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2018,87.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2019,85.02
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2020,90.0
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2021,85.48
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2022,89.97
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2023,88.59
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Denmark,2024,94.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2013,59.96
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2014,75.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2015,75.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2016,77.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2017,74.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2018,79.99
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2019,77.93
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2020,80.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2021,80.49
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2022,78.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2023,78.83
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Estonia,2024,81.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2013,49.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2014,52.05
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2015,53.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2016,56.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2017,57.38
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2018,64.57
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2019,66.79
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2020,69.43
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2021,69.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2022,74.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2023,75.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Greece,2024,79.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2013,47.53
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2014,65.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2015,54.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2016,66.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2017,63.0
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2018,72.34
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2019,72.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2020,78.29
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2021,74.0
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2022,75.57
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2023,72.3
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Spain,2024,79.99
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2013,57.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2014,62.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2015,59.6
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2016,63.46
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2017,64.05
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2018,68.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2019,66.48
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2020,70.03
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2021,66.14
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2022,69.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2023,64.44
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,European Union - 27 countries (from 2020),2024,75.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2013,79.28
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2014,85.27
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2015,81.91
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2016,85.43
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2017,85.32
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2018,83.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2019,86.56
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2020,84.66
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2021,90.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2022,90.34
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2023,92.26
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Finland,2024,88.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2013,68.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2014,69.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2015,68.82
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2016,64.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2017,67.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2018,69.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2019,61.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2021,63.84
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2022,74.05
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2023,65.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,France,2024,75.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2013,46.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2014,43.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2015,56.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2016,65.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2017,59.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2018,65.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2019,73.86
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2020,70.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2021,73.69
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2022,76.08
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2023,74.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Croatia,2024,73.52
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2013,58.06
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2014,65.95
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2015,60.66
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2016,69.78
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2017,65.01
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2018,68.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2019,69.26
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2020,76.27
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2021,78.93
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2022,77.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2023,84.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Hungary,2024,83.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2013,60.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2014,67.68
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2015,64.08
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2016,67.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2017,69.7
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2018,72.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2019,76.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2020,71.72
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2021,87.1
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2022,80.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2023,85.22
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Ireland,2024,93.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2013,86.0
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2014,89.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2017,88.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2018,92.07
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2019,91.78
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2020,94.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Iceland,2021,93.5
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2013,37.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2014,35.06
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2015,37.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2016,34.62
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2017,37.87
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2018,40.36
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2019,40.44
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2020,48.37
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2021,53.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2022,53.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2023,58.38
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Italy,2024,58.07
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2013,56.49
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2014,64.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2015,57.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2016,61.73
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2017,61.89
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2018,67.92
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2019,68.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2020,73.37
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2021,74.22
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2022,77.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2023,74.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Lithuania,2024,79.73
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2013,69.72
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2014,82.23
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2015,75.91
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2016,86.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2017,81.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2018,76.38
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2019,67.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2020,68.32
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2021,66.8
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2022,69.47
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2023,60.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Luxembourg,2024,72.51
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2013,52.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2014,52.6
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2015,54.48
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2016,59.7
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2017,57.21
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2018,63.27
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2019,61.88
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2020,70.86
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2021,67.21
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2022,69.64
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2023,66.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Latvia,2024,70.72
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2017,39.91
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2018,45.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2019,37.88
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2020,47.03
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2021,49.67
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2022,58.08
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2023,55.71
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Montenegro,2024,55.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2013,34.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2014,41.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2015,29.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2016,38.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2017,37.54
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2018,49.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2019,53.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2020,52.05
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2021,57.15
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,North Macedonia,2024,65.88
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2013,50.1
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2014,63.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2015,61.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2016,64.77
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2017,71.1
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2018,71.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2019,71.56
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2020,77.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2021,77.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2022,79.51
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2023,78.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Malta,2024,80.67
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2013,83.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2014,85.47
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2015,84.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2016,84.52
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2017,88.39
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2018,88.91
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2019,89.36
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2020,88.64
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2021,90.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2022,89.89
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2023,95.33
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Netherlands,2024,96.28
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2013,79.01
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2014,88.14
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2015,82.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2016,88.37
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2017,83.11
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2018,90.61
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2019,90.3
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2020,91.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2021,92.75
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2022,95.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2023,95.52
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Norway,2024,95.22
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2013,45.47
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2014,50.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2015,42.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2016,56.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2017,58.35
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2018,63.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2019,62.24
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2020,62.74
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2021,65.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2022,74.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2023,64.45
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Poland,2024,69.26
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2013,45.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2014,55.67
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2015,52.14
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2016,58.68
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2017,60.49
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2018,63.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2019,64.74
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2020,68.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2021,71.37
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2022,72.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2023,73.18
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Portugal,2024,77.8
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2013,25.71
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2014,35.55
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2015,26.22
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2016,34.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2017,31.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2018,41.43
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2019,33.48
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2020,45.79
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2021,43.66
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2022,49.28
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2023,48.89
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Romania,2024,56.28
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2015,44.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2017,53.04
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2018,56.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2019,52.78
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2020,56.07
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2021,59.64
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2022,67.58
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2023,65.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Serbia,2024,69.29
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2013,80.82
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2014,85.9
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2015,72.7
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2016,83.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2017,84.12
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2018,82.92
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2019,83.13
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2020,88.48
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2021,82.95
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2022,88.73
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2023,87.46
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Sweden,2024,89.35
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2013,54.76
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2014,62.08
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2015,60.97
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2016,64.64
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2017,69.38
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2018,69.25
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2019,69.89
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2020,76.71
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2021,75.2
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2022,75.34
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2023,76.56
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovenia,2024,78.9
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2013,55.72
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2014,59.71
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2015,57.31
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2016,60.81
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2017,58.4
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2018,63.51
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2019,59.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2020,78.16
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2021,71.11
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2022,67.11
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2023,65.36
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Slovakia,2024,70.07
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2013,25.86
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2014,32.59
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2015,30.44
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2016,38.23
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2017,42.62
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2018,48.17
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2019,48.1
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2020,51.98
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2021,48.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2022,61.44
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2023,61.19
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Türkiye,2024,65.35
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2013,69.63
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2014,78.01
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2015,74.06
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2016,79.85
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2017,75.41
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2018,81.09
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2019,81.3
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,United Kingdom,2020,84.78
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Kosovo*,2017,30.79
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Kosovo*,2018,31.94
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Kosovo*,2019,37.11
-Annual,Internet use: finding information about goods and services,Percentage of individuals,All individuals,Kosovo*,2020,71.18
+ForWhat,Country,Year,percentage_of_individual
+Internet use: finding information about goods and services,Albania,2018,28.01
+Internet use: selling goods or services,Albania,2018,1.31
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2018,48.33
+Internet use: finding information about goods and services,Albania,2019,34.4
+Internet use: selling goods or services,Albania,2019,0.54
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2019,52.13
+Internet use: finding information about goods and services,Albania,2020,37.53
+Internet use: selling goods or services,Albania,2020,0.61
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2020,54.8
+Internet use: finding information about goods and services,Albania,2021,44.19
+Internet use: selling goods or services,Albania,2021,0.54
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2021,60.77
+Internet use: finding information about goods and services,Albania,2022,51.21
+Internet use: selling goods or services,Albania,2022,4.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2022,64.07
+Internet use: finding information about goods and services,Albania,2023,52.95
+Internet use: selling goods or services,Albania,2023,5.26
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Albania,2023,66.27
+Internet use: finding information about goods and services,Austria,2013,67.39
+Internet use: selling goods or services,Austria,2013,12.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2013,37.45
+Internet use: finding information about goods and services,Austria,2014,68.87
+Internet use: selling goods or services,Austria,2014,11.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2014,44.24
+Internet use: finding information about goods and services,Austria,2015,61.96
+Internet use: selling goods or services,Austria,2015,10.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2015,45.33
+Internet use: finding information about goods and services,Austria,2016,70.33
+Internet use: selling goods or services,Austria,2016,11.04
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2016,49.02
+Internet use: finding information about goods and services,Austria,2017,62.54
+Internet use: selling goods or services,Austria,2017,13.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2017,51.19
+Internet use: finding information about goods and services,Austria,2018,60.79
+Internet use: selling goods or services,Austria,2018,13.86
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2018,53.17
+Internet use: finding information about goods and services,Austria,2019,61.77
+Internet use: selling goods or services,Austria,2019,12.07
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2019,55.55
+Internet use: finding information about goods and services,Austria,2020,67.38
+Internet use: selling goods or services,Austria,2020,14.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2020,59.54
+Internet use: finding information about goods and services,Austria,2021,70.9
+Internet use: selling goods or services,Austria,2021,27.74
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2021,57.11
+Internet use: finding information about goods and services,Austria,2022,75.98
+Internet use: selling goods or services,Austria,2022,27.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2022,61.47
+Internet use: finding information about goods and services,Austria,2023,76.32
+Internet use: selling goods or services,Austria,2023,29.73
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2023,63.42
+Internet use: finding information about goods and services,Austria,2024,77.96
+Internet use: selling goods or services,Austria,2024,27.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Austria,2024,64.74
+Internet use: finding information about goods and services,Belgium,2013,66.61
+Internet use: selling goods or services,Belgium,2013,18.75
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2013,46.64
+Internet use: finding information about goods and services,Belgium,2014,71.31
+Internet use: selling goods or services,Belgium,2014,19.63
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2014,52.43
+Internet use: finding information about goods and services,Belgium,2015,69.79
+Internet use: selling goods or services,Belgium,2015,18.61
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2015,66.72
+Internet use: finding information about goods and services,Belgium,2016,72.24
+Internet use: selling goods or services,Belgium,2016,20.36
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2016,69.31
+Internet use: finding information about goods and services,Belgium,2017,73.55
+Internet use: selling goods or services,Belgium,2017,20.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2017,72.02
+Internet use: finding information about goods and services,Belgium,2018,74.61
+Internet use: selling goods or services,Belgium,2018,18.73
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2018,72.6
+Internet use: finding information about goods and services,Belgium,2019,76.18
+Internet use: selling goods or services,Belgium,2019,23.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2019,75.53
+Internet use: finding information about goods and services,Belgium,2020,77.54
+Internet use: selling goods or services,Belgium,2020,26.88
+Internet use: finding information about goods and services,Belgium,2021,75.16
+Internet use: selling goods or services,Belgium,2021,26.96
+Internet use: finding information about goods and services,Belgium,2022,79.23
+Internet use: selling goods or services,Belgium,2022,29.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2022,67.84
+Internet use: finding information about goods and services,Belgium,2023,78.53
+Internet use: selling goods or services,Belgium,2023,29.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2023,68.48
+Internet use: finding information about goods and services,Belgium,2024,81.57
+Internet use: selling goods or services,Belgium,2024,34.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Belgium,2024,72.64
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2018,51.16
+Internet use: selling goods or services,Bosnia and Herzegovina,2018,7.5
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2018,46.09
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2019,39.54
+Internet use: selling goods or services,Bosnia and Herzegovina,2019,7.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2019,45.84
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2020,49.18
+Internet use: selling goods or services,Bosnia and Herzegovina,2020,8.36
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2020,50.04
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2021,50.68
+Internet use: selling goods or services,Bosnia and Herzegovina,2021,12.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2021,49.65
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2023,58.63
+Internet use: selling goods or services,Bosnia and Herzegovina,2023,12.89
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2023,57.74
+Internet use: finding information about goods and services,Bosnia and Herzegovina,2024,65.85
+Internet use: selling goods or services,Bosnia and Herzegovina,2024,18.79
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bosnia and Herzegovina,2024,65.46
+Internet use: finding information about goods and services,Bulgaria,2013,34.87
+Internet use: selling goods or services,Bulgaria,2013,10.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2013,37.3
+Internet use: finding information about goods and services,Bulgaria,2014,41.27
+Internet use: selling goods or services,Bulgaria,2014,6.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2014,39.57
+Internet use: finding information about goods and services,Bulgaria,2015,34.52
+Internet use: selling goods or services,Bulgaria,2015,8.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2015,42.15
+Internet use: finding information about goods and services,Bulgaria,2016,38.46
+Internet use: selling goods or services,Bulgaria,2016,6.39
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2016,45.03
+Internet use: finding information about goods and services,Bulgaria,2017,39.34
+Internet use: selling goods or services,Bulgaria,2017,4.93
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2017,49.95
+Internet use: finding information about goods and services,Bulgaria,2018,43.0
+Internet use: selling goods or services,Bulgaria,2018,8.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2018,51.36
+Internet use: finding information about goods and services,Bulgaria,2019,37.94
+Internet use: selling goods or services,Bulgaria,2019,6.34
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2019,52.85
+Internet use: finding information about goods and services,Bulgaria,2020,50.04
+Internet use: selling goods or services,Bulgaria,2020,6.9
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2020,54.74
+Internet use: finding information about goods and services,Bulgaria,2021,45.75
+Internet use: selling goods or services,Bulgaria,2021,6.19
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2021,60.05
+Internet use: finding information about goods and services,Bulgaria,2022,60.19
+Internet use: selling goods or services,Bulgaria,2022,9.87
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2022,63.42
+Internet use: finding information about goods and services,Bulgaria,2023,50.75
+Internet use: selling goods or services,Bulgaria,2023,8.64
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2023,64.2
+Internet use: finding information about goods and services,Bulgaria,2024,61.85
+Internet use: selling goods or services,Bulgaria,2024,12.68
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Bulgaria,2024,64.99
+Internet use: finding information about goods and services,Croatia,2013,46.41
+Internet use: selling goods or services,Croatia,2013,10.17
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2013,37.84
+Internet use: finding information about goods and services,Croatia,2014,43.63
+Internet use: selling goods or services,Croatia,2014,21.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2014,40.44
+Internet use: finding information about goods and services,Croatia,2015,56.94
+Internet use: selling goods or services,Croatia,2015,34.94
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2015,44.6
+Internet use: finding information about goods and services,Croatia,2016,65.87
+Internet use: selling goods or services,Croatia,2016,27.76
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2016,50.39
+Internet use: finding information about goods and services,Croatia,2017,59.25
+Internet use: selling goods or services,Croatia,2017,25.0
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2017,47.25
+Internet use: finding information about goods and services,Croatia,2018,65.81
+Internet use: selling goods or services,Croatia,2018,24.85
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2018,53.93
+Internet use: finding information about goods and services,Croatia,2019,73.86
+Internet use: selling goods or services,Croatia,2019,21.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2019,57.88
+Internet use: finding information about goods and services,Croatia,2020,70.94
+Internet use: selling goods or services,Croatia,2020,22.77
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2020,57.17
+Internet use: finding information about goods and services,Croatia,2021,73.69
+Internet use: selling goods or services,Croatia,2021,26.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2021,60.89
+Internet use: finding information about goods and services,Croatia,2022,76.08
+Internet use: selling goods or services,Croatia,2022,23.87
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2022,60.14
+Internet use: finding information about goods and services,Croatia,2023,74.75
+Internet use: selling goods or services,Croatia,2023,15.44
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2023,62.76
+Internet use: finding information about goods and services,Croatia,2024,73.52
+Internet use: selling goods or services,Croatia,2024,25.45
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Croatia,2024,61.0
+Internet use: finding information about goods and services,Cyprus,2013,56.12
+Internet use: selling goods or services,Cyprus,2013,1.46
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2013,44.33
+Internet use: finding information about goods and services,Cyprus,2014,61.74
+Internet use: selling goods or services,Cyprus,2014,0.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2014,50.1
+Internet use: finding information about goods and services,Cyprus,2015,53.63
+Internet use: selling goods or services,Cyprus,2015,1.94
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2015,54.04
+Internet use: finding information about goods and services,Cyprus,2016,61.54
+Internet use: selling goods or services,Cyprus,2016,4.82
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2016,59.97
+Internet use: finding information about goods and services,Cyprus,2017,61.45
+Internet use: selling goods or services,Cyprus,2017,3.66
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2017,63.04
+Internet use: finding information about goods and services,Cyprus,2018,71.87
+Internet use: selling goods or services,Cyprus,2018,2.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2018,68.96
+Internet use: finding information about goods and services,Cyprus,2019,71.57
+Internet use: selling goods or services,Cyprus,2019,3.41
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2019,71.72
+Internet use: finding information about goods and services,Cyprus,2020,78.31
+Internet use: selling goods or services,Cyprus,2020,2.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2020,78.18
+Internet use: finding information about goods and services,Cyprus,2021,79.08
+Internet use: selling goods or services,Cyprus,2021,2.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2021,78.62
+Internet use: finding information about goods and services,Cyprus,2022,73.09
+Internet use: selling goods or services,Cyprus,2022,4.6
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2022,77.91
+Internet use: finding information about goods and services,Cyprus,2023,81.25
+Internet use: selling goods or services,Cyprus,2023,8.21
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2023,82.56
+Internet use: finding information about goods and services,Cyprus,2024,89.22
+Internet use: selling goods or services,Cyprus,2024,17.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Cyprus,2024,86.81
+Internet use: finding information about goods and services,Czechia,2013,63.36
+Internet use: selling goods or services,Czechia,2013,16.81
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2013,36.3
+Internet use: finding information about goods and services,Czechia,2014,69.3
+Internet use: selling goods or services,Czechia,2014,15.48
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2014,39.98
+Internet use: finding information about goods and services,Czechia,2015,68.01
+Internet use: selling goods or services,Czechia,2015,13.52
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2015,40.64
+Internet use: finding information about goods and services,Czechia,2016,73.69
+Internet use: selling goods or services,Czechia,2016,12.05
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2016,45.05
+Internet use: finding information about goods and services,Czechia,2017,73.4
+Internet use: selling goods or services,Czechia,2017,11.25
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2017,48.35
+Internet use: finding information about goods and services,Czechia,2018,76.76
+Internet use: selling goods or services,Czechia,2018,14.0
+Internet use: finding information about goods and services,Czechia,2019,76.24
+Internet use: selling goods or services,Czechia,2019,12.41
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2019,58.95
+Internet use: finding information about goods and services,Czechia,2020,76.63
+Internet use: selling goods or services,Czechia,2020,10.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2020,58.97
+Internet use: finding information about goods and services,Czechia,2021,79.51
+Internet use: selling goods or services,Czechia,2021,10.38
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2021,61.5
+Internet use: finding information about goods and services,Czechia,2022,81.57
+Internet use: selling goods or services,Czechia,2022,15.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2022,64.13
+Internet use: finding information about goods and services,Czechia,2023,84.33
+Internet use: selling goods or services,Czechia,2023,16.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2023,68.13
+Internet use: finding information about goods and services,Czechia,2024,86.19
+Internet use: selling goods or services,Czechia,2024,18.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Czechia,2024,70.24
+Internet use: finding information about goods and services,Denmark,2013,82.16
+Internet use: selling goods or services,Denmark,2013,23.68
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2013,63.6
+Internet use: finding information about goods and services,Denmark,2014,83.81
+Internet use: selling goods or services,Denmark,2014,25.59
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2014,66.49
+Internet use: finding information about goods and services,Denmark,2015,77.17
+Internet use: selling goods or services,Denmark,2015,36.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2015,64.86
+Internet use: finding information about goods and services,Denmark,2016,86.31
+Internet use: selling goods or services,Denmark,2016,34.88
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2016,74.37
+Internet use: finding information about goods and services,Denmark,2017,79.31
+Internet use: selling goods or services,Denmark,2017,28.72
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2017,75.5
+Internet use: finding information about goods and services,Denmark,2018,87.77
+Internet use: selling goods or services,Denmark,2018,29.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2018,78.64
+Internet use: finding information about goods and services,Denmark,2019,85.02
+Internet use: selling goods or services,Denmark,2019,27.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2019,80.76
+Internet use: finding information about goods and services,Denmark,2020,90.0
+Internet use: selling goods or services,Denmark,2020,31.34
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2020,85.01
+Internet use: finding information about goods and services,Denmark,2021,85.48
+Internet use: selling goods or services,Denmark,2021,34.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2021,85.42
+Internet use: finding information about goods and services,Denmark,2022,89.97
+Internet use: selling goods or services,Denmark,2022,31.9
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2022,84.73
+Internet use: finding information about goods and services,Denmark,2023,88.59
+Internet use: selling goods or services,Denmark,2023,33.91
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2023,91.02
+Internet use: finding information about goods and services,Denmark,2024,94.13
+Internet use: selling goods or services,Denmark,2024,34.53
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Denmark,2024,90.02
+Internet use: finding information about goods and services,Estonia,2013,59.96
+Internet use: selling goods or services,Estonia,2013,13.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2013,48.82
+Internet use: finding information about goods and services,Estonia,2015,75.24
+Internet use: selling goods or services,Estonia,2015,18.76
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2015,55.83
+Internet use: finding information about goods and services,Estonia,2016,77.12
+Internet use: selling goods or services,Estonia,2016,19.03
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2016,57.45
+Internet use: finding information about goods and services,Estonia,2017,74.77
+Internet use: selling goods or services,Estonia,2017,18.38
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2017,60.31
+Internet use: finding information about goods and services,Estonia,2018,79.99
+Internet use: selling goods or services,Estonia,2018,23.76
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2018,62.07
+Internet use: finding information about goods and services,Estonia,2019,77.93
+Internet use: selling goods or services,Estonia,2019,18.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2019,65.14
+Internet use: finding information about goods and services,Estonia,2020,80.87
+Internet use: selling goods or services,Estonia,2020,20.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2020,65.2
+Internet use: finding information about goods and services,Estonia,2021,80.49
+Internet use: selling goods or services,Estonia,2021,23.39
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2021,67.33
+Internet use: finding information about goods and services,Estonia,2022,78.55
+Internet use: selling goods or services,Estonia,2022,23.24
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2022,66.08
+Internet use: finding information about goods and services,Estonia,2023,78.83
+Internet use: selling goods or services,Estonia,2023,23.53
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2023,68.49
+Internet use: finding information about goods and services,Estonia,2024,81.24
+Internet use: selling goods or services,Estonia,2024,27.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Estonia,2024,68.43
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2013,57.77
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2013,17.58
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2013,40.78
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2014,62.24
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2014,17.24
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2014,43.61
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2015,59.6
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2015,17.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2015,47.9
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2016,63.46
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2016,17.21
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2016,49.24
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2017,64.05
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2017,18.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2017,51.8
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2018,68.04
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2018,18.25
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2018,53.73
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2019,66.48
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2019,17.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2019,54.16
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2022,69.55
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2022,18.44
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2022,58.11
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2023,64.44
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2023,19.88
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2023,59.31
+Internet use: finding information about goods and services,European Union - 27 countries (from 2020),2024,75.18
+Internet use: selling goods or services,European Union - 27 countries (from 2020),2024,22.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",European Union - 27 countries (from 2020),2024,64.83
+Internet use: finding information about goods and services,Finland,2013,79.28
+Internet use: selling goods or services,Finland,2013,17.0
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2013,51.31
+Internet use: finding information about goods and services,Finland,2014,85.27
+Internet use: selling goods or services,Finland,2014,22.26
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2014,55.56
+Internet use: finding information about goods and services,Finland,2015,81.91
+Internet use: selling goods or services,Finland,2015,22.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2015,58.17
+Internet use: finding information about goods and services,Finland,2016,85.43
+Internet use: selling goods or services,Finland,2016,20.57
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2016,61.66
+Internet use: finding information about goods and services,Finland,2017,85.32
+Internet use: selling goods or services,Finland,2017,23.65
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2017,66.01
+Internet use: finding information about goods and services,Finland,2018,83.77
+Internet use: selling goods or services,Finland,2018,27.07
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2018,66.94
+Internet use: finding information about goods and services,Finland,2019,86.56
+Internet use: selling goods or services,Finland,2019,31.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2019,66.68
+Internet use: finding information about goods and services,Finland,2020,84.66
+Internet use: selling goods or services,Finland,2020,28.82
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2020,75.07
+Internet use: finding information about goods and services,Finland,2021,90.55
+Internet use: selling goods or services,Finland,2021,30.69
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2021,75.11
+Internet use: finding information about goods and services,Finland,2022,90.34
+Internet use: selling goods or services,Finland,2022,32.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2022,75.68
+Internet use: finding information about goods and services,Finland,2023,92.26
+Internet use: selling goods or services,Finland,2023,32.07
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2023,79.22
+Internet use: finding information about goods and services,Finland,2024,88.54
+Internet use: selling goods or services,Finland,2024,33.09
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Finland,2024,78.93
+Internet use: finding information about goods and services,France,2013,68.31
+Internet use: selling goods or services,France,2013,32.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2013,37.75
+Internet use: finding information about goods and services,France,2014,69.04
+Internet use: selling goods or services,France,2014,28.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2014,38.53
+Internet use: finding information about goods and services,France,2015,68.82
+Internet use: selling goods or services,France,2015,26.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2015,37.72
+Internet use: selling goods or services,France,2016,23.61
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2016,39.85
+Internet use: finding information about goods and services,France,2017,67.13
+Internet use: selling goods or services,France,2017,25.06
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2017,42.81
+Internet use: finding information about goods and services,France,2018,69.81
+Internet use: selling goods or services,France,2018,21.77
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2018,41.92
+Internet use: finding information about goods and services,France,2019,61.54
+Internet use: selling goods or services,France,2019,22.32
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2019,42.32
+Internet use: finding information about goods and services,France,2021,63.84
+Internet use: selling goods or services,France,2021,24.73
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2021,44.83
+Internet use: finding information about goods and services,France,2022,74.05
+Internet use: selling goods or services,France,2022,23.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2022,44.5
+Internet use: finding information about goods and services,France,2023,65.41
+Internet use: selling goods or services,France,2023,25.26
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2023,44.39
+Internet use: finding information about goods and services,France,2024,75.98
+Internet use: selling goods or services,France,2024,25.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",France,2024,
+Internet use: finding information about goods and services,Germany,2013,77.18
+Internet use: selling goods or services,Germany,2013,27.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2013,42.09
+Internet use: finding information about goods and services,Germany,2014,79.32
+Internet use: selling goods or services,Germany,2014,27.87
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2014,42.33
+Internet use: finding information about goods and services,Germany,2015,80.4
+Internet use: selling goods or services,Germany,2015,31.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2015,56.96
+Internet use: finding information about goods and services,Germany,2016,82.21
+Internet use: selling goods or services,Germany,2016,29.39
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2016,50.33
+Internet use: finding information about goods and services,Germany,2017,83.41
+Internet use: selling goods or services,Germany,2017,31.02
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2017,50.59
+Internet use: finding information about goods and services,Germany,2018,86.14
+Internet use: selling goods or services,Germany,2018,32.05
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2018,52.7
+Internet use: finding information about goods and services,Germany,2019,85.56
+Internet use: selling goods or services,Germany,2019,29.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2019,52.5
+Internet use: finding information about goods and services,Germany,2020,86.74
+Internet use: selling goods or services,Germany,2020,33.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2020,54.3
+Internet use: finding information about goods and services,Germany,2022,60.86
+Internet use: selling goods or services,Germany,2022,15.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2022,47.73
+Internet use: selling goods or services,Germany,2023,17.04
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2023,48.61
+Internet use: finding information about goods and services,Germany,2024,77.76
+Internet use: selling goods or services,Germany,2024,26.6
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Germany,2024,58.02
+Internet use: finding information about goods and services,Greece,2013,49.94
+Internet use: selling goods or services,Greece,2013,3.51
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2013,36.11
+Internet use: finding information about goods and services,Greece,2014,52.05
+Internet use: selling goods or services,Greece,2014,3.63
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2014,40.65
+Internet use: finding information about goods and services,Greece,2015,53.76
+Internet use: selling goods or services,Greece,2015,3.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2015,43.91
+Internet use: finding information about goods and services,Greece,2016,56.55
+Internet use: selling goods or services,Greece,2016,1.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2016,46.65
+Internet use: finding information about goods and services,Greece,2017,57.38
+Internet use: selling goods or services,Greece,2017,2.32
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2017,49.97
+Internet use: finding information about goods and services,Greece,2018,64.57
+Internet use: selling goods or services,Greece,2018,3.29
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2018,53.03
+Internet use: finding information about goods and services,Greece,2019,66.79
+Internet use: selling goods or services,Greece,2019,2.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2019,56.69
+Internet use: finding information about goods and services,Greece,2020,69.43
+Internet use: selling goods or services,Greece,2020,3.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2020,59.41
+Internet use: finding information about goods and services,Greece,2021,69.94
+Internet use: selling goods or services,Greece,2021,2.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2021,62.05
+Internet use: finding information about goods and services,Greece,2022,74.17
+Internet use: selling goods or services,Greece,2022,3.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2022,67.03
+Internet use: finding information about goods and services,Greece,2023,75.76
+Internet use: selling goods or services,Greece,2023,4.59
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2023,68.1
+Internet use: finding information about goods and services,Greece,2024,79.41
+Internet use: selling goods or services,Greece,2024,8.16
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Greece,2024,68.67
+Internet use: finding information about goods and services,Hungary,2013,58.06
+Internet use: selling goods or services,Hungary,2013,16.22
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2013,56.44
+Internet use: finding information about goods and services,Hungary,2014,65.95
+Internet use: selling goods or services,Hungary,2014,17.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2014,60.02
+Internet use: finding information about goods and services,Hungary,2015,60.66
+Internet use: selling goods or services,Hungary,2015,18.41
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2015,60.75
+Internet use: finding information about goods and services,Hungary,2016,69.78
+Internet use: selling goods or services,Hungary,2016,11.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2016,65.62
+Internet use: finding information about goods and services,Hungary,2017,65.01
+Internet use: selling goods or services,Hungary,2017,10.86
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2017,64.57
+Internet use: finding information about goods and services,Hungary,2018,68.63
+Internet use: selling goods or services,Hungary,2018,10.93
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2018,65.32
+Internet use: finding information about goods and services,Hungary,2019,69.26
+Internet use: selling goods or services,Hungary,2019,13.23
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2019,68.86
+Internet use: finding information about goods and services,Hungary,2020,76.27
+Internet use: selling goods or services,Hungary,2020,28.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2020,73.99
+Internet use: finding information about goods and services,Hungary,2021,78.93
+Internet use: selling goods or services,Hungary,2021,26.65
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2021,77.24
+Internet use: finding information about goods and services,Hungary,2022,77.75
+Internet use: selling goods or services,Hungary,2022,28.63
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2022,78.54
+Internet use: finding information about goods and services,Hungary,2023,84.81
+Internet use: selling goods or services,Hungary,2023,33.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2023,81.32
+Internet use: finding information about goods and services,Hungary,2024,83.19
+Internet use: selling goods or services,Hungary,2024,25.75
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Hungary,2024,81.01
+Internet use: finding information about goods and services,Iceland,2013,86.0
+Internet use: selling goods or services,Iceland,2013,22.81
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2013,78.88
+Internet use: finding information about goods and services,Iceland,2014,89.13
+Internet use: selling goods or services,Iceland,2014,31.16
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2014,82.73
+Internet use: finding information about goods and services,Iceland,2017,88.98
+Internet use: selling goods or services,Iceland,2017,33.59
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2017,89.46
+Internet use: finding information about goods and services,Iceland,2018,92.07
+Internet use: selling goods or services,Iceland,2018,27.57
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2018,90.87
+Internet use: finding information about goods and services,Iceland,2019,91.78
+Internet use: selling goods or services,Iceland,2019,21.18
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2019,91.65
+Internet use: finding information about goods and services,Iceland,2020,94.12
+Internet use: selling goods or services,Iceland,2020,23.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2020,93.82
+Internet use: finding information about goods and services,Iceland,2021,93.5
+Internet use: selling goods or services,Iceland,2021,22.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Iceland,2021,92.98
+Internet use: finding information about goods and services,Ireland,2013,60.85
+Internet use: selling goods or services,Ireland,2013,11.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2013,47.51
+Internet use: finding information about goods and services,Ireland,2014,67.68
+Internet use: selling goods or services,Ireland,2014,11.29
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2014,50.43
+Internet use: finding information about goods and services,Ireland,2015,64.08
+Internet use: selling goods or services,Ireland,2015,10.65
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2015,52.55
+Internet use: finding information about goods and services,Ireland,2016,67.58
+Internet use: selling goods or services,Ireland,2016,10.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2016,57.89
+Internet use: finding information about goods and services,Ireland,2017,69.7
+Internet use: selling goods or services,Ireland,2017,18.26
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2017,58.86
+Internet use: finding information about goods and services,Ireland,2018,72.55
+Internet use: selling goods or services,Ireland,2018,24.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2018,60.13
+Internet use: finding information about goods and services,Ireland,2019,76.54
+Internet use: selling goods or services,Ireland,2019,18.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2019,63.58
+Internet use: finding information about goods and services,Ireland,2020,71.72
+Internet use: selling goods or services,Ireland,2020,7.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2020,60.55
+Internet use: finding information about goods and services,Ireland,2022,80.55
+Internet use: selling goods or services,Ireland,2022,14.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2022,72.07
+Internet use: finding information about goods and services,Ireland,2023,85.22
+Internet use: selling goods or services,Ireland,2023,19.21
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2023,70.06
+Internet use: finding information about goods and services,Ireland,2024,93.17
+Internet use: selling goods or services,Ireland,2024,18.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Ireland,2024,74.5
+Internet use: finding information about goods and services,Italy,2013,37.18
+Internet use: selling goods or services,Italy,2013,9.02
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2013,31.63
+Internet use: finding information about goods and services,Italy,2014,35.06
+Internet use: selling goods or services,Italy,2014,9.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2014,36.21
+Internet use: finding information about goods and services,Italy,2015,37.12
+Internet use: selling goods or services,Italy,2015,8.91
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2015,38.05
+Internet use: finding information about goods and services,Italy,2016,34.62
+Internet use: selling goods or services,Italy,2016,6.53
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2016,41.54
+Internet use: finding information about goods and services,Italy,2017,37.87
+Internet use: selling goods or services,Italy,2017,7.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2017,43.36
+Internet use: finding information about goods and services,Italy,2018,40.36
+Internet use: selling goods or services,Italy,2018,8.24
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2018,46.48
+Internet use: finding information about goods and services,Italy,2019,40.44
+Internet use: selling goods or services,Italy,2019,7.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2019,42.3
+Internet use: finding information about goods and services,Italy,2020,48.37
+Internet use: selling goods or services,Italy,2020,10.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2020,48.42
+Internet use: finding information about goods and services,Italy,2021,53.04
+Internet use: selling goods or services,Italy,2021,13.31
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2021,50.19
+Internet use: finding information about goods and services,Italy,2022,53.54
+Internet use: selling goods or services,Italy,2022,14.56
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2022,53.19
+Internet use: finding information about goods and services,Italy,2023,58.38
+Internet use: selling goods or services,Italy,2023,16.79
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2023,53.06
+Internet use: finding information about goods and services,Italy,2024,58.07
+Internet use: selling goods or services,Italy,2024,18.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Italy,2024,55.96
+Internet use: finding information about goods and services,Kosovo*,2017,30.79
+Internet use: selling goods or services,Kosovo*,2017,1.31
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Kosovo*,2017,56.5
+Internet use: finding information about goods and services,Kosovo*,2018,31.94
+Internet use: selling goods or services,Kosovo*,2018,2.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Kosovo*,2018,63.27
+Internet use: finding information about goods and services,Kosovo*,2019,37.11
+Internet use: selling goods or services,Kosovo*,2019,6.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Kosovo*,2019,67.9
+Internet use: finding information about goods and services,Kosovo*,2020,71.18
+Internet use: selling goods or services,Kosovo*,2020,10.0
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Kosovo*,2020,82.97
+Internet use: finding information about goods and services,Latvia,2013,52.19
+Internet use: selling goods or services,Latvia,2013,4.64
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2013,54.45
+Internet use: finding information about goods and services,Latvia,2014,52.6
+Internet use: selling goods or services,Latvia,2014,3.73
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2014,52.74
+Internet use: finding information about goods and services,Latvia,2015,54.48
+Internet use: selling goods or services,Latvia,2015,5.53
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2015,57.5
+Internet use: finding information about goods and services,Latvia,2017,57.21
+Internet use: selling goods or services,Latvia,2017,7.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2017,59.9
+Internet use: finding information about goods and services,Latvia,2018,63.27
+Internet use: selling goods or services,Latvia,2018,9.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2018,61.47
+Internet use: finding information about goods and services,Latvia,2019,61.88
+Internet use: selling goods or services,Latvia,2019,8.85
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2019,64.66
+Internet use: finding information about goods and services,Latvia,2020,70.86
+Internet use: selling goods or services,Latvia,2020,12.21
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2020,67.09
+Internet use: finding information about goods and services,Latvia,2021,67.21
+Internet use: selling goods or services,Latvia,2021,13.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2021,69.76
+Internet use: finding information about goods and services,Latvia,2022,69.64
+Internet use: selling goods or services,Latvia,2022,10.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2022,71.19
+Internet use: finding information about goods and services,Latvia,2023,66.76
+Internet use: selling goods or services,Latvia,2023,13.25
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2023,73.25
+Internet use: finding information about goods and services,Latvia,2024,70.72
+Internet use: selling goods or services,Latvia,2024,12.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Latvia,2024,74.14
+Internet use: finding information about goods and services,Lithuania,2013,56.49
+Internet use: selling goods or services,Lithuania,2013,4.21
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2013,43.6
+Internet use: finding information about goods and services,Lithuania,2014,64.58
+Internet use: selling goods or services,Lithuania,2014,3.64
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2014,47.02
+Internet use: finding information about goods and services,Lithuania,2015,57.17
+Internet use: selling goods or services,Lithuania,2015,3.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2015,46.27
+Internet use: finding information about goods and services,Lithuania,2016,61.73
+Internet use: selling goods or services,Lithuania,2016,5.06
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2016,50.34
+Internet use: finding information about goods and services,Lithuania,2017,61.89
+Internet use: selling goods or services,Lithuania,2017,6.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2017,53.55
+Internet use: finding information about goods and services,Lithuania,2018,67.92
+Internet use: selling goods or services,Lithuania,2018,7.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2018,57.95
+Internet use: finding information about goods and services,Lithuania,2019,68.55
+Internet use: selling goods or services,Lithuania,2019,8.9
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2019,60.57
+Internet use: finding information about goods and services,Lithuania,2020,73.37
+Internet use: selling goods or services,Lithuania,2020,13.54
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2020,61.45
+Internet use: finding information about goods and services,Lithuania,2021,74.22
+Internet use: selling goods or services,Lithuania,2021,15.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2021,65.19
+Internet use: finding information about goods and services,Lithuania,2022,77.19
+Internet use: selling goods or services,Lithuania,2022,16.93
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2022,67.3
+Internet use: finding information about goods and services,Lithuania,2023,74.81
+Internet use: selling goods or services,Lithuania,2023,16.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2023,68.45
+Internet use: finding information about goods and services,Lithuania,2024,79.73
+Internet use: selling goods or services,Lithuania,2024,21.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Lithuania,2024,69.84
+Internet use: finding information about goods and services,Luxembourg,2013,69.72
+Internet use: selling goods or services,Luxembourg,2013,15.74
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2013,56.68
+Internet use: finding information about goods and services,Luxembourg,2014,82.23
+Internet use: selling goods or services,Luxembourg,2014,14.19
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2014,60.49
+Internet use: finding information about goods and services,Luxembourg,2015,75.91
+Internet use: selling goods or services,Luxembourg,2015,15.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2015,68.28
+Internet use: finding information about goods and services,Luxembourg,2016,86.19
+Internet use: selling goods or services,Luxembourg,2016,14.17
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2016,67.05
+Internet use: finding information about goods and services,Luxembourg,2017,81.58
+Internet use: selling goods or services,Luxembourg,2017,17.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2017,68.08
+Internet use: finding information about goods and services,Luxembourg,2019,67.25
+Internet use: selling goods or services,Luxembourg,2019,15.74
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2019,62.51
+Internet use: finding information about goods and services,Luxembourg,2020,68.32
+Internet use: selling goods or services,Luxembourg,2020,18.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2020,59.53
+Internet use: finding information about goods and services,Luxembourg,2021,66.8
+Internet use: selling goods or services,Luxembourg,2021,23.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2021,61.95
+Internet use: finding information about goods and services,Luxembourg,2022,69.47
+Internet use: selling goods or services,Luxembourg,2022,16.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2022,61.78
+Internet use: finding information about goods and services,Luxembourg,2023,60.12
+Internet use: selling goods or services,Luxembourg,2023,17.37
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2023,62.55
+Internet use: finding information about goods and services,Luxembourg,2024,72.51
+Internet use: selling goods or services,Luxembourg,2024,20.93
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Luxembourg,2024,67.7
+Internet use: finding information about goods and services,Malta,2013,50.1
+Internet use: selling goods or services,Malta,2013,20.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2013,50.93
+Internet use: finding information about goods and services,Malta,2014,63.77
+Internet use: selling goods or services,Malta,2014,16.83
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2014,53.12
+Internet use: finding information about goods and services,Malta,2015,61.4
+Internet use: selling goods or services,Malta,2015,24.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2015,60.08
+Internet use: finding information about goods and services,Malta,2016,64.77
+Internet use: selling goods or services,Malta,2016,21.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2016,64.04
+Internet use: finding information about goods and services,Malta,2017,71.1
+Internet use: selling goods or services,Malta,2017,29.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2017,70.37
+Internet use: finding information about goods and services,Malta,2018,71.25
+Internet use: selling goods or services,Malta,2018,29.27
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2018,69.61
+Internet use: finding information about goods and services,Malta,2019,71.56
+Internet use: selling goods or services,Malta,2019,30.24
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2019,70.66
+Internet use: finding information about goods and services,Malta,2020,77.19
+Internet use: selling goods or services,Malta,2020,32.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2020,72.49
+Internet use: finding information about goods and services,Malta,2021,77.63
+Internet use: selling goods or services,Malta,2021,35.44
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2021,75.57
+Internet use: finding information about goods and services,Malta,2022,79.51
+Internet use: selling goods or services,Malta,2022,36.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2022,75.74
+Internet use: finding information about goods and services,Malta,2023,78.04
+Internet use: selling goods or services,Malta,2023,38.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2023,75.75
+Internet use: finding information about goods and services,Malta,2024,80.67
+Internet use: selling goods or services,Malta,2024,28.83
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Malta,2024,76.65
+Internet use: finding information about goods and services,Montenegro,2017,39.91
+Internet use: selling goods or services,Montenegro,2017,5.32
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2017,58.38
+Internet use: finding information about goods and services,Montenegro,2018,45.16
+Internet use: selling goods or services,Montenegro,2018,3.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2018,60.38
+Internet use: finding information about goods and services,Montenegro,2019,37.88
+Internet use: selling goods or services,Montenegro,2019,4.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2019,62.15
+Internet use: finding information about goods and services,Montenegro,2020,47.03
+Internet use: selling goods or services,Montenegro,2020,4.9
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2020,67.37
+Internet use: finding information about goods and services,Montenegro,2021,49.67
+Internet use: selling goods or services,Montenegro,2021,4.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2021,71.39
+Internet use: finding information about goods and services,Montenegro,2022,58.08
+Internet use: selling goods or services,Montenegro,2022,6.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2022,77.32
+Internet use: finding information about goods and services,Montenegro,2023,55.71
+Internet use: selling goods or services,Montenegro,2023,5.4
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2023,77.55
+Internet use: finding information about goods and services,Montenegro,2024,55.61
+Internet use: selling goods or services,Montenegro,2024,6.93
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Montenegro,2024,78.84
+Internet use: finding information about goods and services,Netherlands,2013,83.16
+Internet use: selling goods or services,Netherlands,2013,47.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2013,55.04
+Internet use: finding information about goods and services,Netherlands,2014,85.47
+Internet use: selling goods or services,Netherlands,2014,28.56
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2014,58.6
+Internet use: finding information about goods and services,Netherlands,2015,84.4
+Internet use: selling goods or services,Netherlands,2015,28.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2015,59.33
+Internet use: finding information about goods and services,Netherlands,2016,84.52
+Internet use: selling goods or services,Netherlands,2016,33.68
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2016,61.83
+Internet use: finding information about goods and services,Netherlands,2017,88.39
+Internet use: selling goods or services,Netherlands,2017,36.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2017,66.56
+Internet use: finding information about goods and services,Netherlands,2018,88.91
+Internet use: selling goods or services,Netherlands,2018,35.11
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2018,65.75
+Internet use: finding information about goods and services,Netherlands,2019,89.36
+Internet use: selling goods or services,Netherlands,2019,36.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2019,66.91
+Internet use: finding information about goods and services,Netherlands,2020,88.64
+Internet use: selling goods or services,Netherlands,2020,36.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2020,71.23
+Internet use: finding information about goods and services,Netherlands,2021,90.61
+Internet use: selling goods or services,Netherlands,2021,42.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2021,73.3
+Internet use: finding information about goods and services,Netherlands,2022,89.89
+Internet use: selling goods or services,Netherlands,2022,41.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2022,74.09
+Internet use: finding information about goods and services,Netherlands,2023,95.33
+Internet use: selling goods or services,Netherlands,2023,41.22
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2023,76.62
+Internet use: finding information about goods and services,Netherlands,2024,96.28
+Internet use: selling goods or services,Netherlands,2024,42.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Netherlands,2024,80.06
+Internet use: finding information about goods and services,North Macedonia,2013,34.04
+Internet use: selling goods or services,North Macedonia,2013,4.68
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2013,55.16
+Internet use: finding information about goods and services,North Macedonia,2014,41.81
+Internet use: selling goods or services,North Macedonia,2014,3.45
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2014,54.32
+Internet use: finding information about goods and services,North Macedonia,2015,29.58
+Internet use: selling goods or services,North Macedonia,2015,3.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2015,58.85
+Internet use: finding information about goods and services,North Macedonia,2016,38.75
+Internet use: selling goods or services,North Macedonia,2016,5.16
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2016,59.55
+Internet use: finding information about goods and services,North Macedonia,2017,37.54
+Internet use: selling goods or services,North Macedonia,2017,3.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2017,62.42
+Internet use: finding information about goods and services,North Macedonia,2018,49.63
+Internet use: selling goods or services,North Macedonia,2018,5.73
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2018,64.86
+Internet use: finding information about goods and services,North Macedonia,2019,53.41
+Internet use: selling goods or services,North Macedonia,2019,4.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2019,68.3
+Internet use: finding information about goods and services,North Macedonia,2020,52.05
+Internet use: selling goods or services,North Macedonia,2020,8.48
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2020,69.77
+Internet use: finding information about goods and services,North Macedonia,2021,57.15
+Internet use: selling goods or services,North Macedonia,2021,5.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2021,73.54
+Internet use: finding information about goods and services,North Macedonia,2024,65.88
+Internet use: selling goods or services,North Macedonia,2024,12.59
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",North Macedonia,2024,76.66
+Internet use: finding information about goods and services,Norway,2013,79.01
+Internet use: selling goods or services,Norway,2013,28.02
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2013,67.58
+Internet use: finding information about goods and services,Norway,2014,88.14
+Internet use: selling goods or services,Norway,2014,25.6
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2014,70.67
+Internet use: finding information about goods and services,Norway,2015,82.17
+Internet use: selling goods or services,Norway,2015,29.43
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2015,73.22
+Internet use: finding information about goods and services,Norway,2016,88.37
+Internet use: selling goods or services,Norway,2016,30.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2016,76.16
+Internet use: finding information about goods and services,Norway,2017,83.11
+Internet use: selling goods or services,Norway,2017,32.38
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2017,82.58
+Internet use: finding information about goods and services,Norway,2018,90.61
+Internet use: selling goods or services,Norway,2018,31.94
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2018,81.8
+Internet use: finding information about goods and services,Norway,2019,90.3
+Internet use: selling goods or services,Norway,2019,33.38
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2019,86.31
+Internet use: finding information about goods and services,Norway,2020,91.17
+Internet use: selling goods or services,Norway,2020,32.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2020,87.83
+Internet use: finding information about goods and services,Norway,2021,92.75
+Internet use: selling goods or services,Norway,2021,39.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2021,88.28
+Internet use: finding information about goods and services,Norway,2022,95.63
+Internet use: selling goods or services,Norway,2022,37.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2022,89.65
+Internet use: finding information about goods and services,Norway,2023,95.52
+Internet use: selling goods or services,Norway,2023,41.37
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2023,89.96
+Internet use: finding information about goods and services,Norway,2024,95.22
+Internet use: selling goods or services,Norway,2024,42.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Norway,2024,90.95
+Internet use: finding information about goods and services,Poland,2013,45.47
+Internet use: selling goods or services,Poland,2013,7.56
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2013,35.29
+Internet use: finding information about goods and services,Poland,2014,50.13
+Internet use: selling goods or services,Poland,2014,11.56
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2014,36.8
+Internet use: finding information about goods and services,Poland,2015,42.24
+Internet use: selling goods or services,Poland,2015,12.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2015,41.4
+Internet use: finding information about goods and services,Poland,2016,56.63
+Internet use: selling goods or services,Poland,2016,15.58
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2016,44.2
+Internet use: finding information about goods and services,Poland,2017,58.35
+Internet use: selling goods or services,Poland,2017,15.51
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2017,48.02
+Internet use: finding information about goods and services,Poland,2018,63.98
+Internet use: selling goods or services,Poland,2018,14.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2018,49.87
+Internet use: finding information about goods and services,Poland,2019,62.24
+Internet use: selling goods or services,Poland,2019,13.68
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2019,53.04
+Internet use: finding information about goods and services,Poland,2020,62.74
+Internet use: selling goods or services,Poland,2020,12.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2020,54.78
+Internet use: finding information about goods and services,Poland,2021,65.63
+Internet use: selling goods or services,Poland,2021,10.79
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2021,56.78
+Internet use: finding information about goods and services,Poland,2022,74.25
+Internet use: selling goods or services,Poland,2022,13.39
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2022,60.61
+Internet use: finding information about goods and services,Poland,2023,64.45
+Internet use: selling goods or services,Poland,2023,13.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2023,62.29
+Internet use: finding information about goods and services,Poland,2024,69.26
+Internet use: selling goods or services,Poland,2024,15.95
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Poland,2024,60.97
+Internet use: finding information about goods and services,Portugal,2013,45.98
+Internet use: selling goods or services,Portugal,2013,5.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2013,43.68
+Internet use: finding information about goods and services,Portugal,2014,55.67
+Internet use: selling goods or services,Portugal,2014,7.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2014,46.76
+Internet use: finding information about goods and services,Portugal,2015,52.14
+Internet use: selling goods or services,Portugal,2015,7.94
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2015,48.06
+Internet use: finding information about goods and services,Portugal,2016,58.68
+Internet use: selling goods or services,Portugal,2016,7.95
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2016,52.17
+Internet use: finding information about goods and services,Portugal,2017,60.49
+Internet use: selling goods or services,Portugal,2017,8.22
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2017,56.13
+Internet use: finding information about goods and services,Portugal,2018,63.58
+Internet use: selling goods or services,Portugal,2018,7.91
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2018,59.18
+Internet use: finding information about goods and services,Portugal,2019,64.74
+Internet use: selling goods or services,Portugal,2019,9.25
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2019,60.4
+Internet use: finding information about goods and services,Portugal,2020,68.12
+Internet use: selling goods or services,Portugal,2020,9.23
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2020,62.74
+Internet use: finding information about goods and services,Portugal,2021,71.37
+Internet use: selling goods or services,Portugal,2021,9.85
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2021,65.46
+Internet use: finding information about goods and services,Portugal,2022,72.76
+Internet use: selling goods or services,Portugal,2022,9.25
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2022,66.72
+Internet use: finding information about goods and services,Portugal,2023,73.18
+Internet use: selling goods or services,Portugal,2023,10.29
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2023,68.03
+Internet use: finding information about goods and services,Portugal,2024,77.8
+Internet use: selling goods or services,Portugal,2024,12.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Portugal,2024,70.47
+Internet use: finding information about goods and services,Romania,2013,25.71
+Internet use: selling goods or services,Romania,2013,1.9
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2013,33.42
+Internet use: finding information about goods and services,Romania,2015,26.22
+Internet use: selling goods or services,Romania,2015,2.74
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2015,43.64
+Internet use: finding information about goods and services,Romania,2016,34.81
+Internet use: selling goods or services,Romania,2016,2.97
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2016,44.29
+Internet use: finding information about goods and services,Romania,2017,31.13
+Internet use: selling goods or services,Romania,2017,2.84
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2017,52.2
+Internet use: finding information about goods and services,Romania,2018,41.43
+Internet use: selling goods or services,Romania,2018,3.38
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2018,60.77
+Internet use: finding information about goods and services,Romania,2019,33.48
+Internet use: selling goods or services,Romania,2019,2.52
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2019,60.18
+Internet use: finding information about goods and services,Romania,2020,45.79
+Internet use: selling goods or services,Romania,2020,3.66
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2020,64.85
+Internet use: finding information about goods and services,Romania,2021,43.66
+Internet use: selling goods or services,Romania,2021,4.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2021,68.55
+Internet use: finding information about goods and services,Romania,2022,49.28
+Internet use: selling goods or services,Romania,2022,4.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2022,69.01
+Internet use: finding information about goods and services,Romania,2023,48.89
+Internet use: selling goods or services,Romania,2023,5.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2023,75.24
+Internet use: finding information about goods and services,Romania,2024,56.28
+Internet use: selling goods or services,Romania,2024,6.32
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Romania,2024,74.89
+Internet use: finding information about goods and services,Serbia,2015,44.13
+Internet use: selling goods or services,Serbia,2015,20.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2015,49.32
+Internet use: finding information about goods and services,Serbia,2017,53.04
+Internet use: selling goods or services,Serbia,2017,17.77
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2017,47.68
+Internet use: finding information about goods and services,Serbia,2018,56.31
+Internet use: selling goods or services,Serbia,2018,16.31
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2018,51.57
+Internet use: finding information about goods and services,Serbia,2019,52.78
+Internet use: selling goods or services,Serbia,2019,11.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2019,54.82
+Internet use: finding information about goods and services,Serbia,2020,56.07
+Internet use: selling goods or services,Serbia,2020,6.69
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2020,57.47
+Internet use: finding information about goods and services,Serbia,2021,59.64
+Internet use: selling goods or services,Serbia,2021,6.05
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2021,60.31
+Internet use: finding information about goods and services,Serbia,2022,67.58
+Internet use: selling goods or services,Serbia,2022,6.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2022,68.38
+Internet use: finding information about goods and services,Serbia,2023,65.16
+Internet use: selling goods or services,Serbia,2023,6.24
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2023,70.24
+Internet use: finding information about goods and services,Serbia,2024,69.29
+Internet use: selling goods or services,Serbia,2024,6.32
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Serbia,2024,71.39
+Internet use: finding information about goods and services,Slovakia,2013,55.72
+Internet use: selling goods or services,Slovakia,2013,11.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2013,48.6
+Internet use: finding information about goods and services,Slovakia,2014,59.71
+Internet use: selling goods or services,Slovakia,2014,10.83
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2014,50.37
+Internet use: finding information about goods and services,Slovakia,2015,57.31
+Internet use: selling goods or services,Slovakia,2015,9.03
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2015,53.64
+Internet use: finding information about goods and services,Slovakia,2016,60.81
+Internet use: selling goods or services,Slovakia,2016,12.55
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2016,56.99
+Internet use: finding information about goods and services,Slovakia,2017,58.4
+Internet use: selling goods or services,Slovakia,2017,11.79
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2017,58.74
+Internet use: finding information about goods and services,Slovakia,2018,63.51
+Internet use: selling goods or services,Slovakia,2018,23.71
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2018,59.84
+Internet use: finding information about goods and services,Slovakia,2019,59.85
+Internet use: selling goods or services,Slovakia,2019,21.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2019,59.24
+Internet use: finding information about goods and services,Slovakia,2020,78.16
+Internet use: selling goods or services,Slovakia,2020,25.4
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2020,64.49
+Internet use: finding information about goods and services,Slovakia,2021,71.11
+Internet use: selling goods or services,Slovakia,2021,26.76
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2021,64.58
+Internet use: finding information about goods and services,Slovakia,2022,67.11
+Internet use: selling goods or services,Slovakia,2022,20.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2022,57.68
+Internet use: finding information about goods and services,Slovakia,2023,65.36
+Internet use: selling goods or services,Slovakia,2023,28.75
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2023,56.99
+Internet use: finding information about goods and services,Slovakia,2024,70.07
+Internet use: selling goods or services,Slovakia,2024,28.23
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovakia,2024,57.3
+Internet use: finding information about goods and services,Slovenia,2013,54.76
+Internet use: selling goods or services,Slovenia,2013,35.05
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2013,38.28
+Internet use: finding information about goods and services,Slovenia,2014,62.08
+Internet use: selling goods or services,Slovenia,2014,28.82
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2014,41.82
+Internet use: finding information about goods and services,Slovenia,2015,60.97
+Internet use: selling goods or services,Slovenia,2015,18.04
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2015,37.37
+Internet use: finding information about goods and services,Slovenia,2016,64.64
+Internet use: selling goods or services,Slovenia,2016,16.34
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2016,38.31
+Internet use: finding information about goods and services,Slovenia,2017,69.38
+Internet use: selling goods or services,Slovenia,2017,21.47
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2017,45.16
+Internet use: finding information about goods and services,Slovenia,2018,69.25
+Internet use: selling goods or services,Slovenia,2018,17.75
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2018,48.81
+Internet use: finding information about goods and services,Slovenia,2019,69.89
+Internet use: selling goods or services,Slovenia,2019,18.16
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2019,52.09
+Internet use: finding information about goods and services,Slovenia,2020,76.71
+Internet use: selling goods or services,Slovenia,2020,18.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2020,67.07
+Internet use: finding information about goods and services,Slovenia,2021,75.2
+Internet use: selling goods or services,Slovenia,2021,17.7
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2021,63.61
+Internet use: finding information about goods and services,Slovenia,2022,75.34
+Internet use: selling goods or services,Slovenia,2022,17.91
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2022,63.04
+Internet use: finding information about goods and services,Slovenia,2023,76.56
+Internet use: selling goods or services,Slovenia,2023,17.64
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2023,63.46
+Internet use: finding information about goods and services,Slovenia,2024,78.9
+Internet use: selling goods or services,Slovenia,2024,19.02
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Slovenia,2024,64.56
+Internet use: finding information about goods and services,Spain,2013,47.53
+Internet use: selling goods or services,Spain,2013,8.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2013,45.92
+Internet use: finding information about goods and services,Spain,2014,65.58
+Internet use: selling goods or services,Spain,2014,10.18
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2014,51.11
+Internet use: finding information about goods and services,Spain,2015,54.77
+Internet use: selling goods or services,Spain,2015,10.06
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2015,50.93
+Internet use: finding information about goods and services,Spain,2016,66.58
+Internet use: selling goods or services,Spain,2016,11.83
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2016,53.79
+Internet use: finding information about goods and services,Spain,2017,63.0
+Internet use: selling goods or services,Spain,2017,13.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2017,57.17
+Internet use: finding information about goods and services,Spain,2018,72.34
+Internet use: selling goods or services,Spain,2018,11.29
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2018,58.06
+Internet use: finding information about goods and services,Spain,2019,72.85
+Internet use: selling goods or services,Spain,2019,14.05
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2019,58.61
+Internet use: finding information about goods and services,Spain,2020,78.29
+Internet use: selling goods or services,Spain,2020,13.96
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2020,64.68
+Internet use: finding information about goods and services,Spain,2021,74.0
+Internet use: selling goods or services,Spain,2021,18.52
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2021,64.66
+Internet use: finding information about goods and services,Spain,2022,75.57
+Internet use: selling goods or services,Spain,2022,19.87
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2022,63.22
+Internet use: finding information about goods and services,Spain,2023,72.3
+Internet use: selling goods or services,Spain,2023,19.14
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2023,64.49
+Internet use: finding information about goods and services,Spain,2024,79.99
+Internet use: selling goods or services,Spain,2024,21.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Spain,2024,64.7
+Internet use: finding information about goods and services,Sweden,2013,80.82
+Internet use: selling goods or services,Sweden,2013,14.2
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2013,56.72
+Internet use: finding information about goods and services,Sweden,2014,85.9
+Internet use: selling goods or services,Sweden,2014,14.48
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2014,65.18
+Internet use: finding information about goods and services,Sweden,2015,72.7
+Internet use: selling goods or services,Sweden,2015,18.28
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2015,62.48
+Internet use: finding information about goods and services,Sweden,2017,84.12
+Internet use: selling goods or services,Sweden,2017,21.51
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2017,70.75
+Internet use: finding information about goods and services,Sweden,2018,82.92
+Internet use: selling goods or services,Sweden,2018,25.17
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2018,70.36
+Internet use: finding information about goods and services,Sweden,2019,83.13
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2019,72.22
+Internet use: finding information about goods and services,Sweden,2020,88.48
+Internet use: selling goods or services,Sweden,2020,28.08
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2020,72.9
+Internet use: finding information about goods and services,Sweden,2021,82.95
+Internet use: selling goods or services,Sweden,2021,27.33
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2021,71.51
+Internet use: finding information about goods and services,Sweden,2022,88.73
+Internet use: selling goods or services,Sweden,2022,26.91
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2022,71.08
+Internet use: finding information about goods and services,Sweden,2023,87.46
+Internet use: selling goods or services,Sweden,2023,28.83
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2023,73.43
+Internet use: finding information about goods and services,Sweden,2024,89.35
+Internet use: selling goods or services,Sweden,2024,27.92
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Sweden,2024,73.13
+Internet use: finding information about goods and services,Switzerland,2014,71.68
+Internet use: selling goods or services,Switzerland,2014,16.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Switzerland,2014,42.86
+Internet use: finding information about goods and services,Switzerland,2019,80.93
+Internet use: selling goods or services,Switzerland,2019,25.29
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Switzerland,2019,53.26
+Internet use: finding information about goods and services,Switzerland,2021,85.75
+Internet use: selling goods or services,Switzerland,2021,29.38
+Internet use: finding information about goods and services,Switzerland,2023,87.74
+Internet use: selling goods or services,Switzerland,2023,28.82
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Switzerland,2023,69.11
+Internet use: finding information about goods and services,Türkiye,2013,25.86
+Internet use: selling goods or services,Türkiye,2013,4.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2013,31.58
+Internet use: finding information about goods and services,Türkiye,2014,32.59
+Internet use: selling goods or services,Türkiye,2014,8.02
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2014,38.19
+Internet use: finding information about goods and services,Türkiye,2015,30.44
+Internet use: selling goods or services,Türkiye,2015,10.64
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2015,41.47
+Internet use: finding information about goods and services,Türkiye,2016,38.23
+Internet use: selling goods or services,Türkiye,2016,11.65
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2016,48.06
+Internet use: finding information about goods and services,Türkiye,2017,42.62
+Internet use: selling goods or services,Türkiye,2017,11.49
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2017,54.14
+Internet use: finding information about goods and services,Türkiye,2018,48.17
+Internet use: selling goods or services,Türkiye,2018,15.15
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2018,59.76
+Internet use: finding information about goods and services,Türkiye,2019,48.1
+Internet use: selling goods or services,Türkiye,2019,16.1
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2019,60.18
+Internet use: finding information about goods and services,Türkiye,2020,51.98
+Internet use: selling goods or services,Türkiye,2020,10.4
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2020,62.31
+Internet use: finding information about goods and services,Türkiye,2021,48.19
+Internet use: selling goods or services,Türkiye,2021,9.01
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2021,60.08
+Internet use: finding information about goods and services,Türkiye,2022,61.44
+Internet use: selling goods or services,Türkiye,2022,9.37
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2022,70.85
+Internet use: finding information about goods and services,Türkiye,2023,61.19
+Internet use: selling goods or services,Türkiye,2023,9.36
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2023,74.58
+Internet use: finding information about goods and services,Türkiye,2024,65.35
+Internet use: selling goods or services,Türkiye,2024,9.99
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",Türkiye,2024,76.42
+Internet use: finding information about goods and services,United Kingdom,2013,69.63
+Internet use: selling goods or services,United Kingdom,2013,30.67
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2013,58.12
+Internet use: finding information about goods and services,United Kingdom,2014,78.01
+Internet use: selling goods or services,United Kingdom,2014,33.98
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2014,59.82
+Internet use: finding information about goods and services,United Kingdom,2015,74.06
+Internet use: selling goods or services,United Kingdom,2015,23.35
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2015,65.66
+Internet use: finding information about goods and services,United Kingdom,2016,79.85
+Internet use: selling goods or services,United Kingdom,2016,20.65
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2016,68.75
+Internet use: finding information about goods and services,United Kingdom,2017,75.41
+Internet use: selling goods or services,United Kingdom,2017,20.78
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2017,71.22
+Internet use: finding information about goods and services,United Kingdom,2018,81.09
+Internet use: selling goods or services,United Kingdom,2018,26.62
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2018,69.75
+Internet use: finding information about goods and services,United Kingdom,2019,81.3
+Internet use: selling goods or services,United Kingdom,2019,31.0
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2019,73.13
+Internet use: finding information about goods and services,United Kingdom,2020,84.78
+Internet use: selling goods or services,United Kingdom,2020,22.42
+"Internet use: participating in social networks (creating user profile, posting messages or other contributions to facebook, twitter, etc.)",United Kingdom,2020,75.71

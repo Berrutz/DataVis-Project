@@ -21,5 +21,11 @@ export interface FrequencyData {
     percentage: number;
   }
   
+  export interface PurchaseData {
+    country: string;
+    year: string;
+    percentage: number;
+  }
+
   
   
