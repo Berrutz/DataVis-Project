@@ -263,6 +263,11 @@ if __name__ == "__main__":
     df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
     df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
 
+    # Remove "individuals, " from the IU_CSV_ENTRIES.INDIVIDUAL_TYPE column.
+    str = "Individuals, "
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.INDIVIDUAL_TYPE, [str], [""])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.INDIVIDUAL_TYPE, [str], [""])
+    
     # Change entities names into their short version for better display
     oldStr1 = "European Union - 27 countries (from 2020)"
     oldStr2 = "European Union - 28 countries (2013-2020)"
