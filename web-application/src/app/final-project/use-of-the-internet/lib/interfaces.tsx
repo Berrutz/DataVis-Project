@@ -9,9 +9,9 @@ export interface FrequencyData {
   }
 
   export interface FinancialData {
-    geo: string;
-    TIME_PERIOD: string;
-    OBS_VALUE: number;
+    country: string;
+    year: string;
+    percentage: number;
     population: number;
   }
 

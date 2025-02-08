@@ -32,7 +32,7 @@ export default function DegradingMessages() {
     useEffect(() => {
         const fetchData = async () => {
           try{
-            console.log("Fetching data...");
+            //console.log("Fetching data...");
     
             // Load of the data
             const DegradeCsvData: DegradingData[] = await d3.csv(
@@ -45,7 +45,7 @@ export default function DegradingMessages() {
             );
             setAllData(DegradeCsvData);
             
-            console.log("ALL DATA DEGRADED : " ,DegradeCsvData )
+            //console.log("ALL DATA DEGRADED : " ,DegradeCsvData )
     
             // Estrazione di anni e paesi unici
             const uniqueCountries = Array.from(new Set(DegradeCsvData.map(d => d.country))).sort();

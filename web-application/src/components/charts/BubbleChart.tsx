@@ -3,131 +3,195 @@ import React, { useEffect, useRef } from 'react';
 
 // Interfaccia per le proprietà del componente
 interface BubbleChartProps {
-  x: string[]; // Tempo o altre etichette lungo l'asse X
-  y: number[]; // Valori Y
-  r: number[]; // Dimensioni delle bolle
-  p: string[]; // Paesi
-  width: number; // Larghezza del grafico
-  height: number; // Altezza del grafico
-  colorInterpolator: (t: number) => string; // Funzione per l'interpolazione dei colori
+  bubble_percentage:number[];
+  bubble_dimension: number[]; // Dimension of the bubbles
+  bubble_color: string[]; 
+  bubble_number: string[];
+  width: number; 
+  height: number; 
+  colorInterpolator: (t: number) => string; 
+  mt?: number;
+  mr?: number;
+  mb?: number;
+  ml?: number;
 }
 
-const BubbleChart: React.FC<BubbleChartProps> = ({ x, y, r, p, width, height, colorInterpolator }) => {
+const BubbleChart: React.FC<BubbleChartProps> = (
+  { 
+    bubble_percentage,
+    bubble_dimension, 
+    bubble_color, 
+    bubble_number, 
+    width, 
+    height, 
+    colorInterpolator,
+    mt,
+    mr,
+    mb,
+    ml
+  }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (!svgRef.current || x.length === 0 || y.length === 0 || r.length === 0 || p.length === 0) return;
-
-    console.log("BUBBLE - x : ",x)
+    if (!svgRef.current || bubble_dimension.length === 0 || bubble_color.length === 0 || bubble_number.length === 0 ) return;
 
 
-    // Rimuove il contenuto precedente
     d3.select(svgRef.current).selectAll('*').remove();
 
-    const svg = d3.select(svgRef.current);
-    const margin = 20;
-    const chartWidth = width - margin * 2;
-    const chartHeight = height - margin * 2;
+    const margin = {
+      top: mt || 20,
+      right: mr || 0,
+      bottom: mb || 40,
+      left: ml || 75
+    };
 
-    // Scala per l'asse X (da etichette stringhe a numeri)
-    const xScale = d3.scalePoint().domain(x).range([0, chartWidth]);
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
 
-    // Scala per i colori
-    const uniqueCountries = Array.from(new Set(p));
-    const colorScale = d3
-      .scaleOrdinal<string, string>()
-      .domain(uniqueCountries)
-      .range(uniqueCountries.map((_, i) => colorInterpolator(i / uniqueCountries.length)));
+    const svg = d3
+          .select(svgRef.current)
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Unisce i dati
-    const data = x.map((label, i) => ({
-      x: xScale(label) || 0, // Mappa la stringa X a un valore numerico
-      y: chartHeight - y[i], // Inverti l'asse Y
-      r: r[i],
-      p: p[i],
+    // Creazione della mappa colori
+    const uniqueCountries = Array.from(new Set(bubble_color)); // Ottieni i paesi unici
+    const colorMap = uniqueCountries.reduce((acc, country, i) => {
+      acc[country] = colorInterpolator(i / uniqueCountries.length); // Associa un colore fisso
+      return acc;
+    }, {} as Record<string, string>);
+
+
+    // Creazione di un dataset con i dati normalizzati
+    const centerX = chartWidth / 2;
+    const centerY = chartHeight / 2;
+    const dataset = bubble_dimension.map((dim, i) => ({
+      radius: dim, // Grandezza della bolla
+      color: colorMap[bubble_color[i]], // Colore della bolla
+      year: bubble_number[i], // Anno della bolla
+      percentage : bubble_percentage[i],
+      x: centerX, // Posizione iniziale casuale (necessario per D3)
+      y: centerY, // Posizione iniziale casuale
     }));
 
-    // Simulazione di forza
-    const simulation = d3
-      .forceSimulation(data as d3.SimulationNodeDatum[]) // Cast a SimulationNodeDatum[]
-      .force(
-        'x',
-        d3.forceX(chartWidth / 2).strength(0.05)
-      )
-      .force(
-        'y',
-        d3.forceY(chartHeight / 2).strength(0.05)
-      )
-      .force(
-        'collision',
-        d3.forceCollide().radius((d: any) => d.r / 5 + 5)
-      )
-      .stop();
+    console.log("dataset: ",dataset)
 
-    for (let i = 0; i < 30; i++) simulation.tick();
+    // Definizione del layout a forza
+    const distance = 3
+    const strenght = -10
+    const simulation = d3.forceSimulation(dataset as d3.SimulationNodeDatum[])
+      .force("charge", d3.forceManyBody().strength(strenght)) // Controlla la dispersione
+      .force("center", d3.forceCenter(centerX, centerY))
+      .force("collision", d3.forceCollide().radius(d => (d as any).radius + distance)) // +3 per un po' di spazio
+      .force("customMoveX", d3.forceX().x(d => {
+        const moveX = Math.random() ; // Movimento più grande orizzontale
+        
+        var xFinalPos = (d as any).x + moveX + (d as any).radius;
+        if(xFinalPos > chartWidth){
+          xFinalPos = chartWidth - (d as any).radius; 
+        }
+        return xFinalPos ;
 
-    // Aggiunta del gruppo principale
-    const g = svg
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .append('g')
-      .attr('transform', `translate(${margin}, ${margin})`);
+      }))
+      .force("customMoveY", d3.forceY().y(d => {
+        const moveY = Math.random() ; // Movimento verticale minore
+        var xFinalPos = (d as any).x + moveY + (d as any).radius;
+        if(xFinalPos > chartHeight){
+          xFinalPos = chartHeight - (d as any).radius; 
+        }
+        return xFinalPos ;
+      }))
+      .on("tick", ticked);
 
-    // Aggiunge le bolle
-    g.selectAll('circle')
-      .data(data)
+      const group = svg.append("g").attr("transform", `translate(0,0)`);
+
+      // Crea le bolle
+      const bubbles = group.selectAll("circle")
+      .data(dataset)
       .enter()
-      .append('circle')
-      .attr('cx', (d: any) => d.x)
-      .attr('cy', (d: any) => d.y)
-      .attr('r', (d: any) => d.r / 5)
-      .style('fill', (d: any) => colorScale(d.p))
-      .style('opacity', 0.8);
-
-    // Etichette per le bolle
-    g.selectAll('text')
-      .data(data)
+      .append("circle")
+      .attr("r", d => d.radius)
+      .attr("fill", d => d.color); // Usa il colore fisso del paese
+  
+      const labels = group.selectAll("text")
+      .data(dataset)
       .enter()
-      .append('text')
-      .attr('x', (d: any) => d.x)
-      .attr('y', (d: any) => d.y)
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.35em')
-      .text((d: any) => d.p)
-      .style('font-size', '10px')
-      .style('fill', 'white')
-      .style('pointer-events', 'none');
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", ".3em")
+      .style("fill", "white")
+      .style("font-size", "10px")
+      .each(function(d) {
+        const text = d3.select(this);
 
-    // Legenda
-    const legend = svg
-      .append('g')
-      .attr('transform', `translate(${margin}, ${chartHeight + margin + 20})`);
+        // Calcola le dimensioni del testo in base al raggio
+        const yearFontSize = Math.max(d.radius * 0.4, 10);  // Minimo 10px, massimo in proporzione
+        const percentageFontSize = Math.max(d.radius * 0.3, 8); // Minimo 8px
+    
+        // Aggiunge la prima riga (anno)
+        text.append("tspan")
+          .attr("x", d.x) // Deve essere aggiornato con la simulazione
+          .attr("dy", "-0.4em") // Sposta leggermente sopra il centro
+          .style("font-size", `${yearFontSize}px`)
+          .style("font-weight", "bold")  // 🔥 TESTO IN GRASSETTO
+          .text(d.year);
+    
+        // Aggiunge la seconda riga (percentuale)
+        text.append("tspan")
+          .attr("x", d.x) // Deve essere aggiornato con la simulazione
+          .attr("dy", "1.2em") // Sposta sotto il primo testo
+          .style("font-size", `${percentageFontSize}px`)
+          .text(`${Math.trunc(d.percentage)}%`);
+      });
 
-    legend
-      .selectAll('rect')
-      .data(uniqueCountries)
-      .enter()
-      .append('rect')
-      .attr('x', (_, i) => i * 80)
-      .attr('width', 15)
-      .attr('height', 15)
-      .style('fill', (d) => colorScale(d));
+        // 🔄 Aggiorna la posizione del testo in ticked()
+        function ticked() {
+          bubbles
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
 
-    legend
-      .selectAll('text')
-      .data(uniqueCountries)
-      .enter()
-      .append('text')
-      .attr('x', (_, i) => i * 80 + 20)
-      .attr('y', 12)
-      .text((d) => d)
-      .style('font-size', '10px')
-      .style('fill', 'black');
+          labels
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .selectAll("tspan")
+            .attr("x", d => (d as any).x); // Aggiorna anche i tspans!
+        }
 
+        // Posizione della legenda
+        const legendX = -30; // A destra del grafico
+        const legendY = 20;
 
+        // Seleziona il gruppo per la legenda
+        const legend = svg.append("g")
+          .attr("transform", `translate(${legendX}, ${legendY})`);
 
-  }, [x, y, r, p, width, height, colorInterpolator]);
+        // Creazione degli elementi della legenda
+        const legendItems = legend.selectAll(".legend-item")
+          .data(uniqueCountries) // Usa l'array di paesi unici
+          .enter()
+          .append("g")
+          .attr("class", "legend-item")
+          .attr("transform", (d, i) => `translate(0, ${i * 20})`); // Spaziatura verticale
 
-  return <svg ref={svgRef}></svg>;
+        // Aggiungi i rettangoli colorati
+        legendItems.append("rect")
+          .attr("width", 15)
+          .attr("height", 15)
+          .attr("fill", d => colorMap[d]); // Colore del paese
+
+        // Aggiungi i nomi dei paesi accanto ai colori
+        legendItems.append("text")
+          .attr("x", 20)
+          .attr("y", 12)
+          .text(d => d)
+          .style("font-size", "12px")
+          .style("fill", "#000");
+
+  }, [bubble_dimension, bubble_color, bubble_number, width, height, colorInterpolator]);
+
+  return <svg ref={svgRef}></svg>
+
 };
 
 export default BubbleChart;

@@ -26,7 +26,7 @@ export default function Frequencies() {
     useEffect(() => {
         const fetchData = async () => {
           try{
-            console.log("Fetching data...");
+            //console.log("Fetching data...");
     
             // Load of the data
             const FreqCsvData: FrequencyData[] = await d3.csv(
@@ -43,7 +43,7 @@ export default function Frequencies() {
             setAllData(FreqCsvData);
     
             
-            console.log("Data fetched:", FreqCsvData);
+            //console.log("Data fetched:", FreqCsvData);
     
             // Estrazione di anni e paesi unici
             const uniqueYears = Array.from(new Set(FreqCsvData.map(d => d.TIME_PERIOD))).sort();
@@ -66,7 +66,7 @@ export default function Frequencies() {
             // Filtraggio dati in base alla selezione
             const filteredData = AllData.filter(d => d.geo === selectedCountry);
         
-            console.log("Filtered data:", filteredData);
+            //console.log("Filtered data:", filteredData);
         
             if (filteredData.length === 0) {
               setX([]);

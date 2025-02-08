@@ -16,13 +16,13 @@ export default function Financial() {
     // Stati per opzioni nei selettori
     //const [selectedCountry, setSelectedCountry] = useState<string>('Italy');
     
-    //const [years, setYears] = useState<string[]>([]);
     const [countries, setCountries] = useState<string[]>([]);
 
-    const [x, setX] = useState<string[]>([]);
-    const [y, setY] = useState<number[]>([]);
-    const [r, setR] = useState<number[]>([]);
-    const [p, setP] = useState<string[]>([]);
+    const [dimension_of_the_bubble, setDimBubble] = useState<number[]>([]);
+    const [color_of_the_bubble, setColorBubble] = useState<string[]>([]);
+    const [number_of_bubbles, setNumBubble] = useState<string[]>([]);
+
+    const [percentage, setPercentage] = useState<number[]>([]);
 
 
     useEffect(() => {
@@ -31,23 +31,22 @@ export default function Financial() {
             console.log("Fetching data...");
     
             // Load of the data
-            const FreqCsvData: FinancialData[] = await d3.csv(
+            const FinCsvData: FinancialData[] = await d3.csv(
             getStaticFile('datasets/final-project/use-of-the-internet/financial/percentage_Individuals_bought_or_sold shares_or_other_investiment.csv'),
               (d: any) => ({
-                  geo: d.geo,
-                  TIME_PERIOD:  d.TIME_PERIOD_x?.toString(),
-                  OBS_VALUE: +d.OBS_VALUE,
+                  country: d.Country,
+                  year:  d.Years,
+                  percentage: +d.percentage,
                   population: +d.population
               })
             );
-            setAllData(FreqCsvData);
+            setAllData(FinCsvData);
             
-            console.log("All Data Financial: " ,FreqCsvData )
+            console.log("All Data Financial: " ,FinCsvData )
     
             // Estrazione di anni e paesi unici
-            const uniqueCountries = Array.from(new Set(FreqCsvData.map(d => d.geo))).sort();
-            
-            setCountries(uniqueCountries);
+            //const uniqueCountries = Array.from(new Set(FinCsvData.map(d => d.country))).sort();
+            //setCountries(uniqueCountries);
     
           }catch (error) {
             console.error("Error", error);
@@ -66,25 +65,29 @@ export default function Financial() {
 
             const filteredData = AllData
         
-            console.log("Filtered data Financial:", filteredData);
-        
             if (filteredData.length === 0) {
-              setX([]);
-              setY([]);
+              setDimBubble([]);
+              setColorBubble([]);
               return;
             }
         
-            const xValues = filteredData.map(d => String(d.TIME_PERIOD));
-            const yValues = filteredData.map(d => d.OBS_VALUE);
-            const rValues = filteredData.map(d => d.population);
-            const pValues = filteredData.map(d => String(d.geo));
+            const how_much_rows = 20
+            // Ordinare i dati in base a "percentage" in ordine decrescente
+            const sortedData = filteredData.sort((a, b) => b.percentage - a.percentage);
+            const top20 = sortedData.slice(0, how_much_rows);
+            const topCountries = Array.from(new Set(top20.map(d => d.country)));
+            const maxPercentage = Math.max(...top20.map(d => d.percentage));
+            const normalizedPercentages = top20.map(d => (d.percentage / maxPercentage) * 100);
 
-            console.log("Data fetched pValues : ", pValues);
-        
-            setX(xValues);
-            setY(yValues);
-            setR(rValues);
-            setP(pValues);
+            // Impostare gli stati
+            //setPercentage()
+            setDimBubble(normalizedPercentages);
+            setColorBubble(top20.map(d => d.country));
+            setNumBubble(top20.map(d => d.year));
+            setPercentage(top20.map(d => d.percentage))
+
+            console.log("🔹 Top 20 dati ordinati per percentage:", top20);
+            console.log("🌍 Paesi presenti nelle top 20:", topCountries);
 
           }, [AllData]);
 
@@ -108,15 +111,15 @@ return(
             components={[
                 {
                 buttonText: 'Line',
-                component: (x.length > 0 && y.length > 0) ? (
+                component: (dimension_of_the_bubble.length > 0 && color_of_the_bubble.length > 0 && number_of_bubbles.length > 0) ? (
                     <BubbleChart
-                    x={x}
-                    y={y} // Valori Y
-                    r = {r} // Dimensione delle bolle
-                    p = {p} // Valore dei paesi
-                    width={600}
-                    height={400}
-                    colorInterpolator={d3.interpolateBlues}
+                    bubble_percentage={percentage}
+                    bubble_dimension = {dimension_of_the_bubble}
+                    bubble_color = {color_of_the_bubble}
+                    bubble_number = {number_of_bubbles}
+                    width={800}
+                    height={700}
+                    colorInterpolator={d3.interpolateRainbow}
                     />
                 ) : (
                     <p>Loading chart data...</p> // Placeholder temporaneo

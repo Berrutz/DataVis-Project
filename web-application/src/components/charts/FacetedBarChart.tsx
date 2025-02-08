@@ -91,8 +91,8 @@ export default function FacetedBarChart({
     categories = categories.slice(0, 6); // PAESI
     groups = groups.slice(0, 4); // CATEGORIE DISCRIMINATE
 
-    console.log('Categories : ', categories);
-    console.log('groups : ', groups);
+    //console.log('Categories : ', categories);
+    //console.log('groups : ', groups);
 
     const filterCondition = (d: any) => {
       return categories.includes(d.category) && groups.includes(d.group);
@@ -166,8 +166,6 @@ export default function FacetedBarChart({
       const facet = d3.select(this);
       const groupData = filteredData.filter((d) => d.group === group);
 
-      console.log('G : ', groupData);
-
       // Aggiunta delle barre
       facet
         .selectAll('rect')
@@ -181,7 +179,6 @@ export default function FacetedBarChart({
         .attr('fill', (d) => colorScale(d.group)) // Colora le barre in base al gruppo
         .on('mousemove', (event, d) => {
           if (tooltipRef.current) {
-            console.log('Move');
 
             // Calcola la posizione del tooltip
             const svgRect = svgRef.current?.getBoundingClientRect();

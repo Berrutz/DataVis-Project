@@ -26,7 +26,7 @@ export default function Purchase() {
     useEffect(() => {
         const fetchData = async () => {
           try{
-            console.log("Fetching data...");
+            //console.log("Fetching data...");
     
             // Load of the data
             const PurchaseCsvData: PurchaseData[] = await d3.csv(
@@ -40,7 +40,7 @@ export default function Purchase() {
             setAllData(PurchaseCsvData);
     
             
-            console.log("Data fetched:", PurchaseCsvData);
+            //console.log("Data fetched:", PurchaseCsvData);
     
             // Estrazione di anni e paesi unici
             const uniqueYears = Array.from(new Set(PurchaseCsvData.map(d => d.year))).sort();
@@ -63,7 +63,7 @@ export default function Purchase() {
             // Filtraggio dati in base alla selezione
             const filteredData = AllData.filter(d => d.country === selectedCountry);
         
-            console.log("Filtered data:", filteredData);
+            //console.log("Filtered data:", filteredData);
         
             if (filteredData.length === 0) {
               setX([]);
