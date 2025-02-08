@@ -33,7 +33,7 @@ export default function FinalProject() {
   return (
     <div>
       <h1>Fianl Project</h1>
-      <InternetUseAlluvial newWidth={600}></InternetUseAlluvial>
+      <InternetUseAlluvial newWidth={700}></InternetUseAlluvial>
     </div>
   );
 }

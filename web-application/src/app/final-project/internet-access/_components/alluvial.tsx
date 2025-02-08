@@ -1,6 +1,7 @@
 import { SankeyLink, SankeyNode, SankeyNodeMinimal } from 'd3-sankey';
 import { CustomLink, CustomNode } from './charts/internet-use-alluvial';
 import { MutableRefObject } from 'react';
+import * as d3 from 'd3';
 
 interface Margin {
   top: number;
@@ -38,7 +39,7 @@ export function highlightLinks(
       return auxSource.index === targetNode.index ||
         auxTarget.index === targetNode.index
         ? 1
-        : 0.1;
+        : 0.2;
     });
 }
 
@@ -68,7 +69,7 @@ export function generateLegend(
       {relatedLinks.map((link, index) => {
         const sourceName = nodes[link.target].name;
         const energyColor = colorScale(sourceName);
-        const value = link.value.toFixed(2);
+        const value = (link.value / 1000).toFixed(0);
 
         return (
           <div
@@ -85,7 +86,7 @@ export function generateLegend(
               }}
             ></span>
             <span>
-              {sourceName}: {value} TWh
+              {sourceName}: {value}k individuals
             </span>
           </div>
         );
@@ -97,27 +98,26 @@ export function generateLegend(
 export function EnergyNodeTooltipContent(
   nodeData: CustomNode,
   relatedLinks: CustomLink[],
-  nodes: CustomNode[],
-  colorScale: (name: string) => string
+  nodes: CustomNode[]
 ): JSX.Element {
-  const countriesPowerUsage = relatedLinks.map((link, index) => (
+  const ageGroupPopulation = relatedLinks.map((link, index) => (
     <div key={index}>
-      {nodes[link.source].name}: {link.value.toFixed(2)}
+      {nodes[link.source].name}: {(link.value / 1000).toFixed(0)}k individuals
     </div>
   ));
 
-  const totalPeople = relatedLinks
-    .reduce((sum, link) => sum + link.value, 0)
-    .toFixed(2);
+  const totalPeople = (
+    relatedLinks.reduce((sum, link) => sum + link.value, 0) / 1000
+  ).toFixed(0);
 
   return (
     <div>
       <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
         {nodeData.name}
       </div>
-      {countriesPowerUsage}
+      {ageGroupPopulation}
       <div style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>
-        Total: {totalPeople}
+        Total: {totalPeople}k individuals
       </div>
     </div>
   );
@@ -131,9 +131,10 @@ export function mouseOverLinks(
     SankeyLink<CustomNode, CustomLink>,
     SVGGElement,
     unknown
-  >
-): SankeyLink<CustomNode, CustomLink>[] {
-  const targetNode = d.target as SankeyNodeMinimal<CustomNode, CustomLink>;
+  >,
+  nodes: CustomNode[]
+): JSX.Element {
+  const targetNode = d.target as CustomNode;
   if (targetNode.index == undefined) {
     throw new Error('index undefined');
   }
@@ -147,7 +148,7 @@ export function mouseOverLinks(
         CustomNode,
         CustomLink
       >;
-      return linkTarget.index === targetNode.index ? 1 : 0.1;
+      return linkTarget.index === targetNode.index ? 1 : 0.2;
     });
 
   // Filter and sort related source links
@@ -155,11 +156,32 @@ export function mouseOverLinks(
     .filter((link) => link.target === targetNode.index)
     .sort((a, b) => b.value - a.value);
 
-  return relatedSourceLinks;
+  const totalPeople = (
+    relatedSourceLinks.reduce((sum, link) => sum + link.value, 0) / 1000
+  ).toFixed(0);
+
+  return (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {targetNode.name}
+      </div>
+      {relatedSourceLinks.map((link, index) => {
+        const sourceNode = nodes[link.source as number]; // Assuming `source` is an index
+        return (
+          <div key={sourceNode.name + index}>
+            {sourceNode.name}: {(link.value / 1000).toFixed(0)}k individuals
+            <br></br>
+          </div>
+        );
+      })}
+      <div style={{ marginTop: '0.5rem', fontWeight: 'bold' }}>
+        Total: {totalPeople}k individuals
+      </div>
+    </div>
+  );
 }
 
 export function mouseOverNodes(
-  event: MouseEvent,
   d: SankeyNode<CustomNode, CustomLink>,
   linkPaths: d3.Selection<
     d3.BaseType | SVGPathElement,
@@ -202,7 +224,7 @@ export function mouseOverNodes(
     } else {
       // Tooltip for energy resource nodes
       tooltip.current.style.borderColor = colorScale(d.name);
-      return EnergyNodeTooltipContent(d, relatedLinks, nodes, colorScale);
+      return EnergyNodeTooltipContent(d, relatedLinks, nodes);
     }
   }
 
@@ -224,7 +246,7 @@ export const handleResize = (updateLegendLayout: () => void) => {
 
 export const updateLegendLayout = (
   legend: d3.Selection<SVGGElement, unknown, null, undefined>,
-  sortedEnergySources: string[],
+  sortedInternetUseCategories: string[],
   colorScale: d3.ScaleOrdinal<string, string, never>,
   screenWidth: number,
   plotWidth: number,
@@ -232,84 +254,156 @@ export const updateLegendLayout = (
   plotMargin: Margin
 ) => {
   const isLarge = screenWidth >= 1024;
-  const isMedium = screenWidth >= 768;
-  const legendSpacing = 20;
-  const legendMargin = 15;
+
+  const legendMarginX = 5;
+  const maxTextWidth = 90; // Adjust max text width for wrapping
+  const lineHeight = 14; // Adjust line height for readability
 
   if (isLarge) {
-    const legendX = plotWidth + legendMargin;
+    const legendX = plotWidth + legendMarginX;
 
     legend.attr('transform', `translate(${legendX}, ${plotMargin.top})`);
     legend.selectAll('*').remove(); // Clear existing legend content
 
-    legend
+    // Add legend rectangles
+    const rects = legend
       .selectAll('rect')
-      .data(sortedEnergySources)
+      .data(sortedInternetUseCategories)
       .join('rect')
       .attr('x', 0)
-      .attr('y', (_, i) => i * legendSpacing)
+      .attr('width', 15)
+      .attr('height', 15)
+      .attr('fill', (d) => colorScale(d));
+
+    // Add legend text and apply wrapping
+    const texts = legend
+      .selectAll('text')
+      .data(sortedInternetUseCategories)
+      .join('text')
+      .attr('x', 20)
+      .attr('font-size', '0.9rem')
+      .attr('fill', '#000')
+      .call((text) => wrapTextLegend(text, maxTextWidth, lineHeight));
+
+    let currentY = 0; // Track the accumulated Y position
+
+    texts.each(function (_, i) {
+      const textElement = d3.select(this);
+      const lineCount = +textElement.attr('data-line-count') || 1;
+      const totalHeight = lineCount * lineHeight;
+
+      textElement.attr('y', currentY + 12); // Adjust text y position
+      rects.filter((_, j) => i === j).attr('y', currentY); // Adjust rect y position
+
+      currentY += totalHeight + 10; // Update Y position for next item
+    });
+  } else {
+    const legendMarginY = 20;
+    const legendY = plotHeight + legendMarginY;
+
+    legend.attr('transform', `translate(${plotMargin.left}, ${legendY})`);
+    legend.selectAll('*').remove(); // Clear existing legend content
+    const itemsPerRow = Math.ceil(sortedInternetUseCategories.length / 2);
+    const rowHeight = 25; // Space between rows
+    const legendSpacingSmall = 125;
+
+    legend
+      .selectAll('rect')
+      .data(sortedInternetUseCategories)
+      .join('rect')
+      .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacingSmall))
+      .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight)
       .attr('width', 15)
       .attr('height', 15)
       .attr('fill', (d) => colorScale(d));
 
     legend
       .selectAll('text')
-      .data(sortedEnergySources)
+      .data(sortedInternetUseCategories)
       .join('text')
-      .attr('x', 20)
-      .attr('y', (_, i) => i * legendSpacing + 12)
+      .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacingSmall) + 20)
+      .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight + 12)
       .text((d) => d)
-      .attr('font-size', '12px')
+      .attr('font-size', '0.9rem')
       .attr('fill', '#000');
-  } else {
-    const legendY = plotHeight + legendMargin;
-
-    legend.attr('transform', `translate(${plotMargin.left}, ${legendY})`);
-    legend.selectAll('*').remove(); // Clear existing legend content
-
-    if (isMedium) {
-      legend
-        .selectAll('rect')
-        .data(sortedEnergySources)
-        .join('rect')
-        .attr('x', (_, i) => i * (47 + legendSpacing))
-        .attr('y', 0)
-        .attr('width', 15)
-        .attr('height', 15)
-        .attr('fill', (d) => colorScale(d));
-
-      legend
-        .selectAll('text')
-        .data(sortedEnergySources)
-        .join('text')
-        .attr('x', (_, i) => i * (47 + legendSpacing) + 20)
-        .attr('y', 12)
-        .text((d) => d)
-        .attr('font-size', '12px')
-        .attr('fill', '#000');
-    } else {
-      const itemsPerRow = Math.ceil(sortedEnergySources.length / 2);
-      const rowHeight = 25; // Space between rows
-
-      legend
-        .selectAll('rect')
-        .data(sortedEnergySources)
-        .join('rect')
-        .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacing))
-        .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight)
-        .attr('width', 15)
-        .attr('height', 15)
-        .attr('fill', (d) => colorScale(d));
-
-      legend
-        .selectAll('text')
-        .data(sortedEnergySources)
-        .join('text')
-        .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacing) + 20)
-        .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight + 12)
-        .text((d) => d)
-        .attr('font-size', '12px')
-        .attr('fill', '#000');
-    }
   }
 };
+
+// Function to wrap text into multiple lines
+function wrapTextLegend(
+  textSelection: d3.Selection<d3.BaseType, string, SVGGElement, unknown>,
+  maxTextWidth: number,
+  lineHeight: number
+) {
+  textSelection.each(function (d) {
+    const text = d3.select(this as SVGTextElement);
+    const words = d.split(/\s+/); // Split text into words
+    let line: string[] = [];
+    let tspan = text.append('tspan').attr('x', 20).attr('dy', '0em');
+    let lineIndex = 0;
+
+    words.forEach((word) => {
+      line.push(word);
+      tspan.text(line.join(' '));
+
+      if (tspan.node()!.getComputedTextLength() > maxTextWidth) {
+        line.pop();
+        tspan.text(line.join(' ')); // Keep the previous valid line
+
+        // Start a new line
+        line = [word];
+        tspan = text
+          .append('tspan')
+          .attr('x', 20)
+          .attr('dy', `${lineHeight}px`)
+          .text(word);
+        lineIndex++;
+      }
+    });
+
+    // Set final text element height to fit multiple lines
+    text.attr('data-line-count', lineIndex + 1);
+  });
+}
+
+/**
+ * Function to wrap text into multiple lines based on max width
+ */
+export function wrapTextNode(
+  textElement: d3.Selection<SVGTextElement, unknown, null, undefined>,
+  text: string,
+  maxWidth: number,
+  lineHeight: number
+) {
+  const words = text.split(/\s+/);
+  let line: string[] = [];
+  let dy = 0; // Tracks vertical offset
+
+  let tspan = textElement
+    .append('tspan')
+    .attr('x', textElement.attr('x'))
+    .attr('dy', '0') // First line stays at dy = 0
+    .attr('font-weight', '600')
+    .text('');
+
+  words.forEach((word) => {
+    line.push(word);
+    tspan.text(line.join(' ')); // Try adding the word to the current line
+
+    if ((tspan.node()?.getComputedTextLength() ?? 0) > maxWidth) {
+      // Remove the last word that caused overflow
+      line.pop();
+      tspan.text(line.join(' '));
+
+      // Start a new line with the overflow word
+      line = [word];
+      dy += lineHeight; // Move down for the new line
+      tspan = textElement
+        .append('tspan')
+        .attr('x', textElement.attr('x'))
+        .attr('dy', `${dy}px`)
+        .attr('font-weight', '600')
+        .text(word);
+    }
+  });
+}

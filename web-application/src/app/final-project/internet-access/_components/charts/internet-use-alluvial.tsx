@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
-import {
-  sankey,
-  SankeyLink,
-  sankeyLinkHorizontal,
-  SankeyNodeMinimal
-} from 'd3-sankey';
+import { sankey, sankeyLinkHorizontal, SankeyNodeMinimal } from 'd3-sankey';
 import Tooltip from '@/components/tooltip';
 import {
   generateLegend,
+  handleResize,
   highlightLinks,
   mouseOverLinks,
   mouseOverNodes,
-  resetHighlight
+  resetHighlight,
+  updateLegendLayout,
+  wrapTextNode
 } from '../alluvial';
 import { updateTooltipPosition } from '../lib/utils';
 
@@ -61,11 +59,12 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
   const colorScale = d3
     .scaleOrdinal<string>()
     .domain([
-      'Individuals, 16 to 24 years old',
-      'Individuals, 25 to 54 years old',
-      'Individuals, 55 to 74 years old'
+      '16 to 24 years old',
+      '25 to 54 years old',
+      '55 to 74 years old',
+      '75 years old or more'
     ])
-    .range(['#66c2a5', '#ffd92f', '#8da0cb']);
+    .range(['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff']);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,7 +96,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
 
     svg.attr('width', width).attr('height', height);
 
-    const margin = { top: 20, right: 80, bottom: 50, left: 20 };
+    const margin = { top: 20, right: 120, bottom: 50, left: 20 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -139,8 +138,6 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       d.population = Math.ceil((d.population * d.value) / 100);
     });
 
-    console.log('adjustedData:', adjustedData);
-
     // Initialize the starting nodes made of age groups
     const ageGroupSortedByPopulation = adjustedData
       .filter((d) => d.lastInternetUse === adjustedData[0].lastInternetUse)
@@ -176,7 +173,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
     // Update links to reference `index` instead of relying on array position
     const links = ageGroupSortedByPopulation
       .flatMap((ageGroup) => {
-        const aux = sortedInternetUseCategories.map((category) => ({
+        return sortedInternetUseCategories.map((category) => ({
           source: +nodes.find((node) => node.name === ageGroup)?.index!, // Match country node index
           target: +nodes.find((node) => node.name === category)?.index!, // Match energy source node index
           value:
@@ -184,12 +181,8 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
               (d) => d.ageGroup === ageGroup && d.lastInternetUse === category
             )?.population || 0
         }));
-        // console.log(aux);
-        return aux;
       })
       .filter((link) => link.value > 0); // Remove zero-value links
-
-    console.log('links: ', links);
 
     const sankeyGenerator = sankey<CustomNode, CustomLink>()
       .nodeWidth(15)
@@ -208,39 +201,27 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       links: links.map((d) => ({ ...d }))
     });
 
-    console.log(sankeyData);
-
     // Adjust the x1 position for country nodes
-    /*     sankeyData.nodes.forEach((node) => {
-      if (!sortedEnergySources.includes(node.name)) {
+    sankeyData.nodes.forEach((node) => {
+      if (!sortedInternetUseCategories.includes(node.name)) {
         const additionalWidth = 95;
         node.x1 = (node.x1 ?? 0) + additionalWidth;
       }
-    }); */
+    });
 
-    const tooltipMapperLinks = (
-      sourceLinks: SankeyLink<CustomNode, CustomLink>[],
-      nodes: CustomNode[],
-      d: SankeyNodeMinimal<CustomNode, CustomLink>
-    ) => {
-      console.log(nodes[d.index!].name);
-      return (
-        <div>
-          <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-            {nodes[d.index!].name}
-          </div>
-          {sourceLinks.map((link) => {
-            const sourceNode = nodes[link.source as number]; // Assuming `source` is an index
-            return (
-              <div>
-                {sourceNode.name}: {link.value.toFixed(2)}
-                <br></br>
-              </div>
-            );
-          })}
-        </div>
-      );
-    };
+    const minNodeHeight = 45; // Set your desired minimum height
+
+    sankeyData.nodes.forEach((node) => {
+      if (!sortedInternetUseCategories.includes(node.name)) {
+        const currentHeight = (node.y1 ?? 0) - (node.y0 ?? 0);
+
+        if (currentHeight < minNodeHeight) {
+          const adjustment = (minNodeHeight - currentHeight) / 2;
+          node.y0 = (node.y0 ?? 0) - adjustment;
+          node.y1 = (node.y1 ?? 0) + adjustment;
+        }
+      }
+    });
 
     // Draw links
     const linkPaths = svg
@@ -258,12 +239,10 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       .attr('stroke-width', (d) => Math.max(1, d.width ?? 0)) // Fallback to 0 if `width` is undefined
       .attr('opacity', 0.85)
       .on('mouseover', function (event, d) {
-        const sourceLinks = mouseOverLinks(d, links, linkPaths);
         const targetNode = d.target as SankeyNodeMinimal<
           CustomNode,
           CustomLink
         >;
-
         if (tooltipRef.current) {
           const tooltipCoordinates = updateTooltipPosition(
             event,
@@ -279,7 +258,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
           tooltipRef.current.style.borderColor = colorScale(
             nodes[targetNode.index!].name
           );
-          setTooltipContent(tooltipMapperLinks(sourceLinks, nodes, d));
+          setTooltipContent(mouseOverLinks(d, links, linkPaths, nodes));
         }
       })
       .on('mouseout', function () {
@@ -297,7 +276,6 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
           // Tooltip for country nodes
           setTooltipContent(
             mouseOverNodes(
-              event,
               d,
               linkPaths,
               nodes,
@@ -332,9 +310,12 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
         if (sortedInternetUseCategories.includes(d.name)) {
           return colorScale(d.name); // Energy type color
         }
-        return '#f7f7f5'; // Default color for countries
+        return '#ffffff'; // Default color for countries
       })
       .attr('stroke', '#000');
+
+    const maxWidth = 100; // Mat line width
+    const lineHeight = 15; // Line height for multi-line text
 
     svg
       .append('g')
@@ -345,11 +326,16 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       .attr('y', (d) => ((d.y0 ?? 0) + (d.y1 ?? 0)) / 2)
       .attr('text-anchor', 'middle')
       .attr('alignment-baseline', 'middle')
-      .text((d) => {
+      .each(function (d) {
         if (!sortedInternetUseCategories.includes(d.name)) {
-          return d.name; // Display country name (only for country nodes)
+          const textElement = d3.select(this) as d3.Selection<
+            SVGTextElement,
+            unknown,
+            null,
+            undefined
+          >;
+          wrapTextNode(textElement, d.name, maxWidth, lineHeight);
         }
-        return '';
       })
       .attr('fill', '#000')
       .on('mouseover', function (event, d) {
@@ -392,7 +378,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       });
 
     /***********************LEGEND*********************/
-    /*     const legendMargin = 15;
+    const legendMargin = 15;
     const legendX = innerWidth + legendMargin;
     const legendY = innerHeight;
 
@@ -402,7 +388,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       const screenWidth = window.innerWidth;
       updateLegendLayout(
         legend,
-        sortedEnergySources,
+        sortedInternetUseCategories,
         colorScale,
         screenWidth,
         legendX,
@@ -418,7 +404,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
 
     return () => {
       cleanupResize();
-    }; */
+    };
   }, [csvData, selectedYear, selectedCountry, newWidth]);
 
   return (
