@@ -1,6 +1,7 @@
 'use client';
 
 import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
+import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
 import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
 import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
 import InternetUseLineChart from './internet-access/_components/charts/internet-use-linechart';
@@ -33,7 +34,10 @@ export default function FinalProject() {
   return (
     <div>
       <h1>Fianl Project</h1>
-      <InternetUseAlluvial newWidth={700}></InternetUseAlluvial>
+      <InternetAccessFacetedBarChart
+        newHeight={600}
+        newWidth={800}
+      ></InternetAccessFacetedBarChart>
     </div>
   );
 }
