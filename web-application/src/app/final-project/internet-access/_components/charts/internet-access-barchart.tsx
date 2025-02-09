@@ -1,6 +1,7 @@
 import ChartContainer from '@/components/chart-container';
 import BarChart from '@/components/charts/barchart';
 import { H3 } from '@/components/headings';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -8,6 +9,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetOverlay,
+  SheetTitle,
+  SheetTrigger
+} from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import { getUnique } from '@/utils/general';
@@ -92,8 +102,29 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   );
 
   return (
-    <ChartContainer className="flex flex-col gap-8">
+    <ChartContainer className="relative flex flex-col gap-8">
       <H3>Different countires compared by internet access level</H3>
+      {/* Sheet is inside ChartContainer */}
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline">Open</Button>
+        </SheetTrigger>
+
+        {/* Overlay only inside ChartContainer */}
+        <SheetOverlay className="absolute bg-black/20 rounded-lg" />
+
+        {/* SheetContent slides out from the ChartContainer, NOT the full page */}
+        <SheetContent className="right-0 top-0 h-full max-h-full w-[300px] bg-white shadow-lg border-l">
+          <SheetHeader>
+            <SheetTitle>Add/remove countries and regions</SheetTitle>
+            <SheetDescription>
+              Make changes to your profile here. Click save when you're done.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
+
+      {/* Bar Chart*/}
       <BarChart
         x={barchartData.x}
         y={barchartData.y}
