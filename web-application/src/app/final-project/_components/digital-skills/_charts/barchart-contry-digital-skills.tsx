@@ -13,13 +13,15 @@ import * as d3 from 'd3';
 import { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
+import ChartContainer from '@/components/chart-container';
+import { H3 } from '@/components/headings';
 
 type BarchartState = {
   x: string[];
   y: number[];
 };
 
-export default function BarChartFirst() {
+export default function BarchartCountriesDigitalSkills() {
   // Represent a selection for the user to switch the barchart parameters
   const [year, setYear] = useState<string>();
   const [indicIs, setIndicIs] = useState<string>();
@@ -75,7 +77,11 @@ export default function BarChartFirst() {
   // the default selection has not already initializated or
   // neither one of the x value and y value state for the barchart has been initializated
   if (!year || !indicIs || csvData === null || barchartState === null) {
-    return <Skeleton className="bg-gray-200 rounded-xl w-[800px] h-[400px]" />;
+    return (
+      <ChartContainer>
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+      </ChartContainer>
+    );
   }
 
   // The csv is loaded but no data has been found
@@ -91,41 +97,50 @@ export default function BarChartFirst() {
   );
 
   return (
-    <div>
+    <ChartContainer className="flex flex-col gap-8">
+      <H3>Different countires compared by digital skill levels</H3>
       <BarChart
         x={barchartState.x}
         y={barchartState.y}
-        width={800}
+        width={900}
         height={400}
         colorInterpoaltor={d3.interpolateBlues}
+        mb={90}
+        mr={20}
+        mt={0}
       />
-      <div>
-        <Select onValueChange={setYear} defaultValue={year.toString()}>
-          <SelectTrigger>
-            <SelectValue placeholder="Year" />
-          </SelectTrigger>
-          <SelectContent>
-            {uniqueYears.map((year) => (
-              <SelectItem key={year} value={year.toString()}>
-                {year}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select onValueChange={setIndicIs} defaultValue={indicIs}>
-          <SelectTrigger>
-            <SelectValue placeholder="Digital Skill Level" />
-          </SelectTrigger>
-          <SelectContent>
-            {uniqueIndicIs.map((indicIs) => (
-              <SelectItem key={indicIs} value={indicIs.toString()}>
-                {indicIs}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex flex-col gap-6 sm:flex-row">
+        <div className="sm:w-1/3">
+          <label>Year</label>
+          <Select onValueChange={setYear} defaultValue={year.toString()}>
+            <SelectTrigger>
+              <SelectValue placeholder="Year" />
+            </SelectTrigger>
+            <SelectContent>
+              {uniqueYears.map((year) => (
+                <SelectItem key={year} value={year.toString()}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="sm:w-full">
+          <label>Digital Skill Level</label>
+          <Select onValueChange={setIndicIs} defaultValue={indicIs}>
+            <SelectTrigger>
+              <SelectValue placeholder="Digital Skill Level" />
+            </SelectTrigger>
+            <SelectContent>
+              {uniqueIndicIs.map((indicIs) => (
+                <SelectItem key={indicIs} value={indicIs.toString()}>
+                  {indicIs}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-    </div>
+    </ChartContainer>
   );
 }

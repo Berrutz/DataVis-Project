@@ -4,6 +4,11 @@ import InternetAccessBarChart from './internet-access/_components/internet-acces
 import InternetAccessMap from './internet-access/_components/internet-access-map';
 import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
 import DegradingMessages from './use-of-the-internet/_components/degrading_messages';
+import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
+import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
+import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
+import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
+import InternetUseLineChart from './internet-access/_components/charts/internet-use-linechart';
 
 /*
  * Final Project:

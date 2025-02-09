@@ -6,6 +6,7 @@ class IA_CSV_ENTRIES:
     DATAFLOW = "DATAFLOW"
     LAST_UPDATE = "LAST UPDATE"
     FREQ = "freq"
+    CATEGORY = "indic_is"
     UNIT = "unit"
     HHTYP = "hhtyp"
     COUNTRY = "geo"
@@ -187,6 +188,7 @@ def replace_str(df: pd.DataFrame, column, old_values, new_values) -> pd.DataFram
 if __name__ == "__main__":
     # Define paths
     ia_path = r"\internet-access-level\datasets\original-datasets\internet-access.csv"
+    ia_reasons_path = r"\internet-access-level\datasets\original-datasets\reasons-not-have-internet-access.csv"
     iu_divided_by_edu_age_path = r"\internet-access-level\datasets\original-datasets\internet-use-divided-by-age-education-level.csv"
     iu_divided_by_age_group_path = r"\internet-access-level\datasets\original-datasets\internet-use-divided-by-age-group.csv"
     iu_path = r"\internet-access-level\datasets\original-datasets\internet-use.csv"
@@ -194,12 +196,14 @@ if __name__ == "__main__":
     p_age_group_path = r"\internet-access-level\datasets\original-datasets\population-divided-by-age-group.csv"
 
     ia_pd_path = r"\internet-access-level\datasets\processed-datasets\internet-access.csv"
+    ia_reasons_pd_path = r"\internet-access-level\datasets\processed-datasets\reasons-not-have-internet-access.csv"
     iu_divided_by_edu_age_pd_path = r"\internet-access-level\datasets\processed-datasets\internet-use-divided-by-age-education-level.csv"
     iu_divided_by_age_group_pd_path = r"\internet-access-level\datasets\processed-datasets\internet-use-divided-by-age-group.csv"
     iu_pd_path = r"\internet-access-level\datasets\processed-datasets\internet-use.csv"
 
     # Load csv
     df_ia = load_csv(ia_path)
+    df_ia_reasons = load_csv(ia_reasons_path)
     df_iu_age_edu = load_csv(iu_divided_by_edu_age_path)
     df_iu_age_group = load_csv(iu_divided_by_age_group_path)
     df_iu = load_csv(iu_path)
@@ -212,10 +216,20 @@ if __name__ == "__main__":
     # Merge population age groups to match the age groups of the internet use datasets
     df_p_age_group = merge_population_age_group(df_p_age_group)
 
+    # Merge population and internet usage datasets
     df_iu_age_group = merge_population_internet_usage(df_p_age_group, df_iu_age_group)
 
     # Remove the columns that we are not interested in
     df_ia = df_ia.drop([
+        IA_CSV_ENTRIES.DATAFLOW,
+        IA_CSV_ENTRIES.LAST_UPDATE,
+        IA_CSV_ENTRIES.FREQ,
+        IA_CSV_ENTRIES.UNIT,
+        IA_CSV_ENTRIES.HHTYP,
+        IA_CSV_ENTRIES.OBS_FLAG,
+        IA_CSV_ENTRIES.CONF_STATUS], axis=1)
+    
+    df_ia_reasons =  df_ia_reasons.drop([
         IA_CSV_ENTRIES.DATAFLOW,
         IA_CSV_ENTRIES.LAST_UPDATE,
         IA_CSV_ENTRIES.FREQ,
@@ -252,14 +266,44 @@ if __name__ == "__main__":
 
     # Remove the countries that are not in our interest
     df_ia = df_ia.query(f"{IA_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
+    df_ia_reasons = df_ia_reasons.query(f"{IA_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
     df_iu_age_edu = df_iu_age_edu.query(f"{IU_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
     df_iu_age_group = df_iu_age_group.query(f"{IU_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
     df_iu = df_iu.query(f"{IU_CSV_ENTRIES.COUNTRY} in {EU_COUNTRIES}")
 
     # Remove "Last internet use: " from every value in the column
     str1 = "Last internet use: "
-    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
-    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1], [""])
+    str2 = "Internet use: "
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.CATEGORY, [str1, str2], ["", ""])
+
+    # Remove "individuals, " from the IU_CSV_ENTRIES.INDIVIDUAL_TYPE column.
+    str1 = "Individuals, "
+    df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.INDIVIDUAL_TYPE, [str1], [""])
+    df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.INDIVIDUAL_TYPE, [str1], [""])
+
+    # Change values of IA_CSV_ENTRIES.CATEGORY column for better display
+    oldStrings = ["Households without access to internet at home, because the access costs are too high (telephone, etc.)",
+                  "Households without access to the internet at home, because broadband is not available in the area",
+                  "Households without access to internet at home, because of access elsewhere",
+                  "Households without access to internet at home, because the equipment costs are too high",
+                  "Households without access to internet at home, because access not needed (content is not useful, not interesting, etc.)",
+                  "Households without access to internet at home, because of privacy or security concerns",
+                  "Households without access to internet at home, because of lack of skills",
+                  "Households without access to internet at home, because of other reasons"
+                  ]
+
+    newStrings = ["access costs are too high (telephone, etc.)",
+                  "broadband is not available in the area",
+                  "access elsewhere",
+                  "equipment costs are too high",
+                  "access not needed (content is not useful, interesting, etc.)",
+                  "privacy or security concerns",
+                  "lack of skills",
+                  "other reasons"
+                  ]
+    
+    df_ia_reasons = replace_str(df_ia_reasons, IA_CSV_ENTRIES.CATEGORY, oldStrings, newStrings)
 
     # Change entities names into their short version for better display
     oldStr1 = "European Union - 27 countries (from 2020)"
@@ -268,18 +312,21 @@ if __name__ == "__main__":
     newStr2 = "EU-28(2013-2020)"
 
     df_ia = replace_str(df_ia, IA_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
+    df_ia_reasons = replace_str(df_ia_reasons, IA_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
     df_iu_age_edu = replace_str(df_iu_age_edu, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
     df_iu_age_group = replace_str(df_iu_age_group, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
     df_iu = replace_str(df_iu, IU_CSV_ENTRIES.COUNTRY, [oldStr1, oldStr2], [newStr1, newStr2])
 
     # Sort the dataframe by year and country
     df_ia = df_ia.sort_values(by=[IA_CSV_ENTRIES.YEAR, IA_CSV_ENTRIES.COUNTRY])
+    df_ia_reasons = df_ia_reasons.sort_values(by=[IA_CSV_ENTRIES.YEAR, IA_CSV_ENTRIES.COUNTRY])
     df_iu_age_edu = df_iu_age_edu.sort_values(by=[IU_CSV_ENTRIES.YEAR, IU_CSV_ENTRIES.COUNTRY])
     df_iu_age_group = df_iu_age_group.sort_values(by=[IU_CSV_ENTRIES.YEAR, IU_CSV_ENTRIES.COUNTRY])
     df_iu = df_iu.sort_values(by=[IU_CSV_ENTRIES.YEAR, IU_CSV_ENTRIES.COUNTRY])
 
     # Remove rows that contain empty (NaN) values
     df_ia = df_ia.dropna()
+    df_ia_reasons = df_ia_reasons.dropna()
     df_iu_age_group = df_iu_age_group.dropna()
     df_iu_age_edu = df_iu_age_edu.dropna()
     df_iu = df_iu.dropna()
@@ -288,6 +335,12 @@ if __name__ == "__main__":
     df_ia = df_ia.rename(columns={
         IA_CSV_ENTRIES.COUNTRY: "Country",
         IA_CSV_ENTRIES.YEAR: "Year",
+        IA_CSV_ENTRIES.OBS_VALUE: "Value"
+    })
+    df_ia_reasons = df_ia_reasons.rename(columns={
+        IA_CSV_ENTRIES.COUNTRY: "Country",
+        IA_CSV_ENTRIES.YEAR: "Year",
+        IA_CSV_ENTRIES.CATEGORY: "Reason",
         IA_CSV_ENTRIES.OBS_VALUE: "Value"
     })
     df_iu_age_edu = df_iu_age_edu.rename(columns={
@@ -311,6 +364,7 @@ if __name__ == "__main__":
     })
 
     store_csv_from_datframe(df_ia, ia_pd_path, "internet-access.csv")
+    store_csv_from_datframe(df_ia_reasons, ia_reasons_pd_path, "reasons-not-have-internet-access.csv")
     store_csv_from_datframe(df_iu_age_edu, iu_divided_by_edu_age_pd_path, "internet-use-divided-by-age-education-level.csv")
     store_csv_from_datframe(df_iu_age_group, iu_divided_by_age_group_pd_path, "internet-use-divided-by-age-group.csv")
     store_csv_from_datframe(df_iu, iu_pd_path, "internet-use.csv")

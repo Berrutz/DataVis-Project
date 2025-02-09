@@ -1,36 +1,40 @@
-import BarChart from '@/components/charts/barchart';
+import FacetedBarChart1, {
+  FacetedPoint
+} from '@/components/charts/FacetedBarChart1';
 import { getStaticFile } from '@/utils/general';
 import * as d3 from 'd3';
 import { useEffect, useState } from 'react';
 
 interface Data {
+  reason: string;
   country: string;
-  year: string;
+  year: number;
   value: number;
 }
 
-interface InternetAccessBarChartProps {
+interface InternetAccessFacetedBarChartProps {
   newWidth: number;
   newHeight: number;
 }
 
-const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
-  newWidth,
-  newHeight
-}) => {
+const InternetAccessFacetedBarChart: React.FC<
+  InternetAccessFacetedBarChartProps
+> = ({ newWidth, newHeight }) => {
   const [csvData, setData] = useState<Data[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>('2022'); // Set default year here
-  const [x, setX] = useState<string[]>([]);
-  const [y, setY] = useState<number[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>('2019'); // Set default year here
+  const [facetedData, setFacetedData] = useState<FacetedPoint[]>([]);
 
   // Fetch data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await d3.csv(
-        getStaticFile('/datasets/internet-access-level/internet-access.csv'),
+        getStaticFile(
+          '/datasets/internet-access-level/reasons-not-have-internet-access.csv'
+        ),
         (d) => ({
+          reason: d.Reason,
           country: d.Country,
-          year: d.Year,
+          year: +d.Year,
           value: +d.Value
         })
       );
@@ -42,32 +46,32 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
 
   useEffect(() => {
     // Filter data based on the selected year
-    const filteredData = csvData.filter((d) => d.year === selectedYear);
+    const filteredData = csvData.filter((d) => d.year === +selectedYear);
 
     if (filteredData.length === 0) return;
 
-    filteredData.sort((a, b) => b.value - a.value);
-
-    // Extract country names into an array
-    setX(filteredData.map((d) => d.country));
-
-    // Extract values into an array
-    setY(filteredData.map((d) => d.value));
+    // Cast the data into an object usefull for the FacetedBarChart
+    setFacetedData(
+      filteredData.map((d) => {
+        return {
+          group: d.reason,
+          category: d.country,
+          value: d.value
+        };
+      })
+    );
   }, [csvData, newWidth, newHeight, selectedYear]);
-  if (csvData.length <= 0 || x.length <= 0 || y.length <= 0) return;
+  if (csvData.length <= 0 || facetedData.length <= 0) return;
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <BarChart
-        x={x}
-        y={y}
+      <FacetedBarChart1
+        data={facetedData}
         width={newWidth}
         height={newHeight}
-        colorInterpoaltor={d3.interpolateReds}
-        ml={40}
-        mb={70}
-        yLabelsSuffix="%"
-      ></BarChart>
+        unitOfMeasurement="%"
+        ml={100}
+      ></FacetedBarChart1>
       <div className="mt-3">
         <label htmlFor="year">Select Year: </label>
         <select
@@ -87,4 +91,4 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   );
 };
 
-export default InternetAccessBarChart;
+export default InternetAccessFacetedBarChart;
