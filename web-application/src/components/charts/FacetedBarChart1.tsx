@@ -407,7 +407,7 @@ export default function FacetedBarChart1({
       .attr('class', 'category-label')
       .attr('data-category', (d) => d) // Store original category name
       .attr('x', -label_offset) // Posiziona l'etichetta a sinistra
-      .attr('y', (d, i) => {
+      .attr('y', (d) => {
         const lines = splitText(d, maxLength);
         return (
           yScale(d)! + rectHeight / 2 - ((lines.length - 1) * lineHeight) / 2
