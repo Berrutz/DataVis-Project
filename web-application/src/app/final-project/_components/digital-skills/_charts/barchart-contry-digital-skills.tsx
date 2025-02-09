@@ -1,6 +1,6 @@
 'use client';
 
-import BarChart from '@/components/charts/barchart';
+import BarChart, { Point } from '@/components/charts/barchart';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Select,
@@ -10,7 +10,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import * as d3 from 'd3';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
@@ -108,6 +108,15 @@ export default function BarchartCountriesDigitalSkills() {
         mb={90}
         mr={20}
         mt={0}
+        tooltipMapper={(point: Point): React.ReactNode => (
+          <div>
+            {point.x}: {point.y}%
+            <br />
+            <p className="text-sm text-foreground/60">
+              Percentage of people
+            </p>{' '}
+          </div>
+        )}
       />
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-1/3">
