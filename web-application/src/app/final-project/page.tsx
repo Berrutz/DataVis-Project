@@ -24,7 +24,5 @@
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 
 export default function FinalProject() {
-  return (
-    <Useoftheinternet/>
-  );
+  return <Useoftheinternet></Useoftheinternet>;
 }
