@@ -1,14 +1,12 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
-import {
-  calculateMaxLength,
-  splitText,
-  tooltipPositionOnMouseMove
-} from './utils/facetedBarChart';
+import { calculateMaxLength, splitText } from './utils/facetedBarChart';
+import { tooltipPositionOnMouseMove } from './utils/general';
 import { Button } from '../ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ChartScrollableWrapper from '../chart-scrollable-wrapper';
 
 export interface FacetedPoint {
   group: string; // The data on y axis
@@ -69,15 +67,20 @@ export default function FacetedBarChart1({
   mb,
   ml
 }: FacetedBarChartProps) {
+  // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
+  // The container of the svg
+  const containerRef = useRef<HTMLDivElement | null>(null);
   // The ref of the tooltip and its content
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
     null
   );
+  // The page currently displayed
   const [currentPage, setCurrentPage] = useState(0);
+  // Number of facets per page
   const groupsPerPage = 4;
-  // const [groups, setGroups] = useState<string[]>([]);
+
   if (!data || data.length <= 0) {
     throw new Error("'data' has no elements.");
   }
@@ -94,10 +97,6 @@ export default function FacetedBarChart1({
   };
 
   useEffect(() => {
-    if (!data || data.length <= 0) {
-      throw new Error("'data' has no elements.");
-    }
-
     d3.select(svgRef.current).selectAll('*').remove();
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
@@ -285,7 +284,7 @@ export default function FacetedBarChart1({
 
             tooltipPositionOnMouseMove(
               tooltipRef,
-              svgRef,
+              containerRef,
               event,
               horizontalOffset,
               verticalOffset
@@ -359,7 +358,7 @@ export default function FacetedBarChart1({
               const verticalOffset = -20;
               tooltipPositionOnMouseMove(
                 tooltipRef,
-                svgRef,
+                containerRef,
                 event,
                 horizontalOffset,
                 verticalOffset
@@ -448,7 +447,7 @@ export default function FacetedBarChart1({
               const verticalOffset = 60;
               tooltipPositionOnMouseMove(
                 tooltipRef,
-                svgRef,
+                containerRef,
                 event,
                 horizontalOffset,
                 verticalOffset
@@ -467,18 +466,20 @@ export default function FacetedBarChart1({
   }, [data, width, height, currentPage]);
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <motion.div
-        key={currentPage}
-        initial={{ opacity: 0, x: -20 }} // Start slightly off-screen
-        animate={{ opacity: 1, x: 0 }} // Fade and slide in
-        exit={{ opacity: 0, x: 20 }} // Slide out when changing
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className="overflow-x-auto overflow-y-auto h-full w-fit"
-      >
-        <svg ref={svgRef} />
-        <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
-      </motion.div>
+    <div className="relative" ref={containerRef}>
+      <ChartScrollableWrapper>
+        <motion.div
+          key={currentPage}
+          initial={{ opacity: 0, x: -20 }} // Start slightly off-screen
+          animate={{ opacity: 1, x: 0 }} // Fade and slide in
+          exit={{ opacity: 0, x: 20 }} // Slide out when changing
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="overflow-x-auto overflow-y-auto h-full w-fit"
+        >
+          <svg ref={svgRef} />
+          <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
+        </motion.div>
+      </ChartScrollableWrapper>
       <div className="flex justify-between w-full">
         <Button
           onClick={handlePrevious}

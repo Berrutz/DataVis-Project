@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import Tooltip from '../tooltip';
+import ChartScrollableWrapper from '../chart-scrollable-wrapper';
 
 export interface DataPoint {
   x: string;
@@ -75,6 +76,9 @@ const LineChart: React.FC<LineChartProps> = ({
   // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  // The container of the svg
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   // The ref of the tooltip
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
@@ -109,7 +113,8 @@ const LineChart: React.FC<LineChartProps> = ({
 
     svg.attr('width', width).attr('height', height);
 
-    svg.selectAll('*').remove();
+    // Clear the svg in case of re-rendering
+    d3.select(svgRef.current).selectAll('*').remove();
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
@@ -320,26 +325,27 @@ const LineChart: React.FC<LineChartProps> = ({
         if (tooltipRef.current) {
           const horizontalOffset = 10;
           const verticalOffset = 10;
-          const svgRect = svgRef.current?.getBoundingClientRect();
+          const containerRect = containerRef.current?.getBoundingClientRect();
           const tooltipWidth = tooltipRef.current.offsetWidth || 0;
           const tooltipHeight = tooltipRef.current.offsetHeight || 0;
 
           let tooltipX =
-            event.clientX - (svgRect?.left || 0) + horizontalOffset;
-          let tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+            event.clientX - (containerRect?.left || 0) + horizontalOffset;
+          let tooltipY =
+            event.clientY - (containerRect?.top || 0) - verticalOffset;
 
           // Check if the tooltip would overflow the graph's width and height
           if (tooltipX + tooltipWidth > innerWidth) {
             tooltipX =
               event.clientX -
-              (svgRect?.left || 0) -
+              (containerRect?.left || 0) -
               tooltipWidth -
               horizontalOffset;
           }
           if (tooltipY + tooltipHeight > innerHeight) {
             tooltipY =
               event.clientY -
-              (svgRect?.top || 0) -
+              (containerRect?.top || 0) -
               tooltipHeight -
               verticalOffset;
           }
@@ -402,8 +408,10 @@ const LineChart: React.FC<LineChartProps> = ({
   }, [data, width]);
 
   return (
-    <div className="overflow-x-auto h-full w-fit">
-      <svg ref={svgRef} />
+    <div className="relative" ref={containerRef}>
+      <ChartScrollableWrapper>
+        <svg ref={svgRef} />
+      </ChartScrollableWrapper>
       <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>
   );
