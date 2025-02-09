@@ -1,18 +1,31 @@
 // Function to split text into multiple lines
-export function splitText(text: string, maxLength: number): string[] {
-  const words = text.split(/[\s-]+/);
+// Function to split text into multiple lines
+export function splitText(
+  text: string,
+  maxLength: number,
+  maxLines: number = 2
+): string[] {
+  const words = text.split(' ');
   let lines: string[] = [];
   let currentLine = '';
 
   words.forEach((word) => {
-    if ((currentLine + ' ' + word).length > maxLength) {
+    if ((currentLine + word).length <= maxLength) {
+      currentLine += (currentLine ? ' ' : '') + word;
+    } else {
       lines.push(currentLine);
       currentLine = word;
-    } else {
-      currentLine += (currentLine ? ' ' : '') + word;
     }
   });
+
   if (currentLine) lines.push(currentLine);
+
+  // If the lines exceed maxLines, truncate and add '...'
+  if (lines.length > maxLines) {
+    lines = lines.slice(0, maxLines);
+    const lastLine = lines[maxLines - 1];
+    lines[maxLines - 1] = lastLine.slice(0, maxLength - 3) + '...'; // Ensure space for "..."
+  }
 
   return lines;
 }

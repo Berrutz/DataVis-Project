@@ -7,6 +7,7 @@ import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 
 import FacetedBarChart from '@/components/charts/FacetedBarChart';
+import FacetedBarChart1 from '@/components/charts/FacetedBarChart1';
 
 // Definiamo il tipo atteso da FacetedBarChart
 interface ChartData {
@@ -85,7 +86,7 @@ return(
                 {
                 buttonText: 'Line',
                 component:  AllData.length > 0 ? (
-                  <FacetedBarChart data={chartData} width={800} height={500} />
+                  <FacetedBarChart1 data={chartData} width={800} height={600} ml={120} />
               ) : (
                     <p>Loading chart data...</p> // Placeholder temporaneo
                 )
