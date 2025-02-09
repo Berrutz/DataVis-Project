@@ -1,15 +1,7 @@
 'use client';
 
-import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
-import InternetAccessMap from './internet-access/_components/internet-access-map';
-import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
-import DegradingMessages from './use-of-the-internet/_components/degrading_messages';
 import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
 import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
-import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
-import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
-import InternetUseLineChart from './internet-access/_components/charts/internet-use-linechart';
-
 /*
  * Final Project:
  * The idea is to create 3 folders under this `final-project` folder that subdivide the
@@ -34,7 +26,5 @@ import InternetUseLineChart from './internet-access/_components/charts/internet-
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 
 export default function FinalProject() {
-  return (
-    <Useoftheinternet/>
-  );
+  return <Useoftheinternet></Useoftheinternet>;
 }
