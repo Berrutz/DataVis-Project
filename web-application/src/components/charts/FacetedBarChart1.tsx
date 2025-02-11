@@ -129,9 +129,6 @@ export default function FacetedBarChart1({
       currentPage * groupsPerPage,
       (currentPage + 1) * groupsPerPage
     );
-    console.log('currentPage', currentPage);
-    console.log('groupsPerPage:', groupsPerPage);
-    console.log('paginatedGroups:', paginatedGroups);
 
     const filterCondition = (d: any) => {
       return (
@@ -326,7 +323,7 @@ export default function FacetedBarChart1({
       // Calculate the max characters per line based on the facet width
       const maxLength_group = calculateMaxLength(facetWidth, fontSize);
 
-      const lines = splitText(group, maxLength_group);
+      const lines = splitText(group, maxLength_group, 3);
 
       // Adjust y-position based on the number of lines
       const textYOffset = -bottomMargin - (lines.length - 1) * lineHeight;
@@ -395,7 +392,7 @@ export default function FacetedBarChart1({
         });
     });
 
-    const maxLength = 15; // Max number of characters per line
+    const maxLength = 10; // Max number of characters per line
     const label_offset = 15;
     const lineHeight = 15; // Space between lines
     // Aggiunta delle etichette sulla sinistra per ogni categoria
@@ -407,11 +404,8 @@ export default function FacetedBarChart1({
       .attr('class', 'category-label')
       .attr('data-category', (d) => d) // Store original category name
       .attr('x', -label_offset) // Posiziona l'etichetta a sinistra
-      .attr('y', (d) => {
-        const lines = splitText(d, maxLength);
-        return (
-          yScale(d)! + rectHeight / 2 - ((lines.length - 1) * lineHeight) / 2
-        ); // Adjust for multiple lines
+      .attr('y', (d, index) => {
+        return yScale(d)! + rectHeight / 2 + index * lineHeight; // Adjust for multiple lines
       })
       .attr('dy', '.25em') // Allinea verticalmente al centro
       .attr('text-anchor', 'end') // Allinea l'etichetta a sinistra

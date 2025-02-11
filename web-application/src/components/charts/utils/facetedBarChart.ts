@@ -4,7 +4,7 @@ export function splitText(
   maxLength: number,
   maxLines: number = 2
 ): string[] {
-  const words = text.split(' ');
+  const words = text.split(/[\s-]+/);
   let lines: string[] = [];
   let currentLine = '';
 
