@@ -17,10 +17,7 @@ import {
 import { updateLegendLayout } from './utils/alluvial';
 import { wrapTextNode } from './utils/alluvial';
 import { handleResize } from './utils/alluvial';
-import {
-  tooltipPositionOnMouseMove,
-  updateTooltipPosition
-} from './utils/general';
+import { tooltipPositionOnMouseMove } from './utils/general';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
 
 /**
@@ -72,6 +69,7 @@ export interface AlluvialProps {
   nodeWidth?: number;
   tooltipSuffix?: string;
   scalingFactor?: number;
+  floatPrecision?: number;
   linksTooltipMapper?: (
     hoveredLink: SankeyLink<CustomNode, CustomLink>,
     relatedLinks: SankeyLink<CustomNode, CustomLink>[],
@@ -104,7 +102,8 @@ export interface AlluvialProps {
  * @param {number} Alluvila.minNodeHeight - The minimum height that can assume a node independently from it's value
  * @param {number} Alluvila.nodeWidth - The width of the nodes of the first layer
  * @param {string} AlluvialProps.tooltipSuffix - The suffix for the defualt tooltip (ex. 'k individuals')
- * @param {string} AlluvialProps.scalingFactor - The scaling factor for better data visualization in the tooltip, default '1'
+ * @param {number} AlluvialProps.scalingFactor - The scaling factor for better data visualization in the tooltip, default '1'
+ * @param {number} AlluvialProps.floatPrecision - The number of significant figures in data visualization for the tooltip, default '0'
  * @param {(hoveredLink: SankeyLink<CustomNode, CustomLink>, relatedLinks: SankeyLink<CustomNode, CustomLink>[], nodes: CustomNode[]) => JSX.Element} AlluvialProps.linksTooltipMapper - A JSX.Element used to create a tooltip in the case where the cursor is over a link
  * @param {(hoveredNode: CustomNode, relatedLinks: SankeyLink<CustomNode, CustomLink>[], nodes: CustomNode[], colorScale: (name: string) => string) => JSX.Element} AlluvialProps.startingNodesTooltipMapper - A JSX.Element used to create a tooltip in the case where the cursor is over a node of the first layer
  * @param {(hoveredNode: CustomNode, relatedLinks: SankeyLink<CustomNode, CustomLink>[], nodes: CustomNode[]) => JSX.Element} AlluvialProps.SecondLayerNodesTooltipMapper - A JSX.Element used to create a tooltip in the case where the cursor is over a node of the second layer
@@ -126,6 +125,7 @@ export default function Alluvial({
   nodeWidth,
   tooltipSuffix,
   scalingFactor,
+  floatPrecision,
   linksTooltipMapper,
   startingNodesTooltipMapper,
   SecondLayerNodesTooltipMapper,
@@ -148,8 +148,9 @@ export default function Alluvial({
   const nodesSecondLayer = data.nodes[1];
   tooltipSuffix = tooltipSuffix || '';
   scalingFactor = scalingFactor || 1;
+  floatPrecision = floatPrecision || 0;
 
-  if (nodesSecondLayer.length != colors.length) {
+  if (nodesSecondLayer.length > colors.length) {
     throw new Error(
       `The number colors must be the same of nodes. colors: ${colors.length}; nodes: ${nodesSecondLayer.length}`
     );
@@ -163,13 +164,6 @@ export default function Alluvial({
   useEffect(() => {
     if (data.nodes.length > 2) {
       throw new Error('Not more than two layers supported');
-    }
-
-    const product = data.nodes.reduce((acc, row) => acc * row.length, 1);
-    if (product != data.links.length) {
-      throw new Error(
-        `The data has not been processed correctly, too few/much links or nodes data.`
-      );
     }
 
     const svg = d3.select(svgRef.current);
@@ -293,7 +287,8 @@ export default function Alluvial({
               nodes,
               linksTooltipMapper,
               tooltipSuffix,
-              scalingFactor
+              scalingFactor,
+              floatPrecision
             )
           );
         }
@@ -322,6 +317,7 @@ export default function Alluvial({
               nodesSecondLayer,
               tooltipSuffix,
               scalingFactor,
+              floatPrecision,
               startingNodesTooltipMapper,
               SecondLayerNodesTooltipMapper
             )
@@ -411,7 +407,8 @@ export default function Alluvial({
                   nodes,
                   colorScale,
                   tooltipSuffix,
-                  scalingFactor
+                  scalingFactor,
+                  floatPrecision
                 )
               );
             }

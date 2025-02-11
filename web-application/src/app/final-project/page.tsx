@@ -29,12 +29,12 @@ import InternetUseLineChart from './internet-access/_components/charts/internet-
  */
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
+import ComputerUseAlluvial from './internet-access/_components/charts/computer-use-alluvial';
 
 export default function FinalProject() {
   return (
     <div>
       <h1>Fianl Project</h1>
-      <InternetUseAlluvial newWidth={800} newHeight={600}></InternetUseAlluvial>
     </div>
   );
 }
