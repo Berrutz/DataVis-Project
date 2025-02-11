@@ -65,7 +65,8 @@ export function defaultTooltipStartingNodes(
   nodes: CustomNode[],
   colorScale: (name: string) => string,
   suffix: string,
-  scalingFactor: number
+  scalingFactor: number,
+  floatPrecision: number
 ): JSX.Element {
   return (
     <div>
@@ -74,7 +75,7 @@ export function defaultTooltipStartingNodes(
       {relatedLinks.map((link, index) => {
         const sourceName = nodes[link.target].name;
         const color = colorScale(sourceName);
-        const value = (link.value / scalingFactor).toFixed(0);
+        const value = (link.value / scalingFactor).toFixed(floatPrecision);
 
         return (
           <div
@@ -106,11 +107,12 @@ export function defaultTooltipSecondLayerNodes(
   relatedLinks: CustomLink[],
   nodes: CustomNode[],
   suffix: string,
-  scalingFactor: number
+  scalingFactor: number,
+  floatPrecision: number
 ): JSX.Element {
   const totalPeople = (
     relatedLinks.reduce((sum, link) => sum + link.value, 0) / scalingFactor
-  ).toFixed(0);
+  ).toFixed(floatPrecision);
 
   return (
     <div>
@@ -119,7 +121,8 @@ export function defaultTooltipSecondLayerNodes(
       </div>
       {relatedLinks.map((link, index) => (
         <div key={index}>
-          {nodes[link.source].name}: {(link.value / 1000).toFixed(0)}
+          {nodes[link.source].name}:{' '}
+          {(link.value / scalingFactor).toFixed(floatPrecision)}
           {suffix}
         </div>
       ))}
@@ -146,6 +149,7 @@ export function mouseOverNodes(
   nodesSecondLayer: string[],
   suffix: string,
   scalingFactor: number,
+  floatPrecision: number,
   tooltipStartingNodes?: (
     hoveredNode: CustomNode,
     relatedLinks: CustomLink[],
@@ -179,7 +183,8 @@ export function mouseOverNodes(
         nodes,
         colorScale,
         suffix,
-        scalingFactor
+        scalingFactor,
+        floatPrecision
       );
     } else {
       // Generate tooltip for the second layer nodes
@@ -192,7 +197,8 @@ export function mouseOverNodes(
         relatedLinks,
         nodes,
         suffix,
-        scalingFactor
+        scalingFactor,
+        floatPrecision
       );
     }
   }
@@ -218,7 +224,8 @@ export function mouseOverLinks(
       ) => JSX.Element)
     | undefined,
   suffix: string,
-  scalingFactor: number
+  scalingFactor: number,
+  floatPrecision: number
 ): JSX.Element {
   const targetNode = d.target as CustomNode;
   if (targetNode.index == undefined) {
@@ -255,7 +262,8 @@ export function mouseOverLinks(
         const sourceNode = nodes[link.source as number]; // Assuming `source` is an index
         return (
           <div key={sourceNode.name + index}>
-            {sourceNode.name}: {(link.value / scalingFactor).toFixed(0)}
+            {sourceNode.name}:{' '}
+            {(link.value / scalingFactor).toFixed(floatPrecision)}
             {suffix}
             <br></br>
           </div>
@@ -266,7 +274,7 @@ export function mouseOverLinks(
         {(
           relatedSourceLinks.reduce((sum, link) => sum + link.value, 0) /
           scalingFactor
-        ).toFixed(0)}
+        ).toFixed(floatPrecision)}
         {suffix}
       </div>
     </div>
