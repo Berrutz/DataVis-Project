@@ -25,6 +25,7 @@ export default function BarchartCountriesDigitalSkills() {
   // Represent a selection for the user to switch the barchart parameters
   const [year, setYear] = useState<string>();
   const [indicIs, setIndicIs] = useState<string>();
+  const [indType, setIndType] = useState<string>();
 
   // The current state of the barchart x and y
   const [barchartState, setBarchartState] = useState<BarchartState | null>(
@@ -36,7 +37,8 @@ export default function BarchartCountriesDigitalSkills() {
     year: +d.time_period,
     country: d.geo,
     indic_is: d.indic_is,
-    value: +d.obs_value
+    value: +d.obs_value,
+    ind_type: d.ind_type
   }));
 
   // Choose the default selection values when the csv is loaded and fullfilled
@@ -54,29 +56,44 @@ export default function BarchartCountriesDigitalSkills() {
       indicIsList
     );
 
+    const indTypeList = csvData.map((value) => value.ind_type);
+    var selectedIndType = foundOrFirst('All individuals', indTypeList);
+
     // Set the first default selection for the first barchart visualization
     setYear(selectedYear.toString());
     setIndicIs(selectedIndicIs);
+    setIndType(selectedIndType);
   }, [csvData]);
 
   // Change the barchart state based on the current user selection
   useEffect(() => {
-    if (!year || !indicIs || csvData === null) return;
+    if (!year || !indicIs || !indType || csvData === null) return;
 
     const filteredData = csvData
-      .filter((value) => value.year === +year && value.indic_is === indicIs)
+      .filter(
+        (value) =>
+          value.year === +year &&
+          value.indic_is === indicIs &&
+          value.ind_type === indType
+      )
       .sort((a, b) => b.value - a.value);
 
     setBarchartState({
       x: filteredData.map((value) => value.country),
       y: filteredData.map((value) => value.value)
     });
-  }, [year, indicIs]);
+  }, [year, indicIs, indType]);
 
   // The csv is not yet loaded or
   // the default selection has not already initializated or
   // neither one of the x value and y value state for the barchart has been initializated
-  if (!year || !indicIs || csvData === null || barchartState === null) {
+  if (
+    !year ||
+    !indicIs ||
+    !indType ||
+    csvData === null ||
+    barchartState === null
+  ) {
     return (
       <ChartContainer>
         <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
@@ -91,6 +108,7 @@ export default function BarchartCountriesDigitalSkills() {
 
   // Unique years and indic_is to make the user input selections
   const uniqueIndicIs = getUnique(csvData.map((value) => value.indic_is));
+  const uniqueIndType = getUnique(csvData.map((value) => value.ind_type));
   const uniqueYears = getUnique(
     csvData.map((value) => value.year),
     (a, b) => b - a
@@ -144,6 +162,21 @@ export default function BarchartCountriesDigitalSkills() {
               {uniqueIndicIs.map((indicIs) => (
                 <SelectItem key={indicIs} value={indicIs.toString()}>
                   {indicIs}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="sm:w-full">
+          <label>Individuals Range</label>
+          <Select onValueChange={setIndType} defaultValue={indType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Individuals Range" />
+            </SelectTrigger>
+            <SelectContent>
+              {uniqueIndType.map((indType) => (
+                <SelectItem key={indType} value={indType.toString()}>
+                  {indType}
                 </SelectItem>
               ))}
             </SelectContent>
