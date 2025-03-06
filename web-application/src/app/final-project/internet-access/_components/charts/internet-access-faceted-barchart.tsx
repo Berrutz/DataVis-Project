@@ -1,6 +1,6 @@
 import FacetedBarChart1, {
   FacetedPoint
-} from '@/components/charts/FacetedBarChart1';
+} from '@/components/charts/facetedBarChart1';
 import { getStaticFile } from '@/utils/general';
 import * as d3 from 'd3';
 import { useEffect, useState } from 'react';
