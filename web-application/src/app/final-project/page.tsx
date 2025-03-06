@@ -1,6 +1,6 @@
 'use client';
 
-import FacetedBarChart1 from '@/components/charts/FacetedBarChart1';
+import FacetedBarChart1 from '@/components/charts/facetedBarChart1';
 import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
 import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
 import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
