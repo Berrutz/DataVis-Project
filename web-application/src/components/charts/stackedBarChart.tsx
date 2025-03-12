@@ -59,7 +59,7 @@ export interface StackedBarChartProps {
  * @param {number} StackedBarChartProps.mb - The margin bottom
  * @param {number} StackedBarChartProps.ml - The margin left
  * @param {boolean} StackedBarChartProps.percentage - Option to create a normalized stacked barchart
- * @param {boolean} StackedBarChartProps.vertical - Option to create a normalized stacked barchart
+ * @param {boolean} StackedBarChartProps.vertical - Option to swap x and y axis
  * @throws {Error} - If the length of categories or data is less or equals to 0
  * @throws {Error} - If every entity has not the same numbers of categories
  * @returns The react component
@@ -110,6 +110,15 @@ export default function StackedBarChart({
     null
   );
 
+  // Type guards
+  // If scale has the bandwidth() function it is of type ScaleBand
+  const isBandScale = (scale: any): scale is d3.ScaleBand<string> =>
+    'bandwidth' in scale;
+
+  // If scale has the invert() function it is of type ScaleLinear
+  const isLinearScale = (scale: any): scale is d3.ScaleLinear<number, number> =>
+    'invert' in scale;
+
   useEffect(() => {
     // Clear the svg in case of re-rendering
     d3.select(svgRef.current).selectAll('*').remove();
@@ -153,16 +162,6 @@ export default function StackedBarChart({
         return { entity, ...dividedCategories };
       });
     }
-
-    // Type guards
-    // If scale has the bandwidth() function it is of type ScaleBand
-    const isBandScale = (scale: any): scale is d3.ScaleBand<string> =>
-      'bandwidth' in scale;
-
-    // If scale has the invert() function it is of type ScaleLinear
-    const isLinearScale = (
-      scale: any
-    ): scale is d3.ScaleLinear<number, number> => 'invert' in scale;
 
     // Define X and Y scales
     const xScale = vertical
