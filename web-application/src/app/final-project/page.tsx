@@ -30,11 +30,12 @@ import InternetUseLineChart from './internet-access/_components/charts/internet-
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 import ComputerUseAlluvial from './internet-access/_components/charts/computer-use-alluvial';
+import StackedBarChartTest from './internet-access/_components/charts/stacked-barchart-test';
 
 export default function FinalProject() {
   return (
     <div>
-      <h1>Fianl Project</h1>
+      <h1>Final Project</h1>
     </div>
   );
 }
