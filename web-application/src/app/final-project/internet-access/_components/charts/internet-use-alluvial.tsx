@@ -39,12 +39,6 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
 
   const colors = ['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff'];
 
-  /*     .domain([
-      'between 3 and 12 months ago',
-      'in last 3 months',
-      'more than a year ago',
-      'never'
-    ]); */
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
     'internet-access-level/internet-use-divided-by-age-group.csv',
