@@ -101,9 +101,11 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
         width={newWidth}
         height={newHeight}
         colorInterpoaltor={d3.interpolateReds}
-        ml={40}
+        ml={55}
+        mr={15}
         mb={70}
         yLabelsSuffix="%"
+        vertical={true}
       ></BarChart>
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-1/3">
