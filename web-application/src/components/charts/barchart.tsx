@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 // Interface that represent a single point x and y
 export interface Point {
@@ -45,7 +46,6 @@ export interface BarChartProps {
  * @param {number} BarChartProps.mr - The margin right
  * @param {number} BarChartProps.mb - The margin bottom
  * @param {number} BarChartProps.ml - The margin left
- * @throws {Error} - If the length of x or y is less or equals to 0
  * @throws {Error} - If the lenght of x and y are different
  * @returns The react component
  */
@@ -88,20 +88,16 @@ export default function BarChart({
     'invert' in scale;
 
   useEffect(() => {
+    // Clear the svg in case of re-rendering
+    d3.select(svgRef.current).selectAll('*').remove();
+
     // Check that x and y data has some data to display
-    if (x.length <= 0 || y.length <= 0) {
-      throw new Error(
-        `X and Y must contains data (current number of sample: x=${x.length} y=${y.length}, expected x > 0 and y > 0)`
-      );
-    }
+    if (x.length <= 0 || y.length <= 0) return;
 
     // Check that x and y data has the same number of samples
     if (x.length != y.length) {
       throw new Error('X and Y data must have the same lenght');
     }
-
-    // Clear the svg in case of re-rendering
-    d3.select(svgRef.current).selectAll('*').remove();
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
@@ -159,11 +155,6 @@ export default function BarChart({
     // Define the X and Y axis labels
     var prefix = yLabelsPrefix || '';
     var suffix = yLabelsSuffix || '';
-
-    /*     console.log('xScale domain: ', xD3.domain());
-    console.log('yScale domain: ', xD3.domain());
-    console.log('xScale range: ', xD3.range());
-    console.log('yScale range: ', xD3.range()); */
 
     if (isBandScale(xD3)) {
       svg
@@ -291,6 +282,10 @@ export default function BarChart({
         d3.selectAll('rect').transition().duration(200).style('opacity', 1);
       });
   }, [x, y]);
+
+  if (x.length <= 0 || y.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
 
   return (
     <div className="relative" ref={containerRef}>

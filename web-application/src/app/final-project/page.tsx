@@ -34,8 +34,14 @@ import StackedBarChartTest from './internet-access/_components/charts/stacked-ba
 
 export default function FinalProject() {
   return (
-    <div>
+    <div className="flex flex-col ">
       <h1>Final Project</h1>
+      <div className="relative">
+        <InternetUseLineChart
+          newWidth={800}
+          newHeight={500}
+        ></InternetUseLineChart>
+      </div>
     </div>
   );
 }
