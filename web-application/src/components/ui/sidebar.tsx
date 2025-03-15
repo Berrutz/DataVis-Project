@@ -49,6 +49,7 @@ export function SidebarHeader({ children, ...props }: SidebarHeaderProps) {
   return (
     <div {...props}>
       <Button
+        className="min-w-9 min-h-9"
         variant={'outline'}
         size={'icon'}
         onClick={() => setSidebarOpen(false)}
@@ -111,7 +112,7 @@ export function SidebarContent({
         <div
           ref={sidebarContentRef}
           className={cn(
-            'relative bg-background min-w-[min(300px,_100%)] translate-x-[100%] h-full border-l shadow-xl p-2 transition-transform delay-100 overflow-y-auto',
+            'relative bg-background min-w-[min(350px,_100%)] translate-x-[100%] h-full border sm:border-l sm:border-t-0 sm:border-b-0 shadow-xl p-2 transition-transform delay-100 overflow-y-auto',
             sidebarOpen && 'translate-x-0',
             className
           )}

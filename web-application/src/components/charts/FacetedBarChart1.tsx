@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 export interface FacetedPoint {
   group: string; // The data on y axis
@@ -48,7 +49,6 @@ export interface FacetedBarChartProps {
  * @param {number} FacetedBarChartProps.mr - The margin right
  * @param {number} FacetedBarChartProps.mb - The margin bottom
  * @param {number} FacetedBarChartProps.ml - The margin left
- * @throws {Error} - If data has no element
  * @throws {Error} - If the numbers of groups and color maps doesn't match
  * @returns The react component
  */
@@ -81,9 +81,6 @@ export default function FacetedBarChart1({
   // Number of facets per page
   const groupsPerPage = 4;
 
-  if (!data || data.length <= 0) {
-    throw new Error("'data' has no elements.");
-  }
   const groups = Array.from(new Set(data.map((d) => d.group)));
 
   const handleNext = () => {
@@ -225,8 +222,6 @@ export default function FacetedBarChart1({
     facets.each(function (group) {
       const facet = d3.select(this);
       const groupData = filteredData.filter((d) => d.group === group);
-
-      // console.log('G : ', groupData);
 
       // Append gray background rectangle
       facet
@@ -458,6 +453,10 @@ export default function FacetedBarChart1({
           });
       });
   }, [data, width, height, currentPage]);
+
+  if (data.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
 
   return (
     <div className="relative" ref={containerRef}>

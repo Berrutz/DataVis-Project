@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 // Interface that represent the information usefull to construct the staked barchart
 /* data example
@@ -60,7 +61,6 @@ export interface StackedBarChartProps {
  * @param {number} StackedBarChartProps.ml - The margin left
  * @param {boolean} StackedBarChartProps.percentage - Option to create a normalized stacked barchart
  * @param {boolean} StackedBarChartProps.vertical - Option to swap x and y axis
- * @throws {Error} - If the length of categories or data is less or equals to 0
  * @throws {Error} - If every entity has not the same numbers of categories
  * @returns The react component
  */
@@ -78,13 +78,6 @@ export default function StackedBarChart({
   percentage,
   vertical
 }: StackedBarChartProps) {
-  // Check that data and categories data has some data to display
-  if (data.length <= 0 || categories.length <= 0) {
-    throw new Error(
-      `'data' and 'categories' must contains data (current number of sample: data=${data.length} categories=${categories.length}, expected data > 0 and categories > 0)`
-    );
-  }
-
   const categoriesName = categories.map((d) => d.name);
 
   data.forEach((element) => {
@@ -122,6 +115,9 @@ export default function StackedBarChart({
   useEffect(() => {
     // Clear the svg in case of re-rendering
     d3.select(svgRef.current).selectAll('*').remove();
+
+    // Check that data and categories data has some data to display
+    if (data.length <= 0 || categories.length <= 0) return;
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
@@ -449,6 +445,9 @@ export default function StackedBarChart({
         );
     });
   }, [data, vertical]);
+
+  if (data.length <= 0 || categories.length <= 0)
+    return <NoDataMessage height={height}></NoDataMessage>;
 
   return (
     <div className="relative" ref={containerRef}>
