@@ -8,6 +8,15 @@ export function splitText(
   let lines: string[] = [];
   let currentLine = '';
 
+  // There is only one not splittable word
+  if (words.length === 1) {
+    lines.push(words[0]);
+    if (words[0].length > maxLength) {
+      lines[0] = words[0].slice(0, maxLength - 3) + '...';
+    }
+    return lines;
+  }
+
   words.forEach((word) => {
     if ((currentLine + word).length <= maxLength) {
       currentLine += (currentLine ? ' ' : '') + word;

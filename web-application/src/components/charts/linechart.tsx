@@ -336,7 +336,7 @@ const LineChart: React.FC<LineChartProps> = ({
         // Update tooltip
         if (tooltipRef.current) {
           const horizontalOffset = 10;
-          const verticalOffset = 10;
+          const verticalOffset = 75;
           const containerRect = containerRef.current?.getBoundingClientRect();
           const tooltipWidth = tooltipRef.current.offsetWidth || 0;
 

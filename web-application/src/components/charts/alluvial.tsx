@@ -261,7 +261,7 @@ export default function Alluvial({
       })
       .attr('stroke-width', (d) => Math.max(1, d.width ?? 0)) // Fallback to 0 if `width` is undefined
       .attr('opacity', 0.85)
-      .on('mouseover', function (event, d) {
+      .on('mousemove', function (event, d) {
         const targetNode = d.target as SankeyNodeMinimal<
           CustomNode,
           CustomLink
@@ -274,7 +274,8 @@ export default function Alluvial({
             containerRef,
             event,
             horizontalOffset,
-            verticalOffset
+            verticalOffset,
+            width
           );
           tooltipRef.current.style.borderColor = colorScale(
             nodes[targetNode.index!].name
@@ -303,7 +304,7 @@ export default function Alluvial({
       .selectAll('rect')
       .data(sankeyData.nodes)
       .join('rect')
-      .on('mouseover', function (event, d) {
+      .on('mousemove', function (event, d) {
         if (tooltipRef.current) {
           // Tooltip for country nodes
           setTooltipContent(
@@ -329,7 +330,8 @@ export default function Alluvial({
             containerRef,
             event,
             horizontalOffset,
-            verticalOffset
+            verticalOffset,
+            width
           );
         }
       })
@@ -373,7 +375,7 @@ export default function Alluvial({
         }
       })
       .attr('fill', '#000')
-      .on('mouseover', function (event, d) {
+      .on('mousemove', function (event, d) {
         // Highlight effect
         highlightLinks(linkPaths, d);
 
@@ -392,7 +394,8 @@ export default function Alluvial({
               containerRef,
               event,
               horizontalOffset,
-              verticalOffset
+              verticalOffset,
+              width
             );
 
             if (startingNodesTooltipMapper != undefined) {

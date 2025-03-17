@@ -26,7 +26,7 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
-    'internet-access-level/internet-access.csv',
+    'internet-access-level/internet-use.csv',
     (d) => ({
       country: d.Country,
       year: +d.Year,
@@ -108,10 +108,8 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
     selectedCountries.some((d) => d.tag === line.tag)
   );
 
-  console.log(selectedCountries);
-
   return (
-    <ChartContainer className="sm:relative flex flex-col overflow-hidden gap-8">
+    <ChartContainer className="sm:relative flex flex-col gap-8">
       <Sidebar>
         <H3>Internet use for countries and regions</H3>
         <div className="flex justify-end">

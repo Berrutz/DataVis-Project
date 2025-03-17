@@ -10,14 +10,25 @@ export function tooltipPositionOnMouseMove(
   containerRef: React.MutableRefObject<HTMLDivElement | null>,
   event: any,
   horizontalOffset: number,
-  verticalOffset: number
+  verticalOffset: number,
+  chartWidth: number
 ) {
   const containerRect = containerRef.current?.getBoundingClientRect();
 
   if (tooltipRef.current) {
-    const tooltipX =
+    const tooltipWidth = tooltipRef.current.offsetWidth || 0;
+
+    var tooltipX =
       event.clientX - (containerRect?.left || 0) + horizontalOffset;
     const tooltipY = event.clientY - (containerRect?.top || 0) - verticalOffset;
+
+    if (tooltipX + tooltipWidth > chartWidth) {
+      tooltipX =
+        event.clientX -
+        (containerRect?.left || 0) -
+        tooltipWidth -
+        horizontalOffset;
+    }
 
     tooltipRef.current.style.left = `${tooltipX}px`;
     tooltipRef.current.style.top = `${tooltipY}px`;
