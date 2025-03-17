@@ -1,6 +1,5 @@
 'use client';
 
-import FacetedBarChart1 from '@/components/charts/facetedBarChart1';
 import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
 import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
 import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
@@ -34,13 +33,13 @@ import StackedBarChartTest from './internet-access/_components/charts/stacked-ba
 
 export default function FinalProject() {
   return (
-    <div className="flex flex-col ">
+    <div className="relative flex flex-col ">
       <h1>Final Project</h1>
       <div className="relative">
-        <InternetUseLineChart
+        <ComputerUseAlluvial
           newWidth={800}
-          newHeight={500}
-        ></InternetUseLineChart>
+          newHeight={800}
+        ></ComputerUseAlluvial>
       </div>
     </div>
   );
