@@ -1,3 +1,5 @@
+'use client';
+
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
@@ -7,6 +9,7 @@ import { Button } from '../ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 export interface FacetedPoint {
   group: string; // The data on y axis
@@ -18,7 +21,6 @@ export interface FacetedBarChartProps {
   data: { category: string; group: string; value: number }[];
   width: number;
   height: number;
-
   colorInterpoaltors?: (((t: number) => string) | Iterable<string>)[];
   xDomainMin?: number;
   xDomainMax?: number;
@@ -35,9 +37,8 @@ export interface FacetedBarChartProps {
  * A Faceted Barchart component
  *
  * @param {string[]} FacetedBarChartProps.data - data
- * @param {number} FacetedBarChartProps.width - The width of the bartchart (e.g. 100px or 100% or ... <css-props>)
- * @param {number} FacetedBarChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
- 
+ * @param {number} FacetedBarChartProps.width - The width of the faceted bartchart (e.g. 100px or 100% or ... <css-props>)
+ * @param {number} FacetedBarChartProps.height - The height of the faceted bartchart, used only when no data is avaiable
  * @param {((t: number) => string) | Iterable<string>} FacetedBarChartProps.colorInterpoaltors - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
  * @param {[number, number]} FacetedBarChartProps.xDomainMin- The min value for the x domain (e.g. 0 or min(y))
  * @param {[number, number]} FacetedBarChartProps.xDomainMax- The max value for the x domain (e.g. 100 or max(y))
@@ -48,7 +49,6 @@ export interface FacetedBarChartProps {
  * @param {number} FacetedBarChartProps.mr - The margin right
  * @param {number} FacetedBarChartProps.mb - The margin bottom
  * @param {number} FacetedBarChartProps.ml - The margin left
- * @throws {Error} - If data has no element
  * @throws {Error} - If the numbers of groups and color maps doesn't match
  * @returns The react component
  */
@@ -81,9 +81,6 @@ export default function FacetedBarChart1({
   // Number of facets per page
   const groupsPerPage = 4;
 
-  if (!data || data.length <= 0) {
-    throw new Error("'data' has no elements.");
-  }
   const groups = Array.from(new Set(data.map((d) => d.group)));
 
   const handleNext = () => {
@@ -99,6 +96,8 @@ export default function FacetedBarChart1({
   useEffect(() => {
     d3.select(svgRef.current).selectAll('*').remove();
 
+    if (data.length <= 0) return;
+
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
       top: mt || 50,
@@ -107,11 +106,13 @@ export default function FacetedBarChart1({
       left: ml || 75
     };
 
-    const chartWidth = width - margin.left - margin.right;
-    const chartHeight = height - margin.top - margin.bottom;
-
     var categories = Array.from(new Set(data.map((d) => d.category)));
     var values = Array.from(new Set(data.map((d) => d.value)));
+
+    height = margin.top + margin.bottom + 15 + 33 * categories.length;
+
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
 
     if (
       colorInterpoaltors != undefined &&
@@ -122,21 +123,14 @@ export default function FacetedBarChart1({
       );
     }
 
-    categories = categories.slice(0, 15); // PAESI
-
     // Determine which groups to show based on the current page
     const paginatedGroups = groups.slice(
       currentPage * groupsPerPage,
       (currentPage + 1) * groupsPerPage
     );
-    console.log('currentPage', currentPage);
-    console.log('groupsPerPage:', groupsPerPage);
-    console.log('paginatedGroups:', paginatedGroups);
 
     const filterCondition = (d: any) => {
-      return (
-        categories.includes(d.category) && paginatedGroups.includes(d.group)
-      );
+      return paginatedGroups.includes(d.group);
     };
 
     // Filtrare i dati prima di usarli
@@ -155,12 +149,8 @@ export default function FacetedBarChart1({
 
     // Scala X (Values)
     // Set axis ticks number
-    const ticksNumber = paginatedGroups.length > 4 ? 3 : 5;
-    const xScale = d3
-      .scaleLinear()
-      .nice(ticksNumber)
-      .domain(domain)
-      .range([0, facetWidth]);
+    const ticksNumber = 3;
+    const xScale = d3.scaleLinear().domain(domain).range([0, facetWidth]);
 
     // Scala Y (Categories)
     const yScale = d3
@@ -229,8 +219,6 @@ export default function FacetedBarChart1({
       const facet = d3.select(this);
       const groupData = filteredData.filter((d) => d.group === group);
 
-      // console.log('G : ', groupData);
-
       // Append gray background rectangle
       facet
         .append('rect')
@@ -287,7 +275,8 @@ export default function FacetedBarChart1({
               containerRef,
               event,
               horizontalOffset,
-              verticalOffset
+              verticalOffset,
+              width
             );
 
             setTooltipContent(tooltipMapper!([d]));
@@ -326,7 +315,7 @@ export default function FacetedBarChart1({
       // Calculate the max characters per line based on the facet width
       const maxLength_group = calculateMaxLength(facetWidth, fontSize);
 
-      const lines = splitText(group, maxLength_group);
+      const lines = splitText(group, maxLength_group, 3);
 
       // Adjust y-position based on the number of lines
       const textYOffset = -bottomMargin - (lines.length - 1) * lineHeight;
@@ -354,14 +343,15 @@ export default function FacetedBarChart1({
 
             if (tooltipRef.current) {
               // Calcola la posizione del tooltip
-              const horizontalOffset = 25;
-              const verticalOffset = -20;
+              const horizontalOffset = 10;
+              const verticalOffset = 10;
               tooltipPositionOnMouseMove(
                 tooltipRef,
                 containerRef,
                 event,
                 horizontalOffset,
-                verticalOffset
+                verticalOffset,
+                width
               );
               setTooltipContent(tooltipMapper!(adaptedGroupData, group));
 
@@ -395,7 +385,7 @@ export default function FacetedBarChart1({
         });
     });
 
-    const maxLength = 15; // Max number of characters per line
+    const maxLength = 13; // Max number of characters per line
     const label_offset = 15;
     const lineHeight = 15; // Space between lines
     // Aggiunta delle etichette sulla sinistra per ogni categoria
@@ -407,11 +397,8 @@ export default function FacetedBarChart1({
       .attr('class', 'category-label')
       .attr('data-category', (d) => d) // Store original category name
       .attr('x', -label_offset) // Posiziona l'etichetta a sinistra
-      .attr('y', (d, i) => {
-        const lines = splitText(d, maxLength);
-        return (
-          yScale(d)! + rectHeight / 2 - ((lines.length - 1) * lineHeight) / 2
-        ); // Adjust for multiple lines
+      .attr('y', (d, index) => {
+        return yScale(d)! + rectHeight / 2 + index * lineHeight; // Adjust for multiple lines
       })
       .attr('dy', '.25em') // Allinea verticalmente al centro
       .attr('text-anchor', 'end') // Allinea l'etichetta a sinistra
@@ -448,14 +435,15 @@ export default function FacetedBarChart1({
 
             if (tooltipRef.current) {
               // compute tooltip position
-              const horizontalOffset = 25;
+              const horizontalOffset = 10;
               const verticalOffset = 60;
               tooltipPositionOnMouseMove(
                 tooltipRef,
                 containerRef,
                 event,
                 horizontalOffset,
-                verticalOffset
+                verticalOffset,
+                width
               );
 
               setTooltipContent(tooltipMapper!(categoryData, cateogyOriginal));
@@ -470,8 +458,12 @@ export default function FacetedBarChart1({
       });
   }, [data, width, height, currentPage]);
 
+  if (data.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
+
   return (
-    <div className="relative" ref={containerRef}>
+    <div className="relative overflow-y-auto" ref={containerRef}>
       <ChartScrollableWrapper>
         <motion.div
           key={currentPage}

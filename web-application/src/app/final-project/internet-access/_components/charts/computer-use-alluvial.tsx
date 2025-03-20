@@ -15,13 +15,13 @@ import {
 } from '@/components/ui/select';
 import { H3 } from '@/components/headings';
 
-interface InternetUseAlluvialProps {
+interface ComputerUseAlluvialProps {
   newWidth: number;
   newHeight: number;
 }
 
 interface Data {
-  lastInternetUse: string; // The category
+  lastComputerUse: string; // The category
   ageGroup: string; // The age group
   country: string; // Country name
   year: number; // year considered
@@ -29,7 +29,7 @@ interface Data {
   population: number; // population in that age group for the relative country
 }
 
-const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
+const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
   newWidth,
   newHeight
 }) => {
@@ -39,11 +39,17 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
 
   const colors = ['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff'];
 
+  /*     .domain([
+      'between 3 and 12 months ago',
+      'in last 3 months',
+      'more than a year ago',
+      'never'
+    ]); */
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
-    'internet-access-level/internet-use-divided-by-age-group.csv',
+    'internet-access-level/computer-use-divided-by-age-group.csv',
     (d) => ({
-      lastInternetUse: d['Last internet use'],
+      lastComputerUse: d['Last computer use'],
       ageGroup: d['Age group'],
       country: d.Country,
       year: +d.Year,
@@ -109,33 +115,33 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
 
     // Initialize the starting nodes made of age groups
     const ageGroupSortedByPopulation = adjustedData
-      .filter((d) => d.lastInternetUse === adjustedData[0].lastInternetUse)
+      .filter((d) => d.lastComputerUse === adjustedData[0].lastComputerUse)
       .sort((a, b) => b.population - a.population)
       .map((d) => d.ageGroup);
 
     // Initialize the 2° nodes column made of the categories
-    // Group data by lastInternetUse and calculate total sum per category
-    const groupedByInternetUse = adjustedData.reduce<Record<string, number>>(
+    // Group data by lastComputerUse and calculate total sum per category
+    const groupedByComputerUse = adjustedData.reduce<Record<string, number>>(
       (map, d) => {
-        if (!map[d.lastInternetUse]) {
-          map[d.lastInternetUse] = 0;
+        if (!map[d.lastComputerUse]) {
+          map[d.lastComputerUse] = 0;
         }
-        map[d.lastInternetUse] += d.value; // Sum up values
+        map[d.lastComputerUse] += d.value; // Sum up values
         return map;
       },
       {}
     );
 
-    // Sort lastInternetUse categories based on total summed value (descending)
-    const sortedInternetUseCategories = Object.entries(groupedByInternetUse)
+    // Sort lastComputerUse categories based on total summed value (descending)
+    const sortedComputerUseCategories = Object.entries(groupedByComputerUse)
       .sort((a, b) => b[1] - a[1]) // Sort by summed value (descending)
       .map(([category]) => category); // Extract just the sorted category names
 
     setData({
-      nodes: [ageGroupSortedByPopulation, sortedInternetUseCategories],
+      nodes: [ageGroupSortedByPopulation, sortedComputerUseCategories],
       links: adjustedData.map((d) => ({
         source: d.ageGroup,
-        target: d.lastInternetUse,
+        target: d.lastComputerUse,
         value: d.population
       }))
     });
@@ -170,14 +176,15 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
   );
   return (
     <ChartContainer className="flex flex-col gap-8">
-      <H3>Frequency of internet use divided by age groups</H3>
+      <H3>Frequency of computer use divided by age groups</H3>
       <Alluvial
         data={alluvialData}
         width={newWidth}
         height={newHeight}
         colors={colors}
-        tooltipSuffix="k individuals"
-        scalingFactor={1000}
+        tooltipSuffix="M individuals"
+        scalingFactor={1000000}
+        floatPrecision={2}
         ml={50}
       ></Alluvial>
       <div className="flex flex-col gap-6 sm:flex-row">
@@ -222,4 +229,4 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
   );
 };
 
-export default InternetUseAlluvial;
+export default ComputerUseAlluvial;
