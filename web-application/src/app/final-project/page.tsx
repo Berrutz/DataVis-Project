@@ -23,8 +23,21 @@
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 import ComputerUseAlluvial from './internet-access/_components/charts/computer-use-alluvial';
+import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
 import StackedBarChartTest from './internet-access/_components/charts/stacked-barchart-test';
+import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
+import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart'; //already done
 
 export default function FinalProject() {
-  return <Useoftheinternet></Useoftheinternet>;
+  /*return <InternetAccessBarChart 
+  newWidth={700} 
+  newHeight={700}>
+  </InternetAccessBarChart>*/
+  return <Useoftheinternet>
+  </Useoftheinternet>
+  /*return <InternetUseAlluvial
+  newWidth={500} newHeight={500}>
+  </InternetUseAlluvial>*/
+  
+  
 }

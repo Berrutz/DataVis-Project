@@ -15,7 +15,7 @@ export interface FrequencyData {
   export interface DegradingData {
     reason: string;
     country: string;
-    percentage: number;
+    value: number;
   }
   
   export interface PurchaseData {

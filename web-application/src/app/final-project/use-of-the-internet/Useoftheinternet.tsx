@@ -16,11 +16,14 @@ import DegradingMessages from './_components/degrading_messages';
 import Purchase from './_components/purchase';
 import Activities from './_components/activities';
 
+import FrequenciesAlluvial from './_components/frequencies_alluvial';
+import InternetUseAlluvial from './_components/frequencies_alluvial_b';
+
 export default function Useoftheinternet() {
 
     return (
     <AssignmentPage title={'Use of the Internet'}>
-       {/* ALLUVIAL & BAR CHART - FREQUENCIES */}
+       {/* ALLUVIAL - FREQUENCIES */}
        <ChartSection
         asidename="Line Chart Temperatures"
         asidekey="line-chart-temperatures"
@@ -28,20 +31,33 @@ export default function Useoftheinternet() {
         >
         <ChartHeading>
           <ChartH1Title>
-          Individuals frequencies of access over the internet
+          Frequency of internet use divided by age groups
           </ChartH1Title>
-          <p>
-            These graphs show 
-          </p>
+          <p>  
+          This is an alluvial chart that represents the distribution of internet usage across different age 
+          groups and categories of last internet use. <br></br>
+          On the left side, there are four age groups: 16 to 24, 25 to 54, 55 to 70, and 70 and older. 
+          On the right side, there are four categories indicating the last time individuals used the internet: 
+          in the last 3 months, never, more than a year ago, and between 3 and 12 months ago. <br></br>
+          The thickness of each flow between groups and categories represents the number of people in each combination.
+          Users can filter the data by selecting the year and country through a selector.  
+        </p>
         </ChartHeading>
         <ChartBody>
+          {/*
           <ChartContainer
             asidename="Frequency"
             asidekey="Alluvional-chart"
             id="Alluvional-chart"
-          >
+          > 
           <Frequencies></Frequencies>
          </ChartContainer>
+         */}
+         {/* Alluvial */ }
+         <InternetUseAlluvial
+         newWidth={700} newHeight={500} 
+         ></InternetUseAlluvial>
+
         </ChartBody>
         <ChartContainer
           asidename="Comment"
@@ -50,11 +66,15 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            Viewing average maximum and minimum temperatures for a single year
-            does not allow us to comment on trends or patterns except for
-            typical seasonal variations, with colder months (winter) at the
-            start and end of the year and warmer months (summer) in the middle
-            of the year.
+          This visualization allows users to observe how internet usage 
+          patterns vary by country and year, highlighting the predominant 
+          group of internet users and their frequency of use. <br></br>
+          For example, in Italy in 2023, a total of 40,000 people used the internet 
+          in the last three months across all age groups. 
+          The largest share, around 21,000 users, belonged to the 25 to 54 age group, 
+          which is also the most numerous demographic in the country. <br></br>
+           This pattern reflects not only digital habits but also population distribution, 
+           as larger age groups naturally contribute more to overall internet usage.  
           </p>
         </ChartContainer>
       </ChartSection>
@@ -69,21 +89,18 @@ export default function Useoftheinternet() {
             Individual Activities on the Internet
           </ChartH1Title>
           <p>
-            These graph show on a selected country from the EU the percentage of invididuals that 
-            search information about good and services , sell good and services and partecipate in the
-            social network along the years . On the X-axis there the years while the Y-axis is related 
-            to the percentage of the population that perform the selected activity .
-
+          This LineChart displays data for a selected EU country, showing the percentage of individuals 
+          who search for information about goods and services, sell goods and services, and participate 
+          in social networks over the years. 
+          The X-axis represents the years from 2013 to 2023, while the Y-axis indicates the percentage 
+          of the population engaged in the selected activity. 
+          A country selector allows users to choose the country they want to analyze.
           </p>
         </ChartHeading>
         <ChartBody>
-          <ChartContainer
-            asidename="LineChart"
-            asidekey="LineChart-chart"
-            id="LineChart-chart"
-          >
+          
           <Activities></Activities>
-         </ChartContainer>
+         
         </ChartBody>
         <ChartContainer
           asidename="Comment"
@@ -92,10 +109,11 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            Observing the charts related to the select country in general in the EU we observe
-            an increasing trend from 2013 to 2024 in the perctange of individuals that partecipate in 
-            social network activities or search for information about goods and services and 
-            sell goods and services .
+          Observing the charts for the selected country and, more generally, across the EU, 
+          we notice a steady increasing trend from 2013 to 2024 in the percentage of individuals 
+          engaging in social network activities, searching for information about goods and services , 
+          and selling goods and services. 
+          This upward trend suggests a growing reliance on digital platforms for both social interactions and economic activities.
           </p>
         </ChartContainer>
       </ChartSection>
@@ -110,7 +128,19 @@ export default function Useoftheinternet() {
           Bubble Chart Financial
           </ChartH1Title>
           <p>
-
+          The following graph is a Bubble Chart, and its concept is outlined below. 
+          The idea is to merge two datasets from EUROSTAT to determine the percentage of individuals investing and 
+          what they invest in , depending on the country. <br></br>
+          The datasets used include the percentage of people who bought or sold shares or other investments from 2013 to 2024 
+          across Europe and the percentage of people living in the selected country . <br></br>
+          The goal is to visualize this information through a Bubble Chart, where the bubble size represents the 
+          ratio between the percentage of investors and the country's population, highlighting which countries contribute 
+          the most in absolute numbers. <br></br>
+          The bubble color corresponds to the country, while the number of bubbles varies by year, meaning multiple bubbles 
+          of the same color exist for different years. <br></br>
+          The bubble positions are dynamically arranged, ensuring an intuitive representation of financial 
+          engagement across different nations and years. This chart ultimately aims to illustrate which country, in which year, 
+          had the highest number of individuals actively participating in the financial market.
           </p>
         </ChartHeading>
         <ChartBody>
@@ -129,6 +159,13 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
+          The Bubble Chart illustrates the distribution of individuals engaging in financial 
+          investments across different European countries and years. 
+          Notably, Sweden in 2016 has one of the largest bubbles, despite having fewer absolute 
+          investors compared to other countries. This is due to the fact that, in terms of percentage, 
+          Sweden had the highest proportion of its population participating in financial investments that year. 
+          The chart effectively highlights how a country's investment activity can be 
+          significant not only in raw numbers but also in relation to its total population.
           </p>
         </ChartContainer>
       </ChartSection>
@@ -143,12 +180,7 @@ export default function Useoftheinternet() {
           Stacked Bar Chart Degrading Messages
           </ChartH1Title>
           <p>
-            These graphs show the maximum (max), minimum (min) and average (avg)
-            temperatures month by month over a year. The y-axis displays the
-            temperature values in degrees Fahrenheit (°F), while the x-axis
-            indicates the month. The graph provides the option to select the
-            year and state you want to view. The data can be displayed using a
-            Line chart or a Radar chart.
+            
           </p>
         </ChartHeading>
         <ChartBody>
@@ -167,11 +199,7 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            Viewing average maximum and minimum temperatures for a single year
-            does not allow us to comment on trends or patterns except for
-            typical seasonal variations, with colder months (winter) at the
-            start and end of the year and warmer months (summer) in the middle
-            of the year.
+            
           </p>
         </ChartContainer>
       </ChartSection>
