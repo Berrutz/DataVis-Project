@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 // Interface that represent a single point x and y
 export interface Point {
@@ -20,6 +21,7 @@ export interface BarChartProps {
   yLabelsPrefix?: string;
   yLabelsSuffix?: string;
   tooltipMapper?: (point: Point) => React.ReactNode;
+  vertical?: boolean;
   mt?: number;
   mr?: number;
   mb?: number;
@@ -39,11 +41,11 @@ export interface BarChartProps {
  * @param {string} BarChartProps.yLabelsPrefix - The prefix for the y labels
  * @param {string} BarChartProps.yLabelsSuffix - The suffix for the y labelsc
  * @param {(point: Point) => React.ReactNode} BarChartProps.tooltipMapper - A react node used to create a tooltip from a poitn x, y
+ * @param {boolean} BarChartProps.vertical - Option to swap x and y axis
  * @param {number} BarChartProps.mt - The margin top
  * @param {number} BarChartProps.mr - The margin right
  * @param {number} BarChartProps.mb - The margin bottom
  * @param {number} BarChartProps.ml - The margin left
- * @throws {Error} - If the length of x or y is less or equals to 0
  * @throws {Error} - If the lenght of x and y are different
  * @returns The react component
  */
@@ -58,6 +60,7 @@ export default function BarChart({
   yLabelsPrefix,
   yLabelsSuffix,
   tooltipMapper,
+  vertical,
   mt,
   mr,
   mb,
@@ -75,21 +78,26 @@ export default function BarChart({
     null
   );
 
+  // Type guards
+  // If scale has the bandwidth() function it is of type ScaleBand
+  const isBandScale = (scale: any): scale is d3.ScaleBand<string> =>
+    'bandwidth' in scale;
+
+  // If scale has the invert() function it is of type ScaleLinear
+  const isLinearScale = (scale: any): scale is d3.ScaleLinear<number, number> =>
+    'invert' in scale;
+
   useEffect(() => {
+    // Clear the svg in case of re-rendering
+    d3.select(svgRef.current).selectAll('*').remove();
+
     // Check that x and y data has some data to display
-    if (x.length <= 0 || y.length <= 0) {
-      throw new Error(
-        `X and Y must contains data (current number of sample: x=${x.length} y=${y.length}, expected x > 0 and y > 0)`
-      );
-    }
+    if (x.length <= 0 || y.length <= 0) return;
 
     // Check that x and y data has the same number of samples
     if (x.length != y.length) {
       throw new Error('X and Y data must have the same lenght');
     }
-
-    // Clear the svg in case of re-rendering
-    d3.select(svgRef.current).selectAll('*').remove();
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
@@ -99,7 +107,10 @@ export default function BarChart({
       left: ml || 30
     };
 
-    // Define the Y domain
+    // Define if the chart is vertical (i.e. x and y are swapped), default false
+    vertical = vertical || false;
+
+    // Define the numeric domain
     var domain = [
       yDomainMin || Math.min(0, Math.min(...y)),
       yDomainMax || Math.max(...y)
@@ -117,39 +128,78 @@ export default function BarChart({
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Define X and Y scales
-    const xD3 = d3
-      .scaleBand()
-      .domain(x)
-      .range([0, width - margin.left - margin.right])
-      .padding(0.2);
+    const xD3 = vertical
+      ? d3
+          .scaleBand()
+          .domain(x)
+          .range([0, width - margin.left - margin.right])
+          .padding(0.2)
+      : d3
+          .scaleLinear()
+          .domain(domain)
+          .nice()
+          .range([0, width - margin.left - margin.right]);
 
-    const yD3 = d3
-      .scaleLinear()
-      .domain(domain)
-      .nice()
-      .range([height - margin.top - margin.bottom, 0]);
+    const yD3 = vertical
+      ? d3
+          .scaleLinear()
+          .domain(domain)
+          .nice()
+          .range([height - margin.top - margin.bottom, 0])
+      : d3
+          .scaleBand()
+          .domain(x)
+          .range([0, height - margin.top - margin.bottom])
+          .padding(0.2);
 
-    // Define the X axis labels
-    svg
-      .append('g')
-      .attr('transform', `translate(0,${height - margin.top - margin.bottom})`)
-      .call(d3.axisBottom(xD3).tickSize(0))
-      .selectAll('text')
-      .attr('transform', 'rotate(-45)')
-      .style('text-anchor', 'end');
-
-    // Define the Y axis lables
+    // Define the X and Y axis labels
     var prefix = yLabelsPrefix || '';
     var suffix = yLabelsSuffix || '';
-    svg
-      .append('g')
-      .call(d3.axisLeft(yD3).tickFormat((y) => `${prefix}${y}${suffix}`))
-      .append('text')
-      .attr('text-anchor', 'end')
-      .attr('fill', 'black')
-      .attr('font-weight', 'bold')
-      .attr('y', -10)
-      .attr('x', -10);
+
+    if (isBandScale(xD3)) {
+      svg
+        .append('g')
+        .attr(
+          'transform',
+          `translate(0,${height - margin.top - margin.bottom})`
+        )
+        .call(d3.axisBottom(xD3).tickSize(0))
+        .selectAll('text')
+        .attr('transform', 'rotate(-45)')
+        .style('text-anchor', 'end');
+    } else {
+      svg
+        .append('g')
+        .attr(
+          'transform',
+          `translate(0,${height - margin.top - margin.bottom})`
+        )
+        .call(d3.axisBottom(xD3).tickFormat((x) => `${prefix}${x}${suffix}`))
+        .append('text')
+        .attr('text-anchor', 'end')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .attr('y', -10)
+        .attr('x', -10);
+    }
+
+    if (isBandScale(yD3)) {
+      svg
+        .append('g')
+        .call(d3.axisLeft(yD3).tickSize(0))
+        .selectAll('text')
+        .style('text-anchor', 'end');
+    } else {
+      svg
+        .append('g')
+        .call(d3.axisLeft(yD3).tickFormat((y) => `${prefix}${y}${suffix}`))
+        .append('text')
+        .attr('text-anchor', 'end')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .attr('y', -10)
+        .attr('x', -10);
+    }
 
     // Zip the X and Y values together
     const data: Point[] = y.map((value, index) => {
@@ -165,7 +215,11 @@ export default function BarChart({
       ((point: Point) => {
         return (
           <p>
-            {point.x}: <span>{point.y}</span>
+            {point.x}:{' '}
+            <span>
+              {prefix}
+              {point.y} {suffix}
+            </span>
           </p>
         );
       });
@@ -176,10 +230,18 @@ export default function BarChart({
       .data(data)
       .enter()
       .append('rect')
-      .attr('x', (d) => xD3(d.x) || 0)
-      .attr('y', (d) => yD3(d.y))
-      .attr('width', xD3.bandwidth())
-      .attr('height', (d) => height - margin.top - margin.bottom - yD3(d.y))
+      .attr('x', (d) =>
+        isBandScale(xD3) ? xD3(d.x) || 0 : Math.min(xD3(0)!, xD3(d.y)!)
+      )
+      .attr('y', (d) => (isBandScale(yD3) ? yD3(d.x) || 0 : yD3(d.y)))
+      .attr('width', (d) =>
+        isLinearScale(xD3) ? Math.abs(xD3(d.y)! - xD3(0)!) : xD3.bandwidth()
+      )
+      .attr('height', (d) =>
+        isLinearScale(yD3)
+          ? height - margin.top - margin.bottom - yD3(d.y)
+          : yD3.bandwidth()
+      )
       .attr('fill', (d) => colorScale(d.y))
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
@@ -220,6 +282,10 @@ export default function BarChart({
         d3.selectAll('rect').transition().duration(200).style('opacity', 1);
       });
   }, [x, y]);
+
+  if (x.length <= 0 || y.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
 
   return (
     <div className="relative" ref={containerRef}>

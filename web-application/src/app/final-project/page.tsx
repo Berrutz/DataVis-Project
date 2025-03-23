@@ -1,8 +1,10 @@
 'use client';
 
-import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
-import InternetAccessMap from './internet-access/_components/internet-access-map';
-import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
+import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
+import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
+import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
+import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
+import InternetUseLineChart from './internet-access/_components/charts/internet-use-linechart';
 
 /*
  * Final Project:
@@ -24,7 +26,6 @@ import InternetUseLineChart from './internet-access/_components/internet-use-lin
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
-
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
 import BarchartCountriesDigitalSkills from './_components/digital-skills/_charts/barchart-contry-digital-skills';
