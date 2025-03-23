@@ -9,6 +9,17 @@ import { getStaticFile } from '@/utils/general';
 // add alex barchart general solution
 import BarChart from '@/components/charts/barchart';   
 
+import ChartContainer from '@/components/chart-container';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { foundOrFirst, getUnique } from '@/utils/general';
+
 export default function Purchase() {
 
     const [windowWidth, setWindowWidth] = useState<number>(1200);
@@ -79,37 +90,50 @@ export default function Purchase() {
 
           }, [selectedCountry, AllData]);
 
-
-return(
-    <div className="mt-3">
-    <label htmlFor="line-chart-country">Select country: </label>
-    <select
-      id="line-chart-country"
-      value={selectedCountry}
-      onChange={(e) => setSelectedCountry(e.target.value)} // Nessuna conversione a number
-      className="py-1 px-2 ml-2 rounded-md border bg-background"
-    >
-        {countries.map(country => (
-          <option key={country} value={country}>{country}</option>
-        ))}
-    </select>
-
-            {/* Mappa e grafico */}
-                <MapContainer
-                    components={[
-                        {
-                        buttonText: 'Line',
-                        component: (x.length > 0 && y.length > 0) ? (
-                            <BarChart x={x} y={y} width={700} height={500} colorInterpoaltor={d3.interpolateReds} ml={90} mb={70} yLabel='Percentage of Individuals' xLabel='Years' />
-                        ) : (
-                            <p>Loading chart data...</p> // Placeholder temporaneo
-                        )
-                        ,
-                        }
-                    ]}
-                >
-                </MapContainer>
-        </div>
-        )
+        // The csv is not yet loaded or
+        // the default selection has not already initializated or
+        // neither one of the x value and y value state for the barchart has been initializated
+        if (
+          !selectedCountry ||
+          AllData === null 
+        ) {
+          return (
+            <ChartContainer>
+              <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+            </ChartContainer>
+          );
+        }
+    
+        // Unique years and indic_is to make the user input selections
+        const uniqueIndicIs = getUnique(AllData.map((value) => value.country));
+    
+      
+      return (
+                <ChartContainer className="flex flex-col gap-10">
+                  {/*<H3>Frequency of internet use divided by age groups</H3> */}
+                  <BarChart x={x} y={y} width={700} height={500} colorInterpoaltor={d3.interpolateReds} 
+                  ml={90} mb={70} xLabel='Percentage of Individuals' yLabel='Years' />
+                  <div className="flex flex-col gap-6 sm:flex-row">
+                    <div className="sm:w-full">
+                      <label>Country</label>
+                      <Select
+                        onValueChange={setSelectedCountry}
+                        defaultValue={selectedCountry}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Digital Skill Level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {uniqueIndicIs.map((indicIs) => (
+                            <SelectItem key={indicIs} value={indicIs.toString()}>
+                              {indicIs}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </ChartContainer>
+      );
 }
           

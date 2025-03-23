@@ -51,126 +51,67 @@ export interface FacetedPoint {
 export default function DegradingMessages() {
 
     const [windowWidth, setWindowWidth] = useState<number>(1200);
-    const [AllData, setAllData] = useState<DegradingData[]>([]);
+    
     const [countries, setCountries] = useState<string[]>([]);
     const [csvData, setCsvData] = useState<DegradingData[]>([]);
 
     const [selectedCountries, setSelectedCountries] = useState<FacetedGroupedData[]>([]);
     const [facetedData, setFacetedData] = useState<FacetedGroupedData[]>([]);
-    const defaulCountiresSelected = 10;
+    const defaulCountiresSelected = 15;
 
-    /*
-    useEffect(() => {
-        const fetchData = async () => {
-          try{
-            //console.log("Fetching data...");
-    
-            // Load of the data
-            const DegradeCsvData: DegradingData[] = await d3.csv(
-            getStaticFile('datasets/final-project/use-of-the-internet/degrading/percentage_people_degrading_online_mex.csv'),
-              (d: any) => ({
-                  reason : d.reason_to_discriminate,
-                  country: d.Country,
-                  percentage: +d.percentage_of_individual,
-              })
-            );
-            setAllData(DegradeCsvData);
-            
-            //console.log("ALL DATA DEGRADED : " ,DegradeCsvData )
-    
-            // Estrazione di anni e paesi unici
-            const uniqueCountries = Array.from(new Set(DegradeCsvData.map(d => d.country))).sort();
-            
-            setCountries(uniqueCountries);
-
-            // Convertiamo i dati nel formato richiesto
-            const formattedData: ChartData[] = DegradeCsvData.map(d => ({
-              category: d.country,  // "reason" diventa "category"
-              group: d.reason,    // "country" diventa "group"
-              value: d.percentage  // "percentage" diventa "value"
-          }));
-
-          setChartData(formattedData);
-
-    
-          }catch (error) {
-            console.error("Error", error);
-          }
-    
-        };
-    
-        fetchData();
-        }, []);
 
         useEffect(() => {
-            if (AllData.length === 0) return;
-
-          }, [AllData]);
-      */
-
-
-          useEffect(() => {
-            const fetchData = async () => {
-              try{
-                //console.log("Fetching data...");
-        
-                // Load of the data
-                const DegradeCsvData: DegradingData[] = await d3.csv(
-                getStaticFile('datasets/final-project/use-of-the-internet/degrading/percentage_people_degrading_online_mex.csv'),
-                  (d: any) => ({
-                      reason : d.reason_to_discriminate,
-                      country: d.Country,
-                      value: +d.percentage_of_individual,
-                  })
-                );
-                setCsvData(DegradeCsvData);
-                
-              }catch (error) {
-                console.error("Error", error);
-              }
-        
-            };
-        
-            fetchData();
-            }, []);
-    
-            useEffect(() => {
-                if (AllData.length === 0) return;
-    
-              }, [AllData]);
-
-
-        console.log("Degrading CSV : ",csvData);
-
-        useEffect(() => {
-          if ( csvData === null) return;
+          const fetchData = async () => {
+            try{
+              //console.log("Fetching data...");
       
-          // Filter data based on the selected year
-          const filteredData = csvData
-            .sort((a, b) => a.country.localeCompare(b.country));
-      
-          if (filteredData.length === 0) return;
-      
-          // Cast the data into an object usefull for the FacetedBarChart
-          const groupedFacetedData: FacetedGroupedData[] = Object.values(
-            filteredData.reduce((acc, { reason , country, value }) => {
-              if (!acc[country]) {
-                acc[country] = { category: country, groups: [] };
-              }
-      
-              acc[country].groups.push({ name: reason, value });
-      
-              return acc;
-            }, {} as Record<string, FacetedGroupedData>)
-          );
-      
-          setFacetedData(groupedFacetedData);
-      
-          setSelectedCountries(groupedFacetedData.slice(0, defaulCountiresSelected));
+              // Load of the data
+              const DegradeCsvData: DegradingData[] = await d3.csv(
+              getStaticFile('datasets/final-project/use-of-the-internet/degrading/percentage_people_degrading_online_mex.csv'),
+                (d: any) => ({
+                    reason : d.reason_to_discriminate,
+                    country: d.Country,
+                    value: d.percentage_of_individual,
+                })
+              );
+              setCsvData(DegradeCsvData);
 
-        }, []);
+              console.log("Degrading CSV : ",DegradeCsvData);
 
-        // The csv is not yet loaded or
+              // Filter data based on the selected year
+              const filteredData = DegradeCsvData.sort((a, b) => b.value - a.value);
+
+          
+              if (filteredData.length === 0) return;
+          
+              // Cast the data into an object usefull for the FacetedBarChart
+              const groupedFacetedData: FacetedGroupedData[] = Object.values(
+                filteredData.reduce((acc, { reason , country, value }) => {
+                  if (!acc[country]) {
+                    acc[country] = { category: country, groups: [] };
+                  }
+          
+                  acc[country].groups.push({ name: reason, value });
+          
+                  return acc;
+                }, {} as Record<string, FacetedGroupedData>)
+              );
+      
+              setFacetedData(groupedFacetedData);
+          
+              setSelectedCountries(groupedFacetedData.slice(0, defaulCountiresSelected));
+              
+            }catch (error) {
+              console.error("Error", error);
+            }
+      
+          };
+      
+          fetchData();
+          }, []);
+
+
+          // The csv is not yet loaded or
           // the default selection has not already initializated or
           // neither one of the x value and y value state for the barchart has been initializated
           if (
@@ -237,7 +178,7 @@ return(
                       </div>
                     </SidebarTrigger>
           </div>
-          <FacetedBarChart1 data={transformToFacetedPoints(selectedCountries)} width={800} height={600} ml={120} />
+          <FacetedBarChart1 data={transformToFacetedPoints(selectedCountries)} width={725} height={600} ml={120} />
           {/* Sidebar Content */}
           <ChartSidebar
             items={allCountriesGroup}

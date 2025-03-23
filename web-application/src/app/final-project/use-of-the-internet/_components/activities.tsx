@@ -148,40 +148,6 @@ export default function Activities() {
       );
     }
 
-
-    /*return(
-    /*<div className="mt-3">
-    <label htmlFor="line-chart-country">Select country: </label>
-    <select
-      id="line-chart-country"
-      value={selectedCountry}
-      onChange={(e) => setSelectedCountry(e.target.value)} // Nessuna conversione a number
-      className="py-1 px-2 ml-2 rounded-md border bg-background"
-    >
-        {countries.map(country => (
-          <option key={country} value={country}>{country}</option>
-        ))}
-    </select>
-
-            {/* Mappa e grafico /}
-                <MapContainer
-                    components={[
-                        {
-                        buttonText: 'Line',
-                        component:chartData.length > 0 ? (
-                          <LineChart data={chartData} width={750} height={600}
-                          xLabel='Years' yLabel='Percentage of Individual' ml={80} mb={80}/>
-                          ) : (
-                              <p>Loading chart data...</p>
-                          )
-                        ,
-                        }
-                    ]}
-                >
-                </MapContainer>
-        </div>
-        )*/
-
         // Unique years and indic_is to make the user input selections
         const uniqueIndicIs = getUnique(AllData.map((value) => value.country));
 

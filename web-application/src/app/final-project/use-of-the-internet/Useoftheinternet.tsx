@@ -44,15 +44,6 @@ export default function Useoftheinternet() {
         </p>
         </ChartHeading>
         <ChartBody>
-          {/*
-          <ChartContainer
-            asidename="Frequency"
-            asidekey="Alluvional-chart"
-            id="Alluvional-chart"
-          > 
-          <Frequencies></Frequencies>
-         </ChartContainer>
-         */}
          {/* Alluvial */ }
          <InternetUseAlluvial
          newWidth={700} newHeight={500} 
@@ -145,7 +136,7 @@ export default function Useoftheinternet() {
         </ChartHeading>
         <ChartBody>
           <ChartContainer
-            asidename="Financial"
+            asidename=""
             asidekey="Bubble-chart"
             id="Bubble-chart"
           >
@@ -180,12 +171,26 @@ export default function Useoftheinternet() {
           Stacked Bar Chart Degrading Messages
           </ChartH1Title>
           <p>
-            
+          The dataset used for the stacked bar chart was preprocessed to retain only 
+          the relevant information. <br></br>
+          Initially, unnecessary columns such as metadata and flags were removed. <br></br>
+          The dataset was then analyzed to determine the unique 
+          categories for key attributes: the basis of discrimination, 
+          the percentage of the population which has been effectively discriminated and the geographical area . 
+          <br></br>
+          Filtering was applied to include only individuals born in non-EU countries and measured 
+          in terms of percentage values. <br></br>
+          The final dataset contains the percentage of individuals in each EU country 
+          who encountered degrading messages online in 2023, categorized by the reason for discrimination. 
+          <br></br>
+          This stacked bar chart visually represents the extent and distribution of online discrimination 
+          faced by non-EU-born individuals across different EU countries, highlighting key social issues 
+          related to digital interactions. 
           </p>
         </ChartHeading>
         <ChartBody>
           <ChartContainer
-            asidename="Degrading Messages"
+            asidename=""
             asidekey="Stacked Bar Chart"
             id="stacked-bar-chart"
           >
@@ -199,7 +204,11 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            
+          The chart shows that among the European Union countries, the Netherlands ranks first, with 48.7% of 
+          respondents stating that they have encountered degrading or discriminatory messages online 
+          targeting a group of people in the last three months. 
+          Additionally, looking at the last stacked chart, it can be observed that among these people, 
+          25.37% believed that the attacks were due to religious opinions or beliefs. 
           </p>
         </ChartContainer>
       </ChartSection>
@@ -214,18 +223,22 @@ export default function Useoftheinternet() {
           Percentage of individual that purchase online in the last 3 month of the year in the Europe Continent from 2010 to 2024
           </ChartH1Title>
           <p>
-          This graph compares the percentage of individuals that purchase online in the last 3 month of one of the selected country in the Europe Continent . 
+          This graph compares the percentage of individuals that purchase online in the last 3 month of one 
+          of the selected country in the Europe Continent . 
           On the x-axis the are the years related to the country and the corresponding percentage on the y-axis .
+          After preprocessing, we obtain a clean and structured dataset that consolidates data from two separate 
+          CSV files into a single, unified file. 
+          This final dataset provides the percentage of individuals who made an online purchase in the last 
+          three months across European countries, covering the period from 2010 to 2024. 
+          The data is organized by country and year, enabling easy analysis of trends over time. 
+          By merging the two sources, we ensure continuity in tracking the evolution of online purchasing 
+          behavior before and after 2019, offering a comprehensive view of digital commerce adoption across Europe.
           </p>
         </ChartHeading>
         <ChartBody>
-          <ChartContainer
-            asidename="Degrading Messages"
-            asidekey="Stacked Bar Chart"
-            id="stacked-bar-chart"
-          >
+          
           <Purchase></Purchase>
-         </ChartContainer>
+         
         </ChartBody>
         <ChartContainer
           asidename="Comment"
@@ -234,11 +247,17 @@ export default function Useoftheinternet() {
         >
           <ChartH2Title>Comment</ChartH2Title>
           <p>
-            Viewing average maximum and minimum temperatures for a single year
-            does not allow us to comment on trends or patterns except for
-            typical seasonal variations, with colder months (winter) at the
-            start and end of the year and warmer months (summer) in the middle
-            of the year.
+          Observing the chart for Italy as the selected country, we notice a clear upward trend in the percentage 
+          of individuals making online purchases over the years. 
+          The percentage rises from around 10% in 2010 to nearly 40% in 2024. 
+          This growth can be attributed to several factors, including increased internet penetration, 
+          improved digital literacy, and the growing availability of e-commerce platforms. 
+          In earlier years, fewer people had internet access, and online shopping was less widespread. 
+          However, as digital services expanded and became more accessible, a larger portion of the population 
+          started purchasing goods and services online. 
+          In recent years, this growth appears to have reached a plateau around 40%, suggesting 
+          that most of the population willing and able to shop online has already transitioned, 
+          with further increases likely happening at a slower rate .
           </p>
         </ChartContainer>
       </ChartSection>
