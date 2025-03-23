@@ -51,13 +51,13 @@ export default function BarchartCountriesDigitalSkills() {
 
     // As default indic_is choose `Individuals with no overall digital skills` or the first one in alphabetical order
     const indicIsList = csvData.map((value) => value.indic_is);
-    var selectedIndicIs = foundOrFirst(
+    const selectedIndicIs = foundOrFirst(
       'Individuals with no overall digital skills',
       indicIsList
     );
 
     const indTypeList = csvData.map((value) => value.ind_type);
-    var selectedIndType = foundOrFirst('All individuals', indTypeList);
+    const selectedIndType = foundOrFirst('All individuals', indTypeList);
 
     // Set the first default selection for the first barchart visualization
     setYear(selectedYear.toString());
@@ -120,12 +120,13 @@ export default function BarchartCountriesDigitalSkills() {
       <BarChart
         x={barchartState.x}
         y={barchartState.y}
-        width={900}
-        height={400}
+        width={1000}
+        height={800}
         colorInterpoaltor={d3.interpolateBlues}
         mb={90}
         mr={20}
         mt={0}
+        ml={80}
         tooltipMapper={(point: Point): React.ReactNode => (
           <div>
             {point.x}: {point.y}%
