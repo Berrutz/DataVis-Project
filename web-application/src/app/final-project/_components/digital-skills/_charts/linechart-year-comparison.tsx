@@ -18,6 +18,8 @@ import LineChart, { Line } from '@/components/charts/linechart';
 
 export default function LinechartYearsDigitalSkills() {
   // Represent a selection for the user to switch the linecharts parameters
+  // TODO: Change this and make possible a selection over the countries (coutries selector, right now u can pick only one)
+  // Check the code below.
   const [countries, setCountries] = useState<string[]>();
   const [indicIs, setIndicIs] = useState<string>();
   const [indType, setIndType] = useState<string>();
