@@ -9,7 +9,7 @@ interface ChartSidebarProps<T> {
   selectedItems: T[];
   onSelectionChange: (item: T) => void;
   onClearSelection: () => void;
-  displayKey: keyof T; // The field to display (e.g., "x" in Point)
+  displayKey?: keyof T; // The field to display (e.g., "x" in Point)
   isChecked: (item: T) => boolean; // Function to determine if an item is checked
   chartid: string;
 }
@@ -38,7 +38,7 @@ export const ChartSidebar = <T,>({
     <SidebarContent>
       {/* Sidebar Header */}
       <SidebarHeader className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-lg font-semibold ml-6">
+        <h2 className="ml-6 text-lg font-semibold">
           ADD/REMOVE COUNTRIES AND REGIONS
         </h2>
       </SidebarHeader>
@@ -47,7 +47,7 @@ export const ChartSidebar = <T,>({
       <div className="p-4 pt-3">
         {/* Selected Items */}
         <div>
-          <div className="flex justify-between items-center w-full font-semibold border-b border-gray-300 py-3">
+          <div className="flex justify-between items-center py-3 w-full font-semibold border-b border-gray-300">
             <h3 className="text-base text-gray-500">
               Selection ({selectedItems.length})
             </h3>
@@ -59,14 +59,14 @@ export const ChartSidebar = <T,>({
             <AnimatePresence>
               {selectedItems.map((item, index) => (
                 <motion.div
-                  key={String(item[displayKey])}
-                  className="flex border-b border-gray-300 py-3"
+                  key={String((displayKey && item[displayKey]) || item)}
+                  className="flex py-3 border-b border-gray-300"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex items-center space-x-2 ml-2">
+                  <div className="flex items-center ml-2 space-x-2">
                     <Checkbox
                       id={`${chartid}-selected-${index}`}
                       checked
@@ -76,7 +76,7 @@ export const ChartSidebar = <T,>({
                       htmlFor={`selected-${index}`}
                       className="text-base text-gray-800"
                     >
-                      {String(item[displayKey])}
+                      {String((displayKey && item[displayKey]) || item)}
                     </Label>
                   </div>
                 </motion.div>
@@ -87,13 +87,13 @@ export const ChartSidebar = <T,>({
 
         {/* All Items */}
         <div>
-          <h3 className="text-base font-semibold text-gray-500 border-b border-gray-300 py-3">
+          <h3 className="py-3 text-base font-semibold text-gray-500 border-b border-gray-300">
             All countries and regions
           </h3>
           <div>
             {items.map((item, index) => (
-              <div key={index} className="flex border-b border-gray-300 py-3">
-                <div className="flex items-center space-x-2 ml-2">
+              <div key={index} className="flex py-3 border-b border-gray-300">
+                <div className="flex items-center ml-2 space-x-2">
                   <Checkbox
                     id={`${chartid}-all-${index}`}
                     checked={isChecked(item)}
@@ -103,7 +103,7 @@ export const ChartSidebar = <T,>({
                     htmlFor={`all-${index}`}
                     className="text-base text-gray-800"
                   >
-                    {String(item[displayKey])}
+                    {String((displayKey && item[displayKey]) || item)}
                   </Label>
                 </div>
               </div>

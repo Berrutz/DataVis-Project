@@ -28,19 +28,16 @@ import InternetUseLineChart from './internet-access/_components/charts/internet-
  */
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
-import ComputerUseAlluvial from './internet-access/_components/charts/computer-use-alluvial';
-import StackedBarChartTest from './internet-access/_components/charts/stacked-barchart-test';
+import BarchartCountriesDigitalSkills from './_components/digital-skills/_charts/barchart-contry-digital-skills';
+import StackedBarcharAgeDigitalSkills from './_components/digital-skills/_charts/stacked-bar-chart-digital-skill-age';
 
 export default function FinalProject() {
   return (
-    <div className="relative flex flex-col ">
-      <h1>Final Project</h1>
-      <div className="relative">
-        <ComputerUseAlluvial
-          newWidth={800}
-          newHeight={800}
-        ></ComputerUseAlluvial>
-      </div>
-    </div>
+    /*<BarchartCountriesDigitalSkills>
+    </BarchartCountriesDigitalSkills>*/
+    <StackedBarcharAgeDigitalSkills
+    newHeight={800} newWidth={1700}>
+    </StackedBarcharAgeDigitalSkills>
+
   );
 }
