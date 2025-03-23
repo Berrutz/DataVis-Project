@@ -76,6 +76,8 @@ const StackedBarChartTest: React.FC<StackedBarChartProps> = ({
       color: colors[index] ?? '000' // Use an empty string if array2 is shorter
     }));
     setCategories(combinedArray);
+
+    
   }, [csvData]);
 
   // The csv is not yet loaded or

@@ -35,7 +35,8 @@ export default function FinalProject() {
   return (
     /*<BarchartCountriesDigitalSkills>
     </BarchartCountriesDigitalSkills>*/
-    <StackedBarcharAgeDigitalSkills>
+    <StackedBarcharAgeDigitalSkills
+    newHeight={800} newWidth={1700}>
     </StackedBarcharAgeDigitalSkills>
 
   );
