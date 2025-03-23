@@ -1,5 +1,6 @@
 'use client';
 
+import { Pencil } from 'lucide-react';
 import chroma from 'chroma-js';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -15,11 +16,15 @@ import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
 import { H3 } from '@/components/headings';
 import LineChart, { Line } from '@/components/charts/linechart';
+import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
+import { ChartSidebar } from '@/components/chart-sidebar';
+import MapContainer from '@/components/map-switch-container';
 
 export default function LinechartYearsDigitalSkills() {
   // Represent a selection for the user to switch the linecharts parameters
   // TODO: Change this and make possible a selection over the countries (coutries selector, right now u can pick only one)
   // Check the code below.
+  const [allUniqueCountries, setAllUniqueCountries] = useState<string[]>([]);
   const [countries, setCountries] = useState<string[]>();
   const [indicIs, setIndicIs] = useState<string>();
   const [indType, setIndType] = useState<string>();
@@ -48,16 +53,33 @@ export default function LinechartYearsDigitalSkills() {
     ind_type: d.ind_type
   }));
 
+  const handleCountriesSelection = (point: string) => {
+    setCountries((prev) => {
+      if (countries === undefined) return [point];
+
+      // Logic to handle the deletion of a country from the selection
+      // Since the changed/selected coutry is in the coutries list of selection
+      if (countries.includes(point)) {
+        if (prev === undefined) return [];
+
+        return prev.filter((c) => c !== point);
+      }
+
+      // Add the new country and sort by category
+      return [...(prev || []), point];
+    });
+  };
+
   // Choose the default selection values when the csv is loaded and fullfilled
   useEffect(() => {
     if (csvData === null || csvData.length <= 0) return;
 
     // As default choose italy, germany, france and romania as countries if they are present in the csv
     const countries = csvData.map((value) => value.country);
-    const allUniqueCountries = [...new Set(countries)];
+    const allCountries = [...new Set(countries)];
     const defaultCountries = ['Italy', 'Germany', 'France', 'Romania'];
     const selectedCountries = defaultCountries.filter((value) =>
-      allUniqueCountries.includes(value)
+      allCountries.includes(value)
     );
 
     // As default indic_is choose `Individuals with no overall digital skills` or the first one in alphabetical order
@@ -71,6 +93,8 @@ export default function LinechartYearsDigitalSkills() {
     const selectedIndType = foundOrFirst('All individuals', indTypeList);
 
     // Set the first default selection for the first linechart visualization
+
+    setAllUniqueCountries(allCountries);
     setCountries(selectedCountries);
     setIndicIs(selectedIndicIs);
     setIndType(selectedIndType);
@@ -168,87 +192,101 @@ export default function LinechartYearsDigitalSkills() {
   // Unique years and indic_is to make the user input selections
   const uniqueIndicIs = getUnique(csvData.map((value) => value.indic_is));
   const uniqueIndType = getUnique(csvData.map((value) => value.ind_type));
-  const uniqueCountries = getUnique(csvData.map((value) => value.country));
 
   const height = 500;
 
   return (
-    <ChartContainer className="flex flex-col gap-8">
-      <H3>Digital skills compared over the years</H3>
-      {linechartBefore2019Data.length <= 0 ? (
-        <div className="flex justify-center items-center h-[400px] w-[min(100%,_900px)]">
-          <h1 className="text-xl font-medium text-destructive">
-            No data available
-          </h1>
-        </div>
-      ) : (
-        <>
-          <h3 className="text-xl font-semibold mb-[-30px]">
-            Years before 2019
-          </h3>
-          <LineChart
-            width={900}
-            height={height}
-            data={linechartBefore2019Data}
-            ml={40}
+    <ChartContainer className="flex relative flex-col gap-8">
+      <Sidebar>
+        <H3>Digital skills compared over the years</H3>
+        {linechartBefore2019Data.length <= 0 ? (
+          <div className="flex justify-center items-center h-[400px] w-[min(100%,_900px)]">
+            <h1 className="text-xl font-medium text-destructive">
+              No data available
+            </h1>
+          </div>
+        ) : (
+          <MapContainer
+            className="max-w-full shadow-none"
+            components={[
+              {
+                buttonText: 'Before 2019',
+                component: (
+                  <LineChart
+                    width={900}
+                    height={height}
+                    data={linechartBefore2019Data}
+                    ml={40}
+                  />
+                )
+              },
+              {
+                buttonText: 'After 2019',
+                component: (
+                  <LineChart
+                    width={900}
+                    height={height}
+                    data={linechartAfter2019Data}
+                    ml={40}
+                  />
+                )
+              }
+            ]}
           />
-
-          <h3 className="text-xl font-semibold mb-[-30px]">Years after 2019</h3>
-          <LineChart
-            width={900}
-            height={height}
-            data={linechartAfter2019Data}
-            ml={40}
-          />
-        </>
-      )}
-      <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="sm:w-1/3">
-          <label>Year</label>
-          <Select onValueChange={setCountries} defaultValue={countries}>
-            <SelectTrigger>
-              <SelectValue placeholder="Country" />
-            </SelectTrigger>
-            <SelectContent>
-              {uniqueCountries.map((country) => (
-                <SelectItem key={country} value={country.toString()}>
-                  {country}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        )}
+        <div className="flex flex-col gap-6 sm:flex-row">
+          <div className="sm:w-1/3">
+            <label>Select Countries</label>
+            <SidebarTrigger
+              variant={'outline'}
+              className="w-full text-base font-medium xs:w-64"
+            >
+              <div className="flex items-center">
+                <Pencil className="mr-2 text-gray-500 min-w-5 min-h-5" />
+                Edit countries and regions
+              </div>
+            </SidebarTrigger>
+            <ChartSidebar
+              items={allUniqueCountries}
+              selectedItems={countries}
+              onSelectionChange={handleCountriesSelection}
+              onClearSelection={() => setCountries([])}
+              isChecked={(country: string) => countries.includes(country)}
+              chartid="linechart-years-digital-skills"
+            />
+          </div>
+          <div className="sm:w-full">
+            <label>Digital Skill Level</label>
+            <Select onValueChange={setIndicIs} defaultValue={indicIs}>
+              <SelectTrigger>
+                <SelectValue placeholder="Digital Skill Level" />
+              </SelectTrigger>
+              <SelectContent>
+                {uniqueIndicIs.map((indicIs) => (
+                  <SelectItem key={indicIs} value={indicIs.toString()}>
+                    {indicIs}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="sm:w-full">
+            <label>Individuals Range</label>
+            <Select onValueChange={setIndType} defaultValue={indType}>
+              <SelectTrigger>
+                <SelectValue placeholder="Individuals Range" />
+              </SelectTrigger>
+              <SelectContent>
+                {uniqueIndType.map((indType) => (
+                  <SelectItem key={indType} value={indType.toString()}>
+                    {indType}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="sm:w-full">
-          <label>Digital Skill Level</label>
-          <Select onValueChange={setIndicIs} defaultValue={indicIs}>
-            <SelectTrigger>
-              <SelectValue placeholder="Digital Skill Level" />
-            </SelectTrigger>
-            <SelectContent>
-              {uniqueIndicIs.map((indicIs) => (
-                <SelectItem key={indicIs} value={indicIs.toString()}>
-                  {indicIs}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="sm:w-full">
-          <label>Individuals Range</label>
-          <Select onValueChange={setIndType} defaultValue={indType}>
-            <SelectTrigger>
-              <SelectValue placeholder="Individuals Range" />
-            </SelectTrigger>
-            <SelectContent>
-              {uniqueIndType.map((indType) => (
-                <SelectItem key={indType} value={indType.toString()}>
-                  {indType}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      </Sidebar>
     </ChartContainer>
   );
 }
