@@ -10,90 +10,130 @@ import StackedBarChart, {
   StackedData
 } from '@/components/charts/stackedBarChart';
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+
 interface StackedBarChartProps {
   newWidth: number;
   newHeight: number;
 }
 
-const StackedBarcharAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
-      newWidth,
-      newHeight
-    }) => {
+const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
+  newWidth,
+  newHeight
+}) => {
+  const [stackedData, setData] = useState<StackedData[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string | null>(null);
+  const [uniqueYears, setUniqueYears] = useState<string[]>([]);
 
+  const colors = ['#34eb52', '#34d5eb', '#336ad0'];
 
-      const [stackedData, setData] = useState<StackedData[]>([]);
-      const [categories, setCategories] = useState<Category[]>([]);
+  // Get the data from the CSV file using D3
+  const csvData = useGetD3Csv(
+    'digital-skills/Employed-ICT-education-age.csv',
+    (d) => ({
+      time: +d.time_period,
+      country: d.geo,
+      range: d.age,
+      percentage: +d.obs_value
+    })
+  );
 
-      const colors = ['#34eb52', '#34d5eb'];
+  console.log("CsvData:", csvData);
 
-      // Get the data from the csv file using D3
-      const csvData = useGetD3Csv(
-        'digital-skills/Employed-ICT-education-age.csv',
-        (d) => ({
-        time: +d.time_period,
-        country: d.geo,
-        range: d.age,
-        percentage: +d.obs_value
-        })
-      );
+  // Extract unique years when CSV data is loaded
+  useEffect(() => {
+    if (!csvData || csvData.length === 0) return;
 
-      console.log("CsvData : " ,csvData);
+    const years = Array.from(new Set(csvData.map(d => d.time.toString())));
+    setUniqueYears(years);
 
-      useEffect(() => {
+    if (!selectedYear) {
+      setSelectedYear(years[0]); // Set the first year as default
+    }
+  }, [csvData]);
 
-        if (csvData === null || csvData.length <= 0) return;
-    
-        // data already sorted in pre-processing
-    
-        // TODO : use setData and setCategories to pass at the StackedBarChart
+  // Process data when selectedYear changes
+  useEffect(() => {
+    if (!selectedYear || csvData!.length === 0) return;
 
-        // Raggruppiamo i dati per paese e creiamo la struttura per lo stacked bar chart
-        const groupedData = d3.group(csvData, (d) => d.country);
+    // Filter data for the selected year
+    const filteredData = csvData!.filter(d => d.time.toString() === selectedYear);
 
-        const processedData: StackedData[] = Array.from(groupedData, ([country, values]) => {
-        const entry: Record<string, any> = { entity: country };
-        values.forEach((d) => {
-            entry[d.range] = d.percentage;
-        });
-        return entry as StackedData;
-        });
+    // Group data by country
+    const groupedData = d3.group(filteredData, (d) => d.country);
 
-        setData(processedData);
+    // Function to truncate country names
+    const truncateCountryName = (name: string, maxLength: number = 3) =>
+      name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
 
-        // Otteniamo tutte le fasce d'età presenti nei dati
-        const ageGroups = Array.from(new Set(csvData.map((d) => d.range)));
-        const categoryList: Category[] = ageGroups.map((group, index) => ({
-        name: group,
-        color: colors[index % colors.length] // Cicla sui colori disponibili
-        }));
-        setCategories(categoryList);
-        
-      }, [csvData]);
+    // Process data for StackedBarChart
+    const processedData: StackedData[] = Array.from(groupedData, ([country, values]) => {
+      const entry: Record<string, any> = { entity: truncateCountryName(country) };
+      values.forEach((d) => {
+        entry[d.range] = d.percentage;
+      });
+      return entry as StackedData;
+    });
 
-      if (!csvData || stackedData.length === 0 || categories.length === 0) {
-        return (
-          <ChartContainer>
-            <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
-          </ChartContainer>
-        );
-      }
-      
-      
+    setData(processedData);
 
-  return (
-      <ChartContainer className="flex flex-col gap-8">
-        <H3>Employed persons with ICT education by age</H3>
-        <StackedBarChart
-          data={stackedData}
-          categories={categories}
-          width={newWidth}
-          height={newHeight}
-          unitOfMeasurement="%"
-          vertical={true}
-          percentage={true}
-        ></StackedBarChart>
+    // Extract unique age ranges for categories
+    const ageGroups = Array.from(new Set(filteredData.map((d) => d.range)));
+    const categoryList: Category[] = ageGroups.map((group, index) => ({
+      name: group,
+      color: colors[index % colors.length] // Rotate through available colors
+    }));
+    setCategories(categoryList);
+
+  }, [selectedYear, csvData]);
+
+  // Show loading skeleton if data isn't ready
+  if (!csvData || stackedData.length === 0 || categories.length === 0) {
+    return (
+      <ChartContainer>
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
       </ChartContainer>
     );
+  }
+
+  return (
+    <ChartContainer className="flex flex-col gap-8">
+      <H3>Employed persons with ICT education by age</H3>
+      <StackedBarChart
+        data={stackedData}
+        categories={categories}
+        width={newWidth}
+        height={newHeight}
+        unitOfMeasurement="%"
+        vertical={true}
+        percentage={true}
+      />
+      <div className="flex flex-col gap-6 sm:flex-row">
+        <div className="sm:w-full">
+          <label>Year</label>
+          <Select value={selectedYear || ''} onValueChange={setSelectedYear}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select Year" />
+            </SelectTrigger>
+            <SelectContent>
+              {uniqueYears.map((year) => (
+                <SelectItem key={year} value={year}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </ChartContainer>
+  );
 };
 
-export default StackedBarcharAgeDigitalSkills;
+export default StackedBarChartAgeDigitalSkills;
