@@ -27,11 +27,15 @@ import InternetUseLineChart from './internet-access/_components/internet-use-lin
 
 
 import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
+import BarchartCountriesDigitalSkills from './_components/digital-skills/_charts/barchart-contry-digital-skills';
+import StackedBarcharAgeDigitalSkills from './_components/digital-skills/_charts/stacked-bar-chart-digital-skill-age';
 
 export default function FinalProject() {
   return (
-    <div>
-      <h1>Fianl Project</h1>
-    </div>
+    /*<BarchartCountriesDigitalSkills>
+    </BarchartCountriesDigitalSkills>*/
+    <StackedBarcharAgeDigitalSkills>
+    </StackedBarcharAgeDigitalSkills>
+
   );
 }
