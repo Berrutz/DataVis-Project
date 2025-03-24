@@ -7,7 +7,7 @@ type ComponentType = {
   component: React.ReactNode;
 };
 
-interface MapContainerProps {
+interface MapContainerProps extends React.HTMLAttributes<HTMLHeadElement> {
   components: ComponentType[];
   className?: string;
 }
