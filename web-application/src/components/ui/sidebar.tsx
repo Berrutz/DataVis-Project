@@ -112,7 +112,7 @@ export function SidebarContent({
         <div
           ref={sidebarContentRef}
           className={cn(
-            'relative bg-background w-[min(400px,_100%)] translate-x-[100%] h-full border sm:border-l sm:border-t-0 sm:border-b-0 shadow-xl p-2 transition-transform delay-100 overflow-y-auto',
+            'relative bg-background w-[min(375px,_100%)] translate-x-[100%] h-full border sm:border-l sm:border-t-0 sm:border-b-0 shadow-xl p-2 transition-transform delay-100 overflow-y-auto',
             sidebarOpen && 'translate-x-0',
             className
           )}

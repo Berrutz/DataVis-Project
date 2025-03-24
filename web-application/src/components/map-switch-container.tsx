@@ -7,7 +7,7 @@ type ComponentType = {
   component: React.ReactNode;
 };
 
-interface MapContainerProps {
+interface MapContainerProps extends React.HTMLAttributes<HTMLHeadElement> {
   components: ComponentType[];
 }
 
@@ -21,7 +21,8 @@ interface MapContainerProps {
  * @returns {React.ReactNode} The react component.
  */
 const MapContainer: React.FC<MapContainerProps> = ({
-  components
+  components,
+  className
 }: MapContainerProps): React.ReactNode => {
   if (components.length === 0) {
     throw new Error(
@@ -44,7 +45,12 @@ const MapContainer: React.FC<MapContainerProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background mb-2">
+    <div
+      className={cn(
+        'mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background mb-2',
+        className
+      )}
+    >
       {/* Tab buttons */}
       <div className="flex">
         {components.map((component, index) => (

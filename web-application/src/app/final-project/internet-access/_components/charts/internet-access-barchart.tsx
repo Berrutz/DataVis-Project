@@ -134,9 +134,9 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   );
 
   return (
-    <ChartContainer className="sm:relative flex flex-col overflow-hidden gap-8">
+    <div className="flex flex-col gap-8">
       <Sidebar>
-        <H3>Different countries compared by internet access level</H3>
+        <H3>Europe countries compared by internet access level</H3>
         <div className="flex justify-end">
           <SidebarTrigger
             variant={'outline'}
@@ -192,7 +192,7 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           chartid="internet-access-barchart"
         />
       </Sidebar>
-    </ChartContainer>
+    </div>
   );
 };
 
