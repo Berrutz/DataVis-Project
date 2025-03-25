@@ -12,11 +12,26 @@ interface BubbleChartProps {
   colorInterpolator: (t: number) => string; // Funzione per l'interpolazione dei colori
 }
 
-const BubbleChart: React.FC<BubbleChartProps> = ({ x, y, r, p, width, height, colorInterpolator }) => {
+const BubbleChart: React.FC<BubbleChartProps> = ({
+  x,
+  y,
+  r,
+  p,
+  width,
+  height,
+  colorInterpolator
+}) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (!svgRef.current || x.length === 0 || y.length === 0 || r.length === 0 || p.length === 0) return;
+    if (
+      !svgRef.current ||
+      x.length === 0 ||
+      y.length === 0 ||
+      r.length === 0 ||
+      p.length === 0
+    )
+      return;
 
     // Rimuove il contenuto precedente
     d3.select(svgRef.current).selectAll('*').remove();
@@ -34,27 +49,25 @@ const BubbleChart: React.FC<BubbleChartProps> = ({ x, y, r, p, width, height, co
     const colorScale = d3
       .scaleOrdinal<string, string>()
       .domain(uniqueCountries)
-      .range(uniqueCountries.map((_, i) => colorInterpolator(i / uniqueCountries.length)));
+      .range(
+        uniqueCountries.map((_, i) =>
+          colorInterpolator(i / uniqueCountries.length)
+        )
+      );
 
     // Unisce i dati
     const data = x.map((label, i) => ({
       x: xScale(label) || 0, // Mappa la stringa X a un valore numerico
       y: chartHeight - y[i], // Inverti l'asse Y
       r: r[i],
-      p: p[i],
+      p: p[i]
     }));
 
     // Simulazione di forza
     const simulation = d3
       .forceSimulation(data as d3.SimulationNodeDatum[]) // Cast a SimulationNodeDatum[]
-      .force(
-        'x',
-        d3.forceX(chartWidth / 2).strength(0.05)
-      )
-      .force(
-        'y',
-        d3.forceY(chartHeight / 2).strength(0.05)
-      )
+      .force('x', d3.forceX(chartWidth / 2).strength(0.05))
+      .force('y', d3.forceY(chartHeight / 2).strength(0.05))
       .force(
         'collision',
         d3.forceCollide().radius((d: any) => d.r / 5 + 5)
@@ -119,9 +132,6 @@ const BubbleChart: React.FC<BubbleChartProps> = ({ x, y, r, p, width, height, co
       .text((d) => d)
       .style('font-size', '10px')
       .style('fill', 'black');
-
-
-
   }, [x, y, r, p, width, height, colorInterpolator]);
 
   return <svg ref={svgRef}></svg>;

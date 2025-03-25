@@ -1,11 +1,5 @@
 'use client';
 
-import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
-import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
-import InternetAccessMap from './internet-access/_components/charts/internet-access-map';
-import InternetUseAlluvial from './internet-access/_components/charts/internet-use-alluvial';
-import InternetUseLineChart from './internet-access/_components/charts/internet-use-linechart';
-
 /*
  * Final Project:
  * The idea is to create 3 folders under this `final-project` folder that subdivide the
@@ -26,18 +20,16 @@ import InternetUseLineChart from './internet-access/_components/charts/internet-
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
-
-import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
-import BarchartCountriesDigitalSkills from './_components/digital-skills/_charts/barchart-contry-digital-skills';
-import StackedBarcharAgeDigitalSkills from './_components/digital-skills/_charts/stacked-bar-chart-digital-skill-age';
+import Arguments from './_components/arguments';
+import HeroFinalProject from './_components/hero';
+import IntroductionFinalProject from './_components/introduction';
 
 export default function FinalProject() {
   return (
-    /*<BarchartCountriesDigitalSkills>
-    </BarchartCountriesDigitalSkills>*/
-    <StackedBarcharAgeDigitalSkills
-    newHeight={800} newWidth={1700}>
-    </StackedBarcharAgeDigitalSkills>
-
+    <main>
+      <HeroFinalProject />
+      <IntroductionFinalProject />
+      <Arguments />
+    </main>
   );
 }

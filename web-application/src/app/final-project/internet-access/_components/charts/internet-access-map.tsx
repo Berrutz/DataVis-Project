@@ -1,10 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { getStaticFile } from '@/utils/general';
+import { getStaticFile, getUnique } from '@/utils/general';
 import Tooltip from '@/components/tooltip';
+import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
+import ChartContainer from '@/components/chart-container';
+import { Skeleton } from '@/components/ui/skeleton';
+import ChartScrollableWrapper from '@/components/chart-scrollable-wrapper';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import { H3 } from '@/components/headings';
 
 interface InternetAccessMapProps {
-  newWidth: number | string;
+  newWidth: number;
+  newHeight: number;
 }
 
 interface Data {
@@ -13,10 +26,17 @@ interface Data {
   value: number;
 }
 
-const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
-  const [data, setData] = useState<Data[]>([]);
+const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
+  newWidth,
+  newHeight
+}) => {
+  // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [selectedYear, setSelectedYear] = useState<string>('2021'); // Set default year here
+
+  // The container of the svg
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const [selectedYear, setSelectedYear] = useState<string>();
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
     null
@@ -25,18 +45,20 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
     useState<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1); // size of the zoom
 
+  const csvData = useGetD3Csv(
+    'internet-access-level/internet-access.csv',
+    (d) => ({
+      lastInternetUse: d['Last internet use'],
+      ageGroup: d['Age group'],
+      country: d.Country,
+      year: +d.Year,
+      value: +d.Value,
+      population: +d.Population
+    })
+  );
+
   useEffect(() => {
     const fetchData = async () => {
-      const csvData = await d3.csv(
-        getStaticFile('/datasets/internet-access-level/internet-access.csv'),
-        (d) => ({
-          country: d.Country,
-          year: d.Year,
-          value: +d.Value
-        })
-      );
-      setData(csvData);
-
       // Load GeoJSON data about the World
       const geoJson = await d3.json<
         GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>
@@ -55,13 +77,31 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
   }, []);
 
   useEffect(() => {
-    if (!data || data.length === 0 || !geoData) return;
+    if (csvData === null || csvData.length === 0 || !geoData) return;
 
-    //console.log("Data arrived : ",data);
+    // As default choose the most recent year
+    const years = csvData.map((value) => value.year);
+    const selectedYear = Math.max(...years);
+
+    // Set the first default selection for the first barchart visualization
+    setSelectedYear(selectedYear.toString());
+  }, [csvData, geoData]);
+
+  useEffect(() => {
+    // Clear the svg in case of re-rendering
+    d3.select(svgRef.current).selectAll('*').remove();
+
+    if (csvData === null || csvData.length === 0 || !geoData || !selectedYear)
+      return;
+
+    // The csv is loaded but no data has been found
+    if (csvData.length <= 0) {
+      throw Error('Cannot retrieve the data from the csv');
+    }
 
     const svg = d3.select(svgRef.current);
-    const width = +newWidth || 820;
-    const height = 550;
+    const width = newWidth || 820;
+    const height = newHeight;
 
     svg.attr('width', width).attr('height', height);
 
@@ -69,12 +109,9 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // Clear previous SVG contents to prevent overlapping graphs
-    svg.selectAll('*').remove();
-
     // Filter for the selected year and exclude not country values and countries not visible on the map
-    var filteredData = data
-      .filter((d) => d.year === selectedYear)
+    var filteredData = csvData
+      .filter((d) => d.year === +selectedYear)
       .filter((d) => d.country !== 'EU-27(from 2020)')
       .filter((d) => d.country !== 'EU-28(2013-2020)');
 
@@ -133,29 +170,30 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
 
         if (tooltipRef.current) {
           // Get the bounding box of the SVG container
-          const svgRect = svgRef.current?.getBoundingClientRect();
+          const containerRect = containerRef.current?.getBoundingClientRect();
           const horizontalOffset = 3;
-          const verticalOffset = 55;
+          const verticalOffset = 80;
           const tooltipWidth = tooltipRef.current.offsetWidth || 0;
           const tooltipHeight = tooltipRef.current.offsetHeight || 0;
 
           // Adjust tooltip position dynamically
           let tooltipX =
-            event.clientX - (svgRect?.left || 0) + horizontalOffset;
-          let tooltipY = event.clientY - (svgRect?.top || 0) - verticalOffset;
+            event.clientX - (containerRect?.left || 0) + horizontalOffset;
+          let tooltipY =
+            event.clientY - (containerRect?.top || 0) - verticalOffset;
 
           // Check if the tooltip would overflow the graph's width and height
           if (tooltipX + tooltipWidth > innerWidth) {
             tooltipX =
               event.clientX -
-              (svgRect?.left || 0) -
+              (containerRect?.left || 0) -
               tooltipWidth -
               horizontalOffset;
           }
           if (tooltipY + tooltipHeight > innerHeight) {
             tooltipY =
               event.clientY -
-              (svgRect?.top || 0) -
+              (containerRect?.top || 0) -
               tooltipHeight -
               verticalOffset;
           }
@@ -247,43 +285,60 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({ newWidth }) => {
       .attr('transform', `translate(0, ${legendHeight})`) // Position below the rectangle
       .call(legendAxis)
       .style('font-size', '0.8rem');
-  }, [zoomLevel, data, geoData, selectedYear, newWidth]);
+  }, [zoomLevel, selectedYear, newWidth, newHeight]);
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="relative overflow-x-auto h-full w-fit">
-        <svg ref={svgRef} />
-        <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
-        <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
-          <button
-            className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-3xl"
-            onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
-          >
-            +
-          </button>
-          <button
-            className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-3xl"
-            onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
-          >
-            -
-          </button>
+    <div>
+      {!selectedYear || csvData === null || geoData === null ? (
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+      ) : (
+        <div className="flex flex-col gap-8">
+          <H3>Europe countries compared by internet access level</H3>
+          <div className="relative" ref={containerRef}>
+            <ChartScrollableWrapper>
+              <svg ref={svgRef} />
+            </ChartScrollableWrapper>
+            <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
+            <div className="absolute top-4 right-4 flex flex-col space-y-2 z-10">
+              <button
+                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-3xl"
+                onClick={() => setZoomLevel((prev) => Math.min(prev * 1.5, 15))} // Zoom in
+              >
+                +
+              </button>
+              <button
+                className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-3xl"
+                onClick={() => setZoomLevel((prev) => Math.max(prev / 1.5, 1))} // Zoom out
+              >
+                -
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-6 sm:flex-row">
+            <div className="sm:w-1/3">
+              <label>Year</label>
+              <Select
+                onValueChange={setSelectedYear}
+                defaultValue={selectedYear.toString()}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  {getUnique(
+                    csvData.map((value) => value.year),
+                    (a, b) => b - a
+                  ).map((year) => (
+                    <SelectItem key={year} value={year.toString()}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <label htmlFor="year">Select Year: </label>
-        <select
-          id="year"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-          className="py-1 px-2 ml-2 rounded-md border bg-background"
-        >
-          {[...new Set(data.map((d) => d.year))].map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      </div>
+      )}
     </div>
   );
 };
