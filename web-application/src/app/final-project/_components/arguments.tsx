@@ -48,7 +48,7 @@ const Arguments: React.FC<ArgumentsProps> = ({ className }) => {
   return (
     <section
       className={cn(
-        'flex flex-wrap items-center justify-center overflow-x-hidden pt-32 pb-9 scroll-mt-24 xs:mx-8 gap-8',
+        'flex flex-wrap items-center justify-center overflow-x-hidden pt-12 sm:pt-20 pb-16 lg:pt-32 lg:pb-16 scroll-mt-24 xs:mx-8 gap-10',
         className
       )}
       id="arguments"

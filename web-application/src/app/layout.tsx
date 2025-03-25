@@ -30,6 +30,20 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sans_Serif.variable}\t${serif_font.variable}`}>
         {children}
+        <footer className="mt-auto pt-16">
+          <div className="flex justify-evenly p-6 bg-primary text-primary-foreground">
+            <div className="w-full">
+              <div className="w-fit">
+                <h1 className="font-serif font-bold text-lg/3">IncApache</h1>
+                <h2 className="font-serif text-xs/3 text-end">Group</h2>
+              </div>
+            </div>
+            <p className="w-full text-end text-base/4">
+              <span className="font-semibold">University of Genova</span>
+              <br /> project for Data Visualization Exam
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

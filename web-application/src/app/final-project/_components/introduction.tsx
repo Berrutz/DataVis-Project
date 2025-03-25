@@ -36,7 +36,7 @@ export default function IntroductionFinalProject() {
         world effectively requires the right skills, as technological literacy
         is becoming increasingly essential. Our group has chosen the European
         Union as its area of interest and has decided to try to answer three
-        questions about this phenomenon:
+        questions about this phenomenon.
       </p>
 
       <div className="flex flex-col gap-12 items-center pt-16 w-full text-center">
@@ -49,7 +49,10 @@ export default function IntroductionFinalProject() {
                 What are the reasons why people do not have internet in their
                 homes?
               </li>
-              <li>How has usage changed over the years?</li>
+              <li>
+                How has the percentage of people who have never used the
+                Internet changed over the years?
+              </li>
               <li>How many people use a computer every day?</li>
             </ul>
           </div>
@@ -73,13 +76,15 @@ export default function IntroductionFinalProject() {
           <div className="flex flex-col gap-4 justify-center lg:text-left">
             <H3>What do we use this internet for?</H3>
             <ul className="text-lg">
-              <li>How many have access to the internet in their homes?</li>
+              <li>How often do people use the Internet?</li>
+              <li>Does the frequency of Internet use vary by age group?</li>
               <li>
-                What are the reasons why people do not have internet in their
-                homes?
+                Do people come across derogatory messages while surfing the web?
               </li>
-              <li>How has usage changed over the years?</li>
-              <li>How many people use a computer every day?</li>
+              <li>
+                What percentage of people do financial activities on the
+                internet?
+              </li>
             </ul>
           </div>
         </div>
@@ -88,13 +93,19 @@ export default function IntroductionFinalProject() {
           <div className="flex flex-col gap-4 justify-center lg:text-right">
             <H3>How skilled we are in this digital world?</H3>
             <ul className="text-lg">
-              <li>How many have access to the internet in their homes?</li>
               <li>
-                What are the reasons why people do not have internet in their
-                homes?
+                What is our level of digital skills and how do these change over
+                time?
               </li>
-              <li>How has usage changed over the years?</li>
-              <li>How many people use a computer every day?</li>
+              <li>
+                What is the distribution of male and female employees who
+                possess ICT skills?
+              </li>
+              <li>*PLACE HOLDER*</li>
+              <li>
+                Does the number of people who have ICT skills change depending
+                on their education level?
+              </li>
             </ul>
           </div>
           <Image
