@@ -8,6 +8,16 @@ import { getStaticFile } from '@/utils/general';
 
 import BubbleChart from '@/components/charts/BubbleChart';
 
+import ChartContainer from '@/components/chart-container';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+
 export default function Financial() {
   const [windowWidth, setWindowWidth] = useState<number>(1200);
   const [AllData, setAllData] = useState<FinancialData[]>([]);
@@ -96,43 +106,17 @@ export default function Financial() {
   }, [AllData]);
 
   return (
-    <div className="mt-3">
-      {/*</div>/*<label htmlFor="line-chart-country">Select country: </label>
-    <select
-      id="line-chart-country"
-      value={selectedCountry}
-      onChange={(e) => setSelectedCountry(e.target.value)} // Nessuna conversione a number
-      className="py-1 px-2 ml-2 rounded-md border bg-background"
-    >
-        {countries.map(country => (
-          <option key={country} value={country}>{country}</option>
-        ))}
-    </select>
-    */}
-      {/* Mappa e grafico */}
-      <MapContainer
-        components={[
-          {
-            buttonText: 'Line',
-            component:
-              dimension_of_the_bubble.length > 0 &&
-              color_of_the_bubble.length > 0 &&
-              number_of_bubbles.length > 0 ? (
+    <ChartContainer className="flex flex-col ">
+          {/*<H3>Frequency of internet use divided by age groups</H3> */}
                 <BubbleChart
                   bubble_percentage={percentage}
                   bubble_dimension={dimension_of_the_bubble}
                   bubble_color={color_of_the_bubble}
                   bubble_number={number_of_bubbles}
-                  width={800}
+                  width={700}
                   height={700}
                   colorInterpolator={d3.interpolateRainbow}
                 />
-              ) : (
-                <p>Loading chart data...</p> // Placeholder temporaneo
-              )
-          }
-        ]}
-      ></MapContainer>
-    </div>
+    </ChartContainer>
   );
 }

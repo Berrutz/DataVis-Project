@@ -405,6 +405,11 @@ export default function FacetedBarChart1({
       .style('font-size', '0.8rem') // Riduci la dimensione del font
       .style('font-weight', '600')
       .each(function (d) {
+         
+        // limit d with max_lenght and add "..." at the end .
+        
+
+
         const lines = splitText(d, maxLength);
         const textElement = d3.select(this);
 

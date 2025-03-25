@@ -11,7 +11,16 @@ import LineChart from '@/components/charts/linechart';
 import BarChart from '@/components/charts/barchart';
 import { Percent } from 'lucide-react';
 
-
+import ChartContainer from '@/components/chart-container';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { foundOrFirst, getUnique } from '@/utils/general';
 
 export interface Line {
   x: string[];
@@ -20,6 +29,8 @@ export interface Line {
   tag: string; // The 'name' of the line, used for the tooltip
   scatter: boolean; // Option for draw the line as points
 }
+
+
 
 export default function Activities() {
 
@@ -40,9 +51,9 @@ export default function Activities() {
       "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
     ]);
 
-
     useEffect(() => {
         const fetchData = async () => {
+          
           try{
             //console.log("Fetching data...");
     
@@ -57,7 +68,6 @@ export default function Activities() {
               })
             );
             setAllData(ActivitiesCsvData);
-    
             
             ////console.log("Data fetched:", ActivitiesCsvData);
     
@@ -123,38 +133,51 @@ export default function Activities() {
 
           }, [selectedCountry, AllData]);
 
+    // The csv is not yet loaded or
+    // the default selection has not already initializated or
+    // neither one of the x value and y value state for the barchart has been initializated
+    if (
+      !selectedCountry ||
+      AllData === null ||
+      chartData === undefined
+    ) {
+      return (
+        <ChartContainer>
+          <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+        </ChartContainer>
+      );
+    }
 
-return(
-    <div className="mt-3">
-    <label htmlFor="line-chart-country">Select country: </label>
-    <select
-      id="line-chart-country"
-      value={selectedCountry}
-      onChange={(e) => setSelectedCountry(e.target.value)} // Nessuna conversione a number
-      className="py-1 px-2 ml-2 rounded-md border bg-background"
-    >
-        {countries.map(country => (
-          <option key={country} value={country}>{country}</option>
-        ))}
-    </select>
+        // Unique years and indic_is to make the user input selections
+        const uniqueIndicIs = getUnique(AllData.map((value) => value.country));
 
-            {/* Mappa e grafico */}
-                <MapContainer
-                    components={[
-                        {
-                        buttonText: 'Line',
-                        component:chartData.length > 0 ? (
-                          <LineChart data={chartData} width={750} height={600}
-                          xLabel='Years' yLabel='Percentage of Individual' ml={80} mb={80}/>
-                          ) : (
-                              <p>Loading chart data...</p>
-                          )
-                        ,
-                        }
-                    ]}
+        return (
+          <ChartContainer className="flex flex-col gap-10">
+            {/*<H3>Frequency of internet use divided by age groups</H3> */}
+            <LineChart data={chartData} width={650} height={600} 
+            xLabel='Years' yLabel='Percentage of Individual' ml={50} mb={70} mr={50} mt={50}/>
+            <div className="flex flex-col gap-6 sm:flex-row">
+              <div className="sm:w-full">
+                <label>Country</label>
+                <Select
+                  onValueChange={setSelectedCountry}
+                  defaultValue={selectedCountry}
                 >
-                </MapContainer>
-        </div>
-        )
+                  <SelectTrigger>
+                    <SelectValue placeholder="Digital Skill Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {uniqueIndicIs.map((indicIs) => (
+                      <SelectItem key={indicIs} value={indicIs.toString()}>
+                        {indicIs}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </ChartContainer>
+        );
+
 }
           

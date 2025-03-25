@@ -1,11 +1,8 @@
 // freq,indic_is,unit,ind_type,geo,TIME_PERIOD,OBS_VALUE
 export interface FrequencyData {
-    freq: string;
-    indic_is: string;
-    ind_type: string;
-    geo: string;
-    TIME_PERIOD: string;
-    OBS_VALUE: number;
+    country: string;
+    year: string;
+    percentage: number;
   }
 
   export interface FinancialData {
@@ -18,7 +15,7 @@ export interface FrequencyData {
   export interface DegradingData {
     reason: string;
     country: string;
-    percentage: number;
+    value: number;
   }
   
   export interface PurchaseData {

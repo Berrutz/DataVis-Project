@@ -15,7 +15,7 @@ export default function Frequencies() {
     const [AllData, setAllData] = useState<FrequencyData[]>([]);
 
     // Stati per opzioni nei selettori
-    const [selectedCountry, setSelectedCountry] = useState<string>('IT:Italy');
+    const [selectedCountry, setSelectedCountry] = useState<string>('Italy');
     
     //const [years, setYears] = useState<string[]>([]);
     const [countries, setCountries] = useState<string[]>([]);
@@ -32,12 +32,9 @@ export default function Frequencies() {
             const FreqCsvData: FrequencyData[] = await d3.csv(
             getStaticFile('datasets/final-project/use-of-the-internet/freq/annual_percentage_of_internet_access_per_EU_country_13_24.csv'),
               (d: any) => ({
-                  freq: d.freq,
-                  indic_is: d.indic_is,
-                  ind_type: d.ind_type,
-                  geo: d.geo,
-                  TIME_PERIOD:  d.TIME_PERIOD?.toString(),
-                  OBS_VALUE: +d.OBS_VALUE
+                  country: d.Country,
+                  year: d.Years,
+                  percentage: d.percentage,
               })
             );
             setAllData(FreqCsvData);
@@ -46,8 +43,8 @@ export default function Frequencies() {
             //console.log("Data fetched:", FreqCsvData);
     
             // Estrazione di anni e paesi unici
-            const uniqueYears = Array.from(new Set(FreqCsvData.map(d => d.TIME_PERIOD))).sort();
-            const uniqueCountries = Array.from(new Set(FreqCsvData.map(d => d.geo))).sort();
+            const uniqueYears = Array.from(new Set(FreqCsvData.map(d => d.year))).sort();
+            const uniqueCountries = Array.from(new Set(FreqCsvData.map(d => d.country))).sort();
             
             setCountries(uniqueCountries);
     
@@ -64,7 +61,7 @@ export default function Frequencies() {
             if (AllData.length === 0) return;
         
             // Filtraggio dati in base alla selezione
-            const filteredData = AllData.filter(d => d.geo === selectedCountry);
+            const filteredData = AllData.filter(d => d.country === selectedCountry);
         
             //console.log("Filtered data:", filteredData);
         
@@ -74,8 +71,8 @@ export default function Frequencies() {
               return;
             }
         
-            const xValues = filteredData.map(d => String(d.TIME_PERIOD));
-            const yValues = filteredData.map(d => d.OBS_VALUE);
+            const xValues = filteredData.map(d => String(d.year));
+            const yValues = filteredData.map(d => d.percentage);
         
             setX(xValues);
             setY(yValues);
