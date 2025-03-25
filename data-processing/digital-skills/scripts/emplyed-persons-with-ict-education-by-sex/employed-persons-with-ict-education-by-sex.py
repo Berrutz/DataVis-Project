@@ -35,6 +35,7 @@ df = df.rename(columns=columns_rename)
 
 # Filter the dataset removing not reliable data
 df = df[df["obs_flag"].isna()]
+df = df[df["unit of measure"] == "Percentage"]
 
 # Drop unuseful columns
 columns_to_drop = [
