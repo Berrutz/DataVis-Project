@@ -55,9 +55,12 @@ columns_to_drop = [
 ]
 df = df.drop(columns=columns_to_drop)
 
+# Set indexes
+df = df.set_index(["time_period", "country", "sex_tag"])
+
 # Export the dataset
 csv_path = os.path.join(
     os.path.dirname(__file__),
     "../../processed-datasets/employed-ict-education-by-sex.csv",
 )
-df.to_csv(csv_path, sep=";")
+df.to_csv(csv_path)
