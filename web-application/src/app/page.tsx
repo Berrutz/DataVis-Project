@@ -17,7 +17,6 @@ export default function Homepage() {
       </Suspense>
       <FinalProject />
       <WhoWeAre />
-      <TeckStack />
     </main>
   );
 }

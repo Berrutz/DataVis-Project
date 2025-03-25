@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import Tooltip from '../tooltip';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 export interface DataPoint {
   x: string;
@@ -54,7 +55,6 @@ export interface LineChartProps {
  * @param {number} LineChartProps.mr - The margin right
  * @param {number} LineChartProps.mb - The margin bottom
  * @param {number} LineChartProps.ml - The margin left
- * @throws {Error} - If the length of x or y is less or equals to 0
  * @throws {Error} - If the lenght of x and y are different
  * @throws {Error} - If the lenght of xFullTags and y are different
  * @returns
@@ -91,13 +91,13 @@ const LineChart: React.FC<LineChartProps> = ({
   );
 
   useEffect(() => {
+    // Clear the svg in case of re-rendering
+    d3.select(svgRef.current).selectAll('*').remove();
+
+    // Check if there are some data to display
+    if (data.length <= 0) return;
+
     data.forEach((line) => {
-      // Check that x and y data has some data to display
-      if (line.x.length <= 0 || line.y.length <= 0) {
-        throw new Error(
-          `X and Y must contains data (current number of sample: x=${line.x.length} y=${line.y.length}, expected x > 0 and y > 0)`
-        );
-      }
       // Check that x and y data has the same number of samples
       if (line.x.length != line.y.length) {
         throw new Error('X and Y data must have the same lenght');
@@ -117,9 +117,6 @@ const LineChart: React.FC<LineChartProps> = ({
 
     svg.attr('width', width).attr('height', height);
 
-    // Clear the svg in case of re-rendering
-    d3.select(svgRef.current).selectAll('*').remove();
-
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
       top: mt || 20,
@@ -132,9 +129,18 @@ const LineChart: React.FC<LineChartProps> = ({
     const innerHeight = height - margin.top - margin.bottom;
 
     // Create x Scale
+    // Find the line with the major numbers of element for the x domain
+    var maxYearsNumber = 0;
+    var index = 0;
+    data.forEach((line, currIndex) => {
+      if (line.x.length > maxYearsNumber) {
+        maxYearsNumber = line.x.length;
+        index = currIndex;
+      }
+    });
     const xScale = d3
       .scaleBand()
-      .domain(data[0].x.map((d) => d.toString()))
+      .domain(data[index].x.map((d) => d.toString()))
       .range([0, innerWidth])
       .padding(0.1);
 
@@ -177,51 +183,57 @@ const LineChart: React.FC<LineChartProps> = ({
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     // For each line
-    data.forEach((d) => {
+    data.forEach((d, lineIndex) => {
       const lineData: Data[] = d.x.map((xValue, i) => ({
         x: xValue,
         y: d.y[i]
       }));
+
+      // Create a group for each line to ensure independent selections
+      const lineGroup = chartGroup
+        .append('g')
+        .attr('class', `line-group-${lineIndex}`);
+
       // Add points to the chart instead of line
       if (d.scatter) {
-        chartGroup
-          .selectAll('.avg-circle')
+        lineGroup
+          .selectAll(`.avg-circle-${lineIndex}`)
           .data(lineData)
           .enter()
           .append('circle')
-          .attr('class', 'avg-circle')
+          .attr('class', `avg-circle-${lineIndex}`)
           .attr(
             'cx',
             (d) => (xScale(d.x.toString()) || 0) + xScale.bandwidth() / 2
           )
           .attr('cy', (d) => yScale(d.y))
           .attr('r', 5)
-          .attr('fill', `${d.color}`);
+          .attr('fill', d.color);
       } else {
         // Add a line to the chart
-        chartGroup
+        lineGroup
           .append('path')
           .data([lineData])
           .attr('d', line)
           .attr('fill', 'none')
-          .attr('stroke', `${d.color}`)
+          .attr('stroke', d.color)
           .attr('stroke-width', 2);
       }
 
-      // Append small circles for lines
-      chartGroup
-        .selectAll('.min-circle')
+      // Append small circles for each line separately
+      lineGroup
+        .selectAll(`.min-circle-${lineIndex}`)
         .data(lineData)
         .enter()
         .append('circle')
-        .attr('class', 'min-circle')
+        .attr('class', `min-circle-${lineIndex}`)
         .attr(
           'cx',
           (d) => (xScale(d.x.toString()) || 0) + xScale.bandwidth() / 2
         )
         .attr('cy', (d) => yScale(d.y))
         .attr('r', 3)
-        .attr('fill', `${d.color}`);
+        .attr('fill', d.color);
     });
 
     // Create vertical line and points
@@ -330,14 +342,13 @@ const LineChart: React.FC<LineChartProps> = ({
         // Update tooltip
         if (tooltipRef.current) {
           const horizontalOffset = 10;
-          const verticalOffset = 10;
+          const verticalOffset = 75;
           const containerRect = containerRef.current?.getBoundingClientRect();
           const tooltipWidth = tooltipRef.current.offsetWidth || 0;
-          const tooltipHeight = tooltipRef.current.offsetHeight || 0;
 
-          let tooltipX =
+          var tooltipX =
             event.clientX - (containerRect?.left || 0) + horizontalOffset;
-          let tooltipY =
+          var tooltipY =
             event.clientY - (containerRect?.top || 0) - verticalOffset;
 
           // Check if the tooltip would overflow the graph's width and height
@@ -347,13 +358,6 @@ const LineChart: React.FC<LineChartProps> = ({
               (containerRect?.left || 0) -
               tooltipWidth -
               horizontalOffset;
-          }
-          if (tooltipY + tooltipHeight > innerHeight) {
-            tooltipY =
-              event.clientY -
-              (containerRect?.top || 0) -
-              tooltipHeight -
-              verticalOffset;
           }
 
           tooltipRef.current.style.left = `${tooltipX}px`;
@@ -434,6 +438,8 @@ const LineChart: React.FC<LineChartProps> = ({
       .text(xlabel); 
 
   }, [data, width]);
+
+  if (data.length <= 0) return <NoDataMessage height={height}></NoDataMessage>;
 
   return (
     <div className="relative" ref={containerRef}>

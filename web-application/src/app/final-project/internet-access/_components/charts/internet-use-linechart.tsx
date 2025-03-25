@@ -1,13 +1,14 @@
+import ChartContainer from '@/components/chart-container';
 import LineChart, { Line } from '@/components/charts/linechart';
-import { getStaticFile } from '@/utils/general';
+import { H3 } from '@/components/headings';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import * as d3 from 'd3';
 import { useEffect, useState } from 'react';
-
-interface Data {
-  country: string;
-  year: string;
-  value: number;
-}
+import chroma from 'chroma-js';
+import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
+import { ChartSidebar } from '@/components/chart-sidebar';
+import { Pencil } from 'lucide-react';
 
 interface InternetUseLineChartProps {
   newWidth: number;
@@ -18,74 +19,134 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
   newWidth,
   newHeight
 }) => {
-  const [csvData, setData] = useState<Data[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<string>('Italy'); // Set default year here
+  const [selectedCountries, setSelectedCountries] = useState<Line[]>([]);
   const [lines, setLines] = useState<Line[]>([]);
 
-  // Fetch data when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      const csvData = await d3.csv(
-        getStaticFile('/datasets/internet-access-level/internet-use.csv'),
-        (d) => ({
-          country: d.Country,
-          year: d.Year,
-          value: +d.Value
-        })
-      );
-      setData(csvData);
-    };
+  const defaultCountries = ['Italy', 'Germany', 'France', 'Romania'];
 
-    fetchData();
-  }, []);
+  // Get the data from the csv file using D3
+  const csvData = useGetD3Csv(
+    'internet-access-level/internet-use.csv',
+    (d) => ({
+      country: d.Country,
+      year: +d.Year,
+      value: +d.Value
+    })
+  );
 
   useEffect(() => {
-    // Filter data based on the selected year
-    const filteredData = csvData.filter((d) => d.country === selectedCountry);
+    if (csvData === null || csvData.length <= 0) return;
 
-    if (filteredData.length === 0) return;
+    // Group data by country
+    const grouped = d3.group(csvData, (d) => d.country);
 
-    filteredData.sort((a, b) => +a.year - +b.year);
+    // Generate colors for the countries
+    const colors = chroma.scale('Paired').colors(grouped.size);
 
-    // Create line
-    setLines([
-      {
-        x: filteredData.map((d) => d.year),
-        y: filteredData.map((d) => d.value),
-        color: '#eb4034',
-        tag: selectedCountry,
-        scatter: false
+    const Lines = Array.from(grouped.entries()).map(
+      ([country, data], index) => {
+        // Order data by year
+        const sortedData = data.sort((a, b) => a.year - b.year);
+
+        return {
+          x: sortedData.map((d) => d.year.toString()),
+          y: sortedData.map((d) => d.value),
+          color: colors[index], // Assign unique color
+          tag: country, // Country name
+          scatter: false // Default to line chart
+        };
       }
-    ]);
-  }, [csvData, newWidth, newHeight, selectedCountry]);
-  if (csvData.length <= 0 || lines.length <= 0) return;
+    );
+
+    // Transform into `Line` objects
+    setLines(Lines);
+  }, [csvData]);
+
+  // When the lines objects are constructed select only the default selected countries
+  useEffect(() => {
+    if (lines === null || lines.length <= 0) return;
+
+    setSelectedCountries(
+      lines.filter((line) => defaultCountries.includes(line.tag))
+    );
+  }, [lines]);
+
+  // The csv is not yet loaded or
+  // the default selection has not already initializated or
+  // neither one of the x value and y value state for the barchart has been initializated
+  if (csvData === null || lines === null || selectedCountries === null) {
+    return (
+      <ChartContainer>
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+      </ChartContainer>
+    );
+  }
+
+  // The csv is loaded but no data has been found
+  if (csvData.length <= 0) {
+    throw Error('Cannot retrieve the data from the csv');
+  }
+
+  // Toggle countries selection
+  const handleCountriesSelection = (line: Line) => {
+    setSelectedCountries((prev) => {
+      // Check if the country is already selected
+      if (prev.some((d) => d.tag === line.tag)) {
+        return prev.filter((c) => c.tag !== line.tag); // Remove if already selected
+      } else {
+        // Add the new country and sort by x (years in this case)
+        return [...prev, line].sort((a, b) => +a.x - +b.x);
+      }
+    });
+  };
+
+  // Create all countries group and sort them alphabetically by country name
+  const allCountriesGroup = lines.sort((a, b) => a.tag.localeCompare(b.tag)); // Sort based on x values (ascending)
+
+  // Create selected countries group from the already sorted allCountriesGroup
+  const selectedCountriesGroup = allCountriesGroup.filter((line) =>
+    selectedCountries.some((d) => d.tag === line.tag)
+  );
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <LineChart
-        data={lines}
-        width={newWidth}
-        height={newHeight}
-        unitOfMeasurement="%"
-        ml={40}
-        xLabelsFontSize="0.7rem"
-      ></LineChart>
-      <div className="mt-3">
-        <label htmlFor="country">Select Country: </label>
-        <select
-          id="country"
-          value={selectedCountry}
-          onChange={(e) => setSelectedCountry(e.target.value)}
-          className="py-1 px-2 ml-2 rounded-md border bg-background"
-        >
-          {[...new Set(csvData.map((d) => d.country))].map((country) => (
-            <option key={country} value={country}>
-              {country}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+    <ChartContainer className="sm:relative flex flex-col gap-8">
+      <Sidebar>
+        <H3>Internet use for countries and regions</H3>
+        <div className="flex justify-end">
+          <SidebarTrigger
+            variant={'outline'}
+            className="font-medium text-base w-full xs:w-64"
+          >
+            <div className="flex items-center">
+              <Pencil className="min-w-5 min-h-5 mr-2 text-gray-500" />
+              Edit countries and regions
+            </div>
+          </SidebarTrigger>
+        </div>
+        <LineChart
+          data={selectedCountries}
+          width={newWidth}
+          height={newHeight}
+          unitOfMeasurement="%"
+          ml={45}
+          xLabelsFontSize="0.7rem"
+          yUpperBound={100}
+          yLowerBound={0}
+        ></LineChart>
+        {/* Sidebar Content */}
+        <ChartSidebar
+          items={allCountriesGroup}
+          selectedItems={selectedCountriesGroup}
+          onSelectionChange={handleCountriesSelection}
+          onClearSelection={() => setSelectedCountries([])}
+          displayKey="tag"
+          isChecked={(line) =>
+            selectedCountries.some((d) => d.tag === line.tag)
+          }
+          chartid="internet-use-linechart"
+        />
+      </Sidebar>
+    </ChartContainer>
   );
 };
 

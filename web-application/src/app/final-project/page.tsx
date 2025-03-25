@@ -1,7 +1,5 @@
 'use client';
 
-import InternetAccessBarChart from './internet-access/_components/charts/internet-access-barchart';
-import InternetAccessFacetedBarChart from './internet-access/_components/charts/internet-access-faceted-barchart';
 /*
  * Final Project:
  * The idea is to create 3 folders under this `final-project` folder that subdivide the
@@ -22,9 +20,16 @@ import InternetAccessFacetedBarChart from './internet-access/_components/charts/
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
-
-import Useoftheinternet from './use-of-the-internet/Useoftheinternet';
+import Arguments from './_components/arguments';
+import HeroFinalProject from './_components/hero';
+import IntroductionFinalProject from './_components/introduction';
 
 export default function FinalProject() {
-  return <Useoftheinternet></Useoftheinternet>;
+  return (
+    <main>
+      <HeroFinalProject />
+      <IntroductionFinalProject />
+      <Arguments />
+    </main>
+  );
 }

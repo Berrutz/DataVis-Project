@@ -18,6 +18,6 @@ df_2021.set_index(["time_period", "geo"], inplace=True)
 result = pd.concat([df_2019, df_2021])
 
 result.sort_index()
-result = result[result["ind_type"] == "All individuals"]
+# result = result[result["ind_type"] == "All individuals"]
 
 result.to_csv("../processed-datasets/ilods-final.csv")
