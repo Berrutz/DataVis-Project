@@ -6,8 +6,6 @@ import { FinancialData } from '../lib/interfaces';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
 
-import BubbleChart from '@/components/charts/BubbleChart';
-
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -17,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import BubbleChart from '@/components/charts/BubbleChart';
 
 export default function Financial() {
   const [windowWidth, setWindowWidth] = useState<number>(1200);
@@ -107,16 +106,16 @@ export default function Financial() {
 
   return (
     <ChartContainer className="flex flex-col ">
-          {/*<H3>Frequency of internet use divided by age groups</H3> */}
-                <BubbleChart
-                  bubble_percentage={percentage}
-                  bubble_dimension={dimension_of_the_bubble}
-                  bubble_color={color_of_the_bubble}
-                  bubble_number={number_of_bubbles}
-                  width={700}
-                  height={700}
-                  colorInterpolator={d3.interpolateRainbow}
-                />
+      {/*<H3>Frequency of internet use divided by age groups</H3> */}
+      <BubbleChart
+        bubble_percentage={percentage}
+        bubble_dimension={dimension_of_the_bubble}
+        bubble_color={color_of_the_bubble}
+        bubble_number={number_of_bubbles}
+        width={700}
+        height={700}
+        colorInterpolator={d3.interpolateRainbow}
+      />
     </ChartContainer>
   );
 }

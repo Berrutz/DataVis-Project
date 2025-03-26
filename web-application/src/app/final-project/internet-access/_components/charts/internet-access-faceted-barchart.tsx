@@ -1,8 +1,8 @@
 import ChartContainer from '@/components/chart-container';
 import { ChartSidebar } from '@/components/chart-sidebar';
-import FacetedBarChart1, {
+import FacetedBarChart, {
   FacetedPoint
-} from '@/components/charts/FacetedBarChart1';
+} from '@/components/charts/FacetedBarChart';
 import { H3 } from '@/components/headings';
 import {
   Select,
@@ -172,13 +172,13 @@ const InternetAccessFacetedBarChart: React.FC<
             </div>
           </SidebarTrigger>
         </div>
-        <FacetedBarChart1
+        <FacetedBarChart
           data={transformToFacetedPoints(selectedCountries)}
           width={newWidth}
           height={newHeight}
           unitOfMeasurement="%"
           ml={100}
-        ></FacetedBarChart1>
+        ></FacetedBarChart>
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="sm:w-1/3">
             <label>Year</label>

@@ -1,24 +1,32 @@
+'use client';
+
 import * as d3 from 'd3';
 import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '../tooltip';
+import { calculateMaxLength, splitText } from './utils/facetedBarChart';
+import { tooltipPositionOnMouseMove } from './utils/general';
+import { Button } from '../ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 export interface FacetedPoint {
-  group: string;
-  category: string;
-  value: number;
+  group: string; // The data on y axis
+  category: string; // The data on x axis
+  value: number; // The value
 }
 
 export interface FacetedBarChartProps {
   data: { category: string; group: string; value: number }[];
   width: number;
   height: number;
-
-  colorInterpoaltor?: ((t: number) => string) | Iterable<string>;
-  yDomainMin?: number;
-  yDomainMax?: number;
-  yLabelsPrefix?: string;
-  yLabelsSuffix?: string;
-  tooltipMapper?: (point: FacetedPoint) => React.ReactNode;
+  colorInterpoaltors?: (((t: number) => string) | Iterable<string>)[];
+  xDomainMin?: number;
+  xDomainMax?: number;
+  facetsMargin?: number;
+  tooltipMapper?: (point: FacetedPoint[], header?: string) => React.ReactNode;
+  unitOfMeasurement?: string;
   mt?: number;
   mr?: number;
   mb?: number;
@@ -29,94 +37,120 @@ export interface FacetedBarChartProps {
  * A Faceted Barchart component
  *
  * @param {string[]} FacetedBarChartProps.data - data
- * @param {number} FacetedBarChartProps.width - The width of the bartchart (e.g. 100px or 100% or ... <css-props>)
- * @param {number} FacetedBarChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
- 
- * @param {((t: number) => string) | Iterable<string>} FacetedBarChartProps.colorInterpoaltor - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
- * @param {[number, number]} FacetedBarChartProps.yDomainMin- The min value for the y domain (e.g. 0 or min(y))
- * @param {[number, number]} FacetedBarChartProps.yDomainMax- The max value for the y domain (e.g. 100 or max(y))
- * @param {string} FacetedBarChartProps.yLabelsPrefix - The prefix for the y labels
- * @param {string} FacetedBarChartProps.yLabelsSuffix - The suffix for the y labels
- * @param {(point: Point) => React.ReactNode} FacetedBarChartProps.tooltipMapper - A react node used to create a tooltip from a poitn x, y
+ * @param {number} FacetedBarChartProps.width - The width of the faceted bartchart (e.g. 100px or 100% or ... <css-props>)
+ * @param {number} FacetedBarChartProps.height - The height of the faceted bartchart, used only when no data is avaiable
+ * @param {((t: number) => string) | Iterable<string>} FacetedBarChartProps.colorInterpoaltors - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
+ * @param {[number, number]} FacetedBarChartProps.xDomainMin- The min value for the x domain (e.g. 0 or min(y))
+ * @param {[number, number]} FacetedBarChartProps.xDomainMax- The max value for the x domain (e.g. 100 or max(y))
+ * @param {number} FacetedBarChartProps.facetsMargin - Margin between each facet, default is the margin suitable for four facets;
+ * @param {(point: FacetedPoint[], header: string | undefined) => React.ReactNode} FacetedBarChartProps.tooltipMapper - A react node used to create a tooltip from a poitn x, y
+ * @param {string} FacetedBarChartProps.unitOfMeasurement - The unit of measure used for axis and tooltip
  * @param {number} FacetedBarChartProps.mt - The margin top
  * @param {number} FacetedBarChartProps.mr - The margin right
  * @param {number} FacetedBarChartProps.mb - The margin bottom
  * @param {number} FacetedBarChartProps.ml - The margin left
- * @throws {Error} - If the length less or equals to 0
+ * @throws {Error} - If the numbers of groups and color maps doesn't match
  * @returns The react component
  */
-
 export default function FacetedBarChart({
   data,
   width,
   height,
-  colorInterpoaltor,
-  yDomainMin,
-  yDomainMax,
-  yLabelsPrefix,
-  yLabelsSuffix,
+  colorInterpoaltors,
+  xDomainMin,
+  xDomainMax,
+  facetsMargin,
   tooltipMapper,
+  unitOfMeasurement,
   mt,
   mr,
   mb,
   ml
 }: FacetedBarChartProps) {
+  // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
+  // The container of the svg
+  const containerRef = useRef<HTMLDivElement | null>(null);
   // The ref of the tooltip and its content
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
     null
   );
+  // The page currently displayed
+  const [currentPage, setCurrentPage] = useState(0);
+  // Number of facets per page
+  const groupsPerPage = 4;
+
+  const groups = Array.from(new Set(data.map((d) => d.group)));
+
+  const handleNext = () => {
+    setCurrentPage((prev) =>
+      prev + 1 < Math.ceil(groups.length / groupsPerPage) ? prev + 1 : prev
+    );
+  };
+
+  const handlePrevious = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
+  };
 
   useEffect(() => {
-    if (!data || data.length === 0) return;
-
     d3.select(svgRef.current).selectAll('*').remove();
+
+    if (data.length <= 0) return;
 
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
-      top: mt || 20,
+      top: mt || 50,
       right: mr || 0,
       bottom: mb || 40,
       left: ml || 75
     };
 
+    var categories = Array.from(new Set(data.map((d) => d.category)));
+    var values = Array.from(new Set(data.map((d) => d.value)));
+
+    height = margin.top + margin.bottom + 15 + 33 * categories.length;
+
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
 
-    var categories = Array.from(new Set(data.map((d) => d.category)));
-    var groups = Array.from(new Set(data.map((d) => d.group)));
-    var values = Array.from(new Set(data.map((d) => d.value)));
+    if (
+      colorInterpoaltors != undefined &&
+      groups.length < colorInterpoaltors.length
+    ) {
+      throw new Error(
+        'The numbers of color maps has to be the same of the groups.'
+      );
+    }
 
-    categories = categories.slice(0, 6); // PAESI
-    groups = groups.slice(0, 4); // CATEGORIE DISCRIMINATE
-
-    //console.log('Categories : ', categories);
-    //console.log('groups : ', groups);
+    // Determine which groups to show based on the current page
+    const paginatedGroups = groups.slice(
+      currentPage * groupsPerPage,
+      (currentPage + 1) * groupsPerPage
+    );
 
     const filterCondition = (d: any) => {
-      return categories.includes(d.category) && groups.includes(d.group);
+      return paginatedGroups.includes(d.group);
     };
 
     // Filtrare i dati prima di usarli
     const filteredData = data.filter(filterCondition);
 
-    // Determina il numero di facet e le loro dimensioni
-    const facetWidth = chartWidth / groups.length;
+    // Determine the number of facets and their dimension
+    facetsMargin = facetsMargin || 30;
+    const facetWidth = chartWidth / paginatedGroups.length - facetsMargin;
     const facetHeight = chartHeight;
 
-    // Define the Y domain
+    // Define the X domain
     var domain = [
-      yDomainMin || Math.min(0, Math.min(...values)),
-      yDomainMax || Math.max(...values)
+      xDomainMin || Math.min(0, Math.min(...values)),
+      xDomainMax || Math.max(...values)
     ];
 
     // Scala X (Values)
-    const xScale = d3
-      .scaleLinear()
-      .domain(domain)
-      .nice()
-      .range([0, facetWidth]);
+    // Set axis ticks number
+    const ticksNumber = 3;
+    const xScale = d3.scaleLinear().domain(domain).range([0, facetWidth]);
 
     // Scala Y (Categories)
     const yScale = d3
@@ -125,7 +159,7 @@ export default function FacetedBarChart({
       .range([0, facetHeight])
       .padding(0.2);
 
-    // Scala colori
+    // color Scale
     //const colorScale = d3.scaleOrdinal(colorInterpoaltor).domain(categories);
 
     // Selezione del container SVG
@@ -139,25 +173,44 @@ export default function FacetedBarChart({
     // Creazione di un gruppo per ogni facet (gruppo)
     const facets = svg
       .selectAll('.facet')
-      .data(groups)
+      .data(paginatedGroups)
       .enter()
       .append('g')
       .attr('class', 'facet')
-      .attr('transform', (_, i) => `translate(${i * facetWidth},0)`);
+      .attr(
+        'transform',
+        (_, i) => `translate(${i * (facetWidth + facetsMargin!)},0)`
+      );
 
-    const rectHeight = 10; // Definisci la tua altezza fissa qui
+    // Bars size
+    const rectHeight = 31;
 
     // Scala colori per i gruppi
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(groups);
+    const colorScale = d3
+      .scaleOrdinal(d3.schemeCategory10)
+      .domain(paginatedGroups);
 
     // Create the default tooltip mapper
     tooltipMapper =
       tooltipMapper ||
-      ((point: FacetedPoint) => {
+      ((points: FacetedPoint[], header?: string) => {
+        header = header || '';
+
         return (
-          <p>
-            {point.group}: <span>{point.value}</span>
-          </p>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
+              {header}
+            </div>
+            {points.map((point, index) => (
+              <p key={index}>
+                {point.group}:{' '}
+                <span style={{ fontWeight: '600' }}>
+                  {point.value}
+                  {unitOfMeasurement || ''}
+                </span>
+              </p>
+            ))}
+          </div>
         );
       });
 
@@ -166,37 +219,75 @@ export default function FacetedBarChart({
       const facet = d3.select(this);
       const groupData = filteredData.filter((d) => d.group === group);
 
-      // Aggiunta delle barre
+      // Append gray background rectangle
       facet
-        .selectAll('rect')
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', facetWidth)
+        .attr('height', facetHeight)
+        .attr('fill', 'none')
+        .attr('stroke', '#d9d9d9') // Border for separation
+        .attr('stroke-width', 1);
+
+      // Add category boundary rectangles
+      for (let i = 0; i < groupData.length; i++) {
+        const d = groupData[i];
+        const nextD = groupData[i + 1];
+
+        const top = yScale(d.category)! + rectHeight / 2; // Middle of current bar
+        const bottom = nextD
+          ? yScale(nextD.category)! + rectHeight / 2
+          : facetHeight; // Middle of next bar or chart bottom
+
+        facet
+          .append('rect')
+          .attr('x', 0)
+          .attr('y', top)
+          .attr('width', facetWidth)
+          .attr('height', bottom - top)
+          .attr('fill', 'none')
+          .attr('stroke', '#d9d9d9') // Border color
+          .attr('stroke-width', 1);
+      }
+
+      // Add bars
+      facet
+        .selectAll('rect.bar')
         .data(groupData)
         .enter()
         .append('rect')
+        .attr('class', `bar`)
         .attr('x', 0) // Le barre iniziano all'angolo sinistro
-        .attr('y', (d, i) => yScale(d.category)! + i * rectHeight) // Aggiungi l'offset di altezza in base all'indice i
+        .attr('y', (d) => yScale(d.category)!) // Aggiungi l'offset di altezza in base all'indice i
         .attr('width', (d) => xScale(d.value)) // Larghezza della barra proporzionale al valore
         .attr('height', rectHeight) // Altezza prefissata per il rettangolo
         .attr('fill', (d) => colorScale(d.group)) // Colora le barre in base al gruppo
+        .attr('opacity', 0.85)
         .on('mousemove', (event, d) => {
           if (tooltipRef.current) {
-
-            // Calcola la posizione del tooltip
-            const svgRect = svgRef.current?.getBoundingClientRect();
+            // Compute tooltip position
             const horizontalOffset = 25;
-            const verticalOffset = 60;
+            const verticalOffset = 40;
 
-            const tooltipX =
-              event.clientX - (svgRect?.left || 0) + horizontalOffset;
-            const tooltipY =
-              event.clientY - (svgRect?.top || 0) - verticalOffset;
+            tooltipPositionOnMouseMove(
+              tooltipRef,
+              containerRef,
+              event,
+              horizontalOffset,
+              verticalOffset,
+              width
+            );
 
-            tooltipRef.current.style.left = `${tooltipX}px`;
-            tooltipRef.current.style.top = `${tooltipY}px`;
-            tooltipRef.current.style.display = 'block';
-            tooltipRef.current.style.opacity = '1';
-
-            setTooltipContent(tooltipMapper!(d));
+            setTooltipContent(tooltipMapper!([d]));
           }
+          // Reduce opacity of all bars in the same group
+          d3.select(containerRef.current)
+            .selectAll('.bar')
+            .filter((barData) => (barData as FacetedPoint).group === d.group) // Select only bars in the same group
+            .transition()
+            .duration(200)
+            .style('opacity', 0.5);
 
           // Evidenzia la barra su cui è il mouse
           d3.select(event.target as SVGRectElement)
@@ -204,95 +295,101 @@ export default function FacetedBarChart({
             .duration(200)
             .style('opacity', 1);
         })
-        .on('mouseleave', () => {
+        .on('mouseleave', (event, d) => {
           if (tooltipRef.current) {
             tooltipRef.current.style.display = 'none';
             tooltipRef.current.style.opacity = '0';
           }
-
-          // Reset opacity per tutte le barre
-          d3.selectAll('rect').transition().duration(200).style('opacity', 1);
+          // Reset opacity for all bars in the same group
+          d3.select(containerRef.current)
+            .selectAll(`.bar`)
+            .filter((barData) => (barData as FacetedPoint).group === d.group)
+            .transition()
+            .duration(200)
+            .style('opacity', 0.85);
         });
 
-      // Aggiungi un rettangolo nero attorno a ogni paese (categoria)
-      groupData.forEach(function (l, i) {
-        const Heightrect = 50; // Imposta l'altezza del rettangolo in base alla larghezza della scala Y
+      // Add label of the group on top of each facet
+      const bottomMargin = 15;
+      const lineHeight = 12; // Spacing between lines
+      const fontSize = 0.8; // Font size in rem (this matches the style in your code)
 
-        // Definisci i margini per il rettangolo attorno alla categoria
-        const marginTop = -20; // Margine superiore
-        const marginBottom = 0; // Margine inferiore
-        const marginLeft = 0; // Margine sinistro
-        const marginRight = 0; // Margine destro
+      // Calculate the max characters per line based on the facet width
+      const maxLength_group = calculateMaxLength(facetWidth, fontSize);
 
-        // Aggiungi il rettangolo per il paese (categoria)
+      const lines = splitText(group, maxLength_group, 3);
+
+      // Adjust y-position based on the number of lines
+      const textYOffset = -bottomMargin - (lines.length - 1) * lineHeight;
+
+      // Append each line separately
+      lines.forEach((line, index) => {
         facet
-          .append('rect')
-          .attr('x', marginLeft) // Sposta a destra rispetto al margine sinistro
-          .attr('y', yScale(l.category)! + i * rectHeight + marginTop) // Sposta in basso rispetto al margine superiore
-          .attr('width', facetWidth - marginLeft - marginRight) // Riduci la larghezza in base ai margini
-          .attr('height', Heightrect - marginBottom) // Riduci l'altezza in base ai margini
-          .attr('fill', 'transparent') // Nessun riempimento
-          .attr('stroke', 'black') // Colore del bordo
-          .attr('stroke-width', 2) // Larghezza del bordo
+          .append('text')
+          .attr('class', 'group-label')
+          .attr('x', facetWidth / 2) // Center the text horizontally
+          .attr('y', textYOffset + index * lineHeight) // Offset each line
+          .attr('text-anchor', 'middle')
+          .style('font-size', `${fontSize}rem`)
+          .style('font-weight', 'bold')
+          .text(line)
           .on('mousemove', (event) => {
+            // Swap 'category' and 'group' to adapt it to the tooltip display
+            const adaptedGroupData = groupData.map((d) => {
+              return {
+                category: d.group,
+                group: d.category,
+                value: d.value
+              };
+            });
+
             if (tooltipRef.current) {
               // Calcola la posizione del tooltip
-              const svgRect = svgRef.current?.getBoundingClientRect();
-              const horizontalOffset = 25;
-              const verticalOffset = 60;
+              const horizontalOffset = 10;
+              const verticalOffset = 0;
+              tooltipPositionOnMouseMove(
+                tooltipRef,
+                containerRef,
+                event,
+                horizontalOffset,
+                verticalOffset,
+                width
+              );
+              setTooltipContent(tooltipMapper!(adaptedGroupData, group));
 
-              const tooltipX =
-                event.clientX - (svgRect?.left || 0) + horizontalOffset;
-              const tooltipY =
-                event.clientY - (svgRect?.top || 0) - verticalOffset;
-
-              tooltipRef.current.style.left = `${tooltipX}px`;
-              tooltipRef.current.style.top = `${tooltipY}px`;
-              tooltipRef.current.style.display = 'block';
-              tooltipRef.current.style.opacity = '1';
-
-              setTooltipContent(tooltipMapper!(l));
+              tooltipRef.current.style.borderColor = colorScale(group);
             }
-
-            // Evidenzia la barra su cui è il mouse
-            d3.select(event.target as SVGRectElement)
-              .transition()
-              .duration(200)
-              .style('opacity', 1);
           })
           .on('mouseleave', () => {
             if (tooltipRef.current) {
               tooltipRef.current.style.display = 'none';
               tooltipRef.current.style.opacity = '0';
+              tooltipRef.current.style.borderColor = 'hsl(var(--border))';
             }
-
-            // Reset opacity per tutte le barre
-            d3.selectAll('rect').transition().duration(200).style('opacity', 1);
           });
       });
 
-      const center_width = 3;
-      const center_distance = 30;
-
-      // Aggiunta della didascalia sotto ogni gruppo
-      const maxLength_group = 15; // Numero massimo di caratteri per l'etichetta
+      // Append x-axis
       facet
-        .append('text')
-        .attr('class', 'group-label')
-        .attr('x', facetWidth / center_width) // Centra il testo orizzontalmente
-        .attr('y', facetHeight + center_distance) // Posiziona sotto le barre (+30 per distanza)
-        .attr('text-anchor', 'middle') // Centra il testo
-        .style('font-size', '12px')
-        .style('font-weight', 'bold')
-        .text(
-          group.length > maxLength_group
-            ? group.substring(0, maxLength_group) + '…'
-            : group
-        );
+        .append('g')
+        .attr('class', 'x-axis')
+        .attr('transform', `translate(0, ${facetHeight})`) // Position below the bars
+        .style('font-size', '0.7rem')
+        .call(
+          d3
+            .axisBottom(xScale)
+            .ticks(ticksNumber)
+            .tickFormat((d) => `${d3.format('d')(d)}${unitOfMeasurement || ''}`) // Format as integer (removes decimal points)
+        )
+        .call((g) => {
+          g.selectAll('.domain').attr('stroke', '#d9d9d9'); // Style axis line
+          g.selectAll('.tick line').attr('stroke', '#d9d9d9'); // Change tick line color
+        });
     });
 
-    const maxLength = 10; // Numero massimo di caratteri per l'etichetta PAESI
-    const label_offset = 20;
+    const maxLength = 13; // Max number of characters per line
+    const label_offset = 15;
+    const lineHeight = 15; // Space between lines
     // Aggiunta delle etichette sulla sinistra per ogni categoria
     svg
       .selectAll('.category-label')
@@ -300,18 +397,103 @@ export default function FacetedBarChart({
       .enter()
       .append('text')
       .attr('class', 'category-label')
+      .attr('data-category', (d) => d) // Store original category name
       .attr('x', -label_offset) // Posiziona l'etichetta a sinistra
-      .attr('y', (d, i) => yScale(d)! + i * rectHeight + rectHeight / 2) // Posiziona verticalmente in base alla categoria
+      .attr('y', (d, index) => {
+        return yScale(d)! + rectHeight / 2 + index * lineHeight; // Adjust for multiple lines
+      })
       .attr('dy', '.25em') // Allinea verticalmente al centro
       .attr('text-anchor', 'end') // Allinea l'etichetta a sinistra
-      .style('font-size', '12px') // <-- Riduci la dimensione del font
-      .text((d) => (d.length > maxLength ? d.slice(0, maxLength) + '…' : d));
-  }, [data, width, height]);
+      .style('font-size', '0.8rem') // Riduci la dimensione del font
+      .style('font-weight', '600')
+      .each(function (d) {
+        // limit d with max_lenght and add "..." at the end .
+
+        const lines = splitText(d, maxLength);
+        const textElement = d3.select(this);
+
+        // Append additional lines
+        lines.forEach((line, index) => {
+          textElement
+            .append('tspan') // Use <tspan> to add multiple lines within the same <text> element
+            .attr('x', -label_offset) // Keep the same x position for all lines
+            .attr('y', yScale(d)! + rectHeight / 2 + index * lineHeight) // Adjust y position for subsequent lines
+            .style('font-size', '0.8rem')
+            .style('font-weight', '600')
+            .text(line); // Add the text for the line
+        });
+
+        textElement
+          .on('mousemove', (event) => {
+            // Get category not edited name
+            const cateogyOriginal = d3.select(this).attr('data-category');
+
+            const categoryData = filteredData.filter(
+              (d) => d.category === cateogyOriginal
+            );
+
+            if (tooltipRef.current) {
+              // compute tooltip position
+              const horizontalOffset = 10;
+              const verticalOffset = 60;
+              tooltipPositionOnMouseMove(
+                tooltipRef,
+                containerRef,
+                event,
+                horizontalOffset,
+                verticalOffset,
+                width
+              );
+
+              setTooltipContent(tooltipMapper!(categoryData, cateogyOriginal));
+            }
+          })
+          .on('mouseleave', () => {
+            if (tooltipRef.current) {
+              tooltipRef.current.style.display = 'none';
+              tooltipRef.current.style.opacity = '0';
+            }
+          });
+      });
+  }, [data, width, height, currentPage]);
+
+  if (data.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
 
   return (
-    <div className="overflow-x-auto overflow-y-auto h-full w-fit">
-      <svg ref={svgRef} />
+    <div className="relative" ref={containerRef}>
+      <ChartScrollableWrapper>
+        <motion.div
+          key={currentPage}
+          initial={{ opacity: 0, x: -20 }} // Start slightly off-screen
+          animate={{ opacity: 1, x: 0 }} // Fade and slide in
+          exit={{ opacity: 0, x: 20 }} // Slide out when changing
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="overflow-x-auto overflow-y-auto h-full w-fit"
+        >
+          <svg ref={svgRef} />
+        </motion.div>
+      </ChartScrollableWrapper>
       <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
+      <div className="flex justify-between w-full p-2">
+        <Button
+          onClick={handlePrevious}
+          variant={'default'}
+          size={'lg'}
+          disabled={currentPage === 0}
+        >
+          <ChevronLeft />
+        </Button>
+        <Button
+          onClick={handleNext}
+          variant={'default'}
+          size={'lg'}
+          disabled={currentPage + 1 >= Math.ceil(groups.length / groupsPerPage)}
+        >
+          <ChevronRight />
+        </Button>
+      </div>
     </div>
   );
 }
