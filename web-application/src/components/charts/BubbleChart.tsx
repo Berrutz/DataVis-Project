@@ -191,12 +191,17 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.display = 'block';
           tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.style.borderColor = `${d.color}`;
 
           setTooltipContent(tooltipMapper!(d));
         }
 
-        // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+        // Restrict selection to only the current chart
+        d3.select(containerRef.current)
+          .selectAll('circle')
+          .transition()
+          .duration(200)
+          .style('opacity', 0.4);
 
         d3.select(event.target as SVGRectElement)
           .transition()
@@ -207,7 +212,15 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
         if (tooltipRef.current) {
           tooltipRef.current.style.display = 'none';
           tooltipRef.current.style.opacity = '0';
+          tooltipRef.current.style.borderColor = 'hsl(var(--border))';
         }
+
+        // Restrict selection to only the current chart
+        d3.select(containerRef.current)
+          .selectAll('circle')
+          .transition()
+          .duration(200)
+          .style('opacity', 1);
       });
 
     const labels = group
@@ -260,14 +273,22 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.display = 'block';
           tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.style.borderColor = `${d.color}`;
 
           setTooltipContent(tooltipMapper!(d));
         }
 
-        // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+        // Restrict selection to only the current chart
+        d3.select(containerRef.current)
+          .selectAll('circle')
+          .transition()
+          .duration(200)
+          .style('opacity', 0.4);
 
-        d3.select(event.target as SVGRectElement)
+        // Highlight only the corresponding bubble (circle) associated with this label
+        d3.select(containerRef.current)
+          .selectAll('circle')
+          .filter((circleData) => circleData === d) // Match the data object
           .transition()
           .duration(200)
           .style('opacity', 1);
@@ -276,7 +297,14 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
         if (tooltipRef.current) {
           tooltipRef.current.style.display = 'none';
           tooltipRef.current.style.opacity = '0';
+          tooltipRef.current.style.borderColor = 'hsl(var(--border))';
         }
+
+        d3.select(containerRef.current)
+          .selectAll('circle')
+          .transition()
+          .duration(200)
+          .style('opacity', 1);
       });
 
     // 🔄 Aggiorna la posizione del testo in ticked()

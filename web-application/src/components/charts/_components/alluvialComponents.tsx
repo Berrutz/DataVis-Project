@@ -85,8 +85,8 @@ export function defaultTooltipStartingNodes(
             <span
               style={{
                 display: 'inline-block',
-                width: '12px',
-                height: '12px',
+                minWidth: '15px',
+                minHeight: '15px',
                 backgroundColor: color,
                 borderRadius: '2px'
               }}

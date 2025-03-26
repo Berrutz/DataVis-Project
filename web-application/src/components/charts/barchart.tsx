@@ -292,7 +292,11 @@ export default function BarChart({
         }
 
         // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.4);
+        d3.select(containerRef.current)
+          .selectAll('rect')
+          .transition()
+          .duration(200)
+          .style('opacity', 0.4);
 
         d3.select(event.target as SVGRectElement)
           .transition()
@@ -306,7 +310,11 @@ export default function BarChart({
         }
 
         // Reset opacity for all bars
-        d3.selectAll('rect').transition().duration(200).style('opacity', 1);
+        d3.select(containerRef.current)
+          .selectAll('rect')
+          .transition()
+          .duration(200)
+          .style('opacity', 1);
       });
   }, [x, y]);
 

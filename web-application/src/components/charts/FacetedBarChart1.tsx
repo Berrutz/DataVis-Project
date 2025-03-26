@@ -282,7 +282,8 @@ export default function FacetedBarChart1({
             setTooltipContent(tooltipMapper!([d]));
           }
           // Reduce opacity of all bars in the same group
-          d3.selectAll('.bar')
+          d3.select(containerRef.current)
+            .selectAll('.bar')
             .filter((barData) => (barData as FacetedPoint).group === d.group) // Select only bars in the same group
             .transition()
             .duration(200)
@@ -300,7 +301,8 @@ export default function FacetedBarChart1({
             tooltipRef.current.style.opacity = '0';
           }
           // Reset opacity for all bars in the same group
-          d3.selectAll(`.bar`)
+          d3.select(containerRef.current)
+            .selectAll(`.bar`)
             .filter((barData) => (barData as FacetedPoint).group === d.group)
             .transition()
             .duration(200)
@@ -344,7 +346,7 @@ export default function FacetedBarChart1({
             if (tooltipRef.current) {
               // Calcola la posizione del tooltip
               const horizontalOffset = 10;
-              const verticalOffset = 10;
+              const verticalOffset = 0;
               tooltipPositionOnMouseMove(
                 tooltipRef,
                 containerRef,
@@ -405,10 +407,7 @@ export default function FacetedBarChart1({
       .style('font-size', '0.8rem') // Riduci la dimensione del font
       .style('font-weight', '600')
       .each(function (d) {
-         
         // limit d with max_lenght and add "..." at the end .
-        
-
 
         const lines = splitText(d, maxLength);
         const textElement = d3.select(this);
@@ -463,7 +462,7 @@ export default function FacetedBarChart1({
   }
 
   return (
-    <div className="relative overflow-y-auto" ref={containerRef}>
+    <div className="relative" ref={containerRef}>
       <ChartScrollableWrapper>
         <motion.div
           key={currentPage}
@@ -474,10 +473,10 @@ export default function FacetedBarChart1({
           className="overflow-x-auto overflow-y-auto h-full w-fit"
         >
           <svg ref={svgRef} />
-          <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
         </motion.div>
       </ChartScrollableWrapper>
-      <div className="flex justify-between w-full">
+      <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
+      <div className="flex justify-between w-full p-2">
         <Button
           onClick={handlePrevious}
           variant={'default'}

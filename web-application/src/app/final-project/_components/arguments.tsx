@@ -24,7 +24,7 @@ const assignmentData: AssignmentData[] = [
       'In this section we analyze the variation in the diffusion of the Internet and its use over time and between EU countries.'
   },
   {
-    assignmentHref: '/assignments/assignment-2',
+    assignmentHref: '/final-project/use-of-the-internet',
     imageSrc: getStaticFile('/alluvial-chart-ass2.png'),
     imageAlt: 'Alluvial chart of assignment 2',
     title: 'Internet Use',

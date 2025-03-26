@@ -268,8 +268,8 @@ const LineChart: React.FC<LineChartProps> = ({
               >
                 <div
                   style={{
-                    width: '15px',
-                    height: '15px',
+                    minWidth: '15px',
+                    minHeight: '15px',
                     backgroundColor: point.color
                   }}
                 ></div>
@@ -377,7 +377,7 @@ const LineChart: React.FC<LineChartProps> = ({
       });
 
     const ticksNumber = 8;
-  
+
     // Add y-axis grid lines
     const yTicks = yScale
       .ticks(8)
@@ -417,26 +417,26 @@ const LineChart: React.FC<LineChartProps> = ({
       )
       .style('font-size', `${yLabelsFontSize || '0.8rem'}`);
 
-
-      var ylabel = yLabel || ''
-      svg.append("text")
-      .attr("transform", `rotate(-90)`)
-      .attr("x", -height / 2) // Centrare verticalmente
-      .attr("y", margin.left / 2 - 10) // Posizionarla vicino all'asse Y
-      .attr("text-anchor", "middle")
-      .style("font-size", "14px")
-      .style("fill", "black")
+    var ylabel = yLabel || '';
+    svg
+      .append('text')
+      .attr('transform', `rotate(-90)`)
+      .attr('x', -height / 2) // Centrare verticalmente
+      .attr('y', margin.left / 2 - 10) // Posizionarla vicino all'asse Y
+      .attr('text-anchor', 'middle')
+      .style('font-size', '14px')
+      .style('fill', 'black')
       .text(ylabel); // Testo della label
 
-      var xlabel = xLabel || ''
-      svg.append("text")
-      .attr("x", width / 1.8)
-      .attr("y", height - margin.bottom / 4)
-      .attr("text-anchor", "middle")
-      .style("font-size", "14px")
-      .style("fill", "black")
-      .text(xlabel); 
-
+    var xlabel = xLabel || '';
+    svg
+      .append('text')
+      .attr('x', width / 1.8)
+      .attr('y', height - margin.bottom / 4)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '14px')
+      .style('fill', 'black')
+      .text(xlabel);
   }, [data, width]);
 
   if (data.length <= 0) return <NoDataMessage height={height}></NoDataMessage>;
