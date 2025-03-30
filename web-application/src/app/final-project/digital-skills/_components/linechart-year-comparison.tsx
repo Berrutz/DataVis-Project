@@ -207,7 +207,7 @@ export default function LinechartYearsDigitalSkills() {
     ) : (
       <div className="p-4 mb-6">
         <H3 className="mb-4">
-          Digital skills compared over the years after 2019
+          Digital skills compared over the years before 2019
         </H3>
         <LineChart
           width={900}
