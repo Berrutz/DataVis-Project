@@ -75,7 +75,7 @@ export default function LinechartYearsDigitalSkills() {
     // As default choose italy, germany, france and romania as countries if they are present in the csv
     const countries = csvData.map((value) => value.country);
     const allCountries = [...new Set(countries)];
-    const defaultCountries = ['Italy', 'Germany', 'France', 'Romania'];
+    const defaultCountries = ['Italy', 'Germany', 'France', 'Austria', 'Spain'];
     const selectedCountries = defaultCountries.filter((value) =>
       allCountries.includes(value)
     );
