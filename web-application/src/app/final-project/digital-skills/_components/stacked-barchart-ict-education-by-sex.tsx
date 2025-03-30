@@ -210,5 +210,3 @@ export default function StackedBarchartICTEducationBySex() {
     </ChartContainer>
   );
 }
-
-export function BarchartCountriesDigitalSkills() {}
