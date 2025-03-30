@@ -32,7 +32,7 @@ const assignmentData: AssignmentData[] = [
       'In this section we analyse the use of the internet in different aspects of society and the relationship of users with it over time and between different EU countries.'
   },
   {
-    assignmentHref: '/assignments/assignment-3',
+    assignmentHref: '/final-project/digital-skills',
     imageSrc: getStaticFile('/map-chart-ass3.png'),
     imageAlt: 'Map chart of assignment 3',
     title: 'Digital Skills',
