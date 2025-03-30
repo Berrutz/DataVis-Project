@@ -22,8 +22,6 @@ import MapContainer from '@/components/map-switch-container';
 
 export default function LinechartYearsDigitalSkills() {
   // Represent a selection for the user to switch the linecharts parameters
-  // TODO: Change this and make possible a selection over the countries (coutries selector, right now u can pick only one)
-  // Check the code below.
   const [allUniqueCountries, setAllUniqueCountries] = useState<string[]>([]);
   const [countries, setCountries] = useState<string[]>();
   const [indicIs, setIndicIs] = useState<string>();
@@ -164,7 +162,7 @@ export default function LinechartYearsDigitalSkills() {
 
     setLinechartBefore2019Data(linesBefore2019);
     setLinechartAfter2019Data(linesAfter2019);
-  }, [countries, indicIs, indType]);
+  }, [countries, indicIs, indType, csvData]);
 
   // The csv is not yet loaded or
   // the default selection has not already initializated or
@@ -195,98 +193,119 @@ export default function LinechartYearsDigitalSkills() {
 
   const height = 500;
 
+  const noDataComponent = (
+    <div className="flex justify-center items-center h-[400px] w-[min(100%,_900px)]">
+      <h1 className="text-xl font-medium text-destructive">
+        No data available
+      </h1>
+    </div>
+  );
+
+  const linechartBefore2019Component =
+    linechartBefore2019Data.length <= 0 ? (
+      noDataComponent
+    ) : (
+      <div className="p-4 mb-6">
+        <H3 className="mb-4">
+          Digital skills compared over the years after 2019
+        </H3>
+        <LineChart
+          width={900}
+          height={height}
+          data={linechartBefore2019Data}
+          ml={40}
+        />
+      </div>
+    );
+
+  const linechartAfter2019Component =
+    linechartAfter2019Data.length <= 0 ? (
+      noDataComponent
+    ) : (
+      <div className="p-4 mb-6">
+        <H3 className="mb-4">
+          Digital skills compared over the years after 2019
+        </H3>
+        <LineChart
+          width={900}
+          height={height}
+          data={linechartAfter2019Data}
+          ml={40}
+        />
+      </div>
+    );
+
   return (
-    <ChartContainer className="flex relative flex-col gap-8">
-      <Sidebar>
-        <H3>Digital skills compared over the years</H3>
-        {linechartBefore2019Data.length <= 0 ? (
-          <div className="flex justify-center items-center h-[400px] w-[min(100%,_900px)]">
-            <h1 className="text-xl font-medium text-destructive">
-              No data available
-            </h1>
-          </div>
-        ) : (
-          <MapContainer
-            className="max-w-full shadow-none"
-            components={[
-              {
-                buttonText: 'Before 2019',
-                component: (
-                  <LineChart
-                    width={900}
-                    height={height}
-                    data={linechartBefore2019Data}
-                    ml={40}
-                  />
-                )
-              },
-              {
-                buttonText: 'After 2019',
-                component: (
-                  <LineChart
-                    width={900}
-                    height={height}
-                    data={linechartAfter2019Data}
-                    ml={40}
-                  />
-                )
-              }
-            ]}
-          />
-        )}
-        <div className="flex flex-col gap-6 sm:flex-row">
-          <div className="sm:w-1/3">
-            <label>Select Countries</label>
-            <SidebarTrigger
-              variant={'outline'}
-              className="w-full text-base font-medium xs:w-64"
-            >
-              <div className="flex items-center">
-                <Pencil className="mr-2 text-gray-500 min-w-5 min-h-5" />
-                Edit countries and regions
+    <div className="px-2 sm:px-4">
+      <MapContainer
+        className="relative w-full max-w-[1200px]"
+        components={[
+          {
+            buttonText: 'Before 2019',
+            component: linechartBefore2019Component
+          },
+          {
+            buttonText: 'After 2019',
+            component: linechartAfter2019Component
+          }
+        ]}
+      >
+        <Sidebar>
+          <div>
+            <div className="mb-4">
+              <SidebarTrigger
+                variant={'outline'}
+                className="w-full text-base font-medium xs:w-64"
+              >
+                <div className="flex items-center">
+                  <Pencil className="mr-2 text-gray-500 min-w-5 min-h-5" />
+                  Edit countries and regions
+                </div>
+              </SidebarTrigger>
+              <ChartSidebar
+                items={allUniqueCountries}
+                selectedItems={countries}
+                onSelectionChange={handleCountriesSelection}
+                onClearSelection={() => setCountries([])}
+                isChecked={(country: string) => countries.includes(country)}
+                chartid="linechart-years-digital-skills"
+              />
+            </div>
+            <div className="flex flex-col gap-6 sm:flex-row">
+              <div className="sm:w-full">
+                <label>Digital Skill Level</label>
+                <Select onValueChange={setIndicIs} defaultValue={indicIs}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Digital Skill Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {uniqueIndicIs.map((indicIs) => (
+                      <SelectItem key={indicIs} value={indicIs.toString()}>
+                        {indicIs}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-            </SidebarTrigger>
-            <ChartSidebar
-              items={allUniqueCountries}
-              selectedItems={countries}
-              onSelectionChange={handleCountriesSelection}
-              onClearSelection={() => setCountries([])}
-              isChecked={(country: string) => countries.includes(country)}
-              chartid="linechart-years-digital-skills"
-            />
+              <div className="sm:w-full">
+                <label>Individuals Range</label>
+                <Select onValueChange={setIndType} defaultValue={indType}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Individuals Range" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {uniqueIndType.map((indType) => (
+                      <SelectItem key={indType} value={indType.toString()}>
+                        {indType}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-          <div className="sm:w-full">
-            <label>Digital Skill Level</label>
-            <Select onValueChange={setIndicIs} defaultValue={indicIs}>
-              <SelectTrigger>
-                <SelectValue placeholder="Digital Skill Level" />
-              </SelectTrigger>
-              <SelectContent>
-                {uniqueIndicIs.map((indicIs) => (
-                  <SelectItem key={indicIs} value={indicIs.toString()}>
-                    {indicIs}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="sm:w-full">
-            <label>Individuals Range</label>
-            <Select onValueChange={setIndType} defaultValue={indType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Individuals Range" />
-              </SelectTrigger>
-              <SelectContent>
-                {uniqueIndType.map((indType) => (
-                  <SelectItem key={indType} value={indType.toString()}>
-                    {indType}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </Sidebar>
-    </ChartContainer>
+        </Sidebar>
+      </MapContainer>
+    </div>
   );
 }
