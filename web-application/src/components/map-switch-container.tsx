@@ -23,7 +23,8 @@ interface MapContainerProps extends React.HTMLAttributes<HTMLHeadElement> {
  */
 const MapContainer: React.FC<MapContainerProps> = ({
   components,
-  className
+  className,
+  children
 }: MapContainerProps): React.ReactNode => {
   if (components.length === 0) {
     throw new Error(
@@ -96,6 +97,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
         >
           {components[activeComponentIdex].component}
         </div>
+        {children}
       </div>
     </div>
   );
