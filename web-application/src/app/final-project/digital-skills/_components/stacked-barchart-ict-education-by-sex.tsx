@@ -190,8 +190,8 @@ export default function StackedBarchartICTEducationBySex() {
         mr={20}
         ml={100}
       />
-      <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="sm:w-1/3">
+      <div>
+        <div>
           <label>Year</label>
           <Select onValueChange={setYear} defaultValue={year.toString()}>
             <SelectTrigger>
