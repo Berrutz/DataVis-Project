@@ -12,7 +12,6 @@ import React, { useEffect, useState } from 'react';
 import { getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
-import { H3 } from '@/components/headings';
 import StackedBarChart, {
   Category,
   StackedData
@@ -181,7 +180,6 @@ export default function StackedBarchartICTEducationBySex() {
 
   return (
     <ChartContainer className="flex flex-col gap-8">
-      <H3>Percentage of employed males and females with ICT education</H3>
       <StackedBarChart
         width={900}
         height={600}

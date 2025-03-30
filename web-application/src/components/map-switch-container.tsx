@@ -85,7 +85,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
       {/* Graph container */}
       <div
-        className={`p-4 transition-opacity duration-300 border-b border-x rounded-b-2xl ${
+        className={`p-4 sm:p-10 transition-opacity duration-300 border-b border-x rounded-b-2xl ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >

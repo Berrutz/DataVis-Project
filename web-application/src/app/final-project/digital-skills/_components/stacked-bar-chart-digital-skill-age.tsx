@@ -6,7 +6,6 @@ import * as d3 from 'd3';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import { H3 } from '@/components/headings';
 import StackedBarChart, {
   Category,
   StackedData
@@ -113,7 +112,6 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
 
   return (
     <ChartContainer className="flex flex-col gap-8">
-      <H3>Employed persons with ICT education by age</H3>
       <StackedBarChart
         data={stackedData}
         categories={categories}

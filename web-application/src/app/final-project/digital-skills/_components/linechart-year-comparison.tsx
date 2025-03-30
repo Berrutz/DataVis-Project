@@ -14,7 +14,6 @@ import React, { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
-import { H3 } from '@/components/headings';
 import LineChart, { Line } from '@/components/charts/linechart';
 import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import { ChartSidebar } from '@/components/chart-sidebar';
@@ -206,9 +205,6 @@ export default function LinechartYearsDigitalSkills() {
       noDataComponent
     ) : (
       <div className="p-4 mb-6">
-        <H3 className="mb-4">
-          Digital skills compared over the years before 2019
-        </H3>
         <LineChart
           width={900}
           height={height}
@@ -223,9 +219,6 @@ export default function LinechartYearsDigitalSkills() {
       noDataComponent
     ) : (
       <div className="p-4 mb-6">
-        <H3 className="mb-4">
-          Digital skills compared over the years after 2019
-        </H3>
         <LineChart
           width={900}
           height={height}
@@ -236,76 +229,74 @@ export default function LinechartYearsDigitalSkills() {
     );
 
   return (
-    <div className="px-2 sm:px-4">
-      <MapContainer
-        className="relative w-full max-w-[1200px]"
-        components={[
-          {
-            buttonText: 'Before 2019',
-            component: linechartBefore2019Component
-          },
-          {
-            buttonText: 'After 2019',
-            component: linechartAfter2019Component
-          }
-        ]}
-      >
-        <Sidebar>
-          <div>
-            <div className="mb-4">
-              <SidebarTrigger
-                variant={'outline'}
-                className="w-full text-base font-medium xs:w-64"
-              >
-                <div className="flex items-center">
-                  <Pencil className="mr-2 text-gray-500 min-w-5 min-h-5" />
-                  Edit countries and regions
-                </div>
-              </SidebarTrigger>
-              <ChartSidebar
-                items={allUniqueCountries}
-                selectedItems={countries}
-                onSelectionChange={handleCountriesSelection}
-                onClearSelection={() => setCountries([])}
-                isChecked={(country: string) => countries.includes(country)}
-                chartid="linechart-years-digital-skills"
-              />
+    <MapContainer
+      className="relative w-full max-w-[1200px]"
+      components={[
+        {
+          buttonText: 'Before 2019',
+          component: linechartBefore2019Component
+        },
+        {
+          buttonText: 'After 2019',
+          component: linechartAfter2019Component
+        }
+      ]}
+    >
+      <Sidebar>
+        <div>
+          <div className="mb-4">
+            <SidebarTrigger
+              variant={'outline'}
+              className="w-full text-base font-medium xs:w-64"
+            >
+              <div className="flex items-center">
+                <Pencil className="mr-2 text-gray-500 min-w-5 min-h-5" />
+                Edit countries and regions
+              </div>
+            </SidebarTrigger>
+            <ChartSidebar
+              items={allUniqueCountries}
+              selectedItems={countries}
+              onSelectionChange={handleCountriesSelection}
+              onClearSelection={() => setCountries([])}
+              isChecked={(country: string) => countries.includes(country)}
+              chartid="linechart-years-digital-skills"
+            />
+          </div>
+          <div className="flex flex-col gap-6 sm:flex-row">
+            <div className="sm:w-full">
+              <label>Digital Skill Level</label>
+              <Select onValueChange={setIndicIs} defaultValue={indicIs}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Digital Skill Level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {uniqueIndicIs.map((indicIs) => (
+                    <SelectItem key={indicIs} value={indicIs.toString()}>
+                      {indicIs}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            <div className="flex flex-col gap-6 sm:flex-row">
-              <div className="sm:w-full">
-                <label>Digital Skill Level</label>
-                <Select onValueChange={setIndicIs} defaultValue={indicIs}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Digital Skill Level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {uniqueIndicIs.map((indicIs) => (
-                      <SelectItem key={indicIs} value={indicIs.toString()}>
-                        {indicIs}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="sm:w-full">
-                <label>Individuals Range</label>
-                <Select onValueChange={setIndType} defaultValue={indType}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Individuals Range" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {uniqueIndType.map((indType) => (
-                      <SelectItem key={indType} value={indType.toString()}>
-                        {indType}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="sm:w-full">
+              <label>Individuals Range</label>
+              <Select onValueChange={setIndType} defaultValue={indType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Individuals Range" />
+                </SelectTrigger>
+                <SelectContent>
+                  {uniqueIndType.map((indType) => (
+                    <SelectItem key={indType} value={indType.toString()}>
+                      {indType}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
-        </Sidebar>
-      </MapContainer>
-    </div>
+        </div>
+      </Sidebar>
+    </MapContainer>
   );
 }
