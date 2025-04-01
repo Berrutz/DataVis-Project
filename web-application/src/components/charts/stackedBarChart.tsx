@@ -316,7 +316,11 @@ export default function StackedBarChart({
         }
 
         // Highlight the hovered bar
-        d3.selectAll('rect').transition().duration(100).style('opacity', 0.25);
+        d3.select(containerRef.current)
+          .selectAll('rect')
+          .transition()
+          .duration(200)
+          .style('opacity', 0.25);
 
         d3.select(event.target as SVGRectElement)
           .transition()
@@ -331,7 +335,11 @@ export default function StackedBarChart({
         }
 
         // Reset opacity for all bars
-        d3.selectAll('rect').transition().duration(200).style('opacity', 0.95);
+        d3.select(containerRef.current)
+          .selectAll('rect')
+          .transition()
+          .duration(200)
+          .style('opacity', 0.95);
       });
 
     // X-Axis
