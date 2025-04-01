@@ -1,10 +1,11 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import { H3 } from '@/components/headings';
 import StackedBarChart, {
   Category,
   StackedData
@@ -45,13 +46,13 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
     })
   );
 
-  console.log("CsvData:", csvData);
+  console.log('CsvData:', csvData);
 
   // Extract unique years when CSV data is loaded
   useEffect(() => {
     if (!csvData || csvData.length === 0) return;
 
-    const years = Array.from(new Set(csvData.map(d => d.time.toString())));
+    const years = Array.from(new Set(csvData.map((d) => d.time.toString())));
     setUniqueYears(years);
 
     if (!selectedYear) {
@@ -64,7 +65,9 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
     if (!selectedYear || csvData!.length === 0) return;
 
     // Filter data for the selected year
-    const filteredData = csvData!.filter(d => d.time.toString() === selectedYear);
+    const filteredData = csvData!.filter(
+      (d) => d.time.toString() === selectedYear
+    );
 
     // Group data by country
     const groupedData = d3.group(filteredData, (d) => d.country);
@@ -74,13 +77,18 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
       name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
 
     // Process data for StackedBarChart
-    const processedData: StackedData[] = Array.from(groupedData, ([country, values]) => {
-      const entry: Record<string, any> = { entity: truncateCountryName(country) };
-      values.forEach((d) => {
-        entry[d.range] = d.percentage;
-      });
-      return entry as StackedData;
-    });
+    const processedData: StackedData[] = Array.from(
+      groupedData,
+      ([country, values]) => {
+        const entry: Record<string, any> = {
+          entity: truncateCountryName(country)
+        };
+        values.forEach((d) => {
+          entry[d.range] = d.percentage;
+        });
+        return entry as StackedData;
+      }
+    );
 
     setData(processedData);
 
@@ -91,7 +99,6 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
       color: colors[index % colors.length] // Rotate through available colors
     }));
     setCategories(categoryList);
-
   }, [selectedYear, csvData]);
 
   // Show loading skeleton if data isn't ready
@@ -105,7 +112,6 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
 
   return (
     <ChartContainer className="flex flex-col gap-8">
-      <H3>Employed persons with ICT education by age</H3>
       <StackedBarChart
         data={stackedData}
         categories={categories}

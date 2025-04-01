@@ -14,7 +14,6 @@ import React, { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
-import { H3 } from '@/components/headings';
 
 type BarchartState = {
   x: string[];
@@ -116,7 +115,6 @@ export default function BarchartCountriesDigitalSkills() {
 
   return (
     <ChartContainer className="flex flex-col gap-8">
-      <H3>Different countires compared by digital skill levels</H3>
       <BarChart
         x={barchartState.x}
         y={barchartState.y}

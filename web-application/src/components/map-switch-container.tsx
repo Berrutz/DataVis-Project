@@ -23,7 +23,8 @@ interface MapContainerProps extends React.HTMLAttributes<HTMLHeadElement> {
  */
 const MapContainer: React.FC<MapContainerProps> = ({
   components,
-  className
+  className,
+  children
 }: MapContainerProps): React.ReactNode => {
   if (components.length === 0) {
     throw new Error(
@@ -84,7 +85,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
       {/* Graph container */}
       <div
-        className={`p-4 transition-opacity duration-300 border-b border-x rounded-b-2xl ${
+        className={`p-4 sm:p-10 transition-opacity duration-300 border-b border-x rounded-b-2xl ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
@@ -96,6 +97,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
         >
           {components[activeComponentIdex].component}
         </div>
+        {children}
       </div>
     </div>
   );
