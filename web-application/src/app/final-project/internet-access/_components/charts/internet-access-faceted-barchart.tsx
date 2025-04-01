@@ -1,3 +1,5 @@
+import DataSourceInfo from '@/app/assignments/_components/data-source';
+import ShowMoreChartDetailsModalDialog from '@/app/assignments/_components/show-more-chart-details-modal-dialog';
 import ChartContainer from '@/components/chart-container';
 import { ChartSidebar } from '@/components/chart-sidebar';
 import FacetedBarChart, {
@@ -92,7 +94,20 @@ const InternetAccessFacetedBarChart: React.FC<
 
     setFacetedData(groupedFacetedData);
 
-    setSelectedCountries(groupedFacetedData.slice(0, defaulCountiresSelected));
+    if (selectedCountries === null || selectedCountries.length <= 0) {
+      setSelectedCountries(
+        groupedFacetedData.slice(0, defaulCountiresSelected)
+      );
+    } else {
+      setSelectedCountries(
+        groupedFacetedData.filter((item) =>
+          selectedCountries.some(
+            (filterItem) => filterItem.category === item.category
+          )
+        )
+      );
+    }
+    console.log(selectedCountries);
   }, [selectedYear]);
 
   // The csv is not yet loaded or
@@ -177,8 +192,45 @@ const InternetAccessFacetedBarChart: React.FC<
           width={newWidth}
           height={newHeight}
           unitOfMeasurement="%"
-          ml={100}
+          ml={115}
         ></FacetedBarChart>
+        <DataSourceInfo>
+          Eurostat, Households - reasons for not having internet access at home
+          (2019);{' '}
+          <ShowMoreChartDetailsModalDialog>
+            <div className="mt-1 mb-4 mr-4 ml-4">
+              <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+                What you should know about this data
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  The survey population of Households consists of all private
+                  households having at least one member in the age group 16 to
+                  74 years.
+                </li>
+              </ul>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Methodologies
+              </h2>
+              <p className="text-base">
+                To create the graph, data provided by "Eurostat" were taken
+                regarding the reasons of householders for not having internet at
+                home. The data were then grouped by year and by country or
+                region. The data are displayed on request depending on the
+                selected year and countries/regions.
+              </p>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Data Sources
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  Eurostat: Households - reasons for not having internet access
+                  at home (id isoc_pibi_rni, last data update: 16/06/2024)
+                </li>
+              </ul>
+            </div>
+          </ShowMoreChartDetailsModalDialog>
+        </DataSourceInfo>
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="sm:w-1/3">
             <label>Year</label>

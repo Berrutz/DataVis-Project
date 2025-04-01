@@ -14,6 +14,8 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { H3 } from '@/components/headings';
+import DataSourceInfo from '@/app/assignments/_components/data-source';
+import ShowMoreChartDetailsModalDialog from '@/app/assignments/_components/show-more-chart-details-modal-dialog';
 
 interface ComputerUseAlluvialProps {
   newWidth: number;
@@ -187,6 +189,53 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
         floatPrecision={2}
         ml={50}
       ></Alluvial>
+      <DataSourceInfo>
+        Eurostat, Households - reasons for not having internet access at home
+        (2024);{' '}
+        <ShowMoreChartDetailsModalDialog>
+          <div className="mt-1 mb-4 mr-4 ml-4">
+            <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+              What you should know about this data
+            </h2>
+            <ul className="list-disc pl-5 text-base">
+              <li>
+                The survey population of Individuals consists of all individuals
+                aged 16 to 74. On an optional basis, some countries collect
+                separate data on other age groups: individuals aged 15 years or
+                less, aged 75 or more.
+              </li>
+            </ul>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Methodologies
+            </h2>
+            <p className="text-base">
+              The data are taken from the databases provided by "Eurostats"
+              containing data on the last time an individual has used internet
+              and data on the population divided by age group for all EU
+              countries. The databases were merged and only the population of
+              the age group of interest was taken. The data are displayed on
+              request depending on the selected year and country.
+            </p>
+            <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+              Data Sources
+            </h2>
+            <ul className="list-disc pl-5 text-base">
+              <li>
+                Eurostat: Individuals - computer use (id isoc_ci_cfp_cu, last
+                data update: 16/06/2024).
+              </li>
+              <li>
+                Eurostat: Population on 1 January by age group and sex (id
+                demo_pjangroup, last data update: 18-03-2025)
+              </li>
+              <li>
+                Eurostat: Population on 1 January by age and sex (id demo_pjan,
+                last data update: 18-03-2025)
+              </li>
+            </ul>
+          </div>
+        </ShowMoreChartDetailsModalDialog>
+      </DataSourceInfo>
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-1/3">
           <label>Year</label>

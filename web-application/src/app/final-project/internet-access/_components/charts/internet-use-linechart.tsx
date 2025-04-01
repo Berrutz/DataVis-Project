@@ -9,6 +9,8 @@ import chroma from 'chroma-js';
 import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import { ChartSidebar } from '@/components/chart-sidebar';
 import { Pencil } from 'lucide-react';
+import ShowMoreChartDetailsModalDialog from '@/app/assignments/_components/show-more-chart-details-modal-dialog';
+import DataSourceInfo from '@/app/assignments/_components/data-source';
 
 interface InternetUseLineChartProps {
   newWidth: number;
@@ -111,7 +113,7 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
   return (
     <ChartContainer className="sm:relative flex flex-col gap-8">
       <Sidebar>
-        <H3>Internet use for countries and regions</H3>
+        <H3>Percentage of individuals who have never used internet</H3>
         <div className="flex justify-end">
           <SidebarTrigger
             variant={'outline'}
@@ -133,6 +135,42 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
           yUpperBound={100}
           yLowerBound={0}
         ></LineChart>
+        <DataSourceInfo>
+          Eurostat, Individuals - internet use (2024);{' '}
+          <ShowMoreChartDetailsModalDialog>
+            <div className="mt-1 mb-4 mr-4 ml-4">
+              <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+                What you should know about this data
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  The survey population of Individuals consists of all
+                  individuals aged 16 to 74. On an optional basis, some
+                  countries collect separate data on other age groups:
+                  individuals aged 15 years or less, aged 75 or more.
+                </li>
+              </ul>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Methodologies
+              </h2>
+              <p className="text-base">
+                The data are taken from the databases provided by "Eurostats"
+                containing data on the last time an individual has used internet
+                for all EU countries. The data are displayed on request
+                depending on the selected year and country.
+              </p>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Data Sources
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  Eurostat: Individuals - internet use (id isoc_ci_ifp_iu, last
+                  data update: 17/12/2024).
+                </li>
+              </ul>
+            </div>
+          </ShowMoreChartDetailsModalDialog>
+        </DataSourceInfo>
         {/* Sidebar Content */}
         <ChartSidebar
           items={allCountriesGroup}

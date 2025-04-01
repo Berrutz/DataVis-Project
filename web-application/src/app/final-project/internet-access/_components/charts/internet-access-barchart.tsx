@@ -1,3 +1,5 @@
+import DataSourceInfo from '@/app/assignments/_components/data-source';
+import ShowMoreChartDetailsModalDialog from '@/app/assignments/_components/show-more-chart-details-modal-dialog';
 import ChartContainer from '@/components/chart-container';
 import { ChartSidebar } from '@/components/chart-sidebar';
 import BarChart, { Point } from '@/components/charts/barchart';
@@ -74,14 +76,31 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
     });
 
     // Default: all countries are selected
-    setSelectedCountries(
-      filteredData.map((d) => {
-        return {
-          x: d.country,
-          y: d.value
-        };
-      })
-    );
+    if (selectedCountries === null || selectedCountries.length <= 0) {
+      setSelectedCountries(
+        filteredData.map((d) => {
+          return {
+            x: d.country,
+            y: d.value
+          };
+        })
+      );
+    } else {
+      setSelectedCountries(
+        filteredData
+          .filter((item) =>
+            selectedCountries.some(
+              (filterItem) => filterItem.x === item.country
+            )
+          )
+          .map((d) => {
+            return {
+              x: d.country,
+              y: d.value
+            };
+          })
+      );
+    }
   }, [selectedYear]);
 
   // The csv is not yet loaded or
@@ -136,7 +155,7 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   return (
     <div className="flex flex-col gap-8">
       <Sidebar>
-        <H3>Europe countries compared by internet access level</H3>
+        <H3>EU countries compared by internet access level</H3>
         <div className="flex justify-end">
           <SidebarTrigger
             variant={'outline'}
@@ -161,6 +180,42 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           yLabelsSuffix="%"
           vertical={true}
         ></BarChart>
+        <DataSourceInfo>
+          Eurostat, Households - level of internet access (2024);{' '}
+          <ShowMoreChartDetailsModalDialog>
+            <div className="mt-1 mb-4 mr-4 ml-4">
+              <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
+                What you should know about this data
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  The survey population of Households consists of all private
+                  households having at least one member in the age group 16 to
+                  74 years.
+                </li>
+              </ul>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Methodologies
+              </h2>
+              <p className="text-base">
+                To create the charts, the geographical data of the various
+                countries were coupled with the databases provided by
+                "Eurostats" containing data on the percentage of households with
+                internet access for all EU countries. The data are displayed on
+                request depending on the selected year.
+              </p>
+              <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
+                Data Sources
+              </h2>
+              <ul className="list-disc pl-5 text-base">
+                <li>
+                  Eurostat: Households - level of internet access (id
+                  isoc_ci_in_h, last data update: 17/12/2024).
+                </li>
+              </ul>
+            </div>
+          </ShowMoreChartDetailsModalDialog>
+        </DataSourceInfo>
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="sm:w-1/3">
             <label>Year</label>

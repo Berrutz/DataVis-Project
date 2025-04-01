@@ -16,7 +16,7 @@ type AssignmentData = {
 
 const assignmentData: AssignmentData[] = [
   {
-    assignmentHref: '/assignments/assignment-1',
+    assignmentHref: '/final-project/internet-access',
     imageSrc: getStaticFile('/barchart-ass1.png'),
     imageAlt: 'Barchart of assignment 1',
     title: 'Internet Access',

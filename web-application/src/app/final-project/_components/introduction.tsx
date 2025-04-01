@@ -41,7 +41,7 @@ export default function IntroductionFinalProject() {
 
       <div className="flex flex-col gap-12 items-center pt-16 w-full text-center">
         <div className="flex gap-12 items-center overflow-clip">
-          <div className="flex flex-col gap-4 lg:w-1/2 lg:text-right">
+          <div className="flex flex-col gap-4 lg:w-1/2">
             <H3>What's our digitalizaion level?</H3>
             <ul className="text-lg">
               <li>How many have access to the internet in their homes?</li>
@@ -57,7 +57,7 @@ export default function IntroductionFinalProject() {
             </ul>
           </div>
           <Image
-            className="hidden object-contain p-14 w-1/2 rounded-2xl border shadow-sm lg:block"
+            className="hidden object-contain p-4 w-1/2 rounded-2xl border shadow-sm lg:block"
             src={imagesData[0].imageSrc}
             width={600}
             height={500}
@@ -73,7 +73,7 @@ export default function IntroductionFinalProject() {
             alt={imagesData[1].imageAlt}
             className="hidden object-contain w-1/2 rounded-2xl lg:block"
           />
-          <div className="flex flex-col gap-4 justify-center lg:text-left">
+          <div className="flex flex-col gap-4 justify-center">
             <H3>What do we use this internet for?</H3>
             <ul className="text-lg">
               <li>How often do people use the Internet?</li>
@@ -90,7 +90,7 @@ export default function IntroductionFinalProject() {
         </div>
 
         <div className="flex gap-12 overflow-clip">
-          <div className="flex flex-col gap-4 justify-center lg:text-right">
+          <div className="flex flex-col gap-4 justify-center">
             <H3>How skilled we are in this digital world?</H3>
             <ul className="text-lg">
               <li>
