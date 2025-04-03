@@ -37,7 +37,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
 
   // Get the data from the CSV file using D3
   const csvData = useGetD3Csv(
-    'digital-skills/Employed-ICT-education-age.csv',
+    'digital-skills/employed-ICT-education-age.csv',
     (d) => ({
       time: +d.time_period,
       country: d.geo,
@@ -45,8 +45,6 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
       percentage: +d.obs_value
     })
   );
-
-  console.log('CsvData:', csvData);
 
   // Extract unique years when CSV data is loaded
   useEffect(() => {
@@ -72,16 +70,12 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
     // Group data by country
     const groupedData = d3.group(filteredData, (d) => d.country);
 
-    // Function to truncate country names
-    const truncateCountryName = (name: string, maxLength: number = 3) =>
-      name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
-
     // Process data for StackedBarChart
     const processedData: StackedData[] = Array.from(
       groupedData,
       ([country, values]) => {
         const entry: Record<string, any> = {
-          entity: truncateCountryName(country)
+          entity: country
         };
         values.forEach((d) => {
           entry[d.range] = d.percentage;
@@ -99,7 +93,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
       color: colors[index % colors.length] // Rotate through available colors
     }));
     setCategories(categoryList);
-  }, [selectedYear, csvData]);
+  }, [selectedYear]);
 
   // Show loading skeleton if data isn't ready
   if (!csvData || stackedData.length === 0 || categories.length === 0) {
@@ -118,8 +112,10 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
         width={newWidth}
         height={newHeight}
         unitOfMeasurement="%"
-        vertical={true}
+        vertical={false}
         percentage={true}
+        ml={110}
+        mr={20}
       />
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-full">

@@ -122,7 +122,7 @@ export default function StackedBarChart({
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
       top: mt || 50,
-      right: vertical ? mr || 60 : mr || 0,
+      right: vertical ? mr || 60 : mr || 10,
       bottom: mb || 40,
       left: ml || 100
     };
@@ -351,12 +351,10 @@ export default function StackedBarChart({
           `translate(0, ${height - margin.top - margin.bottom})`
         )
         .call(d3.axisBottom(xScale)) // No .ticks() for ScaleBand
-        .attr('font-size', 'rem1')
-        .append('text')
-        .attr('x', (width - margin.left - margin.right) / 2)
-        .attr('y', 30)
-        .attr('fill', 'black')
-        .attr('text-anchor', 'middle');
+        .style('font-size', '12px')
+        .selectAll('text')
+        .attr('transform', 'rotate(-45)')
+        .attr('text-anchor', 'end');
     } else {
       svg
         .append('g')
@@ -370,22 +368,20 @@ export default function StackedBarChart({
             .ticks(5)
             .tickFormat((x) =>
               percentage
-                ? `${+x * 100} ${unitOfMeasurement}`
-                : `${x} ${unitOfMeasurement}`
+                ? `${+x * 100}${unitOfMeasurement}`
+                : `${x}${unitOfMeasurement}`
             )
         )
-        .style('font-size', '14px')
+        .style('font-size', '12px')
         .append('text')
         .attr('x', (width - margin.left - margin.right) / 2)
         .attr('y', 30)
-        .attr('fill', 'black')
-        .attr('text-anchor', 'middle')
-        .style('font-size', '16px');
+        .attr('text-anchor', 'middle');
     }
 
     // Y-Axis
     if (isBandScale(yScale)) {
-      svg.append('g').call(d3.axisLeft(yScale)).attr('font-size', 'rem1');
+      svg.append('g').call(d3.axisLeft(yScale)).style('font-size', '12px');
     } else {
       svg
         .append('g')
@@ -395,11 +391,11 @@ export default function StackedBarChart({
             .ticks(5)
             .tickFormat((y) =>
               percentage
-                ? `${+y * 100} ${unitOfMeasurement}`
-                : `${y} ${unitOfMeasurement}`
+                ? `${+y * 100}${unitOfMeasurement}`
+                : `${y}${unitOfMeasurement}`
             )
         )
-        .attr('font-size', 'rem0.8');
+        .attr('font-size', 'rem0.7');
     }
 
     const xOffset = 10;
