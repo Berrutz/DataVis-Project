@@ -21,12 +21,14 @@
  * Or you can do whatever you want and make this more messy (o_o)
  */
 import Arguments from './_components/arguments';
+import FinalPageNav from './_components/final-page-nav';
 import HeroFinalProject from './_components/hero';
 import IntroductionFinalProject from './_components/introduction';
 
 export default function FinalProject() {
   return (
     <main>
+      <FinalPageNav />
       <HeroFinalProject />
       <IntroductionFinalProject />
       <Arguments />
