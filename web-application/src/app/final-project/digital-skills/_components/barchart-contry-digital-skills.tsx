@@ -73,7 +73,8 @@ export default function BarchartCountriesDigitalSkills() {
         (value) =>
           value.year === +year &&
           value.indic_is === indicIs &&
-          value.ind_type === indType
+          value.ind_type === indType &&
+          value.value > 0
       )
       .sort((a, b) => b.value - a.value);
 
