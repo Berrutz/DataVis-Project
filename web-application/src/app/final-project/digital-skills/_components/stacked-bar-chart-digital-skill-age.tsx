@@ -37,7 +37,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
 
   // Get the data from the CSV file using D3
   const csvData = useGetD3Csv(
-    'digital-skills/employed-ICT-education-age.csv',
+    'digital-skills/Employed-ICT-education-age.csv',
     (d) => ({
       time: +d.time_period,
       country: d.geo,
