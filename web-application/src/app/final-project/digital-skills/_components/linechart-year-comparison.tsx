@@ -113,8 +113,6 @@ export default function LinechartYearsDigitalSkills() {
     const before2019Data = filteredData.filter((value) => value.year < 2019);
     const after2019Data = filteredData.filter((value) => value.year >= 2019);
 
-    console.table(before2019Data);
-
     const uniqueCountriesBefore2019 = getUnique(
       before2019Data.map((value) => value.country)
     );
