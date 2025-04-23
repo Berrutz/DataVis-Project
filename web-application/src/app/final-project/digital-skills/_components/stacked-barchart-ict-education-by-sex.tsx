@@ -186,7 +186,7 @@ export default function StackedBarchartICTEducationBySex() {
         categories={stackedBarchartCategories}
         data={stackedBarchartState}
         mr={20}
-        ml={100}
+        ml={80}
       />
       <div>
         <div>

@@ -114,7 +114,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
         unitOfMeasurement="%"
         vertical={false}
         percentage={true}
-        ml={110}
+        ml={80}
         mr={20}
       />
       <div className="flex flex-col gap-6 sm:flex-row">
