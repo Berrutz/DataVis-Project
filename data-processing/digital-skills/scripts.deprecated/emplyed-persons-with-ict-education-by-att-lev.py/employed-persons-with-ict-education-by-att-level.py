@@ -60,6 +60,9 @@ df = df.drop(columns=columns_to_drop)
 # Filter only eu countries
 df = remove_non_eu_countires(df, "country")
 
+# Remove unused data category
+df = df[df['iscoe'] != "Upper secondary, post-secondary non-tertiary and tertiary education (levels 3-8)"]
+
 # Set indexes
 df = df.set_index(["time_period", "country", "iscoe"])
 
