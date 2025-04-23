@@ -159,7 +159,7 @@ export default function Alluvial({
   const colorScale = d3
     .scaleOrdinal<string>()
     .domain(nodesSecondLayer)
-    .range(['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff']);
+    .range(colors);
 
   useEffect(() => {
     if (data.nodes.length > 2) {
