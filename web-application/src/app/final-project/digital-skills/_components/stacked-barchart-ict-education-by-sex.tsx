@@ -30,7 +30,7 @@ export default function StackedBarchartICTEducationBySex() {
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
-    'digital-skills/employed-ict-education-by-sex.csv',
+    'digital-skills/employed-persons-with-ict-education-by-sex.csv',
     (d) => ({
       year: +d.time_period,
       sex_tag: d.sex_tag,
