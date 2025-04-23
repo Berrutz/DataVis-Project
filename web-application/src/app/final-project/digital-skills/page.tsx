@@ -4,6 +4,7 @@ import LinechartYearsDigitalSkills from './_components/linechart-year-comparison
 import StackedBarchartICTEducationBySex from './_components/stacked-barchart-ict-education-by-sex';
 import StackedBarChartAgeDigitalSkills from './_components/stacked-bar-chart-digital-skill-age';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
+import AlluvialDigitalSkills from './_components/alluvial-chart-digital-skills';
 
 export default function DigitalSkills() {
   return (
@@ -13,6 +14,13 @@ export default function DigitalSkills() {
         <H1 className="my-12">Digital Skills</H1>
 
         <div className="flex flex-col gap-24">
+          <div>
+            <H2 className="mb-8">
+              Age interval and digital skill comparison for country
+            </H2>
+            <AlluvialDigitalSkills />
+          </div>
+
           <div>
             <H2 className="mb-8">
               Different countires compared by digital skill levels
