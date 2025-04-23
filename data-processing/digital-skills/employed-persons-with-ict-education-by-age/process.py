@@ -9,7 +9,7 @@ from data_processing.filter import remove_non_eu_countires
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-DATASET_NAME = "employed-persons-with-ict-education-by-age-raw.csv"
+DATASET_NAME = "employed-persons-with-ict-education-by-age.csv"
 DATASET_PATH = os.path.join(os.path.dirname(__file__), DATASET_NAME)
 PROCESSED_DATASET_PATH = os.path.join(
     os.path.dirname(__file__), f"../processed_datasets/{DATASET_NAME}"
