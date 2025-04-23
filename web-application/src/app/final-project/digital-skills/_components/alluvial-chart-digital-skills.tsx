@@ -14,7 +14,13 @@ import React, { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
-import Alluvial, { AlluvialData, LinkData } from '@/components/charts/alluvial';
+import Alluvial, {
+  AlluvialData,
+  CustomLink,
+  CustomNode,
+  LinkData
+} from '@/components/charts/alluvial';
+import { SankeyLink, SankeyNodeMinimal } from 'd3-sankey';
 
 export default function AlluvialDigitalSkills() {
   // Represent a year and country selection for the user
@@ -128,6 +134,9 @@ export default function AlluvialDigitalSkills() {
     <ChartContainer className="flex flex-col gap-8">
       <Alluvial
         data={alluvialState}
+        tooltipSuffix="%"
+        SecondLayerNodesTooltipMapper={TooltipSecondLayerNodes}
+        linksTooltipMapper={TooltipMouseOverLinks}
         width={1000}
         height={800}
         colors={colors}
@@ -170,5 +179,139 @@ export default function AlluvialDigitalSkills() {
         </div>
       </div>
     </ChartContainer>
+  );
+}
+
+function TooltipSecondLayerNodes(
+  nodeData: CustomNode,
+  relatedLinks: CustomLink[],
+  nodes: CustomNode[],
+  suffix: string,
+  scalingFactor: number,
+  floatPrecision: number
+): JSX.Element {
+  return (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {nodeData.name}
+      </div>
+      {relatedLinks.map((link, index) => (
+        <div key={index}>
+          {nodes[link.source].name}: {link.value.toFixed(floatPrecision)}%
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TooltipMouseOverLinks(
+  hoveredLink: SankeyLink<CustomNode, CustomLink>,
+  relatedLinks: SankeyLink<CustomNode, CustomLink>[],
+  nodes: CustomNode[],
+  linkPaths: d3.Selection<
+    d3.BaseType | SVGPathElement,
+    SankeyLink<CustomNode, CustomLink>,
+    SVGGElement,
+    unknown
+  >
+) {
+  const targetNode = hoveredLink.target as CustomNode;
+  if (targetNode.index == undefined) {
+    throw new Error('index undefined');
+  }
+
+  // Highlight effect
+  if (linkPaths !== undefined) {
+    linkPaths
+      .transition()
+      .duration(200)
+      .attr('opacity', (link) => {
+        const linkTarget = link.target as SankeyNodeMinimal<
+          CustomNode,
+          CustomLink
+        >;
+        return linkTarget.index === targetNode.index ? 1 : 0.2;
+      });
+  }
+
+  // Filter and sort related source links
+  const relatedSourceLinks = relatedLinks
+    .filter((link) => link.target === targetNode.index)
+    .sort((a, b) => b.value - a.value);
+
+  return (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {targetNode.name}
+      </div>
+      {relatedSourceLinks.map((link, index) => {
+        const sourceNode = nodes[link.source as number]; // Assuming `source` is an index
+        return (
+          <div key={sourceNode.name + index}>
+            {sourceNode.name}: {link.value.toFixed(2)}%<br />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export function mouseOverLinks(
+  d: SankeyLink<CustomNode, CustomLink>,
+  links: SankeyLink<CustomNode, CustomLink>[],
+  linkPaths: d3.Selection<
+    d3.BaseType | SVGPathElement,
+    SankeyLink<CustomNode, CustomLink>,
+    SVGGElement,
+    unknown
+  >,
+  nodes: CustomNode[],
+  tooltipMapper:
+    | ((
+        hoveredLink: SankeyLink<CustomNode, CustomLink>,
+        links: SankeyLink<CustomNode, CustomLink>[],
+        nodes: CustomNode[],
+        linkPaths: d3.Selection<
+          d3.BaseType | SVGPathElement,
+          SankeyLink<CustomNode, CustomLink>,
+          SVGGElement,
+          unknown
+        >
+      ) => JSX.Element)
+    | undefined,
+  suffix: string,
+  scalingFactor: number,
+  floatPrecision: number
+): JSX.Element {
+  const targetNode = d.target as CustomNode;
+  if (targetNode.index == undefined) {
+    throw new Error('index undefined');
+  }
+
+  // Filter and sort related source links
+  const relatedSourceLinks = links
+    .filter((link) => link.target === targetNode.index)
+    .sort((a, b) => b.value - a.value);
+
+  if (tooltipMapper != undefined) {
+    return tooltipMapper(d, relatedSourceLinks, nodes);
+  }
+
+  return (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        {targetNode.name}
+      </div>
+      {relatedSourceLinks.map((link, index) => {
+        const sourceNode = nodes[link.source as number]; // Assuming `source` is an index
+        return (
+          <div key={sourceNode.name + index}>
+            {sourceNode.name}: {link.value.toFixed(floatPrecision)}
+            {suffix}
+            <br></br>
+          </div>
+        );
+      })}
+    </div>
   );
 }
