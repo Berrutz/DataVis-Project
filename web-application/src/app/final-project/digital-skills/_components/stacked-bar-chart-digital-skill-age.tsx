@@ -33,7 +33,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [uniqueYears, setUniqueYears] = useState<string[]>([]);
 
-  const colors = ['#34eb52', '#34d5eb', '#336ad0'];
+  const colors = ['#91aaff', '#ff9c38', '#00cc33'];
 
   // Get the data from the CSV file using D3
   const csvData = useGetD3Csv(

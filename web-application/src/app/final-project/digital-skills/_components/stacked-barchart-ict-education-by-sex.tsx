@@ -59,11 +59,11 @@ export default function StackedBarchartICTEducationBySex() {
     setStackedBarchartCategories([
       {
         name: MALE_CATEGORY,
-        color: 'blue'
+        color: '#2DAEFD'
       },
       {
         name: FEMALE_CATEGORY,
-        color: 'pink'
+        color: '#ff9e9e'
       }
     ]);
   }, [csvData]);
