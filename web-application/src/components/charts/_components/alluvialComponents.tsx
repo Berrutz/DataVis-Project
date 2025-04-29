@@ -159,7 +159,10 @@ export function mouseOverNodes(
   tooltipSecondLayerNodes?: (
     hoveredNode: CustomNode,
     relatedLinks: CustomLink[],
-    nodes: CustomNode[]
+    nodes: CustomNode[],
+    suffix: string,
+    scalingFactor: number,
+    floatPrecision: number
   ) => JSX.Element
 ): JSX.Element | undefined {
   // Highlight effect for related links
@@ -190,7 +193,14 @@ export function mouseOverNodes(
       // Generate tooltip for the second layer nodes
       tooltip.current.style.borderColor = colorScale(d.name);
       if (tooltipSecondLayerNodes != undefined) {
-        return tooltipSecondLayerNodes(d, relatedLinks, nodes);
+        return tooltipSecondLayerNodes(
+          d,
+          relatedLinks,
+          nodes,
+          suffix,
+          scalingFactor,
+          floatPrecision
+        );
       }
       return defaultTooltipSecondLayerNodes(
         d,
@@ -220,7 +230,13 @@ export function mouseOverLinks(
     | ((
         hoveredLink: SankeyLink<CustomNode, CustomLink>,
         links: SankeyLink<CustomNode, CustomLink>[],
-        nodes: CustomNode[]
+        nodes: CustomNode[],
+        linkPaths: d3.Selection<
+          d3.BaseType | SVGPathElement,
+          SankeyLink<CustomNode, CustomLink>,
+          SVGGElement,
+          unknown
+        >
       ) => JSX.Element)
     | undefined,
   suffix: string,
@@ -250,7 +266,7 @@ export function mouseOverLinks(
     .sort((a, b) => b.value - a.value);
 
   if (tooltipMapper != undefined) {
-    return tooltipMapper(d, relatedSourceLinks, nodes);
+    return tooltipMapper(d, relatedSourceLinks, nodes, linkPaths);
   }
 
   return (
