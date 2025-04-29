@@ -4,6 +4,7 @@ import LinechartYearsDigitalSkills from './_components/linechart-year-comparison
 import StackedBarchartICTEducationBySex from './_components/stacked-barchart-ict-education-by-sex';
 import StackedBarChartAgeDigitalSkills from './_components/stacked-bar-chart-digital-skill-age';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
+import GroupedBarChartICTSkillsByEdu from './_components/grouped-barchart-ict-skills-edu-level';
 
 export default function DigitalSkills() {
   return (
@@ -35,6 +36,14 @@ export default function DigitalSkills() {
               Percentage of employed males and females with ICT education
             </H2>
             <StackedBarchartICTEducationBySex />
+          </div>
+
+          <div>
+            <H2 className="mb-8">
+              Percentage of employed persons with ICT education by educational
+              attainment level
+            </H2>
+            <GroupedBarChartICTSkillsByEdu />
           </div>
         </div>
       </main>

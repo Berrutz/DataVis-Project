@@ -6,8 +6,8 @@ import NoDataMessage from '../no-data-message';
 
 // Interface that represent a single point x and y
 export interface GroupedBarChartPoint {
-  x: string;
-  y: number;
+  value: number;
+  name: string;
 }
 
 type Cateogry = {
@@ -25,12 +25,14 @@ export interface GroupedBarChartProps {
   data: BarGroup[];
   width: number;
   height: number;
-  colorInterpoaltor: ((t: number) => string) | Iterable<string>;
+  categoryColors: string[];
   yDomainMin?: number;
   yDomainMax?: number;
   yLabelsPrefix?: string;
   yLabelsSuffix?: string;
-  tooltipMapper?: (point: GroupedBarChartPoint) => React.ReactNode;
+  tooltipMapper?: (
+    point: GroupedBarChartPoint & { label: string }
+  ) => React.ReactNode;
   vertical?: boolean;
   mt?: number;
   mr?: number;
@@ -46,12 +48,12 @@ export interface GroupedBarChartProps {
  * @param {BarGroup[]} BarChartPorps.data - The data for the grouped bar chart
  * @param {number} BarChartProps.width - The width of the bartchart (e.g. 100px or 100% or ... <css-props>)
  * @param {number} BarChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
- * @param {((t: number) => string) | Iterable<string>} BarChartProps.colorInterpoaltor - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
+ * @param {string[]} BarChartProps.categoryColors - The colors for each category
  * @param {[number, number]} BarChartProps.yDomainMin- The min value for the y domain (e.g. 0 or min(y))
  * @param {[number, number]} BarChartProps.yDomainMax- The max value for the y domain (e.g. 100 or max(y))
  * @param {string} BarChartProps.yLabelsPrefix - The prefix for the y labels
  * @param {string} BarChartProps.yLabelsSuffix - The suffix for the y labelsc
- * @param {(point: Point) => React.ReactNode} BarChartProps.tooltipMapper - A react node used to create a tooltip from a poitn x, y
+ * @param {GroupedBarChartPoint & { label: string }} BarChartProps.tooltipMapper - A react node used to create a tooltip
  * @param {boolean} BarChartProps.vertical - Option to swap x and y axis
  * @param {number} BarChartProps.mt - The margin top
  * @param {number} BarChartProps.mr - The margin right
@@ -64,7 +66,7 @@ export default function GroupedBarChart({
   data,
   width,
   height,
-  colorInterpoaltor,
+  categoryColors,
   yDomainMin,
   yDomainMax,
   yLabelsPrefix,
@@ -87,6 +89,12 @@ export default function GroupedBarChart({
   // The ref of the tooltip and its content
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [tooltipContent, setTooltipContent] = useState<React.ReactNode | null>(
+    null
+  );
+
+  // The ref of the legend and it's content
+  let legendRef = useRef<HTMLDivElement | null>(null);
+  const [legendContent, setLegendContent] = useState<React.ReactNode | null>(
     null
   );
 
@@ -115,6 +123,24 @@ export default function GroupedBarChart({
       }
     });
 
+    const uniqueCategory: string[] = Array.from(
+      new Set(
+        data.flatMap((group) => group.values.map((category) => category.name))
+      )
+    );
+
+    if (uniqueCategory.length < categoryColors.length) {
+      throw new Error(
+        'The number of colors should match the numbers of categories'
+      );
+    }
+
+    // The colorscale of the chart
+    const colorScale = d3
+      .scaleOrdinal<string>()
+      .domain(uniqueCategory)
+      .range(categoryColors);
+
     // Define the margin (used to make the svg do not clip to the border of the containing div)
     const margin = {
       top: mt || 20,
@@ -134,16 +160,11 @@ export default function GroupedBarChart({
         return d.value;
       });
 
-    console.log(allValues);
-
     // Define the numeric domain
     var domain = [
       yDomainMin || Math.min(0, Math.min(...allValues)),
       yDomainMax || Math.max(...allValues)
     ];
-
-    // The colorscale of the chart
-    const colorScale = d3.scaleSequential(colorInterpoaltor).domain(domain);
 
     // Define current svg dimension and properties
     const svg = d3
@@ -155,9 +176,9 @@ export default function GroupedBarChart({
 
     // Retrive all labels
     const groupLabels = data.map((d) => d.label);
-    const categoryNames = data[0].values.map((v) => v.name);
-
-    console.log(groupLabels);
+    const categoryNames = Array.from(
+      new Set(data.flatMap((d) => d.values).map((v) => v.name))
+    );
 
     // Define X and Y scales
     const xD3 = vertical
@@ -273,28 +294,30 @@ export default function GroupedBarChart({
       .style('font-weight', 'bold')
       .text(xlabel);
 
-    // Zip the X and Y values together
-    /*     const tooltipData: GroupedBarChartPoint[] = y.map((value, index) => {
-      return {
-        x: x[index],
-        y: value
-      };
-    });
-
     // Create the default tooltip mapper
     tooltipMapper =
       tooltipMapper ||
-      ((point: GroupedBarChartPoint) => {
+      ((point: GroupedBarChartPoint & { label: string }) => {
         return (
-          <p>
-            {point.x}:{' '}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              maxWidth: '250px',
+              whiteSpace: 'normal'
+            }}
+          >
             <span>
-              {prefix}
-              {point.y} {suffix}
+              <a style={{ fontWeight: 'bolder' }}>{point.label}</a> -{' '}
+              {point.name}:
             </span>
-          </p>
+            <span>
+              {point.value}
+              {yLabelsSuffix || ''}
+            </span>
+          </div>
         );
-      }); */
+      });
 
     // Iterate over the data and create the svg bars and tooltips
     const group = svg
@@ -306,40 +329,33 @@ export default function GroupedBarChart({
         if (isBandScale(xD3)) {
           return `translate(${xD3(d.label)}, 0)`;
         } else {
-          var bandYD3 = yD3 as d3.ScaleBand<string>;
-          return `translate(${bandYD3(d.label)}, 0)`;
+          const bandYD3 = yD3 as d3.ScaleBand<string>;
+          return `translate(0, ${bandYD3(d.label)})`;
         }
       });
 
     group
       .selectAll('rect')
-      .data((d) => d.values)
-      .enter()
-      .append('rect')
-      .attr('x', (d) => innerScale(d.name)!)
-      .attr('y', (d) => (isLinearScale(yD3) ? d.value : 0))
-      .attr('width', innerScale.bandwidth())
-      .attr('height', (d) => (isLinearScale(yD3) ? height - yD3(d.value) : 0))
-      .attr('fill', (d) => colorScale(d.value));
-
-    /*     svg
-      .selectAll('rect')
-      .data(data)
+      .data((d) => d.values.map((v) => ({ ...v, label: d.label })))
       .enter()
       .append('rect')
       .attr('x', (d) =>
-        isBandScale(xD3) ? xD3(d.x) || 0 : Math.min(xD3(0)!, xD3(d.y)!)
+        isLinearScale(xD3) ? xD3(Math.min(0, d.value)) : innerScale(d.name)!
       )
-      .attr('y', (d) => (isBandScale(yD3) ? yD3(d.x) || 0 : yD3(d.y)))
+      .attr('y', (d) =>
+        isLinearScale(yD3) ? yD3(Math.max(0, d.value)) : innerScale(d.name)!
+      )
       .attr('width', (d) =>
-        isLinearScale(xD3) ? Math.abs(xD3(d.y)! - xD3(0)!) : xD3.bandwidth()
+        isBandScale(xD3)
+          ? innerScale.bandwidth()
+          : Math.abs(xD3(d.value)! - xD3(0)!)
       )
       .attr('height', (d) =>
         isLinearScale(yD3)
-          ? height - margin.top - margin.bottom - yD3(d.y)
-          : yD3.bandwidth()
+          ? Math.abs(yD3(d.value)! - yD3(0)!)
+          : innerScale.bandwidth()
       )
-      .attr('fill', (d) => colorScale(d.y))
+      .attr('fill', (d) => colorScale(d.name))
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning
@@ -357,6 +373,7 @@ export default function GroupedBarChart({
           tooltipRef.current.style.top = `${tooltipY}px`;
           tooltipRef.current.style.display = 'block';
           tooltipRef.current.style.opacity = '1';
+          tooltipRef.current.style.borderColor = colorScale(d.name);
 
           setTooltipContent(tooltipMapper!(d));
         }
@@ -385,7 +402,21 @@ export default function GroupedBarChart({
           .transition()
           .duration(200)
           .style('opacity', 1);
-      }); */
+      });
+
+    setLegendContent(
+      <div className="flex flex-wrap gap-4 items-center">
+        {categoryNames.map((name) => (
+          <div key={name} className="flex items-center gap-2">
+            <div
+              className="w-4 h-4 rounded-sm"
+              style={{ backgroundColor: colorScale(name) }}
+            />
+            <span className="text-base">{name}</span>
+          </div>
+        ))}
+      </div>
+    );
   }, [data]);
 
   if (data.length <= 0) {
@@ -396,6 +427,7 @@ export default function GroupedBarChart({
     <div className="relative" ref={containerRef}>
       <ChartScrollableWrapper>
         <svg ref={svgRef} />
+        <div ref={legendRef}>{legendContent}</div>
       </ChartScrollableWrapper>
       <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>
