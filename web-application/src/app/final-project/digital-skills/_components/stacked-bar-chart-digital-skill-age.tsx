@@ -33,11 +33,11 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [uniqueYears, setUniqueYears] = useState<string[]>([]);
 
-  const colors = ['#34eb52', '#34d5eb', '#336ad0'];
+  const colors = ['#91aaff', '#ff9c38', '#00cc33'];
 
   // Get the data from the CSV file using D3
   const csvData = useGetD3Csv(
-    'digital-skills/Employed-ICT-education-age.csv',
+    'digital-skills/employed-persons-with-ict-education-by-age.csv',
     (d) => ({
       time: +d.time_period,
       country: d.geo,
@@ -114,7 +114,7 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
         unitOfMeasurement="%"
         vertical={false}
         percentage={true}
-        ml={110}
+        ml={80}
         mr={20}
       />
       <div className="flex flex-col gap-6 sm:flex-row">

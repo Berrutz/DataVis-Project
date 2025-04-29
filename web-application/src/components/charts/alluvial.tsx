@@ -73,7 +73,13 @@ export interface AlluvialProps {
   linksTooltipMapper?: (
     hoveredLink: SankeyLink<CustomNode, CustomLink>,
     relatedLinks: SankeyLink<CustomNode, CustomLink>[],
-    nodes: CustomNode[]
+    nodes: CustomNode[],
+    linkPaths: d3.Selection<
+      d3.BaseType | SVGPathElement,
+      SankeyLink<CustomNode, CustomLink>,
+      SVGGElement,
+      unknown
+    >
   ) => JSX.Element;
   startingNodesTooltipMapper?: (
     hoveredNode: CustomNode,
@@ -84,7 +90,10 @@ export interface AlluvialProps {
   SecondLayerNodesTooltipMapper?: (
     hoveredNode: CustomNode,
     relatedLinks: CustomLink[],
-    nodes: CustomNode[]
+    nodes: CustomNode[],
+    suffix: string,
+    scalingFactor: number,
+    floatPrecision: number
   ) => JSX.Element;
   mt?: number;
   mr?: number;
@@ -159,7 +168,7 @@ export default function Alluvial({
   const colorScale = d3
     .scaleOrdinal<string>()
     .domain(nodesSecondLayer)
-    .range(['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff']);
+    .range(colors);
 
   useEffect(() => {
     if (data.nodes.length > 2) {

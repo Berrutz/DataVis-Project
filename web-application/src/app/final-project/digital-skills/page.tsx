@@ -1,10 +1,10 @@
 import { H1, H2 } from '@/components/headings';
 import BarchartCountriesDigitalSkills from './_components/barchart-contry-digital-skills';
-import LinechartYearsDigitalSkills from './_components/linechart-year-comparison';
 import StackedBarchartICTEducationBySex from './_components/stacked-barchart-ict-education-by-sex';
 import StackedBarChartAgeDigitalSkills from './_components/stacked-bar-chart-digital-skill-age';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
 import GroupedBarChartICTSkillsByEdu from './_components/grouped-barchart-ict-skills-edu-level';
+import AlluvialDigitalSkills from './_components/alluvial-chart-digital-skills';
 
 export default function DigitalSkills() {
   return (
@@ -16,14 +16,16 @@ export default function DigitalSkills() {
         <div className="flex flex-col gap-24">
           <div>
             <H2 className="mb-8">
-              Different countires compared by digital skill levels
+              Age interval and digital skill comparison for country
             </H2>
-            <BarchartCountriesDigitalSkills />
+            <AlluvialDigitalSkills />
           </div>
 
           <div>
-            <H2 className="mb-8">Digital skills compared over the years</H2>
-            <LinechartYearsDigitalSkills />
+            <H2 className="mb-8">
+              Different countires compared by digital skill levels
+            </H2>
+            <BarchartCountriesDigitalSkills />
           </div>
 
           <div>

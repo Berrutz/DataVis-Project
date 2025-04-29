@@ -32,13 +32,16 @@ export default function BarchartCountriesDigitalSkills() {
   );
 
   // Get the data from the csv file using D3
-  const csvData = useGetD3Csv('digital-skills/ilods-final.csv', (d) => ({
-    year: +d.time_period,
-    country: d.geo,
-    indic_is: d.indic_is,
-    value: +d.obs_value,
-    ind_type: d.ind_type
-  }));
+  const csvData = useGetD3Csv(
+    'digital-skills/individual-level-of-digital-skills-2021.csv',
+    (d) => ({
+      year: +d.time_period,
+      country: d.geo,
+      indic_is: d.indic_is,
+      value: +d.obs_value,
+      ind_type: d.ind_type
+    })
+  );
 
   // Choose the default selection values when the csv is loaded and fullfilled
   useEffect(() => {

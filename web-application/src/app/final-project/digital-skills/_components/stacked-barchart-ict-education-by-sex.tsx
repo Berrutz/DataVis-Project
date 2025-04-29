@@ -30,7 +30,7 @@ export default function StackedBarchartICTEducationBySex() {
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
-    'digital-skills/employed-ict-education-by-sex.csv',
+    'digital-skills/employed-persons-with-ict-education-by-sex.csv',
     (d) => ({
       year: +d.time_period,
       sex_tag: d.sex_tag,
@@ -59,11 +59,11 @@ export default function StackedBarchartICTEducationBySex() {
     setStackedBarchartCategories([
       {
         name: MALE_CATEGORY,
-        color: 'blue'
+        color: '#2DAEFD'
       },
       {
         name: FEMALE_CATEGORY,
-        color: 'pink'
+        color: '#ff9e9e'
       }
     ]);
   }, [csvData]);
@@ -186,7 +186,7 @@ export default function StackedBarchartICTEducationBySex() {
         categories={stackedBarchartCategories}
         data={stackedBarchartState}
         mr={20}
-        ml={100}
+        ml={80}
       />
       <div>
         <div>
