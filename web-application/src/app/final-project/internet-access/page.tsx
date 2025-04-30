@@ -23,7 +23,7 @@ export default function FinalProjectInternetAccess() {
     <div>
       <FinalPageSectionsNav />
       <main className="px-2 mx-auto sm:px-4 min-h-dvh max-w-[1200px]">
-        <H1 className="my-12">Internet Use</H1>
+        <H1 className="my-12">Internet Access</H1>
         <div className="flex flex-col gap-24">
           {/* BAR AND MAP CHARTS */}
           <div>

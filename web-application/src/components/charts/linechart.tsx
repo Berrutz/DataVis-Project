@@ -167,7 +167,10 @@ const LineChart: React.FC<LineChartProps> = ({
 
     const yScale = d3
       .scaleLinear()
-      .domain([yLowerBound || yLowerDomain, yUpperBound || yUpperDomain])
+      .domain([
+        yLowerBound === undefined ? yLowerDomain : yLowerBound,
+        yUpperBound === undefined ? yUpperDomain : yUpperBound
+      ])
       .range([innerHeight, 0]);
 
     type Data = { x: string; y: number };
@@ -256,7 +259,13 @@ const LineChart: React.FC<LineChartProps> = ({
       tooltipMapper ||
       ((points: DataPoint[], unitM: string) => {
         return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              maxWidth: '300px'
+            }}
+          >
             <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
               {points[0].x}
             </div>
@@ -264,10 +273,15 @@ const LineChart: React.FC<LineChartProps> = ({
             {points.map((point, index) => (
               <div
                 key={index}
-                style={{ display: 'flex', alignItems: 'center', gap: '5px' }}
+                style={{
+                  display: 'flex',
+                  gap: '5px'
+                }}
               >
                 <div
                   style={{
+                    alignSelf: 'flex-start',
+                    marginTop: '0.3em',
                     minWidth: '15px',
                     minHeight: '15px',
                     backgroundColor: point.color
@@ -422,7 +436,7 @@ const LineChart: React.FC<LineChartProps> = ({
       .append('text')
       .attr('transform', `rotate(-90)`)
       .attr('x', -height / 2) // Centrare verticalmente
-      .attr('y', margin.left / 2 - 10) // Posizionarla vicino all'asse Y
+      .attr('y', margin.left / 2 - 30) // Posizionarla vicino all'asse Y
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
       .style('fill', 'black')

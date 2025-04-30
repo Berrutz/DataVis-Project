@@ -144,7 +144,13 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
     // Create tooltip mapper
     const tooltipMapper = (point: BubblePoint) => {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: '300px'
+          }}
+        >
           <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
             {point.countryName}
           </div>

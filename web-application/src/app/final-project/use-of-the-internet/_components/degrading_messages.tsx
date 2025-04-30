@@ -156,7 +156,7 @@ export default function DegradingMessages() {
     );
 
   return (
-    <ChartContainer className="sm:relative flex flex-col overflow-hidden gap-8">
+    <ChartContainer className="relative flex flex-col overflow-hidden gap-8">
       <Sidebar>
         <div className="flex justify-end">
           <SidebarTrigger
@@ -171,8 +171,9 @@ export default function DegradingMessages() {
         </div>
         <FacetedBarChart
           data={transformToFacetedPoints(selectedCountries)}
-          width={725}
+          width={900}
           height={600}
+          unitOfMeasurement="%"
           ml={120}
         />
         {/* Sidebar Content */}
