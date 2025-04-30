@@ -154,6 +154,12 @@ export default function Alluvial({
   // The container of the svg
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  // The ref of the legend and it's content
+  let legendRef = useRef<HTMLDivElement | null>(null);
+  const [legendContent, setLegendContent] = useState<React.ReactNode | null>(
+    null
+  );
+
   const nodesFirstLayer = data.nodes[0];
   const nodesSecondLayer = data.nodes[1];
   tooltipSuffix = tooltipSuffix || '';
@@ -459,6 +465,20 @@ export default function Alluvial({
     // Initial layout adjustment
     updateLegend();
 
+    setLegendContent(
+      <div className="flex flex-wrap gap-4 items-center xl:hidden max-w-full">
+        {nodesSecondLayer.map((name) => (
+          <div key={name} className="flex items-center gap-2">
+            <div
+              className="w-4 h-4"
+              style={{ backgroundColor: colorScale(name) }}
+            />
+            <span className="text-base">{name}</span>
+          </div>
+        ))}
+      </div>
+    );
+
     return () => {
       cleanupResize();
     };
@@ -472,6 +492,7 @@ export default function Alluvial({
     <div className="relative" ref={containerRef}>
       <ChartScrollableWrapper>
         <svg ref={svgRef} />
+        <div ref={legendRef}>{legendContent}</div>
       </ChartScrollableWrapper>
       <Tooltip ref={tooltipRef}>{tooltipContent}</Tooltip>
     </div>

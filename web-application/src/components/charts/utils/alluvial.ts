@@ -92,14 +92,14 @@ export function wrapTextNode(
 }
 export const updateLegendLayout = (
   legend: d3.Selection<SVGGElement, unknown, null, undefined>,
-  sortedInternetUseCategories: string[],
+  legendItems: string[],
   colorScale: d3.ScaleOrdinal<string, string, never>,
   screenWidth: number,
   plotWidth: number,
   plotHeight: number,
   plotMargin: Margin
 ) => {
-  const isLarge = screenWidth >= 1024;
+  const isLarge = screenWidth >= 1280; // xl
 
   const legendMarginX = 5;
   const maxTextWidth = 90; // Adjust max text width for wrapping
@@ -114,17 +114,17 @@ export const updateLegendLayout = (
     // Add legend rectangles
     const rects = legend
       .selectAll('rect')
-      .data(sortedInternetUseCategories)
+      .data(legendItems)
       .join('rect')
       .attr('x', 0)
-      .attr('width', 15)
-      .attr('height', 15)
+      .attr('width', 16)
+      .attr('height', 16)
       .attr('fill', (d) => colorScale(d));
 
     // Add legend text and apply wrapping
     const texts = legend
       .selectAll('text')
-      .data(sortedInternetUseCategories)
+      .data(legendItems)
       .join('text')
       .attr('x', 20)
       .attr('font-size', '0.9rem')
@@ -144,33 +144,6 @@ export const updateLegendLayout = (
       currentY += totalHeight + 10; // Update Y position for next item
     });
   } else {
-    const legendMarginY = 20;
-    const legendY = plotHeight + legendMarginY;
-
-    legend.attr('transform', `translate(${plotMargin.left}, ${legendY})`);
-    legend.selectAll('*').remove(); // Clear existing legend content
-    const itemsPerRow = Math.ceil(sortedInternetUseCategories.length / 2);
-    const rowHeight = 25; // Space between rows
-    const legendSpacingSmall = 125;
-
-    legend
-      .selectAll('rect')
-      .data(sortedInternetUseCategories)
-      .join('rect')
-      .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacingSmall))
-      .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight)
-      .attr('width', 15)
-      .attr('height', 15)
-      .attr('fill', (d) => colorScale(d));
-
-    legend
-      .selectAll('text')
-      .data(sortedInternetUseCategories)
-      .join('text')
-      .attr('x', (_, i) => (i % itemsPerRow) * (47 + legendSpacingSmall) + 20)
-      .attr('y', (_, i) => Math.floor(i / itemsPerRow) * rowHeight + 12)
-      .text((d) => d)
-      .attr('font-size', '0.9rem')
-      .attr('fill', '#000');
+    legend.selectAll('*').remove();
   }
 };

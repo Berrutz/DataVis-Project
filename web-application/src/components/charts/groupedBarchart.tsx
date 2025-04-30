@@ -404,6 +404,7 @@ export default function GroupedBarChart({
           .style('opacity', 1);
       });
 
+    // Create legend
     setLegendContent(
       <div className="flex flex-wrap gap-4 items-center">
         {categoryNames.map((name) => (
