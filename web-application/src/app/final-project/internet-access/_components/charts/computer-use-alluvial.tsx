@@ -177,7 +177,7 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
     (a, b) => b - a
   );
   return (
-    <ChartContainer className="sm:relative flex flex-col overflow-hidden gap-8">
+    <ChartContainer className="flex flex-col overflow-hidden gap-8">
       <H3>Frequency of computer use divided by age groups</H3>
       <Alluvial
         data={alluvialData}

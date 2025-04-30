@@ -111,7 +111,7 @@ const InternetUseLineChart: React.FC<InternetUseLineChartProps> = ({
   );
 
   return (
-    <ChartContainer className="sm:relative flex flex-col gap-8">
+    <ChartContainer className="relative flex flex-col gap-8">
       <Sidebar>
         <H3>Percentage of individuals who have never used internet</H3>
         <div className="flex justify-end">
