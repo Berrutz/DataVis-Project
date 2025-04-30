@@ -107,7 +107,6 @@ const InternetAccessFacetedBarChart: React.FC<
         )
       );
     }
-    console.log(selectedCountries);
   }, [selectedYear]);
 
   // The csv is not yet loaded or

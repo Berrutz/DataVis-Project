@@ -178,8 +178,6 @@ export default function Alluvial({
       throw new Error('Not more than two layers supported');
     }
 
-    console.log(data);
-
     const svg = d3.select(svgRef.current);
 
     svg.attr('width', width).attr('height', height);
@@ -230,9 +228,6 @@ export default function Alluvial({
         [0, 0],
         [innerWidth, innerHeight]
       ]);
-
-    console.log(nodes);
-    console.log(links);
 
     const sankeyData = sankeyGenerator({
       nodes: nodes.map((d) => ({ ...d })),

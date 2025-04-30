@@ -312,7 +312,7 @@ const LineChart: React.FC<LineChartProps> = ({
           xName = hoveredPoint;
         }
 
-        // Construct the DataPoints usefull for the tooltip
+        // Construct the DataPoints used for the tooltip
         const points: DataPoint[] = data.map((line) => {
           const index = line.x.indexOf(hoveredPoint); // Find the index of targetX in x array
           return {
@@ -333,7 +333,7 @@ const LineChart: React.FC<LineChartProps> = ({
 
         // Update circles
         circles
-          .data(points)
+          .data(points.filter((d) => !Number.isNaN(d.y)))
           .attr('cx', xScale(hoveredPoint)! + xScale.bandwidth() / 2)
           .attr('cy', (d) => (d ? yScale(d.y) : 0))
           .attr('fill', (d) => d.color)
