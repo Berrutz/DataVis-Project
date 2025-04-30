@@ -243,7 +243,7 @@ export default function BarChart({
         return (
           <p>
             {point.x}:{' '}
-            <span>
+            <span style={{ fontWeight: '600' }}>
               {prefix}
               {point.y} {suffix}
             </span>

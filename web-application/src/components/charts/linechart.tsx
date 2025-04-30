@@ -275,7 +275,7 @@ const LineChart: React.FC<LineChartProps> = ({
                 ></div>
                 <span>
                   {point.tag}:{' '}
-                  <a style={{ fontWeight: 'bold' }}>
+                  <a style={{ fontWeight: '600' }}>
                     {point.y.toFixed(2)} {unitM}
                   </a>
                 </span>

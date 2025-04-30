@@ -242,8 +242,8 @@ export default function StackedBarChart({
               {point.category}:{' '}
               <span style={{ fontWeight: '600' }}>
                 {(point.end - point.start).toFixed(2)}
-              </span>{' '}
-              {unitOfMeasurement}
+                {unitOfMeasurement}
+              </span>
             </p>
           </div>
         );

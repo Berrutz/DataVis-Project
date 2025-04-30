@@ -311,7 +311,7 @@ export default function GroupedBarChart({
               <a style={{ fontWeight: 'bolder' }}>{point.label}</a> -{' '}
               {point.name}:
             </span>
-            <span>
+            <span style={{ fontWeight: '600' }}>
               {point.value}
               {yLabelsSuffix || ''}
             </span>

@@ -151,14 +151,14 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           <div>
             Percentage of people in this country operating on bound or other
             investment:{' '}
-            <a style={{ fontWeight: 'bold' }}>
+            <a style={{ fontWeight: '600' }}>
               {point.percentage[0].toFixed(2)}%
             </a>
           </div>
           <div>
             Actual number of people interacting in the economic field is equal
             to{' '}
-            <a style={{ fontWeight: 'bold' }}>
+            <a style={{ fontWeight: '600' }}>
               {(point.percentage[1] / 1000000).toFixed(2)} M people
             </a>
           </div>
