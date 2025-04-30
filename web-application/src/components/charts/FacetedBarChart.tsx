@@ -197,7 +197,13 @@ export default function FacetedBarChart({
         header = header || '';
 
         return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              maxWidth: '300px'
+            }}
+          >
             <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
               {header}
             </div>

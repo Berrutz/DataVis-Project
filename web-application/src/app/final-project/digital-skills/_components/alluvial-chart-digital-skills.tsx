@@ -294,7 +294,7 @@ export function mouseOverLinks(
     .sort((a, b) => b.value - a.value);
 
   if (tooltipMapper != undefined) {
-    return tooltipMapper(d, relatedSourceLinks, nodes);
+    return tooltipMapper(d, relatedSourceLinks, nodes, linkPaths);
   }
 
   return (

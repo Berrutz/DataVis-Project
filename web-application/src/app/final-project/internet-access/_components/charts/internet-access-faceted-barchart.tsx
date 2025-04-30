@@ -172,7 +172,7 @@ const InternetAccessFacetedBarChart: React.FC<
     );
 
   return (
-    <ChartContainer className="sm:relative flex flex-col overflow-hidden gap-8">
+    <ChartContainer className="sm:relative flex flex-col gap-8">
       <Sidebar>
         <H3>Reasons for not having internet access at home</H3>
         <div className="flex justify-end">
