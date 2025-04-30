@@ -19,6 +19,7 @@ import { wrapTextNode } from './utils/alluvial';
 import { handleResize } from './utils/alluvial';
 import { tooltipPositionOnMouseMove } from './utils/general';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
+import NoDataMessage from '../no-data-message';
 
 /**
  * Represents the data structure for a link between one layer of nodes and the other.
@@ -171,9 +172,13 @@ export default function Alluvial({
     .range(colors);
 
   useEffect(() => {
+    if (data.links.length <= 0 || data.nodes.length <= 0) return;
+
     if (data.nodes.length > 2) {
       throw new Error('Not more than two layers supported');
     }
+
+    console.log(data);
 
     const svg = d3.select(svgRef.current);
 
@@ -225,6 +230,9 @@ export default function Alluvial({
         [0, 0],
         [innerWidth, innerHeight]
       ]);
+
+    console.log(nodes);
+    console.log(links);
 
     const sankeyData = sankeyGenerator({
       nodes: nodes.map((d) => ({ ...d })),
@@ -460,6 +468,10 @@ export default function Alluvial({
       cleanupResize();
     };
   }, [data, width, height]);
+
+  if (data.links.length <= 0 || data.nodes.length <= 0) {
+    return <NoDataMessage height={height}></NoDataMessage>;
+  }
 
   return (
     <div className="relative" ref={containerRef}>
