@@ -174,11 +174,11 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           width={newWidth}
           height={newHeight}
           colorInterpoaltor={d3.interpolateReds}
-          ml={55}
+          ml={newWidth > 600 ? 55 : 85}
           mr={15}
           mb={70}
           yLabelsSuffix="%"
-          vertical={true}
+          vertical={newWidth > 600 ? true : false}
         ></BarChart>
         <DataSourceInfo>
           Eurostat, Households - level of internet access (2024);{' '}

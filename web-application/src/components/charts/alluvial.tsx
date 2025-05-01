@@ -466,7 +466,7 @@ export default function Alluvial({
     updateLegend();
 
     setLegendContent(
-      <div className="flex flex-wrap gap-4 items-center xl:hidden max-w-full">
+      <div className="flex flex-wrap gap-4 items-center xl:hidden max-w-full mb-2">
         {nodesSecondLayer.map((name) => (
           <div key={name} className="flex items-center gap-2">
             <div

@@ -1,13 +1,10 @@
 'use client';
 
-import AssignmentPage from '@/app/assignments/_components/assignment-page';
 import {
-  ChartBody,
   ChartContainer,
   ChartH1Title,
   ChartH2Title,
-  ChartHeading,
-  ChartSection
+  ChartHeading
 } from '@/app/assignments/_components/chart-section';
 import MapContainer from '@/components/map-switch-container';
 import InternetAccessBarChart from './_components/charts/internet-access-barchart';
@@ -17,8 +14,28 @@ import InternetUseLineChart from './_components/charts/internet-use-linechart';
 import ComputerUseAlluvial from './_components/charts/computer-use-alluvial';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
 import { H1 } from '@/components/headings';
+import { useEffect, useState } from 'react';
 
 export default function FinalProjectInternetAccess() {
+  const smScreen = 640;
+  const mdScreen = 768;
+  const lgScreen = 1024;
+  const xlScreen = 1280;
+
+  const [windowWidth, setWindowWidth] = useState<number>(xlScreen);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+      setWindowWidth(currentWidth);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div>
       <FinalPageSectionsNav />
@@ -45,13 +62,35 @@ export default function FinalProjectInternetAccess() {
                   {
                     buttonText: 'Bar',
                     component: (
-                      <InternetAccessBarChart newWidth={800} newHeight={550} />
+                      <InternetAccessBarChart
+                        newWidth={
+                          windowWidth < smScreen
+                            ? 500
+                            : windowWidth < mdScreen
+                            ? 600
+                            : windowWidth < lgScreen
+                            ? 700
+                            : 800
+                        }
+                        newHeight={550}
+                      />
                     )
                   },
                   {
                     buttonText: 'Map',
                     component: (
-                      <InternetAccessMap newWidth={800} newHeight={550} />
+                      <InternetAccessMap
+                        newWidth={
+                          windowWidth < smScreen
+                            ? 500
+                            : windowWidth < mdScreen
+                            ? 600
+                            : windowWidth < lgScreen
+                            ? 700
+                            : 800
+                        }
+                        newHeight={550}
+                      />
                     )
                   }
                 ]}
@@ -97,7 +136,15 @@ export default function FinalProjectInternetAccess() {
             </ChartHeading>
             <div className="my-6">
               <InternetAccessFacetedBarChart
-                newWidth={900}
+                newWidth={
+                  windowWidth < smScreen
+                    ? 600
+                    : windowWidth < mdScreen
+                    ? 700
+                    : windowWidth < lgScreen
+                    ? 800
+                    : 1000
+                }
                 newHeight={500}
               ></InternetAccessFacetedBarChart>
             </div>
@@ -129,8 +176,14 @@ export default function FinalProjectInternetAccess() {
             </ChartHeading>
             <div className="my-6">
               <InternetUseLineChart
-                newWidth={900}
-                newHeight={550}
+                newWidth={
+                  windowWidth < mdScreen
+                    ? 650
+                    : windowWidth < lgScreen
+                    ? 750
+                    : 1000
+                }
+                newHeight={windowWidth < mdScreen ? 450 : 550}
               ></InternetUseLineChart>
             </div>
             <ChartContainer
@@ -183,8 +236,16 @@ export default function FinalProjectInternetAccess() {
             </ChartHeading>
             <div className="my-6">
               <ComputerUseAlluvial
-                newWidth={900}
-                newHeight={600}
+                newWidth={
+                  windowWidth < smScreen
+                    ? 550
+                    : windowWidth < mdScreen
+                    ? 650
+                    : windowWidth < lgScreen
+                    ? 750
+                    : 1000
+                }
+                newHeight={windowWidth < mdScreen ? 500 : 600}
               ></ComputerUseAlluvial>
             </div>
             <ChartContainer

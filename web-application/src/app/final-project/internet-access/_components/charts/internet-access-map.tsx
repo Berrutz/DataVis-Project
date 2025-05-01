@@ -159,7 +159,6 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
       .attr('fill', (d: any) => {
         const countryName = d.properties.NAME;
         const value = emissionsByCountry.get(countryName);
-        console.log(value);
         return value != null ? colorScale(value) : '#ccc';
       })
       .attr('stroke', '#000')
