@@ -17,24 +17,24 @@ type AssignmentData = {
 const assignmentData: AssignmentData[] = [
   {
     assignmentHref: '/final-project/internet-access',
-    imageSrc: getStaticFile('/barchart-ass1.png'),
-    imageAlt: 'Barchart of assignment 1',
+    imageSrc: getStaticFile('/final-project/section-internet-access.png'),
+    imageAlt: 'Faceted bar chart of internet access page',
     title: 'Internet Access',
     description:
       'In this section we analyze the variation in the diffusion of the Internet and its use over time and between EU countries.'
   },
   {
     assignmentHref: '/final-project/use-of-the-internet',
-    imageSrc: getStaticFile('/alluvial-chart-ass2.png'),
-    imageAlt: 'Alluvial chart of assignment 2',
+    imageSrc: getStaticFile('/final-project/section-internet-use.png'),
+    imageAlt: 'Bubble chart of internet use page',
     title: 'Internet Use',
     description:
       'In this section we analyse the use of the internet in different aspects of society and the relationship of users with it over time and between different EU countries.'
   },
   {
     assignmentHref: '/final-project/digital-skills',
-    imageSrc: getStaticFile('/map-chart-ass3.png'),
-    imageAlt: 'Map chart of assignment 3',
+    imageSrc: getStaticFile('/final-project/section-digital-skills.png'),
+    imageAlt: 'Grouped bar chart of digital skills page',
     title: 'Digital Skills',
     description:
       'In this section we analyze the level of ICT skills of EU countries over time.'

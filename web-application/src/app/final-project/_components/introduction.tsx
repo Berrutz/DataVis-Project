@@ -74,7 +74,7 @@ export default function IntroductionFinalProject() {
             className="hidden object-contain w-1/2 rounded-2xl lg:block"
           />
           <div className="flex flex-col gap-4 justify-center">
-            <H3>What do we use this internet for?</H3>
+            <H3>what do we use the internet for?</H3>
             <ul className="text-lg">
               <li>How often do people use the Internet?</li>
               <li>Does the frequency of Internet use vary by age group?</li>
@@ -101,7 +101,10 @@ export default function IntroductionFinalProject() {
                 What is the distribution of male and female employees who
                 possess ICT skills?
               </li>
-              <li>*PLACE HOLDER*</li>
+              <li>
+                Does the number of people who have ICT skills change depending
+                on their age group?
+              </li>
               <li>
                 Does the number of people who have ICT skills change depending
                 on their education level?
