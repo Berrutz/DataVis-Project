@@ -71,6 +71,7 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
+
         {/* Alluvial Chart*/}
         <div className="mb-24">
           <ChartHeading>
@@ -171,6 +172,7 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
+
         {/* Stacked bar chart male and female*/}
         <div className="mb-24">
           <ChartHeading>
@@ -215,34 +217,61 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
-        {/* <div className="flex flex-col gap-24"> */}
-        {/* <div> */}
-        {/*   <H2 className="mb-8"> */}
-        {/*     Different countires compared by digital skill levels */}
-        {/*   </H2> */}
-        {/*   <BarchartCountriesDigitalSkills /> */}
-        {/* </div> */}
-        {/**/}
-        {/*   <div> */}
-        {/*     <H2 className="mb-8">Employed persons with ICT education by age</H2> */}
-        {/*     <StackedBarChartAgeDigitalSkills newWidth={900} newHeight={600} /> */}
-        {/*   </div> */}
-        {/**/}
-        {/* <div> */}
-        {/*   <H2 className="mb-8"> */}
-        {/*     Percentage of employed males and females with ICT education */}
-        {/*   </H2> */}
-        {/*   <StackedBarchartICTEducationBySex /> */}
-        {/* </div> */}
-        {/**/}
-        {/*   <div> */}
-        {/*     <H2 className="mb-8"> */}
-        {/*       Percentage of employed persons with ICT education by educational */}
-        {/*       attainment level */}
-        {/*     </H2> */}
-        {/*     <GroupedBarChartICTSkillsByEdu /> */}
-        {/*   </div> */}
-        {/* </div> */}
+
+        {/* Stacked bar chart male and female*/}
+        <div className="mb-24">
+          <ChartHeading>
+            <ChartH1Title>
+              Percentage of employed persons with ICT education by educational
+              attainment level
+            </ChartH1Title>
+            <p>
+              This chart presents the percentage of employed persons in various
+              EU countries who have an ICT (Information and Communication
+              Technology) education, categorized by their educational attainment
+              level. The data distinguishes between those who have completed
+              tertiary education (levels 5–8, shown in blue) and those with
+              upper secondary or post-secondary non-tertiary education (levels 3
+              and 4, shown in orange). Importantly, the chart reflects the
+              education level of employed individuals with ICT training,
+              regardless of the sector in which they are employed.
+            </p>
+          </ChartHeading>
+          <div className="my-6">
+            <GroupedBarChartICTSkillsByEdu />
+          </div>
+          <ChartContainer
+            asidename="Comment"
+            id="bar-map-chart-internet-access-comment-1"
+            asidekey="bar-map-chart-internet-access-comment-1"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              The chart reveals that in most EU countries, the majority of
+              employed persons with ICT education have attained tertiary
+              education. Countries such as Ireland, Bulgaria, Lithuania,
+              Belgium, and Austria show the highest percentages—close to or
+              exceeding 90%—of ICT-educated workers coming from tertiary
+              education backgrounds, with very few from lower education levels.
+              <br />
+              Conversely, countries like Hungary, Poland, Malta, and Portugal
+              show a more balanced or even reversed trend, where a significant
+              proportion of employed individuals with ICT education come from
+              upper secondary or post-secondary non-tertiary levels. Hungary, in
+              particular, stands out with nearly 40% of ICT-educated employees
+              having a lower level of education, the highest among the countries
+              displayed.
+              <br />
+              <br />
+              This variation across countries suggests different national
+              pathways into ICT-related education and employment. In some
+              nations, ICT careers appear to be strongly tied to
+              university-level education, while in others, vocational or
+              secondary programs may play a more prominent role in preparing
+              individuals for employment.
+            </p>
+          </ChartContainer>
+        </div>
       </main>
     </div>
   );

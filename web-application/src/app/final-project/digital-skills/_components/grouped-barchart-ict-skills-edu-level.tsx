@@ -99,8 +99,8 @@ export default function GroupedBarChartICTSkillsByEdu() {
     <ChartContainer className="flex flex-col gap-8">
       <GroupedBarChart
         data={groupedBarchartState}
-        width={1000}
-        height={800}
+        width={900}
+        height={700}
         categoryColors={['#4287f5', '#f5a207']}
         yLabelsSuffix="%"
         mb={90}
@@ -110,7 +110,7 @@ export default function GroupedBarChartICTSkillsByEdu() {
         vertical={true}
       />
       <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="sm:w-1/3">
+        <div className="w-full">
           <label>Year</label>
           <Select onValueChange={setYear} defaultValue={year.toString()}>
             <SelectTrigger>
