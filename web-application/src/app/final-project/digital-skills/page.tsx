@@ -55,7 +55,6 @@ export default function DigitalSkills() {
               of old people, since usually oldest people does not have digital
               skills.
               <br />
-              <br />
               On the opposite end, countries like Croatia, Netherlands, Ireland,
               and Finland show the lowest percentages, indicating stronger
               digital inclusion and a generally higher baseline of digital
@@ -99,7 +98,6 @@ export default function DigitalSkills() {
               basic or above basic digital skills. This suggests a strong
               familiarity and comfort with digital tools among the younger
               generation.
-              <br />
               <br />
               The 25 to 54 age group also shows a large proportion with good
               digital skills, although their distribution is slightly more
