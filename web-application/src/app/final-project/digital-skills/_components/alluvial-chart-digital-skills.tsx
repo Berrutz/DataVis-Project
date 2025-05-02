@@ -134,15 +134,9 @@ export default function AlluvialDigitalSkills() {
   ];
 
   const width =
-    (screenSize == 'sm' && 500) ||
-    (screenSize == 'md' && 610) ||
-    (screenSize == 'lg' && 700) ||
+    (screenSize == 'sm' && 600) ||
+    (screenSize == 'md' && 680) ||
     1000;
-
-  let ml = 120;
-  if (screenSize !== 'xl') {
-    ml = 0;
-  }
 
   let mb = 0;
   if (screenSize === 'xl') {
@@ -162,7 +156,7 @@ export default function AlluvialDigitalSkills() {
         mb={mb}
         mr={0}
         mt={0}
-        ml={ml}
+        ml={120}
       />
       <div className="gap-6 md:flex">
         <div className="w-full">
