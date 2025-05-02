@@ -20,6 +20,14 @@ export default function DigitalSkills() {
       <FinalPageSectionsNav />
       <main className="px-2 mx-auto sm:px-4 min-h-dvh max-w-[1200px]">
         <H1 className="my-12">Digital Skills</H1>
+        <p className="mb-12">
+          In this section, we analyze the digital skill levels across EU
+          countries using visualizations based on Eurostat datasets.
+          Specifically, we explore the differences in digital skills among
+          member states, examine how these skills vary across age groups, and
+          investigate the distribution of age, gender, and educational
+          attainment levels among employed individuals with an ICT education.
+        </p>
         {/* Digital skills Barchart */}
         <div className="mb-24">
           <ChartHeading>
