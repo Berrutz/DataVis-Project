@@ -31,11 +31,7 @@ export default function ShowMoreChartDetailsModalDialog({
       <button className="underline" onClick={() => setOpen(true)}>
         See more details about this graph
       </button>
-      <ModalDialog
-        ref={ref}
-        open={open}
-        onModalClosing={() => setOpen(false)}
-      >
+      <ModalDialog ref={ref} open={open} onModalClosing={() => setOpen(false)}>
         {children}
       </ModalDialog>
     </>
