@@ -7,7 +7,6 @@ import StackedBarChartAgeDigitalSkills from './_components/stacked-bar-chart-dig
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
 import GroupedBarChartICTSkillsByEdu from './_components/grouped-barchart-ict-skills-edu-level';
 import AlluvialDigitalSkills from './_components/alluvial-chart-digital-skills';
-import { useScreenSize } from '@/hooks/use-screen-sizes';
 import {
   ChartContainer,
   ChartH1Title,
@@ -16,8 +15,6 @@ import {
 } from '@/app/assignments/_components/chart-section';
 
 export default function DigitalSkills() {
-  const screenSize = useScreenSize();
-  console.log(screenSize);
   return (
     <div>
       <FinalPageSectionsNav />
