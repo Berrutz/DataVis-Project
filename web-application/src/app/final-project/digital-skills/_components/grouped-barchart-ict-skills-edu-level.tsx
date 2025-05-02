@@ -14,6 +14,8 @@ import { getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
 import GroupedBarChart, { BarGroup } from '@/components/charts/groupedBarchart';
+import DatasetDataSource from '@/app/_components/dataset-datasource';
+import Link from 'next/link';
 
 export default function GroupedBarChartICTSkillsByEdu() {
   // Represent a selection for the user to switch the barchart parameters
@@ -108,6 +110,32 @@ export default function GroupedBarChartICTSkillsByEdu() {
         mt={0}
         ml={80}
         vertical={true}
+      />
+      <DatasetDataSource
+        displayedName="Eurostats - Employed persons with ICT education by educational attainment level"
+        datasetInfos={
+          <p>
+            See more on the{' '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/cache/metadata/en/isoc_ski_itemp_esms.htm"
+            >
+              dataset metadata
+            </Link>
+          </p>
+        }
+        dataSources={
+          <p>
+            Go to the dataset:{'  '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ski_itedu/default/table?lang=en&category=isoc.isoc_sk.isoc_skt.isoc_skt_"
+            >
+              Employed persons with ICT education by educational attainment
+              level
+            </Link>
+          </p>
+        }
       />
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="w-full">

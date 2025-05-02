@@ -28,6 +28,7 @@ export default function DigitalSkills() {
           investigate the distribution of age, gender, and educational
           attainment levels among employed individuals with an ICT education.
         </p>
+
         {/* Digital skills Barchart */}
         <div className="mb-24">
           <ChartHeading>
@@ -134,6 +135,7 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
+
         {/* Eductaion by age */}
         <div className="mb-24">
           <ChartHeading>

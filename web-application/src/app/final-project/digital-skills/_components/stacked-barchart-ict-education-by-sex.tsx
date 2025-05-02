@@ -16,6 +16,8 @@ import StackedBarChart, {
   Category,
   StackedData
 } from '@/components/charts/stackedBarChart';
+import DatasetDataSource from '@/app/_components/dataset-datasource';
+import Link from 'next/link';
 
 const MALE_CATEGORY = 'Males';
 const FEMALE_CATEGORY = 'Females';
@@ -188,6 +190,31 @@ export default function StackedBarchartICTEducationBySex() {
         unitOfMeasurement="%"
         mr={20}
         ml={80}
+      />
+      <DatasetDataSource
+        displayedName="Eurostats - Employed persons with ICT education by sex"
+        datasetInfos={
+          <p>
+            See more on the{' '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/cache/metadata/en/isoc_ski_itemp_esms.htm"
+            >
+              dataset metadata
+            </Link>
+          </p>
+        }
+        dataSources={
+          <p>
+            Go to the dataset:{'  '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ski_itsex/default/table?lang=en&category=isoc.isoc_sk.isoc_skt.isoc_skt_"
+            >
+              Employed persons with ICT education by sex
+            </Link>
+          </p>
+        }
       />
       <div>
         <div>

@@ -22,6 +22,8 @@ import Alluvial, {
 } from '@/components/charts/alluvial';
 import { SankeyLink, SankeyNodeMinimal } from 'd3-sankey';
 import { useScreenSize } from '@/hooks/use-screen-sizes';
+import DatasetDataSource from '@/app/_components/dataset-datasource';
+import Link from 'next/link';
 
 export default function AlluvialDigitalSkills() {
   // Represent a year and country selection for the user
@@ -134,9 +136,7 @@ export default function AlluvialDigitalSkills() {
   ];
 
   const width =
-    (screenSize == 'sm' && 600) ||
-    (screenSize == 'md' && 680) ||
-    1000;
+    (screenSize == 'sm' && 600) || (screenSize == 'md' && 680) || 1000;
 
   let mb = 0;
   if (screenSize === 'xl') {
@@ -157,6 +157,31 @@ export default function AlluvialDigitalSkills() {
         mr={0}
         mt={0}
         ml={120}
+      />
+      <DatasetDataSource
+        displayedName="Eurostats - Individuals' level of digital skills (from 2021 onwards)"
+        datasetInfos={
+          <p>
+            See more on the{' '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/cache/metadata/en/isoc_sk_dskl_i21_esmsip2.htm#shortdata_descrDisseminated"
+            >
+              dataset metadata
+            </Link>
+          </p>
+        }
+        dataSources={
+          <p>
+            Go to the dataset:{'  '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table?lang=en&category=isoc.isoc_sk.isoc_sku"
+            >
+              Individuals' level of digital skills (from 2021 onwards)
+            </Link>
+          </p>
+        }
       />
       <div className="gap-6 md:flex">
         <div className="w-full">

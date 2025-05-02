@@ -14,6 +14,8 @@ import React, { useEffect, useState } from 'react';
 import { foundOrFirst, getUnique } from '@/utils/general';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import ChartContainer from '@/components/chart-container';
+import DatasetDataSource from '@/app/_components/dataset-datasource';
+import Link from 'next/link';
 
 type BarchartState = {
   x: string[];
@@ -138,6 +140,31 @@ export default function BarchartCountriesDigitalSkills() {
             </p>{' '}
           </div>
         )}
+      />
+      <DatasetDataSource
+        displayedName="Eurostats - Individuals' level of digital skills (from 2021 onwards)"
+        datasetInfos={
+          <p>
+            See more on the{' '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/cache/metadata/en/isoc_sk_dskl_i21_esmsip2.htm#shortdata_descrDisseminated"
+            >
+              dataset metadata
+            </Link>
+          </p>
+        }
+        dataSources={
+          <p>
+            Go to the dataset:{'  '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table?lang=en&category=isoc.isoc_sk.isoc_sku"
+            >
+              Individuals' level of digital skills (from 2021 onwards)
+            </Link>
+          </p>
+        }
       />
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-1/3">

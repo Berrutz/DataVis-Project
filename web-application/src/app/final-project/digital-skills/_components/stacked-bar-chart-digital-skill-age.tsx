@@ -18,6 +18,8 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import DatasetDataSource from '@/app/_components/dataset-datasource';
+import Link from 'next/link';
 
 interface StackedBarChartProps {}
 
@@ -110,6 +112,31 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = () => {
         percentage={true}
         ml={80}
         mr={20}
+      />
+      <DatasetDataSource
+        displayedName="Eurostats - Employed persons with ICT education by age"
+        datasetInfos={
+          <p>
+            See more on the{' '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/cache/metadata/en/isoc_ski_itemp_esms.htm"
+            >
+              dataset metadata
+            </Link>
+          </p>
+        }
+        dataSources={
+          <p>
+            Go to the dataset:{'  '}
+            <Link
+              className="text-blue-500"
+              href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ski_itage/default/table?lang=en&category=isoc.isoc_sk.isoc_skt.isoc_skt_"
+            >
+              Employed persons with ICT education by age
+            </Link>
+          </p>
+        }
       />
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="sm:w-full">
