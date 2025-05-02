@@ -1,9 +1,5 @@
 'use client';
 
-import InternetAccessBarChart from './internet-access/_components/internet-access-barchart';
-import InternetAccessMap from './internet-access/_components/internet-access-map';
-import InternetUseLineChart from './internet-access/_components/internet-use-linechart';
-
 /*
  * Final Project:
  * The idea is to create 3 folders under this `final-project` folder that subdivide the
@@ -24,10 +20,18 @@ import InternetUseLineChart from './internet-access/_components/internet-use-lin
  *
  * Or you can do whatever you want and make this more messy (o_o)
  */
+import Arguments from './_components/arguments';
+import FinalPageNav from './_components/final-page-nav';
+import HeroFinalProject from './_components/hero';
+import IntroductionFinalProject from './_components/introduction';
+
 export default function FinalProject() {
   return (
-    <div>
-      <h1>Fianl Project</h1>
-    </div>
+    <main>
+      <FinalPageNav />
+      <HeroFinalProject />
+      <IntroductionFinalProject />
+      <Arguments />
+    </main>
   );
 }

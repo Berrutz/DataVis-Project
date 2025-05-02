@@ -16,20 +16,6 @@ export default function AssignmentsLayout({
         </Button>
       </nav>
       {children}
-      <footer className="mt-auto">
-        <div className="flex justify-evenly p-6 bg-primary text-primary-foreground">
-          <div className="w-full">
-            <div className="w-fit">
-              <h1 className="font-serif font-bold text-lg/3">IncApache</h1>
-              <h2 className="font-serif text-xs/3 text-end">Group</h2>
-            </div>
-          </div>
-          <p className="w-full text-end text-base/4">
-            <span className="font-semibold">University of Genova</span>
-            <br /> project for Data Visualization Exam
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

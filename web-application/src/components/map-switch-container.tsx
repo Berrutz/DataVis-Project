@@ -7,8 +7,9 @@ type ComponentType = {
   component: React.ReactNode;
 };
 
-interface MapContainerProps {
+interface MapContainerProps extends React.HTMLAttributes<HTMLHeadElement> {
   components: ComponentType[];
+  className?: string;
 }
 
 /**
@@ -21,7 +22,9 @@ interface MapContainerProps {
  * @returns {React.ReactNode} The react component.
  */
 const MapContainer: React.FC<MapContainerProps> = ({
-  components
+  components,
+  className,
+  children
 }: MapContainerProps): React.ReactNode => {
   if (components.length === 0) {
     throw new Error(
@@ -44,7 +47,12 @@ const MapContainer: React.FC<MapContainerProps> = ({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background mb-2">
+    <div
+      className={cn(
+        'mx-auto w-full max-w-4xl rounded-2xl shadow-md bg-background mb-2',
+        className
+      )}
+    >
       {/* Tab buttons */}
       <div className="flex">
         {components.map((component, index) => (
@@ -77,7 +85,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
       {/* Graph container */}
       <div
-        className={`p-4 transition-opacity duration-300 border-b- border-x ${
+        className={`p-4 sm:p-10 transition-opacity duration-300 border-b border-x rounded-b-2xl ${
           isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
       >
@@ -89,6 +97,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
         >
           {components[activeComponentIdex].component}
         </div>
+        {children}
       </div>
     </div>
   );
