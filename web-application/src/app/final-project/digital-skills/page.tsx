@@ -21,6 +21,58 @@ export default function DigitalSkills() {
       <main className="px-2 mx-auto sm:px-4 min-h-dvh max-w-[1200px]">
         <H1 className="my-12">Digital Skills</H1>
 
+        {/* Digital skills Barchart */}
+        <div className="mb-24">
+          <ChartHeading>
+            <ChartH1Title>
+              Different countires compared by digital skill levels
+            </ChartH1Title>
+            <p>
+              The chart visualizes different EU countries for a digital skill
+              level and age group. We analyze the percentage of individuals with
+              no digital skills across different EU countries, considering the
+              age group "all individuals". It highlights the extent of digital
+              exclusion in each country, providing a comparative overview of how
+              widespread the lack of basic digital competence is within the
+              general population of each nation.
+            </p>
+          </ChartHeading>
+          <div className="my-6">
+            <BarchartCountriesDigitalSkills />
+          </div>
+          <ChartContainer
+            asidename="Comment"
+            id="bar-map-chart-internet-access-comment-1"
+            asidekey="bar-map-chart-internet-access-comment-1"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              From the graph, we observe that Romania has by far the highest
+              proportion of individuals with no digital skills among EU
+              countries, followed by Bulgaria and Italy. These countries exhibit
+              a significant digital divide, suggesting limited access to digital
+              tools or insufficient digital education across their populations.
+              Another insight could be that those countries has the most number
+              of old people, since usually oldest people does not have digital
+              skills.
+              <br />
+              <br />
+              On the opposite end, countries like Croatia, Netherlands, Ireland,
+              and Finland show the lowest percentages, indicating stronger
+              digital inclusion and a generally higher baseline of digital
+              literacy.
+              <br />
+              <br />A broader insight from the chart is the visible geographical
+              pattern: many Southern and Eastern European countries (such as
+              Romania, Bulgaria, and Greece) tend to have higher levels of
+              digital illiteracy compared to Northern and Western countries
+              (like Sweden, Finland, and the Netherlands). This disparity may
+              point to systemic differences in education, infrastructure, and
+              access to technology.
+            </p>
+          </ChartContainer>
+        </div>
+
         {/* Alluvial Chart*/}
         <div className="mb-24">
           <ChartHeading>
@@ -124,12 +176,12 @@ export default function DigitalSkills() {
         </div>
 
         {/* <div className="flex flex-col gap-24"> */}
-        {/*   <div> */}
-        {/*     <H2 className="mb-8"> */}
-        {/*       Different countires compared by digital skill levels */}
-        {/*     </H2> */}
-        {/*     <BarchartCountriesDigitalSkills /> */}
-        {/*   </div> */}
+        {/* <div> */}
+        {/*   <H2 className="mb-8"> */}
+        {/*     Different countires compared by digital skill levels */}
+        {/*   </H2> */}
+        {/*   <BarchartCountriesDigitalSkills /> */}
+        {/* </div> */}
         {/**/}
         {/*   <div> */}
         {/*     <H2 className="mb-8">Employed persons with ICT education by age</H2> */}
