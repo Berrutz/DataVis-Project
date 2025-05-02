@@ -122,8 +122,8 @@ export default function BarchartCountriesDigitalSkills() {
       <BarChart
         x={barchartState.x}
         y={barchartState.y}
-        width={1000}
-        height={800}
+        width={900}
+        height={700}
         colorInterpoaltor={d3.interpolateBlues}
         mb={90}
         mr={20}

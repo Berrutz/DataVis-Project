@@ -19,15 +19,9 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-interface StackedBarChartProps {
-  newWidth: number;
-  newHeight: number;
-}
+interface StackedBarChartProps {}
 
-const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
-  newWidth,
-  newHeight
-}) => {
+const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = () => {
   const [stackedData, setData] = useState<StackedData[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
@@ -109,8 +103,8 @@ const StackedBarChartAgeDigitalSkills: React.FC<StackedBarChartProps> = ({
       <StackedBarChart
         data={stackedData}
         categories={categories}
-        width={newWidth}
-        height={newHeight}
+        width={800}
+        height={500}
         unitOfMeasurement="%"
         vertical={false}
         percentage={true}

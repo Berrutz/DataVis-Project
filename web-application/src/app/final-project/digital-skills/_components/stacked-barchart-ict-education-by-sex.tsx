@@ -181,8 +181,8 @@ export default function StackedBarchartICTEducationBySex() {
   return (
     <ChartContainer className="flex flex-col gap-8">
       <StackedBarChart
-        width={900}
-        height={600}
+        width={800}
+        height={500}
         categories={stackedBarchartCategories}
         data={stackedBarchartState}
         unitOfMeasurement="%"

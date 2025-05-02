@@ -133,16 +133,14 @@ export default function AlluvialDigitalSkills() {
     '#bae1ff'
   ];
 
-  const width = screenSize == 'sm' && 500 || screenSize == 'md' && 610 || screenSize == 'lg' && 700 || 1000;
+  const width =
+    (screenSize == 'sm' && 600) ||
+    (screenSize == 'md' && 680) ||
+    1000;
 
-  let ml = 120
-  if (screenSize !== 'xl') {
-    ml = 0
-  }
-
-  let mb = 0
+  let mb = 0;
   if (screenSize === 'xl') {
-    mb = 90
+    mb = 90;
   }
 
   return (
@@ -153,12 +151,12 @@ export default function AlluvialDigitalSkills() {
         SecondLayerNodesTooltipMapper={TooltipSecondLayerNodes}
         linksTooltipMapper={TooltipMouseOverLinks}
         width={width}
-        height={800}
+        height={600}
         colors={colors}
         mb={mb}
         mr={0}
         mt={0}
-        ml={ml}
+        ml={120}
       />
       <div className="gap-6 md:flex">
         <div className="w-full">
