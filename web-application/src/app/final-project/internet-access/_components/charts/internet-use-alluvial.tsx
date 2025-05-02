@@ -95,7 +95,7 @@ const InternetUseAlluvial: React.FC<InternetUseAlluvialProps> = ({
       const totalValue = group.reduce((sum, d) => sum + d.value, 0);
       const missingValue = 100 - totalValue;
 
-      if (missingValue !== 0) {
+      if (missingValue !== 0 && missingValue < 2) {
         group.forEach((d) => {
           d.value += (d.value / totalValue) * missingValue;
         });
