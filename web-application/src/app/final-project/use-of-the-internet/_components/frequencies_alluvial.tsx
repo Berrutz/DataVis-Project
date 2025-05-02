@@ -50,7 +50,6 @@ const FrequenciesAlluvial: React.FC<FrequenciesAlluvialProps> = ({
         })
     );
 
-    console.log("Alluvial Data : " , csvData);
 
 
 
