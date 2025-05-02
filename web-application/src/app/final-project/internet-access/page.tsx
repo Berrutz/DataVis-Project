@@ -212,26 +212,22 @@ export default function FinalProjectInternetAccess() {
           {/* FACETED BAR CHART - DEGRADING MESSAGES */}
           <div>
             <ChartHeading>
-              <ChartH1Title>Frequency of Computer Use</ChartH1Title>
+              <ChartH1Title>
+                Is the level of digitalization uniform across all age groups?
+              </ChartH1Title>
               <p>
-                The dataset used for the stacked bar chart was preprocessed to
-                retain only the relevant information. <br></br>
-                Initially, unnecessary columns such as metadata and flags were
-                removed. <br></br>
-                The dataset was then analyzed to determine the unique categories
-                for key attributes: the basis of discrimination, the percentage
-                of the population which has been effectively discriminated and
-                the geographical area .<br></br>
-                Filtering was applied to include only individuals born in non-EU
-                countries and measured in terms of percentage values. <br></br>
-                The final dataset contains the percentage of individuals in each
-                EU country who encountered degrading messages online in 2023,
-                categorized by the reason for discrimination.
+                We have observed how the use of the internet and digitalization
+                have spread more and more and very quickly in the last 10-15
+                years, but is this spread equivalent in all age groups?{' '}
                 <br></br>
-                This stacked bar chart visually represents the extent and
-                distribution of online discrimination faced by non-EU-born
-                individuals across different EU countries, highlighting key
-                social issues related to digital interactions.
+                This graph allows us to observe the various levels of
+                digitalization of EU countries for the years between 2005 and
+                2017 for the following age groups: 16 to 24 years old, 25 to 54
+                years old, 55 to 74 years old and 75 years old or more. The
+                indicator of the level of digitalization is represented by the
+                last time an individual used a computer, the time frames are:
+                within the last 3 months, between 3 and 12 months ago, more than
+                a year ago and never.
               </p>
             </ChartHeading>
             <div className="my-6">
@@ -255,13 +251,18 @@ export default function FinalProjectInternetAccess() {
             >
               <ChartH2Title>Comment</ChartH2Title>
               <p>
-                The chart shows that among the European Union countries, the
-                Netherlands ranks first, with 48.7% of respondents stating that
-                they have encountered degrading or discriminatory messages
-                online targeting a group of people in the last three months.
-                Additionally, looking at the last stacked chart, it can be
-                observed that among these people, 25.37% believed that the
-                attacks were due to religious opinions or beliefs.
+                As one might expect the digitalization is unevenly distributed
+                across generations. For each country, it can be noted how the
+                trend, more or less marked, of how digital literacy decreases
+                with age. The more concerning trend appears as we move into the
+                55 to 74 and especially 75+ age groups. Here, the number of
+                individuals who have never used a computer becomes substantial,
+                among those aged 75 and above, this group is the majority. This
+                suggests that a digital divide still persists, not just in terms
+                of access, but also in terms of familiarity, confidence, and
+                perceived necessity of digital tools in daily life. This gap can
+                have negative repercussions on everyday life, for example in
+                access to services. (e.g. eHealth, banking, government portals).
               </p>
             </ChartContainer>
           </div>
