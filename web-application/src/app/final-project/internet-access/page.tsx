@@ -41,6 +41,15 @@ export default function FinalProjectInternetAccess() {
       <FinalPageSectionsNav />
       <main className="px-2 mx-auto sm:px-4 min-h-dvh max-w-[1200px]">
         <H1 className="my-12">Internet Access</H1>
+        <p className="mb-12">
+          In this section we analyze the digitalization levels across EU
+          countries using visualizations based on Eurostat datasets.
+          Specifically, We compare households with access to the Internet at
+          home acros member states, investigate the reasons why people don't
+          have internet at home, observe how the percentage of people who are
+          familiar with the internet or the digital world varies over the years,
+          and if this variation is uniform acros age groups.
+        </p>
         <div className="flex flex-col gap-24">
           {/* BAR AND MAP CHARTS */}
           <div>
@@ -51,9 +60,9 @@ export default function FinalProjectInternetAccess() {
               </ChartH1Title>
               <p>
                 Let's start by understanding first what the state of the art is
-                for EU countries. <br></br>
-                These charts compare the percentage of households with an
-                internet connection at home across EU countries.
+                for EU countries. These charts compare the percentage of
+                households with an internet connection at home across EU
+                countries.
               </p>
             </ChartHeading>
             <div className="my-6">
