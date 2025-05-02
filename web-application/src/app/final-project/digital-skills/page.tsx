@@ -20,7 +20,6 @@ export default function DigitalSkills() {
       <FinalPageSectionsNav />
       <main className="px-2 mx-auto sm:px-4 min-h-dvh max-w-[1200px]">
         <H1 className="my-12">Digital Skills</H1>
-
         {/* Digital skills Barchart */}
         <div className="mb-24">
           <ChartHeading>
@@ -72,7 +71,6 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
-
         {/* Alluvial Chart*/}
         <div className="mb-24">
           <ChartHeading>
@@ -129,7 +127,6 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
-
         {/* Eductaion by age */}
         <div className="mb-24">
           <ChartHeading>
@@ -174,7 +171,50 @@ export default function DigitalSkills() {
             </p>
           </ChartContainer>
         </div>
-
+        {/* Stacked bar chart male and female*/}
+        <div className="mb-24">
+          <ChartHeading>
+            <ChartH1Title>
+              Percentage of employed males and females with ICT education
+            </ChartH1Title>
+            <p>
+              The chart illustrates the percentage of employed individuals with
+              an ICT education across various EU countries, divided by gender.
+              The data provides a side-by-side comparison of male (blue) and
+              female (pink) employment, highlighting gender distribution.
+            </p>
+          </ChartHeading>
+          <div className="my-6">
+            <StackedBarchartICTEducationBySex />
+          </div>
+          <ChartContainer
+            asidename="Comment"
+            id="bar-map-chart-internet-access-comment-1"
+            asidekey="bar-map-chart-internet-access-comment-1"
+          >
+            <ChartH2Title>Comment</ChartH2Title>
+            <p>
+              The graph shows a clear gender disparity in ICT education among
+              the employed population across all EU countries. In every country
+              presented, men with ICT education make up a significantly larger
+              share of the employed group compared to women. The disparity is
+              particularly pronounced in countries like Italy, Slovakia, and the
+              Netherlands, where the male share exceeds 80%.
+              <br />
+              On the other end, countries such as Bulgaria, Greece, and Romania
+              show a comparatively smaller gender gap, with women making up a
+              larger proportion of those employed with ICT education than in
+              other countries—though men still remain the majority.
+              <br />
+              <br />
+              Overall, the chart highlights a consistent underrepresentation of
+              women among those with ICT education in the workforce across the
+              EU. This suggests that fewer women may be pursuing ICT education
+              or that they face additional barriers to employment after earning
+              such qualifications.
+            </p>
+          </ChartContainer>
+        </div>
         {/* <div className="flex flex-col gap-24"> */}
         {/* <div> */}
         {/*   <H2 className="mb-8"> */}
@@ -188,12 +228,12 @@ export default function DigitalSkills() {
         {/*     <StackedBarChartAgeDigitalSkills newWidth={900} newHeight={600} /> */}
         {/*   </div> */}
         {/**/}
-        {/*   <div> */}
-        {/*     <H2 className="mb-8"> */}
-        {/*       Percentage of employed males and females with ICT education */}
-        {/*     </H2> */}
-        {/*     <StackedBarchartICTEducationBySex /> */}
-        {/*   </div> */}
+        {/* <div> */}
+        {/*   <H2 className="mb-8"> */}
+        {/*     Percentage of employed males and females with ICT education */}
+        {/*   </H2> */}
+        {/*   <StackedBarchartICTEducationBySex /> */}
+        {/* </div> */}
         {/**/}
         {/*   <div> */}
         {/*     <H2 className="mb-8"> */}
