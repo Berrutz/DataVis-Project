@@ -35,8 +35,6 @@ export default function Financial() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Fetching data...');
-
         // Load of the data
         const FinCsvData: FinancialData[] = await d3.csv(
           getStaticFile(
@@ -51,13 +49,10 @@ export default function Financial() {
         );
         setAllData(FinCsvData);
 
-        console.log('All Data Financial: ', FinCsvData);
-
         // Estrazione di anni e paesi unici
         //const uniqueCountries = Array.from(new Set(FinCsvData.map(d => d.country))).sort();
         //setCountries(uniqueCountries);
       } catch (error) {
-        console.error('Error', error);
       }
     };
 
@@ -99,9 +94,6 @@ export default function Financial() {
         Math.floor((d.percentage / 100) * d.population)
       ])
     );
-
-    console.log('🔹 Top 20 dati ordinati per percentage:', top20);
-    console.log('🌍 Paesi presenti nelle top 20:', topCountries);
   }, [AllData]);
 
   return (

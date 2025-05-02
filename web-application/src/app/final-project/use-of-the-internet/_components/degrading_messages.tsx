@@ -76,8 +76,6 @@ export default function DegradingMessages() {
         );
         setCsvData(DegradeCsvData);
 
-        console.log('Degrading CSV : ', DegradeCsvData);
-
         // Filter data based on the selected year
         const filteredData = DegradeCsvData.sort((a, b) => b.value - a.value);
 

@@ -101,8 +101,6 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       y: centerY // Posizione iniziale casuale
     }));
 
-    console.log('dataset: ', dataset);
-
     // Definizione del layout a forza
     const distance = 3;
     const strenght = -10;

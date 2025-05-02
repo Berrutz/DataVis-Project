@@ -21,6 +21,7 @@ import Alluvial, {
   LinkData
 } from '@/components/charts/alluvial';
 import { SankeyLink, SankeyNodeMinimal } from 'd3-sankey';
+import { useScreenSize } from '@/hooks/use-screen-sizes';
 
 export default function AlluvialDigitalSkills() {
   // Represent a year and country selection for the user
@@ -29,6 +30,9 @@ export default function AlluvialDigitalSkills() {
 
   // The current state of the alluvial
   const [alluvialState, setAlluvialState] = useState<AlluvialData | null>(null);
+
+  // Get the current screen size to change the chart size accordingly
+  const screenSize = useScreenSize();
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
@@ -85,7 +89,6 @@ export default function AlluvialDigitalSkills() {
     const nodes = [uniqueIndType, uniqueIndicIs];
     const linkData: LinkData[] = [];
     filteredData.forEach((value) => {
-      console.log(filterIndicTypeName(value.ind_type));
       linkData.push({
         source: filterIndicTypeName(value.ind_type),
         target: value.indic_is,
@@ -130,6 +133,18 @@ export default function AlluvialDigitalSkills() {
     '#bae1ff'
   ];
 
+  const width = screenSize == 'sm' && 500 || screenSize == 'md' && 610 || screenSize == 'lg' && 700 || 1000;
+
+  let ml = 120
+  if (screenSize !== 'xl') {
+    ml = 0
+  }
+
+  let mb = 0
+  if (screenSize === 'xl') {
+    mb = 90
+  }
+
   return (
     <ChartContainer className="flex flex-col gap-8">
       <Alluvial
@@ -137,13 +152,13 @@ export default function AlluvialDigitalSkills() {
         tooltipSuffix="%"
         SecondLayerNodesTooltipMapper={TooltipSecondLayerNodes}
         linksTooltipMapper={TooltipMouseOverLinks}
-        width={1000}
+        width={width}
         height={800}
         colors={colors}
-        mb={90}
-        mr={20}
+        mb={mb}
+        mr={0}
         mt={0}
-        ml={120}
+        ml={ml}
       />
       <div className="gap-6 md:flex">
         <div className="w-full">
