@@ -17,6 +17,8 @@ const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
 
       if (open) {
         document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
       }
 
       dialogRef.current?.addEventListener('close', closeModal);
@@ -31,7 +33,6 @@ const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
       }
 
       if (dialogRef === null) return;
-      document.body.style.overflow = '';
       dialogRef.current?.close();
     };
 
