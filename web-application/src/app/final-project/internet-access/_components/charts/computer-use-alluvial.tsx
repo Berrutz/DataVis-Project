@@ -178,7 +178,7 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
   );
   return (
     <ChartContainer className="flex flex-col overflow-hidden gap-8">
-      <H3>Frequency of computer use divided by age groups</H3>
+      <H3>Last computer use divided by age groups</H3>
       <Alluvial
         data={alluvialData}
         width={newWidth}
@@ -190,8 +190,8 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
         ml={50}
       ></Alluvial>
       <DataSourceInfo>
-        Eurostat, Households - reasons for not having internet access at home
-        (2024);{' '}
+        Eurostat, Individuals - computer use (2017); Eurostat, Population on 1
+        January by age group and sex (2024){' '}
         <ShowMoreChartDetailsModalDialog>
           <div className="mt-1 mb-4 mr-4 ml-4">
             <h2 className="mt-4 mb-4 font-serif text-xl xs:text-2xl sm:text-3xl">
@@ -210,11 +210,11 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
             </h2>
             <p className="text-base">
               The data are taken from the databases provided by "Eurostats"
-              containing data on the last time an individual has used internet
-              and data on the population divided by age group for all EU
-              countries. The databases were merged and only the population of
-              the age group of interest was taken. The data are displayed on
-              request depending on the selected year and country.
+              containing data on the frequency of computer use and data on the
+              population divided by age group for all EU countries. The
+              databases were merged and only the population of the age group of
+              interest was taken. The data are displayed on request depending on
+              the selected year and country.
             </p>
             <h2 className="font-serif mt-4 mb-2 text-xl xs:text-2xl sm:text-3xl">
               Data Sources
