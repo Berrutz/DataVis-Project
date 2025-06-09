@@ -116,7 +116,7 @@ export default function Purchase() {
         colorInterpolator={d3.interpolateReds}
         yLabelsSuffix="%"
         ml={90}
-        mb={70}
+        mb={110}
         mr={10}
         xLabel="Percentage of Individuals"
         yLabel="Years"

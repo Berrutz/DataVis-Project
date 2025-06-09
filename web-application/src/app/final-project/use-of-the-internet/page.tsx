@@ -51,7 +51,7 @@ export default function FinalProjectUseOfInternet() {
               {/* Alluvial */}
               <InternetUseAlluvial
                 newWidth={900}
-                newHeight={500}
+                newHeight={600}
               ></InternetUseAlluvial>
             </div>
             <ChartContainer

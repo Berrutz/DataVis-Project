@@ -121,7 +121,7 @@ export default function BarChart({
     vertical = vertical || false;
 
     // If true, add color scale legend to the chart, default true
-    colorScaleLegend = colorScaleLegend || true;
+    colorScaleLegend = colorScaleLegend == undefined ? true : colorScaleLegend;
 
     // Define the numeric domain
     var domain = [
@@ -326,11 +326,11 @@ export default function BarChart({
           .style('opacity', 1);
       });
 
-    // Legend
-    const legendWidth = 350;
-    const legendHeight = 20;
-
     if (colorScaleLegend) {
+      // Legend
+      const legendWidth = 350;
+      const legendHeight = 20;
+
       const legendGroup = svg
         .append('g')
         .attr('transform', `translate(0, ${height - legendHeight * 3})`);

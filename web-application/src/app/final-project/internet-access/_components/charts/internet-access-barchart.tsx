@@ -176,7 +176,7 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           colorInterpolator={d3.interpolateBlues}
           ml={newWidth > 600 ? 55 : 85}
           mr={15}
-          mb={120}
+          mb={newWidth > 600 ? 120 : 80}
           yLabelsSuffix="%"
           vertical={newWidth > 600 ? true : false}
         ></BarChart>
