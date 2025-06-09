@@ -173,10 +173,10 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           y={selectedCountries.map((point) => point.y)}
           width={newWidth}
           height={newHeight}
-          colorInterpoaltor={d3.interpolateReds}
+          colorInterpolator={d3.interpolateBlues}
           ml={newWidth > 600 ? 55 : 85}
           mr={15}
-          mb={70}
+          mb={120}
           yLabelsSuffix="%"
           vertical={newWidth > 600 ? true : false}
         ></BarChart>

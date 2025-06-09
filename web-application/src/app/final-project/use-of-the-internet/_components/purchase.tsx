@@ -113,7 +113,7 @@ export default function Purchase() {
         y={y}
         width={900}
         height={600}
-        colorInterpoaltor={d3.interpolateReds}
+        colorInterpolator={d3.interpolateReds}
         yLabelsSuffix="%"
         ml={90}
         mb={70}

@@ -111,20 +111,23 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // Filter for the selected year and exclude not country values and countries not visible on the map
+    // Exclude not country values and countries not visible on the map
     var filteredData = csvData
-      .filter((d) => d.year === +selectedYear)
       .filter((d) => d.country !== 'EU-27(from 2020)')
       .filter((d) => d.country !== 'EU-28(2013-2020)');
 
+    // Create color scale on all the data
+    const colorScale = d3
+      .scaleSequential(d3.interpolateBlues)
+      .domain(d3.extent(filteredData, (d) => d.value) as [number, number]);
+
+    // Filter for the selected year
+
+    var filteredData = csvData.filter((d) => d.year === +selectedYear);
     // Map country names to emission values
     const emissionsByCountry = new Map(
       filteredData.map((d) => [d.country, d.value])
     );
-
-    const colorScale = d3
-      .scaleSequential(d3.interpolateBlues)
-      .domain(d3.extent(filteredData, (d) => d.value) as [number, number]);
 
     // Create projection of Lambert
     const projection = d3
@@ -140,10 +143,8 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
     const tooltipMapper = (country: string, value: number | undefined) => {
       return (
         <p>
-          <strong>Country:</strong> {country}
-          <br />
-          <strong>Households with internet access:</strong>{' '}
-          {value != null ? value.toFixed(2) : 'N/A'}
+          {country}:{' '}
+          <strong>{value != null ? value.toFixed(2) + '%' : 'N/A'}</strong>
         </p>
       );
     };
@@ -247,7 +248,7 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
     const defs = svg.append('defs');
     const linearGradient = defs
       .append('linearGradient')
-      .attr('id', 'density-legend-gradient')
+      .attr('id', 'density-legend-gradient-map')
       .attr('x1', '0%')
       .attr('x2', '100%')
       .attr('y1', '0%')
@@ -268,7 +269,7 @@ const InternetAccessMap: React.FC<InternetAccessMapProps> = ({
       .append('rect')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
-      .style('fill', 'url(#density-legend-gradient)');
+      .style('fill', 'url(#density-legend-gradient-map)');
 
     // Legend scale
     const legendScale = d3
