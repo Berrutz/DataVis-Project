@@ -10,7 +10,7 @@ export interface ModalDialogProps
 
 const ModalDialog = React.forwardRef<HTMLDivElement, ModalDialogProps>(
   ({ className, children, open, ...props }, ref) => {
-    const dialogRef = useRef<HTMLDialogElement | null>();
+    const dialogRef = useRef<HTMLDialogElement | null>(null);
 
     useEffect(() => {
       if (!dialogRef) return;

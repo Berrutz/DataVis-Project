@@ -8,7 +8,7 @@ export default function ShowMoreChartDetailsModalDialog({
   children
 }: ShowMoreChartDetailsModalDialogProps) {
   const [open, setOpen] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutsideModal = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
