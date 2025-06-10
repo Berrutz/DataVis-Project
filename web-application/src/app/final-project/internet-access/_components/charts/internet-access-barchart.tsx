@@ -38,6 +38,7 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   const [barchartData, setBarchartData] = useState<BarchartDataWrap | null>(
     null
   );
+  const [dataDomain, setDataDomain] = useState<number[]>([]);
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
@@ -64,6 +65,9 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
   // Filter data based on the selected options
   useEffect(() => {
     if (!selectedYear || csvData === null) return;
+
+    const values = csvData.map((d) => d.value);
+    setDataDomain([Math.min(...values), Math.max(...values)]);
 
     const filteredData = csvData.filter((d) => d.year === +selectedYear);
 
@@ -173,7 +177,9 @@ const InternetAccessBarChart: React.FC<InternetAccessBarChartProps> = ({
           y={selectedCountries.map((point) => point.y)}
           width={newWidth}
           height={newHeight}
-          colorInterpolator={d3.interpolateBlues}
+          colorScale={d3
+            .scaleSequential(d3.interpolateBlues)
+            .domain(dataDomain)}
           ml={newWidth > 600 ? 55 : 85}
           mr={15}
           mb={newWidth > 600 ? 120 : 80}

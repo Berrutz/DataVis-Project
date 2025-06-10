@@ -26,9 +26,9 @@ export default function Purchase() {
 
   // Stati per opzioni nei selettori
   const [selectedCountry, setSelectedCountry] = useState<string>('Italy');
-
-  //const [years, setYears] = useState<string[]>([]);
   const [countries, setCountries] = useState<string[]>([]);
+
+  const [dataDomain, setDataDomain] = useState<number[]>([]);
 
   const [x, setX] = useState<string[]>([]);
   const [y, setY] = useState<number[]>([]);
@@ -73,6 +73,10 @@ export default function Purchase() {
   useEffect(() => {
     if (AllData.length === 0) return;
 
+    const values = AllData.map((d) => d.percentage);
+
+    setDataDomain([Math.min(...values), Math.max(...values)]);
+
     // Filtraggio dati in base alla selezione
     const filteredData = AllData.filter((d) => d.country === selectedCountry);
 
@@ -113,7 +117,7 @@ export default function Purchase() {
         y={y}
         width={900}
         height={600}
-        colorInterpolator={d3.interpolateReds}
+        colorScale={d3.scaleSequential(d3.interpolateReds).domain(dataDomain)}
         yLabelsSuffix="%"
         ml={90}
         mb={110}
