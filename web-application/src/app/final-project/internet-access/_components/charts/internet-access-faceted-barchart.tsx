@@ -16,8 +16,7 @@ import {
 import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
-import { getStaticFile, getUnique } from '@/utils/general';
-import * as d3 from 'd3';
+import { getUnique } from '@/utils/general';
 import { Pencil } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -190,6 +189,9 @@ const InternetAccessFacetedBarChart: React.FC<
           data={transformToFacetedPoints(selectedCountries)}
           width={newWidth}
           height={newHeight}
+          rows={
+            newWidth < 500 ? 8 : newWidth < 700 ? 4 : newWidth < 900 ? 3 : 2
+          }
           unitOfMeasurement="%"
           ml={115}
         ></FacetedBarChart>

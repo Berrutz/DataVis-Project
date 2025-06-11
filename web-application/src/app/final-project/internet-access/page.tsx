@@ -17,6 +17,7 @@ import { H1 } from '@/components/headings';
 import { useEffect, useState } from 'react';
 
 export default function FinalProjectInternetAccess() {
+  const xsScreen = 420;
   const smScreen = 640;
   const mdScreen = 768;
   const lgScreen = 1024;
@@ -146,12 +147,16 @@ export default function FinalProjectInternetAccess() {
             <div className="my-6">
               <InternetAccessFacetedBarChart
                 newWidth={
-                  windowWidth < smScreen
-                    ? 600
+                  windowWidth < xsScreen
+                    ? 275
+                    : windowWidth < smScreen
+                    ? 375
                     : windowWidth < mdScreen
-                    ? 700
+                    ? 500
                     : windowWidth < lgScreen
-                    ? 800
+                    ? 700
+                    : windowWidth < xlScreen
+                    ? 900
                     : 1000
                 }
                 newHeight={500}

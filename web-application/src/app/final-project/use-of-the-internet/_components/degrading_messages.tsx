@@ -1,23 +1,13 @@
 'use client';
 
-import MapContainer from '@/components/map-switch-container';
 import { useEffect, useState } from 'react';
 import { DegradingData } from '../lib/interfaces';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
-
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import { Pencil } from 'lucide-react';
-import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import { ChartSidebar } from '@/components/chart-sidebar';
 import FacetedBarChart from '@/components/charts/FacetedBarChart';
 
@@ -46,9 +36,15 @@ export interface FacetedPoint {
   value: number; // The value
 }
 
-export default function DegradingMessages() {
-  const [windowWidth, setWindowWidth] = useState<number>(1200);
+interface InternetUseFacetedBarChartProps {
+  newWidth: number;
+  newHeight: number;
+}
 
+const DegradingMessages: React.FC<InternetUseFacetedBarChartProps> = ({
+  newWidth,
+  newHeight
+}) => {
   const [countries, setCountries] = useState<string[]>([]);
   const [csvData, setCsvData] = useState<DegradingData[]>([]);
 
@@ -169,8 +165,11 @@ export default function DegradingMessages() {
         </div>
         <FacetedBarChart
           data={transformToFacetedPoints(selectedCountries)}
-          width={900}
-          height={600}
+          width={newWidth}
+          height={newHeight}
+          rows={
+            newWidth < 500 ? 8 : newWidth < 700 ? 4 : newWidth < 900 ? 3 : 2
+          }
           unitOfMeasurement="%"
           ml={120}
         />
@@ -189,4 +188,6 @@ export default function DegradingMessages() {
       </Sidebar>
     </ChartContainer>
   );
-}
+};
+
+export default DegradingMessages;

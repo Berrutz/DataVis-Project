@@ -18,8 +18,29 @@ import Activities from './_components/activities';
 import InternetUseAlluvial from './_components/frequencies_alluvial_b';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
 import { H1 } from '@/components/headings';
+import { useEffect, useState } from 'react';
 
 export default function FinalProjectUseOfInternet() {
+  const xsScreen = 420;
+  const smScreen = 640;
+  const mdScreen = 768;
+  const lgScreen = 1024;
+  const xlScreen = 1280;
+
+  const [windowWidth, setWindowWidth] = useState<number>(xlScreen);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+      setWindowWidth(currentWidth);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div>
       <FinalPageSectionsNav />
@@ -164,9 +185,9 @@ export default function FinalProjectUseOfInternet() {
           {/* FACETED BAR CHART - DEGRADING MESSAGES */}
           <div>
             <ChartHeading>
-              <ChartH1Title>Stacked Bar Chart Degrading Messages</ChartH1Title>
+              <ChartH1Title>Faceted Bar Chart Degrading Messages</ChartH1Title>
               <p>
-                The dataset used for the stacked bar chart was preprocessed to
+                The dataset used for the faceted bar chart was preprocessed to
                 retain only the relevant information. <br></br>
                 Initially, unnecessary columns such as metadata and flags were
                 removed. <br></br>
@@ -187,7 +208,22 @@ export default function FinalProjectUseOfInternet() {
               </p>
             </ChartHeading>
             <div className="my-6">
-              <DegradingMessages></DegradingMessages>
+              <DegradingMessages
+                newWidth={
+                  windowWidth < xsScreen
+                    ? 275
+                    : windowWidth < smScreen
+                    ? 375
+                    : windowWidth < mdScreen
+                    ? 500
+                    : windowWidth < lgScreen
+                    ? 700
+                    : windowWidth < xlScreen
+                    ? 900
+                    : 1000
+                }
+                newHeight={500}
+              ></DegradingMessages>
             </div>
             <ChartContainer
               asidename="Comment"
