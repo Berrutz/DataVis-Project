@@ -6,7 +6,7 @@ import Tooltip from '../tooltip';
 interface BubblePoint {
   radius: number;
   countryName: string;
-  color: string;
+  color: string | undefined;
   year: string;
   percentage: [number, number];
   x: number;
@@ -17,7 +17,7 @@ interface BubblePoint {
 interface BubbleChartProps {
   bubble_percentage: [number, number][]; // Berru spiegalo tu
   bubble_dimension: number[]; // Dimension of the bubbles
-  bubble_color: string[];
+  countiresList: string[];
   bubble_number: string[];
   width: number;
   height: number;
@@ -31,7 +31,7 @@ interface BubbleChartProps {
 const BubbleChart: React.FC<BubbleChartProps> = ({
   bubble_percentage,
   bubble_dimension,
-  bubble_color,
+  countiresList,
   bubble_number,
   width,
   height,
@@ -57,7 +57,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
     if (
       !svgRef.current ||
       bubble_dimension.length === 0 ||
-      bubble_color.length === 0 ||
+      countiresList.length === 0 ||
       bubble_number.length === 0
     )
       return;
@@ -82,19 +82,19 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Creazione della mappa colori
-    const uniqueCountries = Array.from(new Set(bubble_color)); // Ottieni i paesi unici
-    const colorMap = uniqueCountries.reduce((acc, country, i) => {
-      acc[country] = colorInterpolator(i / uniqueCountries.length); // Associa un colore fisso
-      return acc;
-    }, {} as Record<string, string>);
+    const countryColorMap = new Map<string, string>();
+    countiresList.forEach((country, i) => {
+      const t = i / (countiresList.length - 1); // Normalize index to [0, 1]
+      countryColorMap.set(country, colorInterpolator(t));
+    });
 
     // Creazione di un dataset con i dati normalizzati
     const centerX = chartWidth / 2;
     const centerY = chartHeight / 2;
     const dataset = bubble_dimension.map((dim, i) => ({
       radius: dim, // Grandezza della bolla
-      countryName: bubble_color[i],
-      color: colorMap[bubble_color[i]], // Colore della bolla
+      countryName: countiresList[i],
+      color: countryColorMap.get(countiresList[i]), // Colore della bolla
       year: bubble_number[i], // Anno della bolla
       percentage: bubble_percentage[i],
       x: centerX, // Posizione iniziale casuale (necessario per D3)
@@ -177,7 +177,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .enter()
       .append('circle')
       .attr('r', (d) => d.radius)
-      .attr('fill', (d) => d.color) // Usa il colore fisso del paese
+      .attr('fill', (d) => d.color!) // Usa il colore fisso del paese
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
           // Get bounding box of SVG to calculate relative positioning
@@ -334,7 +334,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
     // Creazione degli elementi della legenda
     const legendItems = legend
       .selectAll('.legend-item')
-      .data(uniqueCountries) // Usa l'array di paesi unici
+      .data(countiresList) // Usa l'array di paesi unici
       .enter()
       .append('g')
       .attr('class', 'legend-item')
@@ -345,7 +345,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .append('rect')
       .attr('width', 15)
       .attr('height', 15)
-      .attr('fill', (d) => colorMap[d]); // Colore del paese
+      .attr('fill', (d) => countryColorMap.get(d)!); // Colore del paese
 
     // Aggiungi i nomi dei paesi accanto ai colori
     legendItems
@@ -358,7 +358,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
   }, [
     bubble_percentage,
     bubble_dimension,
-    bubble_color,
+    countiresList,
     bubble_number,
     width,
     height

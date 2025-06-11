@@ -1,6 +1,5 @@
 'use client';
 
-import MapContainer from '@/components/map-switch-container';
 import { useEffect, useState } from 'react';
 import { FinancialData } from '../lib/interfaces';
 import * as d3 from 'd3';
@@ -8,26 +7,15 @@ import { getStaticFile } from '@/utils/general';
 
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 import BubbleChart from '@/components/charts/BubbleChart';
 
 export default function Financial() {
-  const [windowWidth, setWindowWidth] = useState<number>(1200);
   const [AllData, setAllData] = useState<FinancialData[]>([]);
 
-  // Stati per opzioni nei selettori
-  //const [selectedCountry, setSelectedCountry] = useState<string>('Italy');
-
-  const [countries, setCountries] = useState<string[]>([]);
-
+  const [selectedYear, setSelectedYear] = useState<string>();
   const [dimension_of_the_bubble, setDimBubble] = useState<number[]>([]);
-  const [color_of_the_bubble, setColorBubble] = useState<string[]>([]);
+  const [countries, setCountries] = useState<string[]>([]);
   const [number_of_bubbles, setNumBubble] = useState<string[]>([]);
 
   const [percentage, setPercentage] = useState<[number, number][]>([]);
@@ -42,71 +30,101 @@ export default function Financial() {
           ),
           (d: any) => ({
             country: d.Country,
-            year: d.Years,
+            year: +d.Years,
             percentage: +d.percentage,
             population: +d.population
           })
         );
         setAllData(FinCsvData);
-
-        // Estrazione di anni e paesi unici
-        //const uniqueCountries = Array.from(new Set(FinCsvData.map(d => d.country))).sort();
-        //setCountries(uniqueCountries);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     fetchData();
   }, []);
 
+  // Choose the default selection values when the csv is loaded and fullfilled
   useEffect(() => {
-    if (AllData.length === 0) return;
+    if (AllData === null || AllData.length <= 0) return;
 
-    // Filtraggio dati in base alla selezione
-    //const filteredData = AllData.filter(d => d.geo === selectedCountry);
+    // As default choose the most recent year
+    const years = AllData.map((value) => value.year);
+    const selectedYear = Math.max(...years);
 
-    const filteredData = AllData;
+    // Set the first default selection for the first barchart visualization
+    setSelectedYear(selectedYear.toString());
+  }, [AllData]);
+
+  useEffect(() => {
+    if (!selectedYear || AllData.length === 0) return;
+
+    // 1. Filter data for the selected year
+    const filteredData = AllData.filter((d) => d.year === +selectedYear);
 
     if (filteredData.length === 0) {
       setDimBubble([]);
-      setColorBubble([]);
+      setCountries([]);
+      setNumBubble([]);
+      setPercentage([]);
       return;
     }
 
-    const how_much_rows = 20;
-    // Ordinare i dati in base a "percentage" in ordine decrescente
-    const sortedData = filteredData.sort((a, b) => b.percentage - a.percentage);
-    const top20 = sortedData.slice(0, how_much_rows);
-    const topCountries = Array.from(new Set(top20.map((d) => d.country)));
-    const maxPercentage = Math.max(...top20.map((d) => d.percentage));
-    const normalizedPercentages = top20.map(
-      (d) => (d.percentage / maxPercentage) * 100
-    );
+    // 2. Get max percentage across all years for normalization
+    const globalMaxPercentage = Math.max(...AllData.map((d) => d.percentage));
 
-    // Impostare gli stati
-    //setPercentage()
+    // 3. Normalize percentages and enforce a minimum bubble size
+    const MIN_SIZE = 10; // minimum bubble size (in percent scale)
+    const normalizedPercentages = filteredData.map((d) => {
+      const scale = (d.percentage / globalMaxPercentage) * 100;
+      return Math.max(scale, MIN_SIZE);
+    });
+
+    // 4. Set all the required states
     setDimBubble(normalizedPercentages);
-    setColorBubble(top20.map((d) => d.country));
-    setNumBubble(top20.map((d) => d.year));
+    setCountries(filteredData.map((d) => d.country));
+    setNumBubble(filteredData.map((d) => d.year.toString()));
     setPercentage(
-      top20.map((d) => [
+      filteredData.map((d) => [
         d.percentage,
         Math.floor((d.percentage / 100) * d.population)
       ])
     );
-  }, [AllData]);
+  }, [selectedYear, AllData]);
+
+  // The csv is not yet loaded or
+  // the default selection has not already initializated or
+  // neither one of the x value and y value state for the barchart has been initializated
+  if (AllData === null || !selectedYear) {
+    return (
+      <ChartContainer>
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+      </ChartContainer>
+    );
+  }
+
+  /* console.log('percentage: ', percentage);
+  console.log('dimesnione_of_the_bubble: ', dimension_of_the_bubble); */
+  /* console.log('color_of_the_bubble: ', countries); */
+  /* console.log('number_of_bubbles: ', number_of_bubbles); */
 
   return (
     <ChartContainer className="flex flex-col ">
-      {/*<H3>Frequency of internet use divided by age groups</H3> */}
       <BubbleChart
         bubble_percentage={percentage}
         bubble_dimension={dimension_of_the_bubble}
-        bubble_color={color_of_the_bubble}
+        countiresList={countries}
         bubble_number={number_of_bubbles}
         width={700}
         height={700}
         colorInterpolator={d3.interpolateRainbow}
+      />
+      <Slider
+        min={Math.min(...AllData.map((d) => d.year))}
+        max={Math.max(...AllData.map((d) => d.year))}
+        step={1}
+        value={[+selectedYear]}
+        onValueChange={(val) => {
+          setSelectedYear(val[0].toString());
+        }}
       />
     </ChartContainer>
   );
