@@ -161,7 +161,18 @@ export default function FinalProjectUseOfInternet() {
               </p>
             </ChartHeading>
             <div className="my-6">
-              <Financial></Financial>
+              <Financial
+                newWidth={
+                  windowWidth < smScreen
+                    ? 500
+                    : windowWidth < mdScreen
+                    ? 600
+                    : windowWidth < lgScreen
+                    ? 700
+                    : 900
+                }
+                newHeight={600}
+              ></Financial>
             </div>
             <ChartContainer
               asidename="Comment"

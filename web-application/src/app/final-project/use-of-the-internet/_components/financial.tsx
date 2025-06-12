@@ -14,7 +14,15 @@ import BubbleChart, {
 } from '@/components/charts/BubbleChart';
 import React from 'react';
 
-export default function Financial() {
+interface InternetUseFinancialProps {
+  newWidth: number;
+  newHeight: number;
+}
+
+const Financial: React.FC<InternetUseFinancialProps> = ({
+  newWidth,
+  newHeight
+}) => {
   const [AllData, setAllData] = useState<FinancialData[]>([]);
   const [bubbleData, setBubbleData] = useState<BubbleData>({
     currentYearData: [],
@@ -137,8 +145,8 @@ export default function Financial() {
       <BubbleChart
         data={bubbleData}
         previusYear={previusYear}
-        width={900}
-        height={700}
+        width={newWidth}
+        height={newHeight}
         colorInterpolator={d3.interpolateRainbow}
       />
       <Slider
@@ -153,7 +161,10 @@ export default function Financial() {
           setPreviusYear(selectedYear);
           setSelectedYear(snappedYear.toString());
         }}
+        className="mt-10 md:mt-9 lx:mt-2"
       />
     </ChartContainer>
   );
-}
+};
+
+export default Financial;
