@@ -135,7 +135,10 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           return xFinalPos;
         })
       )
-      .on('tick', ticked);
+      .stop();
+
+    // Run the simulation fully before rendering
+    for (let i = 0; i < 300; ++i) simulation.tick();
 
     const group = svg.append('g').attr('transform', `translate(0,0)`);
 
@@ -310,6 +313,8 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           .duration(200)
           .style('opacity', 1);
       });
+
+    ticked(); // apply the final node positions
 
     // 🔄 Aggiorna la posizione del testo in ticked()
     function ticked() {

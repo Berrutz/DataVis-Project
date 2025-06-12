@@ -113,7 +113,7 @@ export default function Financial() {
         bubble_dimension={dimension_of_the_bubble}
         countiresList={countries}
         bubble_number={number_of_bubbles}
-        width={700}
+        width={900}
         height={700}
         colorInterpolator={d3.interpolateRainbow}
       />
