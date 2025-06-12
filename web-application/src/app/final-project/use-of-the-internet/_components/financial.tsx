@@ -12,10 +12,10 @@ import BubbleChart, {
   BubbleData,
   BubblePoint
 } from '@/components/charts/BubbleChart';
+import React from 'react';
 
 export default function Financial() {
   const [AllData, setAllData] = useState<FinancialData[]>([]);
-
   const [bubbleData, setBubbleData] = useState<BubbleData>({
     currentYearData: [],
     otherYearsData: []
@@ -23,6 +23,17 @@ export default function Financial() {
 
   const [selectedYear, setSelectedYear] = useState<string>();
   const [previusYear, setPreviusYear] = useState<string>();
+
+  // For visualization purpose only
+  const [years, setYears] = useState<number[]>([]);
+  const [sliderValue, setSliderValue] = useState<number[]>();
+
+  // Utility to find closest year
+  function getClosestYear(target: number, validYears: number[]) {
+    return validYears.reduce((prev, curr) =>
+      Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev
+    );
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,12 +62,17 @@ export default function Financial() {
     if (AllData === null || AllData.length <= 0) return;
 
     // As default choose the most recent year
+    const uniqueYears = Array.from(new Set(AllData.map((d) => d.year))).sort(
+      (a, b) => a - b
+    );
     const years = AllData.map((value) => value.year);
     const selectedYear = Math.max(...years);
 
     // Set the first default selection for the first barchart visualization
     setSelectedYear(selectedYear.toString());
     setPreviusYear(selectedYear.toString());
+    setSliderValue([Math.max(...years)]);
+    setYears(uniqueYears);
   }, [AllData]);
 
   useEffect(() => {
@@ -102,18 +118,19 @@ export default function Financial() {
   // The csv is not yet loaded or
   // the default selection has not already initializated or
   // neither one of the x value and y value state for the barchart has been initializated
-  if (AllData === null || !selectedYear || !previusYear) {
+  if (
+    AllData === null ||
+    !selectedYear ||
+    !previusYear ||
+    years == null ||
+    sliderValue == null
+  ) {
     return (
       <ChartContainer>
         <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
       </ChartContainer>
     );
   }
-
-  /* console.log('percentage: ', percentage);
-  console.log('dimesnione_of_the_bubble: ', dimension_of_the_bubble); */
-  /* console.log('color_of_the_bubble: ', countries); */
-  /* console.log('number_of_bubbles: ', number_of_bubbles); */
 
   return (
     <ChartContainer className="flex flex-col ">
@@ -127,11 +144,14 @@ export default function Financial() {
       <Slider
         min={Math.min(...AllData.map((d) => d.year))}
         max={Math.max(...AllData.map((d) => d.year))}
-        step={1}
-        value={[+selectedYear]}
-        onValueChange={(val) => {
+        step={0.01}
+        value={sliderValue}
+        onValueChange={(val) => setSliderValue(val)} // update smoothly as user drags
+        onValueCommit={(val) => {
+          const snappedYear = getClosestYear(val[0], years);
+          setSliderValue([snappedYear]); // Snap thumb to closest year
           setPreviusYear(selectedYear);
-          setSelectedYear(val[0].toString());
+          setSelectedYear(snappedYear.toString());
         }}
       />
     </ChartContainer>

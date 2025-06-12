@@ -56,7 +56,7 @@ function Slider({
           className="relative size-4 bg-background rounded-full block border border-primary shadow-sm transition-all duration-200 ease-in-out hover:size-6 hover:bg-primary focus:outline-none focus:ring-0 focus-visible:ring-0 disabled:pointer-events-none disabled:opacity-50"
         >
           <div className="absolute -top-7 left-1/2 -translate-x-1/2 text-lg font-semibold text-gray-600">
-            {_values[index]}
+            {_values[index].toFixed(0)}
           </div>
         </SliderPrimitive.Thumb>
       ))}
