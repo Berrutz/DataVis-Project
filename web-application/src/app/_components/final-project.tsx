@@ -11,7 +11,7 @@ export default function FinalProject() {
         <SectionTitle>
           What's the digitalization level of EU countries?
         </SectionTitle>
-        <p className="text-lg text-justify pt-6">
+        <p className="text-lg text-justify pt-6 md:px-10">
           The internet has evolved at an unprecedented pace, transforming from a
           simple communication tool into a fundamental pillar of modern society.
           Alongside digitalization, it now permeates nearly every aspect of

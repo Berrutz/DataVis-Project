@@ -25,8 +25,8 @@ const imagesData: IntroductionData[] = [
 
 export default function IntroductionFinalProject() {
   return (
-    <Container className="px-4 sm:px-10 md:px-12">
-      <p className="text-lg text-center lg:text-justify">
+    <Container className="px-4 sm:px-10 md:px-24">
+      <p className="text-lg text-justify">
         The internet has evolved at an unprecedented pace, transforming from a
         simple communication tool into a fundamental pillar of modern society.
         Alongside digitalization, it now permeates nearly every aspect of daily
@@ -39,7 +39,7 @@ export default function IntroductionFinalProject() {
         questions about this phenomenon.
       </p>
 
-      <div className="flex flex-col gap-12 items-center pt-16 w-full text-center">
+      <div className="flex flex-col gap-12 items-center pt-16 w-full text-justify">
         <div className="flex gap-12 items-center overflow-clip">
           <div className="flex flex-col gap-4 lg:w-1/2">
             <H3>What's our digitalizaion level?</H3>
