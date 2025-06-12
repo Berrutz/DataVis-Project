@@ -19,6 +19,7 @@ import InternetUseAlluvial from './_components/frequencies_alluvial_b';
 import FinalPageSectionsNav from '../_components/final-page-sections-nav';
 import { H1 } from '@/components/headings';
 import { useEffect, useState } from 'react';
+import Financial from './_components/financial';
 
 export default function FinalProjectUseOfInternet() {
   const xsScreen = 420;
@@ -160,7 +161,7 @@ export default function FinalProjectUseOfInternet() {
               </p>
             </ChartHeading>
             <div className="my-6">
-              {/*<Financial></Financial>*/}
+              <Financial></Financial>
             </div>
             <ChartContainer
               asidename="Comment"
