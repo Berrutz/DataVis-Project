@@ -3,22 +3,34 @@ import React, { useEffect, useRef, useState } from 'react';
 import ChartScrollableWrapper from '../chart-scrollable-wrapper';
 import Tooltip from '../tooltip';
 
-interface BubblePoint {
+export interface BubblePoint {
+  country: string;
+  year: string;
+  percentage: number;
+  adjustedPercentage: number; // normalized & MIN_SIZE enforced
+  absoluteValue: number; // calculated from population
+}
+
+export interface BubbleData {
+  currentYearData: BubblePoint[];
+  otherYearsData: BubblePoint[];
+}
+
+interface BubbleTooltip {
   radius: number;
   countryName: string;
   color: string | undefined;
   year: string;
-  percentage: [number, number];
+  percentage: number;
+  absoluteValue: number;
   x: number;
   y: number;
 }
 
 // Interfaccia per le proprietà del componente
 interface BubbleChartProps {
-  bubble_percentage: [number, number][]; // Berru spiegalo tu
-  bubble_dimension: number[]; // Dimension of the bubbles
-  countiresList: string[];
-  bubble_number: string[];
+  data: BubbleData;
+  previusYear: string;
   width: number;
   height: number;
   colorInterpolator: (t: number) => string;
@@ -29,10 +41,8 @@ interface BubbleChartProps {
 }
 
 const BubbleChart: React.FC<BubbleChartProps> = ({
-  bubble_percentage,
-  bubble_dimension,
-  countiresList,
-  bubble_number,
+  data,
+  previusYear,
   width,
   height,
   colorInterpolator,
@@ -54,13 +64,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
   );
 
   useEffect(() => {
-    if (
-      !svgRef.current ||
-      bubble_dimension.length === 0 ||
-      countiresList.length === 0 ||
-      bubble_number.length === 0
-    )
-      return;
+    if (!svgRef.current || data.currentYearData.length === 0) return;
 
     d3.select(svgRef.current).selectAll('*').remove();
 
@@ -81,6 +85,9 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
+    const currentData = data.currentYearData;
+    const countiresList = currentData.map((d) => d.country);
+
     // Creazione della mappa colori
     const countryColorMap = new Map<string, string>();
     countiresList.forEach((country, i) => {
@@ -91,15 +98,23 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
     // Creazione di un dataset con i dati normalizzati
     const centerX = chartWidth / 2;
     const centerY = chartHeight / 2;
-    const dataset = bubble_dimension.map((dim, i) => ({
-      radius: dim, // Grandezza della bolla
-      countryName: countiresList[i],
-      color: countryColorMap.get(countiresList[i]), // Colore della bolla
-      year: bubble_number[i], // Anno della bolla
-      percentage: bubble_percentage[i],
+    const dataset = currentData.map((d) => ({
+      radius: d.adjustedPercentage, // Grandezza della bolla
+      countryName: d.country,
+      color: countryColorMap.get(d.country), // Colore della bolla
+      year: d.year, // Anno della bolla
+      percentage: d.percentage,
+      absoluteValue: d.absoluteValue,
       x: centerX, // Posizione iniziale casuale (necessario per D3)
       y: centerY // Posizione iniziale casuale
     }));
+
+    const previusYearData: BubblePoint[] = [];
+    if (dataset[0].year != previusYear) {
+      data.otherYearsData.forEach((element) => {
+        if (element.year === previusYear) previusYearData.push(element);
+      });
+    }
 
     // Definizione del layout a forza
     const distance = 3;
@@ -143,7 +158,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
     const group = svg.append('g').attr('transform', `translate(0,0)`);
 
     // Create tooltip mapper
-    const tooltipMapper = (point: BubblePoint) => {
+    const tooltipMapper = (point: BubbleTooltip) => {
       return (
         <div
           style={{
@@ -158,15 +173,13 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           <div>
             Percentage of people in this country operating on bound or other
             investment:{' '}
-            <a style={{ fontWeight: '600' }}>
-              {point.percentage[0].toFixed(2)}%
-            </a>
+            <a style={{ fontWeight: '600' }}>{point.percentage.toFixed(2)}%</a>
           </div>
           <div>
             Actual number of people interacting in the economic field is equal
             to{' '}
             <a style={{ fontWeight: '600' }}>
-              {(point.percentage[1] / 1000000).toFixed(2)} M people
+              {(point.absoluteValue / 1000000).toFixed(2)} M people
             </a>
           </div>
         </div>
@@ -179,7 +192,13 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .data(dataset)
       .enter()
       .append('circle')
-      .attr('r', (d) => d.radius)
+      .attr('r', (d) => {
+        if (previusYear === d.year) return d.radius;
+        const countryData = previusYearData.find(
+          (p) => p.country === d.countryName
+        );
+        return countryData != null ? countryData.adjustedPercentage : 0;
+      }) // start small
       .attr('fill', (d) => d.color!) // Usa il colore fisso del paese
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
@@ -230,6 +249,13 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
           .style('opacity', 1);
       });
 
+    // 🔄 Apply transition separately
+    bubbles
+      .transition()
+      .duration(1500)
+      .ease(d3.easeCubicOut)
+      .attr('r', (d) => d.radius);
+
     const labels = group
       .selectAll('text')
       .data(dataset)
@@ -243,25 +269,14 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
         const text = d3.select(this);
 
         // Calcola le dimensioni del testo in base al raggio
-        const yearFontSize = Math.max(d.radius * 0.4, 10); // Minimo 10px, massimo in proporzione
         const percentageFontSize = Math.max(d.radius * 0.3, 8); // Minimo 8px
-
-        // Aggiunge la prima riga (anno)
-        text
-          .append('tspan')
-          .attr('x', d.x) // Deve essere aggiornato con la simulazione
-          .attr('dy', '-0.4em') // Sposta leggermente sopra il centro
-          .style('font-size', `${yearFontSize}px`)
-          .style('font-weight', 'bold') // 🔥 TESTO IN GRASSETTO
-          .text(d.year);
 
         // Aggiunge la seconda riga (percentuale)
         text
           .append('tspan')
           .attr('x', d.x) // Deve essere aggiornato con la simulazione
-          .attr('dy', '1.2em') // Sposta sotto il primo testo
           .style('font-size', `${percentageFontSize}px`)
-          .text(`${Math.trunc(d.percentage[0])}%`);
+          .text(`${d.percentage.toFixed(1)}%`);
       })
       .on('mousemove', (event, d) => {
         if (tooltipRef.current) {
@@ -360,14 +375,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
       .text((d) => d)
       .style('font-size', '12px')
       .style('fill', '#000');
-  }, [
-    bubble_percentage,
-    bubble_dimension,
-    countiresList,
-    bubble_number,
-    width,
-    height
-  ]);
+  }, [data, width, height]);
 
   return (
     <div className="relative" ref={containerRef}>
