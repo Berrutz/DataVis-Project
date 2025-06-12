@@ -10,7 +10,7 @@ import {
   ChartSection
 } from '../../assignments/_components/chart-section';
 
-import Financial from './_components/financial';
+//import Financial from './_components/financial';
 import DegradingMessages from './_components/degrading_messages';
 import Purchase from './_components/purchase';
 import Activities from './_components/activities';
@@ -160,7 +160,7 @@ export default function FinalProjectUseOfInternet() {
               </p>
             </ChartHeading>
             <div className="my-6">
-              <Financial></Financial>
+              {/*<Financial></Financial>*/}
             </div>
             <ChartContainer
               asidename="Comment"
