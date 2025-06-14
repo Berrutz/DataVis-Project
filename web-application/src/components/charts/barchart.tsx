@@ -15,7 +15,7 @@ export interface BarChartProps {
   y: number[];
   width: number;
   height: number;
-  colorInterpoaltor: ((t: number) => string) | Iterable<string>;
+  colorScale: d3.ScaleSequential<string, never>;
   yDomainMin?: number;
   yDomainMax?: number;
   yLabelsPrefix?: string;
@@ -28,6 +28,7 @@ export interface BarChartProps {
   ml?: number;
   yLabel?: string;
   xLabel?: string;
+  colorScaleLegend?: boolean;
 }
 
 /**
@@ -37,7 +38,7 @@ export interface BarChartProps {
  * @param {number[]} BarChartProps.y - The y array of the values for the barchart
  * @param {number} BarChartProps.width - The width of the bartchart (e.g. 100px or 100% or ... <css-props>)
  * @param {number} BarChartProps.height - The height of the bartchart (e.g. 100px or 100% or ... <css-props>)
- * @param {((t: number) => string) | Iterable<string>} BarChartProps.colorInterpoaltor - A function that returns a color as string given a value of y data or an iterable that represent the values of the colors to use
+ * @param {d3.ScaleSequential<string, never>} BarChartProps.colorScale - the color scale the graph will use
  * @param {[number, number]} BarChartProps.yDomainMin- The min value for the y domain (e.g. 0 or min(y))
  * @param {[number, number]} BarChartProps.yDomainMax- The max value for the y domain (e.g. 100 or max(y))
  * @param {string} BarChartProps.yLabelsPrefix - The prefix for the y labels
@@ -48,6 +49,7 @@ export interface BarChartProps {
  * @param {number} BarChartProps.mr - The margin right
  * @param {number} BarChartProps.mb - The margin bottom
  * @param {number} BarChartProps.ml - The margin left
+ * @param {boolean} BarChartProps.colorScaleLegend - option to add color scale legend to the graph
  * @throws {Error} - If the lenght of x and y are different
  * @returns The react component
  */
@@ -56,7 +58,7 @@ export default function BarChart({
   y,
   width,
   height,
-  colorInterpoaltor,
+  colorScale,
   yDomainMin,
   yDomainMax,
   yLabelsPrefix,
@@ -68,7 +70,8 @@ export default function BarChart({
   mb,
   ml,
   yLabel,
-  xLabel
+  xLabel,
+  colorScaleLegend
 }: BarChartProps) {
   // The ref of the chart created by d3
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -90,6 +93,9 @@ export default function BarChart({
   // If scale has the invert() function it is of type ScaleLinear
   const isLinearScale = (scale: any): scale is d3.ScaleLinear<number, number> =>
     'invert' in scale;
+
+  // Generate an unique id for the legend
+  const gradientId = `legend-colorScale-${crypto.randomUUID()}`;
 
   useEffect(() => {
     // Clear the svg in case of re-rendering
@@ -114,14 +120,14 @@ export default function BarChart({
     // Define if the chart is vertical (i.e. x and y are swapped), default false
     vertical = vertical || false;
 
+    // If true, add color scale legend to the chart, default true
+    colorScaleLegend = colorScaleLegend == undefined ? true : colorScaleLegend;
+
     // Define the numeric domain
     var domain = [
       yDomainMin || Math.min(0, Math.min(...y)),
       yDomainMax || Math.max(...y)
     ];
-
-    // The colorscale of the chart
-    const colorScale = d3.scaleSequential(colorInterpoaltor).domain(domain);
 
     // Define current svg dimension and properties
     const svg = d3
@@ -257,6 +263,7 @@ export default function BarChart({
       .data(data)
       .enter()
       .append('rect')
+      .attr('class', 'bar-rect')
       .attr('x', (d) =>
         isBandScale(xD3) ? xD3(d.x) || 0 : Math.min(xD3(0)!, xD3(d.y)!)
       )
@@ -293,7 +300,7 @@ export default function BarChart({
 
         // Highlight the hovered bar
         d3.select(containerRef.current)
-          .selectAll('rect')
+          .selectAll('rect.bar-rect')
           .transition()
           .duration(200)
           .style('opacity', 0.4);
@@ -311,11 +318,65 @@ export default function BarChart({
 
         // Reset opacity for all bars
         d3.select(containerRef.current)
-          .selectAll('rect')
+          .selectAll('rect.bar-rect')
           .transition()
           .duration(200)
           .style('opacity', 1);
       });
+
+    if (colorScaleLegend) {
+      // Legend
+      const legendWidth = 300;
+      const legendHeight = 20;
+
+      const legendGroup = svg
+        .append('g')
+        .attr('transform', `translate(0, ${height - legendHeight * 3})`);
+
+      // Gradient
+      const defs = svg.append('defs');
+      const linearGradient = defs
+        .append('linearGradient')
+        .attr('id', gradientId)
+        .attr('x1', '0%')
+        .attr('x2', '100%')
+        .attr('y1', '0%')
+        .attr('y2', '0%');
+
+      linearGradient
+        .append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', colorScale(colorScale.domain()[0])); // Minimum color
+
+      linearGradient
+        .append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', colorScale(colorScale.domain()[1])); // Maximum color
+
+      // Legend rectangle
+      legendGroup
+        .append('rect')
+        .attr('width', legendWidth)
+        .attr('height', legendHeight)
+        .style('fill', `url(#${gradientId})`);
+
+      // Legend scale
+      const legendScale = d3
+        .scaleLinear()
+        .domain(colorScale.domain().map((d) => d)) // Match the domain of the color scale
+        .range([0, legendWidth]);
+
+      const legendAxis = d3
+        .axisBottom(legendScale)
+        .ticks(5)
+        .tickFormat((d) => `${d}%`);
+
+      legendGroup
+        .append('g')
+        .attr('transform', `translate(0, ${legendHeight})`) // Position below the rectangle
+        .call(legendAxis)
+        .style('font-size', '0.8rem');
+    }
   }, [x, y]);
 
   if (x.length <= 0 || y.length <= 0) {

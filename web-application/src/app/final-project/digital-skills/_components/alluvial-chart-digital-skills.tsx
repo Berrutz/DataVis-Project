@@ -48,6 +48,23 @@ export default function AlluvialDigitalSkills() {
     })
   );
 
+  const ageGroupOrder = [
+    '16 to 24 years old',
+    '25 to 54 years old',
+    '55 to 64 years old',
+    '65 to 74 years old',
+    '75 years old or more'
+  ];
+
+  const categoriesOrder = [
+    'Individuals with basic or above basic overall digital skills',
+    'Individuals with low overall digital skills',
+    'Individuals with narrow overall digital skills',
+    'Individuals with limited overall digital skills',
+    'Individuals with no overall digital skills',
+    'Digital skills could not be assessed because the individual has not used the internet in the last 3 months'
+  ];
+
   // Choose the default selection values when the csv is loaded and fullfilled
   useEffect(() => {
     if (csvData === null || csvData.length <= 0) return;
@@ -84,11 +101,29 @@ export default function AlluvialDigitalSkills() {
       filteredData.map((value) => filterIndicTypeName(value.ind_type))
     );
 
+    const sortedUniqueIndType: string[] = [];
+    ageGroupOrder.forEach((age) => {
+      const found = uniqueIndType.find((indTypeAge) => indTypeAge === age);
+      if (found) {
+        sortedUniqueIndType.push(age);
+      }
+    });
+
     const uniqueIndicIs = getUnique(
       filteredData.map((value) => value.indic_is)
     );
 
-    const nodes = [uniqueIndType, uniqueIndicIs];
+    const sortedUniqueIndicIs: string[] = [];
+    categoriesOrder.forEach((category) => {
+      const found = uniqueIndicIs.find(
+        (IndicIscategory) => IndicIscategory === category
+      );
+      if (found) {
+        sortedUniqueIndicIs.push(category);
+      }
+    });
+
+    const nodes = [sortedUniqueIndType, sortedUniqueIndicIs];
     const linkData: LinkData[] = [];
     filteredData.forEach((value) => {
       linkData.push({

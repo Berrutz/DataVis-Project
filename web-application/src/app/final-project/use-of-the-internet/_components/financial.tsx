@@ -1,6 +1,5 @@
 'use client';
 
-import MapContainer from '@/components/map-switch-container';
 import { useEffect, useState } from 'react';
 import { FinancialData } from '../lib/interfaces';
 import * as d3 from 'd3';
@@ -8,29 +7,41 @@ import { getStaticFile } from '@/utils/general';
 
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
-import BubbleChart from '@/components/charts/BubbleChart';
+import { Slider } from '@/components/ui/slider';
+import BubbleChart, {
+  BubbleData,
+  BubblePoint
+} from '@/components/charts/BubbleChart';
+import React from 'react';
 
-export default function Financial() {
-  const [windowWidth, setWindowWidth] = useState<number>(1200);
+interface InternetUseFinancialProps {
+  newWidth: number;
+  newHeight: number;
+}
+
+const Financial: React.FC<InternetUseFinancialProps> = ({
+  newWidth,
+  newHeight
+}) => {
   const [AllData, setAllData] = useState<FinancialData[]>([]);
+  const [bubbleData, setBubbleData] = useState<BubbleData>({
+    currentYearData: [],
+    otherYearsData: []
+  });
 
-  // Stati per opzioni nei selettori
-  //const [selectedCountry, setSelectedCountry] = useState<string>('Italy');
+  const [selectedYear, setSelectedYear] = useState<string>();
+  const [previusYear, setPreviusYear] = useState<string>();
 
-  const [countries, setCountries] = useState<string[]>([]);
+  // For visualization purpose only
+  const [years, setYears] = useState<number[]>([]);
+  const [sliderValue, setSliderValue] = useState<number[]>();
 
-  const [dimension_of_the_bubble, setDimBubble] = useState<number[]>([]);
-  const [color_of_the_bubble, setColorBubble] = useState<string[]>([]);
-  const [number_of_bubbles, setNumBubble] = useState<string[]>([]);
-
-  const [percentage, setPercentage] = useState<[number, number][]>([]);
+  // Utility to find closest year
+  function getClosestYear(target: number, validYears: number[]) {
+    return validYears.reduce((prev, curr) =>
+      Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev
+    );
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,72 +53,118 @@ export default function Financial() {
           ),
           (d: any) => ({
             country: d.Country,
-            year: d.Years,
+            year: +d.Years,
             percentage: +d.percentage,
             population: +d.population
           })
         );
         setAllData(FinCsvData);
-
-        // Estrazione di anni e paesi unici
-        //const uniqueCountries = Array.from(new Set(FinCsvData.map(d => d.country))).sort();
-        //setCountries(uniqueCountries);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     fetchData();
   }, []);
 
+  // Choose the default selection values when the csv is loaded and fullfilled
   useEffect(() => {
-    if (AllData.length === 0) return;
+    if (AllData === null || AllData.length <= 0) return;
 
-    // Filtraggio dati in base alla selezione
-    //const filteredData = AllData.filter(d => d.geo === selectedCountry);
+    // As default choose the most recent year
+    const uniqueYears = Array.from(new Set(AllData.map((d) => d.year))).sort(
+      (a, b) => a - b
+    );
+    const years = AllData.map((value) => value.year);
+    const selectedYear = Math.max(...years);
 
-    const filteredData = AllData;
+    // Set the first default selection for the first barchart visualization
+    setSelectedYear(selectedYear.toString());
+    setPreviusYear(selectedYear.toString());
+    setSliderValue([Math.max(...years)]);
+    setYears(uniqueYears);
+  }, [AllData]);
 
-    if (filteredData.length === 0) {
-      setDimBubble([]);
-      setColorBubble([]);
+  useEffect(() => {
+    if (!selectedYear || AllData.length === 0) return;
+
+    const selectedYearNum = +selectedYear;
+
+    // 1. Filter data for selected year and other years
+    const selectedYearDataRaw = AllData.filter(
+      (d) => d.year === selectedYearNum
+    );
+    const otherYearsDataRaw = AllData.filter((d) => d.year !== selectedYearNum);
+
+    // 2. Guard clause if there's no data
+    if (selectedYearDataRaw.length === 0) {
+      setBubbleData({ currentYearData: [], otherYearsData: [] });
       return;
     }
 
-    const how_much_rows = 20;
-    // Ordinare i dati in base a "percentage" in ordine decrescente
-    const sortedData = filteredData.sort((a, b) => b.percentage - a.percentage);
-    const top20 = sortedData.slice(0, how_much_rows);
-    const topCountries = Array.from(new Set(top20.map((d) => d.country)));
-    const maxPercentage = Math.max(...top20.map((d) => d.percentage));
-    const normalizedPercentages = top20.map(
-      (d) => (d.percentage / maxPercentage) * 100
-    );
+    // 3. Get global max percentage for normalization
+    const globalMaxPercentage = Math.max(...AllData.map((d) => d.percentage));
+    const MIN_SIZE = 15;
 
-    // Impostare gli stati
-    //setPercentage()
-    setDimBubble(normalizedPercentages);
-    setColorBubble(top20.map((d) => d.country));
-    setNumBubble(top20.map((d) => d.year));
-    setPercentage(
-      top20.map((d) => [
-        d.percentage,
-        Math.floor((d.percentage / 100) * d.population)
-      ])
+    // 4. Build enriched BubblePoint arrays
+    const enrich = (d: (typeof AllData)[number]): BubblePoint => {
+      const scale = (d.percentage / globalMaxPercentage) * 100;
+      return {
+        country: d.country,
+        year: d.year.toString(),
+        percentage: d.percentage,
+        adjustedPercentage: Math.max(scale, MIN_SIZE),
+        absoluteValue: Math.floor((d.percentage / 100) * d.population)
+      };
+    };
+
+    const currentYearData = selectedYearDataRaw.map(enrich);
+    const otherYearsData = otherYearsDataRaw.map(enrich);
+
+    // 5. Update state
+    setBubbleData({ currentYearData, otherYearsData });
+  }, [selectedYear, AllData]);
+
+  // The csv is not yet loaded or
+  // the default selection has not already initializated or
+  // neither one of the x value and y value state for the barchart has been initializated
+  if (
+    AllData === null ||
+    !selectedYear ||
+    !previusYear ||
+    years == null ||
+    sliderValue == null
+  ) {
+    return (
+      <ChartContainer>
+        <Skeleton className="w-full bg-gray-200 rounded-xl h-[500px]" />
+      </ChartContainer>
     );
-  }, [AllData]);
+  }
 
   return (
     <ChartContainer className="flex flex-col ">
-      {/*<H3>Frequency of internet use divided by age groups</H3> */}
       <BubbleChart
-        bubble_percentage={percentage}
-        bubble_dimension={dimension_of_the_bubble}
-        bubble_color={color_of_the_bubble}
-        bubble_number={number_of_bubbles}
-        width={700}
-        height={700}
+        data={bubbleData}
+        previusYear={previusYear}
+        width={newWidth}
+        height={newHeight}
         colorInterpolator={d3.interpolateRainbow}
+      />
+      <Slider
+        min={Math.min(...AllData.map((d) => d.year))}
+        max={Math.max(...AllData.map((d) => d.year))}
+        step={0.01}
+        value={sliderValue}
+        onValueChange={(val) => setSliderValue(val)} // update smoothly as user drags
+        onValueCommit={(val) => {
+          const snappedYear = getClosestYear(val[0], years);
+          setSliderValue([snappedYear]); // Snap thumb to closest year
+          setPreviusYear(selectedYear);
+          setSelectedYear(snappedYear.toString());
+        }}
+        className="mt-10 md:mt-9 lx:mt-2"
       />
     </ChartContainer>
   );
-}
+};
+
+export default Financial;

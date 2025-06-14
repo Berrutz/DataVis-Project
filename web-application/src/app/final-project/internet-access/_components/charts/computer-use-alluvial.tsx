@@ -41,12 +41,28 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
 
   const colors = ['#ffb3ba', '#ffdfba', '#baffc9', '#bae1ff'];
 
-  /*     .domain([
-      'between 3 and 12 months ago',
-      'in last 3 months',
-      'more than a year ago',
-      'never'
-    ]); */
+  const ageGroupOrder = [
+    '16 to 24 years old',
+    '25 to 54 years old',
+    '55 to 74 years old',
+    '75 years old or more'
+  ];
+
+  const ageGroupIndex = new Map(
+    ageGroupOrder.map((age, index) => [age, index])
+  );
+
+  const categoriesOrder = [
+    'within last 3 months',
+    'between 3 and 12 months ago',
+    'more than a year ago',
+    'never'
+  ];
+
+  const categoryIndex = new Map(
+    categoriesOrder.map((category, index) => [category, index])
+  );
+
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
     'internet-access-level/computer-use-divided-by-age-group.csv',
@@ -116,10 +132,17 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
     });
 
     // Initialize the starting nodes made of age groups
-    const ageGroupSortedByPopulation = adjustedData
-      .filter((d) => d.lastComputerUse === adjustedData[0].lastComputerUse)
-      .sort((a, b) => b.population - a.population)
-      .map((d) => d.ageGroup);
+    const ageGroupsSorted = Array.from(
+      new Set(
+        adjustedData
+          .filter((d) => d.lastComputerUse === adjustedData[0].lastComputerUse)
+          .map((d) => d.ageGroup)
+      )
+    ).sort((a, b) => {
+      return (
+        (ageGroupIndex.get(a) ?? Infinity) - (ageGroupIndex.get(b) ?? Infinity)
+      );
+    });
 
     // Initialize the 2° nodes column made of the categories
     // Group data by lastComputerUse and calculate total sum per category
@@ -136,11 +159,16 @@ const ComputerUseAlluvial: React.FC<ComputerUseAlluvialProps> = ({
 
     // Sort lastComputerUse categories based on total summed value (descending)
     const sortedComputerUseCategories = Object.entries(groupedByComputerUse)
-      .sort((a, b) => b[1] - a[1]) // Sort by summed value (descending)
-      .map(([category]) => category); // Extract just the sorted category names
+      .map(([category]) => category)
+      .sort((a, b) => {
+        return (
+          (categoryIndex.get(a) ?? Infinity) -
+          (categoryIndex.get(b) ?? Infinity)
+        );
+      });
 
     setData({
-      nodes: [ageGroupSortedByPopulation, sortedComputerUseCategories],
+      nodes: [ageGroupsSorted, sortedComputerUseCategories],
       links: adjustedData.map((d) => ({
         source: d.ageGroup,
         target: d.lastComputerUse,

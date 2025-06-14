@@ -1,23 +1,13 @@
 'use client';
 
-import MapContainer from '@/components/map-switch-container';
 import { useEffect, useState } from 'react';
 import { DegradingData } from '../lib/interfaces';
 import * as d3 from 'd3';
 import { getStaticFile } from '@/utils/general';
-
 import ChartContainer from '@/components/chart-container';
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { Sidebar, SidebarTrigger } from '@/components/ui/sidebar';
 import { Pencil } from 'lucide-react';
-import { useGetD3Csv } from '@/hooks/use-get-d3-csv';
 import { ChartSidebar } from '@/components/chart-sidebar';
 import FacetedBarChart from '@/components/charts/FacetedBarChart';
 
@@ -27,6 +17,19 @@ interface ChartData {
   group: string;
   value: number;
 }
+
+// Short Labels
+const shortLabels: Record<string, string> = {
+  'Individuals who have encountered messages online that were considered to be hostile or degrading towards groups of people or individuals in the last 3 months': 'Messages online',
+  'Individuals who believed that these groups of people were attacked/targeted because of disability': 'Attacked: disability',
+  'Individuals who believed that these groups of people were attacked/targeted because of other personal characteristics': 'Attacked: other characteristics',
+  'Individuals who believed that these groups of people were attacked/targeted because of political or social views': 'Attacked: political/social views',
+  'Individuals who believed that these groups of people were attacked/targeted because of religion or belief': 'Attacked: religion/belief',
+  'Individuals who believed that these groups of people were attacked/targeted because of racial or ethnic origin': 'Attacked: racial/ethnic origin',
+  'Individuals who believed that these groups of people were attacked/targeted because of sexual orientation (LGBTIQ identities)': 'Attacked: sexual orientation',
+  'Individuals who believed that these groups of people were attacked/targeted because of sex': 'Attacked: sex'
+};
+
 
 ////// new ///////
 
@@ -46,9 +49,15 @@ export interface FacetedPoint {
   value: number; // The value
 }
 
-export default function DegradingMessages() {
-  const [windowWidth, setWindowWidth] = useState<number>(1200);
+interface InternetUseFacetedBarChartProps {
+  newWidth: number;
+  newHeight: number;
+}
 
+const DegradingMessages: React.FC<InternetUseFacetedBarChartProps> = ({
+  newWidth,
+  newHeight
+}) => {
   const [countries, setCountries] = useState<string[]>([]);
   const [csvData, setCsvData] = useState<DegradingData[]>([]);
 
@@ -147,9 +156,10 @@ export default function DegradingMessages() {
   ): FacetedPoint[] =>
     data.flatMap(({ category, groups }) =>
       groups.map(({ name, value }) => ({
-        group: name, // 'reason' becomes the group (y-axis)
+        group: shortLabels[name] || name, // 'reason' becomes the group (y-axis) and short label
         category, // 'country' becomes the category (x-axis)
-        value // 'value' remains the same
+        value , // 'value' remains the same
+        tooltip: name, // save tooltip
       }))
     );
 
@@ -169,8 +179,11 @@ export default function DegradingMessages() {
         </div>
         <FacetedBarChart
           data={transformToFacetedPoints(selectedCountries)}
-          width={900}
-          height={600}
+          width={newWidth}
+          height={newHeight}
+          rows={
+            newWidth < 500 ? 8 : newWidth < 700 ? 4 : newWidth < 900 ? 3 : 2
+          }
           unitOfMeasurement="%"
           ml={120}
         />
@@ -189,4 +202,6 @@ export default function DegradingMessages() {
       </Sidebar>
     </ChartContainer>
   );
-}
+};
+
+export default DegradingMessages;

@@ -32,6 +32,7 @@ export default function BarchartCountriesDigitalSkills() {
   const [barchartState, setBarchartState] = useState<BarchartState | null>(
     null
   );
+  const [dataDomain, setDataDomain] = useState<number[]>([]);
 
   // Get the data from the csv file using D3
   const csvData = useGetD3Csv(
@@ -73,13 +74,15 @@ export default function BarchartCountriesDigitalSkills() {
   useEffect(() => {
     if (!year || !indicIs || !indType || csvData === null) return;
 
-    const filteredData = csvData
+    var filteredData = csvData.filter((value) => value.indic_is === indicIs);
+
+    const values = filteredData.map((d) => d.value);
+    setDataDomain([Math.min(...values), Math.max(...values)]);
+
+    filteredData = filteredData
       .filter(
         (value) =>
-          value.year === +year &&
-          value.indic_is === indicIs &&
-          value.ind_type === indType &&
-          value.value > 0
+          value.year === +year && value.ind_type === indType && value.value > 0
       )
       .sort((a, b) => b.value - a.value);
 
@@ -126,7 +129,7 @@ export default function BarchartCountriesDigitalSkills() {
         y={barchartState.y}
         width={900}
         height={700}
-        colorInterpoaltor={d3.interpolateBlues}
+        colorScale={d3.scaleSequential(d3.interpolateBlues).domain(dataDomain)}
         mb={90}
         mr={20}
         mt={0}
