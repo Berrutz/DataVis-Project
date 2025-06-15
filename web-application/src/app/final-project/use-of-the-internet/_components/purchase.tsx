@@ -117,7 +117,7 @@ export default function Purchase() {
         y={y}
         width={900}
         height={600}
-        colorScale={d3.scaleSequential(d3.interpolateReds).domain(dataDomain)}
+        colorScale={d3.scaleSequential(d3.interpolateCividis).domain([0, 55])}
         yLabelsSuffix="%"
         ml={90}
         mb={110}
